@@ -1,0 +1,387 @@
+{
+  "version": 1,
+  "routeId": "hyunjae",
+  "title": "从习惯有你，到开始期待你",
+  "calendarYear": 2026,
+  "dates": {
+    "start": "2026-12-01",
+    "end": "2026-12-31"
+  },
+  "status": "31-day narrative outline; not yet executable event scripts",
+  "character": {
+    "name": "李贤在",
+    "house": "Gryffindor",
+    "year": 7,
+    "role": "prefect",
+    "personality": [
+      "熟人面前爱逗人，陌生人面前略有距离感",
+      "责任感强但会抱怨疲惫",
+      "好胜、偶尔幼稚",
+      "善于照顾别人，也期待被关心",
+      "逐渐意识到喜欢，越在意越容易害羞"
+    ]
+  },
+  "romance": {
+    "playerIntent": "玩家选择此路线即已喜欢李贤在，不写玩家首次发现心动",
+    "leadProgression": "朋友→察觉偏心→确认喜欢→认真表达",
+    "officialDatingOnlyOn": "2026-12-31",
+    "endingThreshold": 100,
+    "belowThreshold": "暧昧",
+    "noFriendEnding": true
+  },
+  "identityAdaptation": {
+    "sameHouseSameYear": "已是同班朋友，可使用公共休息室和共同课程",
+    "sameHouseDifferentYear": "学院熟人，可在公共休息室见面，不共享常规课堂",
+    "differentHouseSameYear": "仅经课表核实共享课程时可写课堂互动，否则公共区域相遇",
+    "differentHouseDifferentYear": "依实际交集安排图书馆、大礼堂、走廊、活动；无交集初始0%，从合理初识发展",
+    "rule": "关系背景与初始数值一致，不强制把0%陌生人写成旧友；所有身份可达100%"
+  },
+  "mechanics": {
+    "affection": "主攻略男主专属恋爱好感度；对话不弹数值，仅人物状态页显示",
+    "jealousy": "独立0-100，随情境变化且可消退；不控制结局",
+    "otherLeads": "仅友情值",
+    "optionalSnow": "只有亲历才记录并触发年末回忆",
+    "quidditch": "12月12日斯莱特林胜；饮品券与下注遵守既有活动设计",
+    "ball": "12月24日舞会不提前确认关系",
+    "holiday": "12月22日起放假，分处两地可用猫头鹰信件，不瞬移"
+  },
+  "stages": [
+    {
+      "start": 1,
+      "end": 5,
+      "label": "习惯性的亲近"
+    },
+    {
+      "start": 6,
+      "end": 11,
+      "label": "第一次察觉不同"
+    },
+    {
+      "start": 12,
+      "end": 18,
+      "label": "开始期待她出现"
+    },
+    {
+      "start": 19,
+      "end": 24,
+      "label": "朋友界限模糊"
+    },
+    {
+      "start": 25,
+      "end": 31,
+      "label": "不想只做朋友"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-12-01",
+      "day": 1,
+      "title": "忘记的书",
+      "type": "朋友日常",
+      "time": "早餐前",
+      "locationVariants": "公共休息室／图书馆",
+      "outline": "李贤在提醒女主取回遗落的书，顺手替她保管；熟人打趣，陌生关系改为第一次因遗失物搭话。",
+      "continuity": "建立自然相处语气，不提前示爱"
+    },
+    {
+      "date": "2026-12-02",
+      "day": 2,
+      "title": "没意义的胜负",
+      "type": "轻松拌嘴",
+      "time": "课后",
+      "locationVariants": "大礼堂／走廊",
+      "outline": "两人因小事争论，李贤在输了还想再试一次。",
+      "continuity": "好胜而不咄咄逼人"
+    },
+    {
+      "date": "2026-12-03",
+      "day": 3,
+      "title": "巡逻后的抱怨",
+      "type": "日常信任",
+      "time": "晚间",
+      "locationVariants": "公共走廊",
+      "outline": "级长工作结束后他抱怨走了很多路，女主可回应关心或玩笑。",
+      "continuity": "展现被照顾的一面"
+    },
+    {
+      "date": "2026-12-04",
+      "day": 4,
+      "title": "图书馆的座位",
+      "type": "校园偶遇",
+      "time": "空闲时段",
+      "locationVariants": "图书馆",
+      "outline": "他偶然看见女主，敲桌打招呼，短暂陪伴而不打扰学习。",
+      "continuity": "书本不是整条线主轴"
+    },
+    {
+      "date": "2026-12-05",
+      "day": 5,
+      "title": "会下雪吗",
+      "type": "铺垫",
+      "time": "晚间",
+      "locationVariants": "大礼堂／庭院",
+      "outline": "谈起冬天与天气，不预设第二天必定同行。",
+      "continuity": "为可选初雪留入口"
+    },
+    {
+      "date": "2026-12-06",
+      "day": 6,
+      "title": "第一场雪",
+      "type": "学校主事件＋可选个人事件",
+      "time": "白天",
+      "locationVariants": "庭院／城堡外",
+      "outline": "全校初雪固定发生；若玩家在正确时间找到他，可借围巾、打趣、看雪。",
+      "continuity": "只有亲历才记录共享初雪回忆"
+    },
+    {
+      "date": "2026-12-07",
+      "day": 7,
+      "title": "昨天的事",
+      "type": "条件回忆",
+      "time": "课后",
+      "locationVariants": "走廊／消息",
+      "outline": "若亲历初雪便提及围巾与雪；否则讨论今天课程或级长琐事。",
+      "continuity": "严禁虚构共同记忆"
+    },
+    {
+      "date": "2026-12-08",
+      "day": 8,
+      "title": "顺手留下的东西",
+      "type": "日常偏心萌芽",
+      "time": "餐时",
+      "locationVariants": "大礼堂",
+      "outline": "他记得女主平时喜欢的食物，顺手留一份。",
+      "continuity": "仍可解释为朋友关心"
+    },
+    {
+      "date": "2026-12-09",
+      "day": 9,
+      "title": "看向门口",
+      "type": "微妙缺席",
+      "time": "约定时段",
+      "locationVariants": "大礼堂／公共区域",
+      "outline": "女主未如约出现，他发现自己比预期更在意。",
+      "continuity": "不因缺席惩罚玩家"
+    },
+    {
+      "date": "2026-12-10",
+      "day": 10,
+      "title": "我们一直这样吗",
+      "type": "自我察觉",
+      "time": "课后",
+      "locationVariants": "走廊",
+      "outline": "朋友提到两人常在一起，他随口说一直如此，随后开始琢磨。",
+      "continuity": "不让旁人断言双方恋爱"
+    },
+    {
+      "date": "2026-12-11",
+      "day": 11,
+      "title": "明天的比赛",
+      "type": "赛前聊天",
+      "time": "傍晚",
+      "locationVariants": "球场外／消息",
+      "outline": "他谈金善旴和孙英宰的训练，为格兰芬多加油。",
+      "continuity": "不把他写成参赛队员"
+    },
+    {
+      "date": "2026-12-12",
+      "day": 12,
+      "title": "格兰芬多输了",
+      "type": "学校主事件",
+      "time": "比赛及赛后",
+      "locationVariants": "魁地奇看台／城堡饮品摊",
+      "outline": "格兰芬多得分一度领先，孙英宰接近金色飞贼，李柱延击开游走球后斯莱特林找球手抓到飞贼，斯莱特林胜；李贤在赛后失落，女主可陪他聊天。",
+      "continuity": "赛前下注可跳过；猜对斯莱特林得一张免费饮品券，下注金额不返还"
+    },
+    {
+      "date": "2026-12-13",
+      "day": 13,
+      "title": "输球以后",
+      "type": "轻松复原",
+      "time": "午后",
+      "locationVariants": "大礼堂／消息",
+      "outline": "他终于能自嘲昨天的比赛；不同学院女主也可自然交流。",
+      "continuity": "不要迁怒斯莱特林朋友"
+    },
+    {
+      "date": "2026-12-14",
+      "day": 14,
+      "title": "多余的理由",
+      "type": "主动接近",
+      "time": "空闲时段",
+      "locationVariants": "走廊／消息",
+      "outline": "他借一件本可自己解决的小事主动找女主。",
+      "continuity": "开始主动期待相处"
+    },
+    {
+      "date": "2026-12-15",
+      "day": 15,
+      "title": "和谁一起",
+      "type": "轻微吃醋",
+      "time": "课后",
+      "locationVariants": "大礼堂／消息",
+      "outline": "听见女主与其他同学有约，他随口问起；只在合理得知时出现轻微嫉妒。",
+      "continuity": "嫉妒不等于控制"
+    },
+    {
+      "date": "2026-12-16",
+      "day": 16,
+      "title": "夸奖",
+      "type": "被反过来逗",
+      "time": "晚间",
+      "locationVariants": "公共区域",
+      "outline": "女主真诚夸奖他，他难得短暂语塞。",
+      "continuity": "喜欢后反而不擅长应对"
+    },
+    {
+      "date": "2026-12-17",
+      "day": 17,
+      "title": "晚安之后",
+      "type": "延长聊天",
+      "time": "夜间",
+      "locationVariants": "消息",
+      "outline": "明明说过晚安，他又找到一个不重要的话题。",
+      "continuity": "不制造无故深夜强制回复"
+    },
+    {
+      "date": "2026-12-18",
+      "day": 18,
+      "title": "我怎么了",
+      "type": "内心确认前夜",
+      "time": "独处时",
+      "locationVariants": "级长巡逻路线",
+      "outline": "他意识到自己近期总在留意女主，仍不急着说破。",
+      "continuity": "角色自我意识缓慢变化"
+    },
+    {
+      "date": "2026-12-19",
+      "day": 19,
+      "title": "小小偏心",
+      "type": "朋友群像",
+      "time": "餐时",
+      "locationVariants": "大礼堂",
+      "outline": "一群朋友里他下意识先注意女主的反应。",
+      "continuity": "其余七人可自然在场但不争宠"
+    },
+    {
+      "date": "2026-12-20",
+      "day": 20,
+      "title": "你觉得我怎么样",
+      "type": "试探",
+      "time": "午后",
+      "locationVariants": "庭院／消息",
+      "outline": "他半开玩笑问女主怎么看自己，回答让他认真起来。",
+      "continuity": "允许玩家表达喜欢但不提前确认交往"
+    },
+    {
+      "date": "2026-12-21",
+      "day": 21,
+      "title": "舞会话题",
+      "type": "舞会铺垫",
+      "time": "课后",
+      "locationVariants": "大礼堂",
+      "outline": "学校谈论圣诞舞会，他留意女主是否已有安排。",
+      "continuity": "遵守舞会邀请既定规则"
+    },
+    {
+      "date": "2026-12-22",
+      "day": 22,
+      "title": "练习开口",
+      "type": "犹豫",
+      "time": "假期开始",
+      "locationVariants": "走廊／消息",
+      "outline": "他想邀请女主却觉得怎样说都太刻意，仍保留朋友式打趣。",
+      "continuity": "假期起始后不安排常规课程"
+    },
+    {
+      "date": "2026-12-23",
+      "day": 23,
+      "title": "愿意一起去吗",
+      "type": "舞会邀请",
+      "time": "傍晚",
+      "locationVariants": "城堡公共区域／消息",
+      "outline": "他先确认女主安排，再认真邀请；女主也可主动邀请，他会接受。",
+      "continuity": "不把邀请写成正式表白；拒绝不封锁结局"
+    },
+    {
+      "date": "2026-12-24",
+      "day": 24,
+      "title": "圣诞舞会",
+      "type": "学校主事件",
+      "time": "晚宴至夜间",
+      "locationVariants": "大礼堂／庭院",
+      "outline": "两人共舞或依玩家选择进行不强迫的交流，短暂离开热闹人群谈心。",
+      "continuity": "跳舞不等于交往；所有男主参加"
+    },
+    {
+      "date": "2026-12-25",
+      "day": 25,
+      "title": "圣诞快乐",
+      "type": "节日礼物",
+      "time": "节日时段",
+      "locationVariants": "城堡／猫头鹰信件",
+      "outline": "他送出与过往对话有关的小礼物；若分处两地则通过猫头鹰传递。",
+      "continuity": "礼物不是高额消费门槛"
+    },
+    {
+      "date": "2026-12-26",
+      "day": 26,
+      "title": "舞会之后",
+      "type": "关系变化",
+      "time": "空闲时段",
+      "locationVariants": "消息／公共区域",
+      "outline": "两人仍沿用朋友式聊天，但言语停顿和在意已有不同。",
+      "continuity": "按是否共舞使用不同措辞"
+    },
+    {
+      "date": "2026-12-27",
+      "day": 27,
+      "title": "有一点在意",
+      "type": "嫉妒可选",
+      "time": "午后",
+      "locationVariants": "公共区域／消息",
+      "outline": "他看到或合理听说女主和朋友互动，轻微吃醋，最终尊重她的社交。",
+      "continuity": "嫉妒随安抚或时间下降，不强制触发"
+    },
+    {
+      "date": "2026-12-28",
+      "day": 28,
+      "title": "换我照顾你",
+      "type": "情感互助",
+      "time": "傍晚",
+      "locationVariants": "城堡／信件",
+      "outline": "级长事务或个人疲惫让他卸下可靠面具，女主可以主动关心。",
+      "continuity": "关系不是单向保护"
+    },
+    {
+      "date": "2026-12-29",
+      "day": 29,
+      "title": "想说的话",
+      "type": "认真思考",
+      "time": "夜间",
+      "locationVariants": "消息",
+      "outline": "他几次想坦白心意，决定找不仓促的时刻。",
+      "continuity": "不提前确定恋人身份"
+    },
+    {
+      "date": "2026-12-30",
+      "day": 30,
+      "title": "明天见",
+      "type": "最终邀约",
+      "time": "晚间",
+      "locationVariants": "消息／信件",
+      "outline": "他邀请女主在年末相见；若两地分离则提前约好远程联络。",
+      "continuity": "遵守假期地点与旅行时间"
+    },
+    {
+      "date": "2026-12-31",
+      "day": 31,
+      "title": "今年最后的心愿",
+      "type": "双结局",
+      "time": "年末",
+      "locationVariants": "庭院／约定地点／远程信件",
+      "outline": "好感度100%时双方确认恋人；低于100%时彼此特殊却仍未正式交往。",
+      "continuity": "只有触发过初雪才能回忆围巾；未触发使用替代台词"
+    }
+  ]
+}
