@@ -23,17 +23,8 @@
       "icon": ""
     },
     {
-      "id": "mail",
-      "name": "霍格沃茨信件",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
       "id": "calendar",
-      "name": "魔法日历",
+      "name": "霍格沃茨日程",
       "installed": true,
       "visible": true,
       "dock": false,
@@ -79,15 +70,6 @@
     {
       "id": "wallet",
       "name": "古灵阁账本",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
-      "id": "reminders",
-      "name": "课程提醒",
       "installed": true,
       "visible": true,
       "dock": false,
