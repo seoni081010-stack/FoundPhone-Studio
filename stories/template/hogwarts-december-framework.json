@@ -14,14 +14,17 @@
   "holiday": {
     "playerChoice": [
       "stay_at_hogwarts",
-      "go_home"
+      "go_home_after_ball",
+      "go_home_and_return_for_ball"
     ],
-    "leadChoice": "each lead has independent preplanned holiday location; discussed naturally before holiday",
+    "leadChoice": "Each lead independently chooses to go home or stay for Dec 25-31; all attend Dec 24 feast and ball",
     "locations": "dates and encounters must respect physical locations; remote owl correspondence available",
     "travel": "home dates possible when both are geographically compatible; no teleportation",
     "christmasEve": "12-24",
     "christmasDay": "12-25",
-    "ending": "12-31"
+    "ending": "12-31",
+    "allLeadsAndPlayerAttendDec24Ball": true,
+    "holidayDeparture": "Home departures may be after Dec 24 ball; player can return for event if already home"
   },
   "sharedSystems": [
     "identical shop inventory and prices for every player",
