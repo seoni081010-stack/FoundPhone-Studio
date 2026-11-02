@@ -21,7 +21,7 @@
       "lead"
     ],
     "playerMayAcceptOrDecline": true,
-    "leadMayAcceptOrDecline": true,
+    "leadMayAcceptOrDecline": false,
     "leadDecisionInputs": [
       "relationship",
       "availability",
@@ -32,7 +32,16 @@
     "oneConfirmedPartnerAtATime": true,
     "declineDoesNotEndRoute": true,
     "inviteBeforeEvent": true,
-    "availability": "All leads physically present; acceptance may still depend on relationship and existing partner"
+    "availability": "All leads physically present; acceptance may still depend on relationship and existing partner",
+    "playerInvitesLead": "always_accept",
+    "leadInvitesPlayer": "player_can_accept_or_decline",
+    "acceptanceIndependentOfAffection": true,
+    "playerDeclineHasNoRelationshipPenalty": true,
+    "playerCanReinviteBeforeBall": true,
+    "leadOtherRomanticPartners": false,
+    "leadOtherDancePartners": false,
+    "existingPartnerRestriction": "only the player's own confirmed dance partner; no competing NPC partners",
+    "noRomanticRivals": true
   },
   "schedule": [
     {
@@ -114,7 +123,7 @@
     "No forced shopping or daily food clicks",
     "Invitation dialogue varies by lead personality and player relationship",
     "Event logic must be wired to game clock and holiday locations",
-    "All eight leads and player attend the ball; partner acceptance is not guaranteed."
+    "Dream-romance rule: all player invitations to a lead are accepted; lead invitations may be declined by player without penalty; no romantic rivals or other lead dance partners."
   ],
   "status": "design specification only; not yet playable"
 }
