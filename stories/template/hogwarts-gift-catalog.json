@@ -6,77 +6,92 @@
     {
       "id": "ollivanders",
       "name": "奥利凡德魔杖店",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "weasleys",
       "name": "韦斯莱魔法把戏坊",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "flourish",
       "name": "丽痕书店",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "malkins",
       "name": "摩金夫人长袍店",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "quidditch",
       "name": "魁地奇精品店",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "eylops",
       "name": "伊啦猫头鹰商店",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "borgin",
       "name": "博金-博克",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "cauldron",
       "name": "坩埚店",
-      "location": "对角巷"
+      "location": "对角巷",
+      "category": "diagon_alley"
     },
     {
       "id": "honeydukes",
       "name": "蜂蜜公爵糖果店",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     },
     {
       "id": "threebroomsticks",
       "name": "三把扫帚酒吧",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     },
     {
       "id": "zonkos",
       "name": "佐科笑话店",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     },
     {
       "id": "puddifoot",
       "name": "帕笛芙夫人茶馆",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     },
     {
       "id": "stationery",
       "name": "霍格莫德文具店",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     },
     {
       "id": "souvenir",
       "name": "霍格莫德纪念品店",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     },
     {
       "id": "charms",
       "name": "霍格莫德魔法用品店",
-      "location": "霍格莫德"
+      "location": "霍格莫德",
+      "category": "hogsmeade"
     }
   ],
   "items": [
@@ -92,17 +107,19 @@
         "knuts": 0
       },
       "tier": "special",
-      "giftable": true,
-      "auOriginal": true
+      "giftable": false,
+      "auOriginal": true,
+      "purchaseAllowed": false,
+      "note": "每位巫师仅持有一根契合自己的魔杖，游戏中不作为普通礼物购买"
     },
     {
       "id": "ollivanders-2",
       "name": "魔杖收纳皮盒",
       "storeId": "ollivanders",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 3944,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 8,
         "sickles": 0,
         "knuts": 0
       },
@@ -115,9 +132,9 @@
       "name": "魔杖抛光保养蜡",
       "storeId": "ollivanders",
       "location": "对角巷",
-      "priceKnuts": 493,
+      "priceKnuts": 3944,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 8,
         "sickles": 0,
         "knuts": 0
       },
@@ -130,9 +147,9 @@
       "name": "迷你魔杖摆件",
       "storeId": "ollivanders",
       "location": "对角巷",
-      "priceKnuts": 986,
+      "priceKnuts": 3944,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 8,
         "sickles": 0,
         "knuts": 0
       },
@@ -145,9 +162,9 @@
       "name": "魔杖金属徽章",
       "storeId": "ollivanders",
       "location": "对角巷",
-      "priceKnuts": 493,
+      "priceKnuts": 3944,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 8,
         "sickles": 0,
         "knuts": 0
       },
@@ -160,9 +177,9 @@
       "name": "恶作剧糖果礼盒",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 2465,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -175,13 +192,13 @@
       "name": "会尖叫的爆炸玩具",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -190,9 +207,9 @@
       "name": "可充气的黑魔法防御术假人",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 3451,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 7,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -205,9 +222,9 @@
       "name": "便携隐身烟雾弹",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 1972,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 4,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -220,13 +237,13 @@
       "name": "恶作剧闪光粉",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 493,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -235,9 +252,9 @@
       "name": "恶搞怀表",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 1972,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 4,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -250,13 +267,13 @@
       "name": "自动乱写作业的羽毛笔",
       "storeId": "weasleys",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -265,9 +282,9 @@
       "name": "精装魔法史",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 3944,
+      "priceKnuts": 36975,
       "displayPrice": {
-        "galleons": 8,
+        "galleons": 75,
         "sickles": 0,
         "knuts": 0
       },
@@ -280,9 +297,9 @@
       "name": "黑魔法防御术经典典籍",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 4437,
+      "priceKnuts": 36975,
       "displayPrice": {
-        "galleons": 9,
+        "galleons": 75,
         "sickles": 0,
         "knuts": 0
       },
@@ -295,9 +312,9 @@
       "name": "妖怪们的妖怪书",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 3451,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 7,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -310,9 +327,9 @@
       "name": "魁地奇百科全书",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 2958,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 6,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -325,9 +342,9 @@
       "name": "著名决斗师传记",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 2465,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -340,13 +357,13 @@
       "name": "空白羊皮卷",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 493,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -355,13 +372,13 @@
       "name": "复古羽毛笔与墨水套装",
       "storeId": "flourish",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -370,9 +387,9 @@
       "name": "学院刺绣毛衣",
       "storeId": "malkins",
       "location": "对角巷",
-      "priceKnuts": 2958,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 6,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -385,9 +402,9 @@
       "name": "厚羊毛围巾",
       "storeId": "malkins",
       "location": "对角巷",
-      "priceKnuts": 1972,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 4,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -400,9 +417,9 @@
       "name": "皮质手套",
       "storeId": "malkins",
       "location": "对角巷",
-      "priceKnuts": 1972,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 4,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -415,9 +432,9 @@
       "name": "修身巫师常服",
       "storeId": "malkins",
       "location": "对角巷",
-      "priceKnuts": 5916,
+      "priceKnuts": 36975,
       "displayPrice": {
-        "galleons": 12,
+        "galleons": 75,
         "sickles": 0,
         "knuts": 0
       },
@@ -430,9 +447,9 @@
       "name": "旅行短斗篷",
       "storeId": "malkins",
       "location": "对角巷",
-      "priceKnuts": 4930,
+      "priceKnuts": 36975,
       "displayPrice": {
-        "galleons": 10,
+        "galleons": 75,
         "sickles": 0,
         "knuts": 0
       },
@@ -445,13 +462,13 @@
       "name": "学院徽章金属胸针",
       "storeId": "malkins",
       "location": "对角巷",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -460,9 +477,9 @@
       "name": "光轮2000迷你扫帚模型",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 2958,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 6,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -475,13 +492,13 @@
       "name": "金色飞贼挂件",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -490,13 +507,13 @@
       "name": "魁地奇球队队服",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 3944,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 8,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "special",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -505,9 +522,9 @@
       "name": "防风护目镜",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 2465,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -520,13 +537,13 @@
       "name": "飞天扫帚保养油",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -535,9 +552,9 @@
       "name": "扫帚收纳袋",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 2465,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -550,13 +567,13 @@
       "name": "魁地奇世界杯纪念徽章",
       "storeId": "quidditch",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -565,13 +582,13 @@
       "name": "小型猫头鹰玩偶",
       "storeId": "eylops",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -580,9 +597,9 @@
       "name": "猫头鹰送信背包",
       "storeId": "eylops",
       "location": "对角巷",
-      "priceKnuts": 2958,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 6,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -595,9 +612,9 @@
       "name": "复古魔法石摆件（无魔力）",
       "storeId": "borgin",
       "location": "对角巷",
-      "priceKnuts": 4930,
+      "priceKnuts": 36975,
       "displayPrice": {
-        "galleons": 10,
+        "galleons": 75,
         "sickles": 0,
         "knuts": 0
       },
@@ -610,13 +627,13 @@
       "name": "便携魔药小瓶（无危险药剂）",
       "storeId": "borgin",
       "location": "对角巷",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -625,13 +642,13 @@
       "name": "迷你自动搅拌坩埚",
       "storeId": "cauldron",
       "location": "对角巷",
-      "priceKnuts": 3944,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 8,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "special",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -640,13 +657,13 @@
       "name": "魔药玻璃试剂瓶摆件",
       "storeId": "cauldron",
       "location": "对角巷",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -655,13 +672,13 @@
       "name": "整盒比比多味豆",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -676,7 +693,7 @@
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "medium",
+      "tier": "small",
       "giftable": true,
       "auOriginal": false
     },
@@ -685,9 +702,9 @@
       "name": "甘草魔杖",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 493,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -700,9 +717,9 @@
       "name": "胡椒小顽童",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 493,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -715,9 +732,9 @@
       "name": "冰老鼠",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 493,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -730,9 +747,9 @@
       "name": "蟑螂串",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 493,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -745,9 +762,9 @@
       "name": "罐装蜂蜜太妃糖",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -760,9 +777,9 @@
       "name": "奶油牛轧糖",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -775,9 +792,9 @@
       "name": "南瓜馅饼礼盒",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -790,9 +807,9 @@
       "name": "坩埚蛋糕礼盒",
       "storeId": "honeydukes",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -805,9 +822,9 @@
       "name": "瓶装无酒精黄油啤酒",
       "storeId": "threebroomsticks",
       "location": "霍格莫德",
-      "priceKnuts": 493,
+      "priceKnuts": 2465,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 5,
         "sickles": 0,
         "knuts": 0
       },
@@ -820,13 +837,13 @@
       "name": "酒吧定制马克杯",
       "storeId": "threebroomsticks",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 36975,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 75,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "special",
       "giftable": true,
       "auOriginal": false
     },
@@ -835,13 +852,13 @@
       "name": "啤酒杯",
       "storeId": "threebroomsticks",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -850,9 +867,9 @@
       "name": "复古木质酒壶",
       "storeId": "threebroomsticks",
       "location": "霍格莫德",
-      "priceKnuts": 2465,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -865,9 +882,9 @@
       "name": "迷你橡木酒桶摆件",
       "storeId": "threebroomsticks",
       "location": "霍格莫德",
-      "priceKnuts": 1972,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 4,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -880,13 +897,13 @@
       "name": "放屁坐垫",
       "storeId": "zonkos",
       "location": "霍格莫德",
-      "priceKnuts": 493,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 1,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -895,13 +912,13 @@
       "name": "会蹦跳的橡皮老鼠",
       "storeId": "zonkos",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -910,13 +927,13 @@
       "name": "自动变湿的恶作剧手帕",
       "storeId": "zonkos",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -925,13 +942,13 @@
       "name": "迷你闪光烟花玩具",
       "storeId": "zonkos",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -940,9 +957,9 @@
       "name": "整蛊礼盒",
       "storeId": "zonkos",
       "location": "霍格莫德",
-      "priceKnuts": 2465,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -955,9 +972,9 @@
       "name": "复古银质茶杯",
       "storeId": "puddifoot",
       "location": "霍格莫德",
-      "priceKnuts": 2465,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -970,9 +987,9 @@
       "name": "便携暖手壶",
       "storeId": "puddifoot",
       "location": "霍格莫德",
-      "priceKnuts": 1972,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 4,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -985,13 +1002,13 @@
       "name": "羊毛厚袜",
       "storeId": "puddifoot",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -1000,13 +1017,13 @@
       "name": "针织保暖帽",
       "storeId": "puddifoot",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -1015,9 +1032,9 @@
       "name": "活点地图复刻版（非真品）",
       "storeId": "stationery",
       "location": "霍格莫德",
-      "priceKnuts": 3451,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 7,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
@@ -1030,13 +1047,13 @@
       "name": "夜光脚印羊皮地图",
       "storeId": "stationery",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -1045,13 +1062,13 @@
       "name": "霍格莫德村金属门牌",
       "storeId": "souvenir",
       "location": "霍格莫德",
-      "priceKnuts": 1479,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 3,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -1060,13 +1077,13 @@
       "name": "城堡钥匙扣",
       "storeId": "souvenir",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -1075,13 +1092,13 @@
       "name": "海德薇挂件",
       "storeId": "souvenir",
       "location": "霍格莫德",
-      "priceKnuts": 986,
+      "priceKnuts": 8874,
       "displayPrice": {
-        "galleons": 2,
+        "galleons": 18,
         "sickles": 0,
         "knuts": 0
       },
-      "tier": "small",
+      "tier": "medium",
       "giftable": true,
       "auOriginal": false
     },
@@ -1090,9 +1107,9 @@
       "name": "防咒护身符（轻微防护）",
       "storeId": "charms",
       "location": "霍格莫德",
-      "priceKnuts": 3451,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 7,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -1105,9 +1122,9 @@
       "name": "小型护身银饰",
       "storeId": "charms",
       "location": "霍格莫德",
-      "priceKnuts": 2465,
+      "priceKnuts": 17255,
       "displayPrice": {
-        "galleons": 5,
+        "galleons": 35,
         "sickles": 0,
         "knuts": 0
       },
@@ -1120,14 +1137,37 @@
     "noRealMoney": true,
     "allGiftable": true,
     "priceRangeGalleons": [
-      1,
-      18
+      5,
+      75
     ],
     "hogsmeadeAccess": "获准出游的周末",
     "diagonAlleyAccess": "开学采购及指定假期",
     "repeatedGiftPenalty": true,
     "relationshipReaction": true,
-    "rareGiftRequiresOccasion": true
+    "rareGiftRequiresOccasion": true,
+    "schoolWandAlreadyOwned": true,
+    "textbooksPurchasedOncePerSchoolYear": true,
+    "noRegularClassOrMealCosts": true,
+    "wandNotGiftable": true,
+    "diagonAlleyOnly": [
+      "ollivanders",
+      "flourish",
+      "malkins",
+      "quidditch",
+      "eylops",
+      "borgin",
+      "cauldron",
+      "weasleys"
+    ],
+    "hogsmeadeOnly": [
+      "honeydukes",
+      "threebroomsticks",
+      "zonkos",
+      "puddifoot",
+      "stationery",
+      "souvenir",
+      "charms"
+    ]
   },
   "notes": [
     "商品价格均为游戏 AU 自定，并非原著官方标价",
