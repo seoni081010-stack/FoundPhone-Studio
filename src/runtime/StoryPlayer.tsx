@@ -11,15 +11,26 @@ const houses = [
   { id: "ravenclaw", name: "拉文克劳", english: "Ravenclaw", symbol: "✦", trait: "智慧 · 求知 · 创造力" },
   { id: "hufflepuff", name: "赫奇帕奇", english: "Hufflepuff", symbol: "❖", trait: "忠诚 · 公平 · 勤奋" },
 ] as const;
-type Identity = { name: string; house: string; year: number };
+const loveInterests = [
+  { id: "jacob", name: "裴俊英", english: "JACOB" },
+  { id: "younghoon", name: "金泳勋", english: "YOUNGHOON" },
+  { id: "hyunjae", name: "李贤在", english: "HYUNJAE" },
+  { id: "juyeon", name: "李柱延", english: "JUYEON" },
+  { id: "kevin", name: "文炯书", english: "KEVIN" },
+  { id: "new", name: "崔澯熙", english: "NEW" },
+  { id: "q", name: "池昌珉", english: "Q" },
+  { id: "sunwoo", name: "金善旴", english: "SUNWOO" },
+  { id: "eric", name: "孙英宰", english: "ERIC" },
+] as const;
+type Identity = { name: string; house: string; year: number; loveInterest: string };
 const storageKey = "foundphone-hogwarts-identity-v1";
 function savedIdentity(): Identity | null {
   try {
     const value: unknown = JSON.parse(localStorage.getItem(storageKey) || "null");
     if (!value || typeof value !== "object") return null;
     const data = value as Partial<Identity>;
-    if (typeof data.name !== "string" || !data.name.trim() || !houses.some(h => h.id === data.house) || !Number.isInteger(data.year) || (data.year ?? 0) < 1 || (data.year ?? 8) > 7) return null;
-    return { name: data.name, house: data.house!, year: data.year! };
+    if (typeof data.name !== "string" || !data.name.trim() || !houses.some(h => h.id === data.house) || !loveInterests.some(m => m.id === data.loveInterest) || !Number.isInteger(data.year) || (data.year ?? 0) < 1 || (data.year ?? 8) > 7) return null;
+    return { name: data.name, house: data.house!, year: data.year!, loveInterest: data.loveInterest! };
   } catch { return null; }
 }
 function StoryPlayer() {
@@ -29,6 +40,7 @@ function StoryPlayer() {
   const [name, setName] = useState(identity?.name || "");
   const [house, setHouse] = useState(identity?.house || "");
   const [year, setYear] = useState(identity?.year || 1);
+  const [loveInterest, setLoveInterest] = useState(identity?.loveInterest || "");
   useEffect(() => {
     const abort = new AbortController();
     fetch(
@@ -54,8 +66,8 @@ function StoryPlayer() {
   const isTest = new URLSearchParams(location.search).get("preview") === "test" || new URLSearchParams(location.search).get("template") === "blank";
   const chosen = houses.find(h => h.id === identity?.house);
   const confirm = () => {
-    if (!name.trim() || !house) return;
-    const next = { name: name.trim().slice(0, 40), house, year };
+    if (!name.trim() || !house || !loveInterest) return;
+    const next = { name: name.trim().slice(0, 40), house, year, loveInterest };
     localStorage.setItem(storageKey, JSON.stringify(next));
     setIdentity(next);
   };
@@ -81,13 +93,20 @@ function StoryPlayer() {
               <select id="wizard-year" className="hogwarts-input" value={year} onChange={e => setYear(Number(e.target.value))}>
                 {Array.from({ length: 7 }, (_, i) => <option key={i + 1} value={i + 1}>{i + 1} 年级{ i === 4 ? " · O.W.L. 考试年" : i === 6 ? " · N.E.W.T. 考试年" : ""}</option>)}
               </select>
-              <button className="hogwarts-enter" type="button" disabled={!name.trim() || !house} onClick={confirm}>确认身份 · 进入魔法世界 →</button>
+              <p className="hogwarts-label">选择你的心动男主</p>
+              <p className="hogwarts-love-note">THE BOYZ · 霍格沃茨平行世界。请选择你想攻略的角色。</p>
+              <div className="hogwarts-love-grid" role="group" aria-label="选择攻略男主">
+                {loveInterests.map(m => <button key={m.id} type="button" className={`hogwarts-love-card ${loveInterest === m.id ? "selected" : ""}`} aria-pressed={loveInterest === m.id} onClick={() => setLoveInterest(m.id)}>
+                  <strong>{m.name}</strong><small>{m.english}</small>
+                </button>)}
+              </div>
+              <button className="hogwarts-enter" type="button" disabled={!name.trim() || !house || !loveInterest} onClick={confirm}>确认身份 · 进入魔法世界 →</button>
               <p className="hogwarts-footnote">你可以自由选择学院。本设定不模拟分院帽测试。</p>
             </div>
           </section>
         ) : (
           <>
-            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · 更改身份</button>}
+            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
             <Phone work={work} />
           </>
         )
