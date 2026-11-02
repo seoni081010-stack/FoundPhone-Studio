@@ -7,6 +7,8 @@ export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
   item: Item; onNext: () => void; onPrevious: () => void; onShuffle: () => void;
 }) {
   const audio = useRef<HTMLAudioElement>(null);
+  const nextRef = useRef(onNext);
+  useEffect(() => { nextRef.current = onNext; }, [onNext]);
   const [playing, setPlaying] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -32,14 +34,14 @@ export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
       setCurrent((value) => {
         if (value + 1 >= duration) {
           if (repeat) return 0;
-          onNext();
+          nextRef.current();
           return 0;
         }
         return value + 1;
       });
     }, 1000);
     return () => window.clearInterval(timer);
-  }, [src, playing, duration, repeat, onNext]);
+  }, [src, playing, duration, repeat]);
 
   const toggle = () => {
     const node = audio.current;
