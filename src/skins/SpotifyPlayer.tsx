@@ -69,7 +69,7 @@ export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
         {cover ? <img src={cover} alt="" /> : <Music />}
       </button>
       <button className="spotify-mini-info" onClick={() => setExpanded(true)}>
-        <strong>{item.title}</strong><small>{item.sender}</small>
+        <strong>{item.title}</strong><small>{item.sender}{src ? "" : " · 음원 파일 없음"}</small>
       </button>
       <button aria-label={playing ? "일시정지" : "재생"} onClick={toggle}>
         {playing ? "Ⅱ" : <Play size={20} fill="currentColor" />}
@@ -80,7 +80,7 @@ export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
     {expanded && <div className="spotify-full-player">
       <header><button onClick={() => setExpanded(false)} aria-label="닫기">⌄</button><strong>재생 중</strong><span>•••</span></header>
       <div className="spotify-full-cover">{cover ? <img src={cover} alt="" /> : <Music size={76} />}</div>
-      <div className="spotify-full-title"><strong>{item.title}</strong><span>{item.sender}</span></div>
+      <div className="spotify-full-title"><strong>{item.title}</strong><span>{item.sender}{src ? "" : " · 음원 파일 없음 / 미리보기"}</span></div>
       <div className="spotify-progress">
         <input aria-label="재생 위치" type="range" min={0} max={Math.max(1, duration)}
           value={Math.min(current, duration || current)}
