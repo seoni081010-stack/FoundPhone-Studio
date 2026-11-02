@@ -56,7 +56,16 @@
         "book-centered mystery as main plot",
         "excessive runes and reading scenes"
       ],
-      "resolution": "by December 31"
+      "resolution": "by December 31",
+      "invitationStyle": "gentle and tentative, asks about December 24 plans and whether player already has a partner before directly inviting",
+      "invitationDialogue": [
+        "24号晚上，你已经有安排了吗？",
+        "那我是不是还有机会？",
+        "其实我想问，你愿不愿意和我一起去舞会？"
+      ],
+      "responseToAcceptance": "quietly visibly happy, warm and restrained",
+      "responseToRejection": "respectful but disappointed; affection decreases according to his personality modifier",
+      "thirdWeekStatus": "user-approved gentle tentative invitation"
     }
   },
   "status": "framework data only; runtime calendar and holiday branching not yet connected"
