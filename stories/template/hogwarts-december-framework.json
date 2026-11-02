@@ -68,5 +68,60 @@
       "thirdWeekStatus": "user-approved gentle tentative invitation"
     }
   },
-  "status": "framework data only; runtime calendar and holiday branching not yet connected"
+  "status": "framework data only; runtime calendar and holiday branching not yet connected",
+  "encounterRules": {
+    "status": "design only, not yet wired to runtime",
+    "sameYearSameHouse": {
+      "sameClass": true,
+      "sameTimetable": true,
+      "encounterFrequency": "highest",
+      "venues": [
+        "shared lessons",
+        "class transitions",
+        "group assignments",
+        "house common room",
+        "Great Hall"
+      ],
+      "dialogue": "same-year peers, no automatic senior/junior address"
+    },
+    "sameYearDifferentHouse": {
+      "encounterFrequency": "medium",
+      "sharedLessons": "only if explicitly scheduled joint class",
+      "venues": [
+        "Great Hall",
+        "library",
+        "corridors",
+        "activities"
+      ]
+    },
+    "differentYearSameHouse": {
+      "encounterFrequency": "medium",
+      "sharedLessons": false,
+      "venues": [
+        "house common room",
+        "house events",
+        "Great Hall",
+        "prefect duties"
+      ]
+    },
+    "differentYearDifferentHouse": {
+      "encounterFrequency": "lower",
+      "sharedLessons": false,
+      "venues": [
+        "Great Hall",
+        "library",
+        "corridors",
+        "Hogsmeade",
+        "Quidditch"
+      ]
+    },
+    "principles": [
+      "Player year and house affect encounters with every lead, not only selected romance target",
+      "Same year and house guarantees shared lessons in this game's fixed timetable model",
+      "Respect class and duty schedules; no encounters during conflicting lessons",
+      "Small ambient encounters may occur without affection change",
+      "As affection rises, shared-class behaviors can evolve from greetings to saved seats and walking together",
+      "Do not force repeated romance events every class"
+    ]
+  }
 }
