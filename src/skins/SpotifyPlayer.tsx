@@ -31,17 +31,16 @@ export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
   useEffect(() => {
     if (src || !playing || duration <= 0) return;
     const timer = window.setInterval(() => {
-      setCurrent((value) => {
-        if (value + 1 >= duration) {
-          if (repeat) return 0;
-          nextRef.current();
-          return 0;
-        }
-        return value + 1;
-      });
+      setCurrent((value) => Math.min(duration, value + 1));
     }, 1000);
     return () => window.clearInterval(timer);
-  }, [src, playing, duration, repeat]);
+  }, [src, playing, duration]);
+
+  useEffect(() => {
+    if (src || !playing || duration <= 0 || current < duration) return;
+    if (repeat) setCurrent(0);
+    else nextRef.current();
+  }, [src, playing, current, duration, repeat]);
 
   const toggle = () => {
     const node = audio.current;
