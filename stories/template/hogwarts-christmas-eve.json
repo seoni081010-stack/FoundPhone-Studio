@@ -9,8 +9,11 @@
     "holidayStarts": "12-22",
     "stayAtSchool": "eligible",
     "wentHome": "can choose authorized return trip before event",
-    "leadAttendance": "independent holiday location and travel feasibility",
-    "noTeleportation": true
+    "leadAttendance": "All eight leads attend the December 24 feast and ball regardless of later holiday plans; departure home can occur after the event.",
+    "noTeleportation": true,
+    "allEightLeadsAttend": true,
+    "playerGuaranteedAttendance": true,
+    "holidayTravel": "Students who choose home may stay until the ball or return for it; no absence caused by holiday destination."
   },
   "invitations": {
     "initiators": [
@@ -28,7 +31,8 @@
     "noForcedPartner": true,
     "oneConfirmedPartnerAtATime": true,
     "declineDoesNotEndRoute": true,
-    "inviteBeforeEvent": true
+    "inviteBeforeEvent": true,
+    "availability": "All leads physically present; acceptance may still depend on relationship and existing partner"
   },
   "schedule": [
     {
@@ -109,7 +113,8 @@
   "notes": [
     "No forced shopping or daily food clicks",
     "Invitation dialogue varies by lead personality and player relationship",
-    "Event logic must be wired to game clock and holiday locations"
+    "Event logic must be wired to game clock and holiday locations",
+    "All eight leads and player attend the ball; partner acceptance is not guaranteed."
   ],
   "status": "design specification only; not yet playable"
 }
