@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "scope": "single December",
+  "gameStart": "12-01",
+  "gameEnd": "12-31",
+  "totalDays": 31,
+  "calendarYear": "configurable; weekdays computed from selected year",
+  "term": {
+    "lastTeachingDay": "12-21",
+    "holidayStarts": "12-22",
+    "holidayEnds": "12-31",
+    "classRules": "Monday-Friday only before holiday, load fixed timetable by player year and house; weekends no regular classes"
+  },
+  "holiday": {
+    "playerChoice": [
+      "stay_at_hogwarts",
+      "go_home"
+    ],
+    "leadChoice": "each lead has independent preplanned holiday location; discussed naturally before holiday",
+    "locations": "dates and encounters must respect physical locations; remote owl correspondence available",
+    "travel": "home dates possible when both are geographically compatible; no teleportation",
+    "christmasEve": "12-24",
+    "christmasDay": "12-25",
+    "ending": "12-31"
+  },
+  "sharedSystems": [
+    "identical shop inventory and prices for every player",
+    "wallet and gifts",
+    "quidditch fixtures and library encounter rules tied to date/time"
+  ],
+  "storyDesign": {
+    "hyunjae": {
+      "pace": "slow burn",
+      "traits": [
+        "gentle",
+        "reliable",
+        "observant",
+        "playfully teasing",
+        "somewhat guarded"
+      ],
+      "prefectDuties": [
+        "Tuesday 17:00 meeting",
+        "Thursday 17:00 rounds"
+      ],
+      "library": "one plausible encounter; books are not a dominant motif",
+      "focus": [
+        "prefect responsibilities",
+        "casual daily meetings",
+        "holiday plans",
+        "emotional vulnerability"
+      ],
+      "remove": [
+        "book-centered mystery as main plot",
+        "excessive runes and reading scenes"
+      ],
+      "resolution": "by December 31"
+    }
+  },
+  "status": "framework data only; runtime calendar and holiday branching not yet connected"
+}
