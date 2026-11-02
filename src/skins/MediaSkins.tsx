@@ -1,5 +1,5 @@
 import "./ExperienceSkins.css";
-import { AudioPlayer, useTrack } from "../audio";
+import { useTrack } from "../audio";
 import { useSkinState } from "../skinState";
 import {
   Bookmark,
@@ -17,7 +17,7 @@ import {
   Users,
   Video,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { safeMedia, type Item } from "../schema";
 import { SpotifyPlayer } from "./SpotifyPlayer";
 import {
@@ -32,8 +32,8 @@ import {
   useContent,
   type Props,
 } from "./shared";
-function TrackPlayer({ item, p, onNext, onPrevious }: { item: Item; p: Props; onNext: () => void; onPrevious: () => void }) {
-  return <SpotifyPlayer item={item} p={p} onNext={onNext} onPrevious={onPrevious} />;
+function TrackPlayer({ item, onNext, onPrevious, onShuffle }: { item: Item; onNext: () => void; onPrevious: () => void; onShuffle: () => void }) {
+  return <SpotifyPlayer item={item} onNext={onNext} onPrevious={onPrevious} onShuffle={onShuffle} />;
 }
 export function SpotifySkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
@@ -102,7 +102,6 @@ export function SpotifySkin(p: Props) {
       {track && (
         <TrackPlayer
           item={track}
-          p={p}
           onNext={() => {
             const index = items.findIndex((i) => i.id === track.id);
             setTrack(items[(index + 1) % items.length] ?? null);
@@ -110,6 +109,10 @@ export function SpotifySkin(p: Props) {
           onPrevious={() => {
             const index = items.findIndex((i) => i.id === track.id);
             setTrack(items[(index - 1 + items.length) % items.length] ?? null);
+          }}
+          onShuffle={() => {
+            const choices = items.filter((i) => i.id !== track.id);
+            if (choices.length) setTrack(choices[Math.floor(Math.random() * choices.length)]);
           }}
         />
       )}
