@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "world": "Hogwarts AU",
+  "currency": {
+    "primary": "Galleon",
+    "symbols": {
+      "Galleon": "加隆",
+      "Sickle": "西可",
+      "Knut": "纳特"
+    },
+    "conversion": {
+      "sicklesPerGalleon": 17,
+      "knutsPerSickle": 29,
+      "knutsPerGalleon": 493
+    },
+    "noMuggleCurrency": true
+  },
+  "initial": {
+    "gringottsVault": {
+      "galleons": 50000
+    },
+    "wallet": {
+      "galleons": 5000
+    },
+    "totalGalleons": 55000
+  },
+  "monthlyAllowanceGalleons": {
+    "5": 1500,
+    "6": 2000,
+    "7": 2400
+  },
+  "allowanceSource": "父母",
+  "allowanceFrequency": "每游戏月一次",
+  "freeCosts": [
+    "学费",
+    "住宿费",
+    "日常三餐"
+  ],
+  "shops": [
+    "对角巷",
+    "霍格莫德"
+  ],
+  "giftRules": {
+    "lowCostOnly": true,
+    "affinityBasedOnPreferences": true,
+    "diminishingReturnsForRepeatedGifts": true
+  },
+  "notes": [
+    "金额直接定义为加隆，不使用现实货币换算",
+    "金库与钱包分开记录，避免重复计数",
+    "金库提款、购物、送礼和每月生活费尚待接入运行时"
+  ]
+}
