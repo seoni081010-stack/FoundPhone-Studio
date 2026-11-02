@@ -72,3 +72,42 @@ type EventDefinition = {
 4. Extend to remaining seven routes and test year/house combinations.
 
 Important: do not mistake this specification for implemented functionality.
+
+## Character school roles (confirmed)
+| Character | Year | House | Role |
+| --- | --- | --- | --- |
+| Hyunjae | 7 | Slytherin | Student council; gentle and reliable senior, secretly carrying a personal mystery |
+| Jacob | 7 | Hufflepuff | Student council |
+| Younghoon | 7 | Hufflepuff | No additional role decided |
+| Juyeon | 6 | Slytherin | Quidditch player |
+| Kevin | 6 | Ravenclaw | No additional role decided |
+| Q | 6 | Ravenclaw | Student council |
+| Sunwoo | 5 | Slytherin | Quidditch player |
+| Eric | 5 | Gryffindor | Quidditch player |
+
+Student council is a game-specific student organization, distinct from Hogwarts prefects. Do not assign Quidditch positions, council ranks, or secret details without further creative decisions.
+
+## Course timetable and encounters
+- The selected protagonist year sets eligible course levels. Year 5 follows O.W.L. curriculum; years 6–7 have N.E.W.T.-level elective/course prerequisites.
+- House determines teaching group and timetable. Some lessons may be shared between houses, but **house pairings must be authored per course, term, year, and period**, not universally assumed.
+- An ordinary class encounter requires: matching academic year, both students enrolled in the same subject, matching scheduled teaching group and time slot, and both present.
+- Different-year students cannot be in the same standard class by default. Cross-year encounters belong in library, Great Hall, corridors, student council, Quidditch, Hogsmeade, or special mixed-year events.
+- Student council duties enable meetings, announcements, and event-planning encounters for Hyunjae, Jacob, and Q; protagonist membership is not assumed.
+- Quidditch training and matches enable field, stadium, and post-match encounters for Juyeon, Sunwoo, and Eric. Players represent their own houses; house rivalry can change scene context.
+- A player choosing a different house may receive a different classroom cohort and route into the same mandatory romance milestone via a different scene. No romance route should become inaccessible merely due to house or year.
+- Course schedules, subject enrollments, house pairings, Quidditch positions, and council ranks remain to be designed; examples are not canon.
+
+### Suggested schedule record
+```ts
+type Lesson = {
+  id: string;
+  academicYear: 5 | 6 | 7;
+  term: string;
+  weekday: number;
+  period: string;
+  subject: string;
+  houseGroup: string[];
+  enrolledCharacterIds: string[];
+  location: string;
+};
+```
