@@ -1,24 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { Music, Play, SkipBack, SkipForward } from "lucide-react";
 import { safeMedia, type Item } from "../schema";
-import { meta, type Props } from "./shared";
+import { meta } from "./shared";
 
-export function SpotifyPlayer({ item, p, onNext, onPrevious }: {
-  item: Item; p: Props; onNext: () => void; onPrevious: () => void;
+export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
+  item: Item; onNext: () => void; onPrevious: () => void; onShuffle: () => void;
 }) {
   const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [duration, setDuration] = useState(Number(meta(item, "durationSeconds")) || 0);
-  const [shuffle, setShuffle] = useState(false);
+  const [duration, setDuration] = useState(Number(meta(item, "durationSeconds")) || 180);
   const [repeat, setRepeat] = useState(false);
   const src = item.kind === "audio" ? safeMedia(item.media) : "";
   const cover = safeMedia(meta(item, "cover"));
 
   useEffect(() => {
     setCurrent(0);
-    setDuration(Number(meta(item, "durationSeconds")) || 0);
+    setDuration(Number(meta(item, "durationSeconds")) || 180);
     setPlaying(true);
     if (!src || !audio.current) return;
     const node = audio.current;
@@ -63,7 +62,7 @@ export function SpotifyPlayer({ item, p, onNext, onPrevious }: {
     {src && <audio ref={audio} src={src}
       onTimeUpdate={(event) => setCurrent(event.currentTarget.currentTime)}
       onLoadedMetadata={(event) => setDuration(event.currentTarget.duration || 0)}
-      onEnded={() => repeat ? seek(0) : onNext()} />}
+      onEnded={() => { if (repeat) { seek(0); void audio.current?.play(); } else onNext(); }} />}
     <div className="spotify-mini-player">
       <button className="spotify-mini-cover" onClick={() => setExpanded(true)}>
         {cover ? <img src={cover} alt="" /> : <Music />}
@@ -88,7 +87,7 @@ export function SpotifyPlayer({ item, p, onNext, onPrevious }: {
         <div><small>{format(current)}</small><small>{format(duration)}</small></div>
       </div>
       <div className="spotify-full-controls">
-        <button aria-label="셔플" aria-pressed={shuffle} onClick={() => setShuffle(!shuffle)}>⤨</button>
+        <button aria-label="셔플" onClick={onShuffle}>⤨</button>
         <button aria-label="上一首" onClick={onPrevious}><SkipBack /></button>
         <button className="spotify-big-play" aria-label={playing ? "일시정지" : "播放"} onClick={toggle}>{playing ? "Ⅱ" : "▶"}</button>
         <button aria-label="下一首" onClick={onNext}><SkipForward /></button>
