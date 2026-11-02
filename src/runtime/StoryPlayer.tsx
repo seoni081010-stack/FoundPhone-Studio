@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Phone } from "../Phone";
 import { MagicalShops } from "./MagicalShops";
 import { HogwartsSchedule } from "./HogwartsSchedule";
+import { HogwartsCharacters } from "./HogwartsCharacters";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
 import "./player.css";
@@ -15,12 +16,12 @@ const houses = [
 ] as const;
 const loveInterests = [
   { id: "jacob", year: 7, name: "裴俊英", english: "JACOB", house: "hufflepuff", traits: "温柔 · 耐心 · 可靠", intro: "如果你找不到路，我可以陪你慢慢走。", affinity: { hufflepuff: 96, gryffindor: 70, ravenclaw: 74, slytherin: 52 } },
-  { id: "younghoon", year: 7, name: "金泳勋", english: "YOUNGHOON", house: "hufflepuff", traits: "细腻 · 真诚 · 慢热", intro: "不用急着认识我，我们有整个学期的时间。", affinity: { hufflepuff: 91, ravenclaw: 69, gryffindor: 72, slytherin: 25 } },
-  { id: "hyunjae", year: 7, name: "李贤在", english: "HYUNJAE", house: "slytherin", traits: "狡黠 · 勇敢 · 坚定", intro: "分院帽犹豫了很久。至于我为什么选这里，你以后会知道。", affinity: { slytherin: 54, gryffindor: 91, ravenclaw: 55, hufflepuff: 76 } },
+  { id: "younghoon", year: 7, name: "金泳勋", english: "YOUNGHOON", house: "ravenclaw", traits: "细腻 · 真诚 · 慢热", intro: "不用急着认识我，我们有整个学期的时间。", affinity: { hufflepuff: 91, ravenclaw: 69, gryffindor: 72, slytherin: 25 } },
+  { id: "hyunjae", year: 7, name: "李贤在", english: "HYUNJAE", house: "gryffindor", traits: "爱开玩笑 · 负责 · 坦率", intro: "又见面了。今天有什么新鲜事？", affinity: { slytherin: 54, gryffindor: 91, ravenclaw: 55, hufflepuff: 76 } },
   { id: "juyeon", year: 6, name: "李柱延", english: "JUYEON", house: "slytherin", traits: "沉稳 · 专注 · 行动力", intro: "比起解释自己，我更习惯用行动回答。", affinity: { slytherin: 88, gryffindor: 84, hufflepuff: 69, ravenclaw: 65 } },
-  { id: "kevin", year: 6, name: "文炯书", english: "KEVIN", house: "ravenclaw", traits: "创意 · 敏锐 · 独立", intro: "魔法不只在课本里，也藏在你没留意的细节中。", affinity: { ravenclaw: 97, hufflepuff: 75, gryffindor: 63, slytherin: 57 } },
+  { id: "kevin", year: 6, name: "文炯书", english: "KEVIN", house: "slytherin", traits: "创意 · 敏锐 · 独立", intro: "魔法不只在课本里，也藏在你没留意的细节中。", affinity: { ravenclaw: 97, hufflepuff: 75, gryffindor: 63, slytherin: 57 } },
   { id: "q", year: 6, name: "池昌珉", english: "Q", house: "ravenclaw", traits: "奇思妙想 · 灵动 · 好奇", intro: "你觉得奇怪的东西，说不定正是最有趣的秘密。", affinity: { ravenclaw: 86, gryffindor: 79, hufflepuff: 73, slytherin: 61 } },
-  { id: "sunwoo", year: 5, name: "金善旴", english: "SUNWOO", house: "slytherin", traits: "机敏 · 自信 · 口才", intro: "想赢过我？那你得先猜到我下一步要做什么。", affinity: { slytherin: 95, ravenclaw: 86, gryffindor: 73, hufflepuff: 48 } },
+  { id: "sunwoo", year: 5, name: "金善旴", english: "SUNWOO", house: "gryffindor", traits: "机敏 · 自信 · 口才", intro: "想赢过我？那你得先猜到我下一步要做什么。", affinity: { slytherin: 95, ravenclaw: 86, gryffindor: 73, hufflepuff: 48 } },
   { id: "eric", year: 5, name: "孙英宰", english: "ERIC", house: "gryffindor", traits: "热情 · 直率 · 勇敢", intro: "要不要一起去冒险？放心，我会跑在你前面！", affinity: { gryffindor: 97, hufflepuff: 83, slytherin: 60, ravenclaw: 56 } },
 ] as const;
 type Identity = { name: string; house: string; year: number; loveInterest: string };
@@ -135,6 +136,7 @@ function StoryPlayer() {
           <>
             {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
             <Phone work={work} />
+            {!isTest && identity && <HogwartsCharacters key={identity.name+"-"+identity.house+"-"+identity.year} year={identity.year} house={identity.house} identityKey={identity.name+"-"+identity.house+"-"+identity.year} />}
             {!isTest && identity && <HogwartsSchedule year={identity.year} house={identity.house} />}
             {!isTest && identity && <MagicalShops key={identity.name+"-"+identity.house+"-"+identity.year} identityKey={identity.name+"-"+identity.house+"-"+identity.year} leadId={identity.loveInterest} />}
           </>
