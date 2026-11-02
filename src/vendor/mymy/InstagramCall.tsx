@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { FormEvent, PointerEvent } from "react";
 import {
   Camera,
   CameraOff,
@@ -7,6 +8,7 @@ import {
   Phone,
   Video,
   Volume2,
+  VolumeX,
   X,
 } from "lucide-react";
 import type { SkinProps } from "../../AppSkins";
@@ -32,6 +34,7 @@ export function InstagramCall({
   const [elapsed, setElapsed] = useState(0);
   const [muted, setMuted] = useState(false);
   const [cameraOff, setCameraOff] = useState(false);
+  const [speakerOff, setSpeakerOff] = useState(false);
   const [draft, setDraft] = useState("");
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [pip, setPip] = useState({ x: 0, y: 0 });
@@ -71,7 +74,7 @@ export function InstagramCall({
     return () => timers.forEach((timer) => window.clearTimeout(timer));
   }, [status, p.items, callerName]);
 
-  const send = (event: React.FormEvent) => {
+  const send = (event: FormEvent) => {
     event.preventDefault();
     const text = draft.trim();
     if (!text) return;
@@ -83,7 +86,7 @@ export function InstagramCall({
     setDraft("");
   };
 
-  const movePip = (event: React.PointerEvent<HTMLDivElement>) => {
+  const movePip = (event: PointerEvent<HTMLDivElement>) => {
     if (!stage.current) return;
     const bounds = stage.current.getBoundingClientRect();
     setPip({
@@ -126,7 +129,7 @@ export function InstagramCall({
         <strong>{callerName}</strong>
         <span>{clock(elapsed)}</span>
       </header>
-      {secondaryVideo && (
+      {secondaryVideo && !cameraOff && (
         <div
           className="ig-call-pip"
           style={{ left: pip.x || undefined, top: pip.y || undefined }}
@@ -155,7 +158,7 @@ export function InstagramCall({
       <div className="ig-call-controls">
         <button aria-label={muted ? "마이크 켜기" : "마이크 끄기"} onClick={() => setMuted(!muted)}>{muted ? <MicOff /> : <Mic />}<small>마이크</small></button>
         <button aria-label={cameraOff ? "카메라 켜기" : "카메라 끄기"} onClick={() => setCameraOff(!cameraOff)}>{cameraOff ? <CameraOff /> : <Camera />}<small>카메라</small></button>
-        <button aria-label="스피커" onClick={() => {}}><Volume2 /><small>스피커</small></button>
+        <button aria-label={speakerOff ? "스피커 켜기" : "스피커 끄기"} aria-pressed={speakerOff} onClick={() => setSpeakerOff(!speakerOff)}>{speakerOff ? <VolumeX /> : <Volume2 />}<small>스피커</small></button>
         <button className="ig-hangup" aria-label="통화 종료" onClick={p.onBack}><Phone /><small>종료</small></button>
       </div>
       <span className="ig-call-video-label"><Video size={14} /> Instagram 영상 통화</span>
