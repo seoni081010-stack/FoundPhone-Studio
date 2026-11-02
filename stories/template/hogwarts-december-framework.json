@@ -123,5 +123,27 @@
       "As affection rises, shared-class behaviors can evolve from greetings to saved seats and walking together",
       "Do not force repeated romance events every class"
     ]
+  },
+  "romanceRouteRules": {
+    "status": "approved design rules, implementation pending",
+    "selectMainLeadAtStart": true,
+    "mainLeadInteractions": "more frequent; romance affection 0-100",
+    "otherSevenLeads": "friendship 0-100 only; may encounter and interact; no romance endings regardless of friendship",
+    "noDatingBeforeDecember31": true,
+    "endingDate": "December 31",
+    "mainLeadEnding": {
+      "affection100": "mutual confession and couple ending, no rejection option",
+      "affectionBelow100": "ambiguous romantic ending",
+      "friendEnding": false
+    },
+    "endingScreen": {
+      "hero": "large selected male lead portrait, name, poetic personalized ending title and short prose; avoid literal '恋人结局'/'暧昧结局' as displayed heading",
+      "supporting": "seven smaller portraits each with friendship percentage only",
+      "values": "actual player values, not example placeholders"
+    },
+    "hyunjaeEndingTitles": {
+      "couple": "雪落之前，先拥抱你",
+      "ambiguous": "下一场雪，还想与你相见"
+    }
   }
 }
