@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "pricesAreAuOriginal": true,
+  "currency": "Galleon",
+  "dateDays": [
+    6,
+    0
+  ],
+  "dayIndexConvention": "0=Sunday,6=Saturday",
+  "venues": [
+    {
+      "id": "puddifoot",
+      "name": "帕笛芙夫人茶馆",
+      "region": "霍格莫德",
+      "priceGalleons": 180,
+      "theme": "甜蜜暧昧"
+    },
+    {
+      "id": "three-broomsticks",
+      "name": "三把扫帚酒吧",
+      "region": "霍格莫德",
+      "priceGalleons": 260,
+      "theme": "热闹轻松"
+    },
+    {
+      "id": "hogs-head",
+      "name": "猪头酒吧",
+      "region": "霍格莫德",
+      "priceGalleons": 120,
+      "theme": "安静谈心"
+    },
+    {
+      "id": "diagon-alley-walk",
+      "name": "对角巷逛街与丽痕书店",
+      "region": "对角巷",
+      "priceGalleons": 220,
+      "theme": "闲逛与阅读",
+      "requiresHolidayOrSpecialPass": true
+    },
+    {
+      "id": "leaky-cauldron",
+      "name": "破釜酒吧",
+      "region": "对角巷入口",
+      "priceGalleons": 210,
+      "theme": "热闹用餐",
+      "optionalStop": true
+    },
+    {
+      "id": "florean-fortescue",
+      "name": "福洛林·福斯科冰淇淋店",
+      "region": "对角巷",
+      "priceGalleons": 90,
+      "theme": "甜品小憩",
+      "optionalStop": true
+    }
+  ],
+  "rules": {
+    "weekdayDatesForbidden": true,
+    "weekendDatesOnly": true,
+    "hogsmeadeNeedsPermission": true,
+    "diagonAlleyNeedsHolidayOrSpecialPass": true,
+    "offlinePurchasesDuringVisits": true,
+    "onlinePurchasesPhysicalItemsOnly": true,
+    "weekdayGiftsByOwl": true,
+    "restaurantMealsNotShippable": true,
+    "extraShoppingChargedSeparately": true,
+    "underageAlcoholExcluded": true
+  },
+  "notes": [
+    "费用为游戏原创，非原著官方物价",
+    "周末限制基于游戏内日期，不依据现实日期",
+    "未连接游戏日历前不能宣称自动生效"
+  ]
+}
