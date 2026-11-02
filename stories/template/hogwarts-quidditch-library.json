@@ -30,7 +30,29 @@
     "notes": [
       "原著式学院杯赛制，赛季赛程须和学校日历联动",
       "非固定每周一场，不能与课程及训练冲突"
-    ]
+    ],
+    "friendlyPredictions": {
+      "type": "fictional_in_game_currency_only",
+      "inspiration": "学生间非官方友谊竞猜；不是原著规定的霍格沃茨官方制度",
+      "availableBeforeMatchOnly": true,
+      "stakeOptionsGalleons": [
+        1,
+        2,
+        5,
+        10
+      ],
+      "maximumStakeGalleons": 10,
+      "onePredictionPerMatch": true,
+      "chooseOneCompetingHouse": true,
+      "noRealMoney": true,
+      "noPurchasableCredits": true,
+      "noLoans": true,
+      "noChasingLosses": true,
+      "noOddsManipulation": true,
+      "settlement": "比赛结束后按预设固定规则自动结算；赔率与奖励在实现前须明确",
+      "optional": true,
+      "relationshipFlavorOnly": true
+    }
   },
   "library": {
     "accessible": true,
