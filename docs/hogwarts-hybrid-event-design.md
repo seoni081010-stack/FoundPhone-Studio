@@ -111,3 +111,6 @@ type Lesson = {
   location: string;
 };
 ```
+
+## Additional course
+| Alchemy / 炼金术 | No fixed instructor named in the books / 原著未指定固定教师 | Only offered when enough students enroll; classroom unspecified | Optional advanced elective, availability conditional |
