@@ -36,15 +36,15 @@
     "霍格莫德"
   ],
   "giftRules": {
-    "lowCostOnly": true,
+    "reasonablePrices": true,
     "affinityBasedOnPreferences": true,
-    "diminishingReturnsForRepeatedGifts": true
+    "diminishingReturnsForRepeatedGifts": true,
+    "wandNotGiftable": true
   },
   "notes": [
     "金额直接定义为加隆，不使用现实货币换算",
     "金库与钱包分开记录，避免重复计数",
-    "金库提款、购物、送礼和每月生活费尚待接入运行时",
-    "礼物商店采用游戏原创低价；每周零花钱远高于常规礼物支出，保持充足结余"
+    "购物以加隆为主；普通礼物价格 5–75 加隆，魔杖不作为商品赠送"
   ],
   "weeklyAllowanceGalleons": {
     "5": 1500,
@@ -56,5 +56,10 @@
     "idempotencyKey": "schoolYear-weekNumber",
     "notification": "父母猫头鹰汇款通知",
     "noRepeatedPayout": true
+  },
+  "schoolSupplies": {
+    "wand": "入学前已拥有，不需购买",
+    "textbooks": "每学年开学一次采购",
+    "tuition": "不收取"
   }
 }
