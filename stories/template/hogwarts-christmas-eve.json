@@ -9,11 +9,11 @@
     "holidayStarts": "12-22",
     "stayAtSchool": "eligible",
     "wentHome": "can choose authorized return trip before event",
-    "leadAttendance": "All eight leads attend the December 24 feast and ball regardless of later holiday plans; departure home can occur after the event.",
+    "leadAttendance": "all seven leads attend the December 24 feast and ball regardless of later holiday plans; departure home can occur after the event.",
     "noTeleportation": true,
-    "allEightLeadsAttend": true,
     "playerGuaranteedAttendance": true,
-    "holidayTravel": "Students who choose home may stay until the ball or return for it; no absence caused by holiday destination."
+    "holidayTravel": "Students who choose home may stay until the ball or return for it; no absence caused by holiday destination.",
+    "allSevenLeadsAttend": true
   },
   "invitations": {
     "initiators": [
@@ -199,7 +199,6 @@
     "priority": "confirmed dance partner stays together unless player explicitly agrees to split or transition",
     "unpartnered": "each lead has independent plausible activities and movements",
     "paired": "joint activities, request consent for breaks and excursions; no abandonment",
-    "allEightAttend": true,
     "freeTracks": {
       "jacob": [
         "help classmates",
@@ -216,10 +215,6 @@
       "juyeon": [
         "quidditch teammates",
         "watch dance floor"
-      ],
-      "kevin": [
-        "listen to music",
-        "discuss decorations"
       ],
       "q": [
         "friends",
@@ -239,12 +234,12 @@
       "younghoon": "shy attentive dinner and dance",
       "hyunjae": "attentive slow-burn dance and shared break",
       "juyeon": "earnest slightly nervous dance",
-      "kevin": "playful music and decorations",
       "q": "teasing but attentive dance",
       "sunwoo": "casual words, attentive actions",
       "eric": "energetic dancing, invites player to rest together"
     },
     "noRomanticNPCInteraction": true,
-    "knowledgeBoundaries": true
+    "knowledgeBoundaries": true,
+    "allSevenAttend": true
   }
 }
