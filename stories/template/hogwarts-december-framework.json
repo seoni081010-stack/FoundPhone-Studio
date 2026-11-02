@@ -133,7 +133,6 @@
     "status": "approved design rules, implementation pending",
     "selectMainLeadAtStart": true,
     "mainLeadInteractions": "more frequent; romance affection 0-100",
-    "otherSevenLeads": "friendship 0-100 only; may encounter and interact; no romance endings regardless of friendship",
     "noDatingBeforeDecember31": true,
     "endingDate": "December 31",
     "mainLeadEnding": {
@@ -143,13 +142,14 @@
     },
     "endingScreen": {
       "hero": "large selected male lead portrait, name, poetic personalized ending title and short prose; avoid literal '恋人结局'/'暧昧结局' as displayed heading",
-      "supporting": "seven smaller portraits each with friendship percentage only",
+      "supporting": "six smaller portraits each with friendship percentage only",
       "values": "actual player values, not example placeholders"
     },
     "hyunjaeEndingTitles": {
       "couple": "雪落之前，先拥抱你",
       "ambiguous": "下一场雪，还想与你相见"
-    }
+    },
+    "otherSixLeads": "friendship 0-100 only; may encounter and interact; no romance endings regardless of friendship"
   },
   "maraudersMapApp": {
     "status": "approved design specification; runtime app and animations not yet implemented",
@@ -168,7 +168,7 @@
     ],
     "interaction": "No microphone, voice recognition, typing or spoken incantation required",
     "locationTracking": {
-      "scope": "all eight leads, regardless of selected romance route",
+      "scope": "all seven leads, regardless of selected romance route",
       "clock": "in-game time; live visual updates while map remains open",
       "sourceOfTruth": "shared character timetable, weekly duties, event overrides, free-time movements and player travel time",
       "markers": "handwritten names and moving footprints",
