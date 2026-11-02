@@ -31,6 +31,7 @@ import { useSkinState } from "../../skinState";
 import { makeItem, type Item } from "../../schema";
 import "./ui.css";
 import "./adapter.css";
+import { InstagramCall } from "./InstagramCall";
 function grouped(items: Item[]) {
   return [...new Set(items.map((i) => i.title))].map((title) => ({
     title,
@@ -313,7 +314,7 @@ export function MymyKakao(p: SkinProps) {
     </div>
   );
 }
-export function MymyInstagram(p: SkinProps) {
+function MymyInstagramFeed(p: SkinProps) {
   const [tab, setTab] = useSkinState<string>(p, "mymyTab", "主页"),
     [liked, setLiked] = useSkinState<string[]>(p, "mymyLiked", []),
     [saved, setSaved] = useSkinState<string[]>(p, "mymySaved", []),
@@ -636,6 +637,10 @@ export function MymyInstagram(p: SkinProps) {
       )}
     </div>
   );
+}
+export function MymyInstagram(p: SkinProps) {
+  const caller = p.items.find((item) => item.folder === "来电" || item.meta.call === "true");
+  return caller ? <InstagramCall p={p} caller={caller} /> : <MymyInstagramFeed p={p} />;
 }
 export function MymyX(p: SkinProps) {
   const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
