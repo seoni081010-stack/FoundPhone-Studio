@@ -70,23 +70,6 @@
       "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
     },
     {
-      "id": "kevin",
-      "likes": [
-        "创意文具",
-        "奇特魔法物品",
-        "艺术感"
-      ],
-      "preferredStores": [
-        "stationery",
-        "flourish",
-        "weasleys"
-      ],
-      "lessPreferredStores": [
-        "quidditch"
-      ],
-      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
-    },
-    {
       "id": "q",
       "likes": [
         "趣味小物",
