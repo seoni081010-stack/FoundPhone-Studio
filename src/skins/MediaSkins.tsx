@@ -103,15 +103,15 @@ export function SpotifySkin(p: Props) {
         <TrackPlayer
           item={track}
           onNext={() => {
-            const index = items.findIndex((i) => i.id === track.id);
-            setTrack(items[(index + 1) % items.length] ?? null);
+            const index = list.findIndex((i) => i.id === track.id);
+            setTrack(list[(index + 1) % list.length] ?? null);
           }}
           onPrevious={() => {
-            const index = items.findIndex((i) => i.id === track.id);
-            setTrack(items[(index - 1 + items.length) % items.length] ?? null);
+            const index = list.findIndex((i) => i.id === track.id);
+            setTrack(list[(index - 1 + list.length) % list.length] ?? null);
           }}
           onShuffle={() => {
-            const choices = items.filter((i) => i.id !== track.id);
+            const choices = list.filter((i) => i.id !== track.id);
             if (choices.length) setTrack(choices[Math.floor(Math.random() * choices.length)]);
           }}
         />
