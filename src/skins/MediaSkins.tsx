@@ -33,7 +33,7 @@ import {
   type Props,
 } from "./shared";
 function TrackPlayer({ item, onNext, onPrevious, onShuffle }: { item: Item; onNext: () => void; onPrevious: () => void; onShuffle: () => void }) {
-  return <SpotifyPlayer item={item} onNext={onNext} onPrevious={onPrevious} onShuffle={onShuffle} />;
+  return <SpotifyPlayer key={item.id} item={item} onNext={onNext} onPrevious={onPrevious} onShuffle={onShuffle} />;
 }
 export function SpotifySkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "홈");
