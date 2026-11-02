@@ -4,8 +4,8 @@ Status: design specification only; the runtime event engine is not yet implement
 
 ## Locked design decisions
 - Playable protagonist years: 5, 6, or 7. One selected academic year per playthrough (September through the following summer); no automatic year-up.
-- Male lead fixed years: 7 Jacob, Younghoon, Hyunjae; 6 Juyeon, Kevin, Q; 5 Sunwoo, Eric.
-- The protagonist's house and year do not restrict which of the eight leads can be romanced.
+- Male lead fixed years: 7 Jacob, Younghoon, Hyunjae; 6 Juyeon, Q; 5 Sunwoo, Eric.
+- The protagonist's house and year do not restrict which of the seven leads can be romanced.
 - Main story progresses automatically on an in-game calendar. Hidden scenes are discovered through voluntary exploration.
 - Hogwarts life is independent of romance: classes, homework, Quidditch, House Cup, Hogsmeade, holidays, exams.
 - Hogsmeade trips are scheduled and require appropriate permission; all playable years are at least year 5.
@@ -76,13 +76,12 @@ Important: do not mistake this specification for implemented functionality.
 ## Character school roles (confirmed)
 | Character | Year | House | Role |
 | --- | --- | --- | --- |
-| Hyunjae | 7 | Slytherin | Student council; gentle and reliable senior, secretly carrying a personal mystery |
+| Hyunjae | 7 | Gryffindor | Prefect |
 | Jacob | 7 | Hufflepuff | Student council |
-| Younghoon | 7 | Hufflepuff | No additional role decided |
+| Younghoon | 7 | Ravenclaw | Student |
 | Juyeon | 6 | Slytherin | Quidditch player |
-| Kevin | 6 | Ravenclaw | No additional role decided |
 | Q | 6 | Ravenclaw | Student council |
-| Sunwoo | 5 | Slytherin | Quidditch player |
+| Sunwoo | 5 | Gryffindor | Quidditch Chaser |
 | Eric | 5 | Gryffindor | Quidditch player |
 
 Student council is a game-specific student organization, distinct from Hogwarts prefects. Do not assign Quidditch positions, council ranks, or secret details without further creative decisions.
