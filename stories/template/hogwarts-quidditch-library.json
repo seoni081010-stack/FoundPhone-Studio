@@ -51,7 +51,21 @@
       "noOddsManipulation": true,
       "settlement": "比赛结束后按预设固定规则自动结算；赔率与奖励在实现前须明确",
       "optional": true,
-      "relationshipFlavorOnly": true
+      "relationshipFlavorOnly": true,
+      "fundingSource": "player spending wallet funded by weekly allowance; never auto-withdraw from Gringotts vault",
+      "lose": "stake permanently forfeited",
+      "win": "fixed prize specified before placing prediction; 80% of gross prize reserved for group drinks in Hogsmeade, 20% credited back to spending wallet",
+      "celebrationVenue": "Three Broomsticks, Hogsmeade",
+      "celebrationTiming": "after match if school-approved visit, otherwise next authorized Hogsmeade weekend",
+      "noAutomaticExtraChargeForCelebration": true,
+      "example": {
+        "stake": 5,
+        "grossPrize": 10,
+        "groupDrinks": 8,
+        "walletPrizeReturn": 2,
+        "netWalletChange": -3
+      },
+      "implementationStatus": "rules only; no wallet transactions or event runtime yet"
     }
   },
   "library": {
