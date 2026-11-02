@@ -36,11 +36,11 @@ function TrackPlayer({ item, onNext, onPrevious, onShuffle }: { item: Item; onNe
   return <SpotifyPlayer item={item} onNext={onNext} onPrevious={onPrevious} onShuffle={onShuffle} />;
 }
 export function SpotifySkin(p: Props) {
-  const { tab, setTab, q, setQ, items } = useContent(p, "首页");
+  const { tab, setTab, q, setQ, items } = useContent(p, "홈");
   const [playlist, setPlaylist] = useState(""),
     [track, setTrack] = useTrack(p, items);
   const list = playlist
-    ? items.filter((i) => (i.folder || "我的音乐") === playlist)
+    ? items.filter((i) => (i.folder || "내 음악") === playlist)
     : items;
   return (
     <div className="catalog-skin spotify-ui">
@@ -49,23 +49,23 @@ export function SpotifySkin(p: Props) {
         <div className="spotify-heading">
           <Avatar name={p.owner ?? "我"} />
           <button
-            className={tab === "首页" ? "selected" : ""}
+            className={tab === "홈" ? "selected" : ""}
             onClick={() => setTab("首页")}
           >
             音乐
           </button>
           <button
-            className={tab === "音乐库" ? "selected" : ""}
+            className={tab === "보관함" ? "selected" : ""}
             onClick={() => setTab("音乐库")}
           >
             音乐库
           </button>
         </div>
-        {tab === "搜索" && <SearchBox value={q} set={setQ} />}
-        <h1>{playlist || (tab === "音乐库" ? "音乐库" : "为你收藏")}</h1>
+        {tab === "搜索" && <SearchBox value={q} set={setQ} placeholder="검색" />}
+        <h1>{playlist || (tab === "音乐库" ? "보관함" : "추천 음악")}</h1>
         {!playlist && (
           <div className="spotify-playlists">
-            {groupItems(items, "我的音乐").map((g) => (
+            {groupItems(items, "내 음악").map((g) => (
               <button key={g} onClick={() => setPlaylist(g)}>
                 <Music size={29} />
                 <strong>{g}</strong>
@@ -75,7 +75,7 @@ export function SpotifySkin(p: Props) {
         )}
         {playlist && (
           <button className="playlist-back" onClick={() => setPlaylist("")}>
-            返回全部音乐
+            전체 재생목록
           </button>
         )}
         <div className="spotify-tracks">
@@ -117,7 +117,7 @@ export function SpotifySkin(p: Props) {
         />
       )}
       <Tabs
-        tabs={["首页", "搜索", "音乐库"]}
+        tabs={["홈", "검색", "보관함"]}
         value={tab}
         set={(t) => {
           setTab(t);
