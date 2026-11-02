@@ -5,7 +5,8 @@
     "固定课程来自12套学院年级课表，不随攻略对象改变",
     "同年级同时间同科目不代表必然同班，教学分组待进一步确认",
     "活动时间为游戏原创设定；与正式课程不冲突",
-    "教授配置、魁地奇比赛日、学生会权限、男主秘密尚待细化"
+    "格兰芬多不设置可互动的级长角色；三位指定级长分别代表斯莱特林、赫奇帕奇、拉文克劳",
+    "玩家选修课在角色创建或开学阶段确认后固定，不能逐节自行选课；课堂相遇需核对年级、学院分组、选课、时段"
   ],
   "characters": [
     {
@@ -13,7 +14,7 @@
       "name": "李贤在",
       "year": 7,
       "house": "Slytherin",
-      "role": "student_council",
+      "role": "prefect",
       "traits": [
         "温柔可靠的学长",
         "隐藏秘密"
@@ -84,14 +85,14 @@
         {
           "day": 1,
           "time": "17:00",
-          "activity": "学生会例会",
-          "location": "学生会活动室"
+          "activity": "级长例会",
+          "location": "级长会议室"
         },
         {
           "day": 3,
           "time": "17:00",
-          "activity": "学生会事务",
-          "location": "礼堂或公告栏"
+          "activity": "学院级长巡查与事务",
+          "location": "学院公共区域"
         }
       ]
     },
@@ -100,7 +101,7 @@
       "name": "裴俊英",
       "year": 7,
       "house": "Hufflepuff",
-      "role": "student_council",
+      "role": "prefect",
       "traits": [],
       "lessons": [
         {
@@ -168,14 +169,14 @@
         {
           "day": 1,
           "time": "17:00",
-          "activity": "学生会例会",
-          "location": "学生会活动室"
+          "activity": "级长例会",
+          "location": "级长会议室"
         },
         {
           "day": 3,
           "time": "17:00",
-          "activity": "学生会事务",
-          "location": "礼堂或公告栏"
+          "activity": "学院级长巡查与事务",
+          "location": "学院公共区域"
         }
       ]
     },
@@ -424,7 +425,7 @@
       "name": "池昌珉",
       "year": 6,
       "house": "Ravenclaw",
-      "role": "student_council",
+      "role": "prefect",
       "traits": [],
       "lessons": [
         {
@@ -492,14 +493,14 @@
         {
           "day": 1,
           "time": "17:00",
-          "activity": "学生会例会",
-          "location": "学生会活动室"
+          "activity": "级长例会",
+          "location": "级长会议室"
         },
         {
           "day": 3,
           "time": "17:00",
-          "activity": "学生会事务",
-          "location": "礼堂或公告栏"
+          "activity": "学院级长巡查与事务",
+          "location": "学院公共区域"
         }
       ]
     },
