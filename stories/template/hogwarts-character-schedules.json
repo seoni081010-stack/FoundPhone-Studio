@@ -1,0 +1,705 @@
+{
+  "version": 1,
+  "era": "Hogwarts AU",
+  "notes": [
+    "固定课程来自12套学院年级课表，不随攻略对象改变",
+    "同年级同时间同科目不代表必然同班，教学分组待进一步确认",
+    "活动时间为游戏原创设定；与正式课程不冲突",
+    "教授配置、魁地奇比赛日、学生会权限、男主秘密尚待细化"
+  ],
+  "characters": [
+    {
+      "id": "hyunjae",
+      "name": "李贤在",
+      "year": 7,
+      "house": "Slytherin",
+      "role": "student_council",
+      "traits": [
+        "温柔可靠的学长",
+        "隐藏秘密"
+      ],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 1,
+          "time": "17:00",
+          "activity": "学生会例会",
+          "location": "学生会活动室"
+        },
+        {
+          "day": 3,
+          "time": "17:00",
+          "activity": "学生会事务",
+          "location": "礼堂或公告栏"
+        }
+      ]
+    },
+    {
+      "id": "jacob",
+      "name": "裴俊英",
+      "year": 7,
+      "house": "Hufflepuff",
+      "role": "student_council",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 1,
+          "time": "17:00",
+          "activity": "学生会例会",
+          "location": "学生会活动室"
+        },
+        {
+          "day": 3,
+          "time": "17:00",
+          "activity": "学生会事务",
+          "location": "礼堂或公告栏"
+        }
+      ]
+    },
+    {
+      "id": "younghoon",
+      "name": "金泳勋",
+      "year": 7,
+      "house": "Hufflepuff",
+      "role": "student",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 2,
+          "time": "17:00",
+          "activity": "课后自由活动",
+          "location": "图书馆或校园公共区域"
+        }
+      ]
+    },
+    {
+      "id": "juyeon",
+      "name": "李柱延",
+      "year": 6,
+      "house": "Slytherin",
+      "role": "quidditch",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 1,
+          "time": "17:00",
+          "activity": "魁地奇训练",
+          "location": "魁地奇球场"
+        },
+        {
+          "day": 4,
+          "time": "17:00",
+          "activity": "魁地奇训练",
+          "location": "魁地奇球场"
+        }
+      ]
+    },
+    {
+      "id": "kevin",
+      "name": "文炯书",
+      "year": 6,
+      "house": "Ravenclaw",
+      "role": "student",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 2,
+          "time": "17:00",
+          "activity": "课后自由活动",
+          "location": "图书馆或校园公共区域"
+        }
+      ]
+    },
+    {
+      "id": "q",
+      "name": "池昌珉",
+      "year": 6,
+      "house": "Ravenclaw",
+      "role": "student_council",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 1,
+          "time": "17:00",
+          "activity": "学生会例会",
+          "location": "学生会活动室"
+        },
+        {
+          "day": 3,
+          "time": "17:00",
+          "activity": "学生会事务",
+          "location": "礼堂或公告栏"
+        }
+      ]
+    },
+    {
+      "id": "sunwoo",
+      "name": "金善旴",
+      "year": 5,
+      "house": "Slytherin",
+      "role": "quidditch",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "20:00",
+          "subject": "天文学"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 1,
+          "time": "17:00",
+          "activity": "魁地奇训练",
+          "location": "魁地奇球场"
+        },
+        {
+          "day": 4,
+          "time": "17:00",
+          "activity": "魁地奇训练",
+          "location": "魁地奇球场"
+        }
+      ]
+    },
+    {
+      "id": "eric",
+      "name": "孙英宰",
+      "year": 5,
+      "house": "Gryffindor",
+      "role": "quidditch",
+      "traits": [],
+      "lessons": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "占卜学"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "20:00",
+          "subject": "天文学"
+        }
+      ],
+      "weeklyActivities": [
+        {
+          "day": 1,
+          "time": "17:00",
+          "activity": "魁地奇训练",
+          "location": "魁地奇球场"
+        },
+        {
+          "day": 4,
+          "time": "17:00",
+          "activity": "魁地奇训练",
+          "location": "魁地奇球场"
+        }
+      ]
+    }
+  ]
+}
