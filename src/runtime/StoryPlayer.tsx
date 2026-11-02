@@ -17,7 +17,6 @@ const loveInterests = [
   { id: "hyunjae", name: "李贤在", english: "HYUNJAE" },
   { id: "juyeon", name: "李柱延", english: "JUYEON" },
   { id: "kevin", name: "文炯书", english: "KEVIN" },
-  { id: "new", name: "崔澯熙", english: "NEW" },
   { id: "q", name: "池昌珉", english: "Q" },
   { id: "sunwoo", name: "金善旴", english: "SUNWOO" },
   { id: "eric", name: "孙英宰", english: "ERIC" },
