@@ -16,7 +16,7 @@ import {
   Users,
   Video,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { safeMedia, type Item } from "../schema";
 import {
   Avatar,
