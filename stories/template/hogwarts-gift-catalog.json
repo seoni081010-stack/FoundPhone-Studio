@@ -92,6 +92,62 @@
       "name": "霍格莫德魔法用品店",
       "location": "霍格莫德",
       "category": "hogsmeade"
+    },
+    {
+      "id": "leaky-cauldron",
+      "name": "破釜酒吧",
+      "location": "对角巷入口",
+      "category": "餐饮",
+      "onlineDelivery": false
+    },
+    {
+      "id": "florean",
+      "name": "福洛林·福斯科冰淇淋店",
+      "location": "对角巷",
+      "category": "餐饮",
+      "onlineDelivery": false
+    },
+    {
+      "id": "scribbulus",
+      "name": "斯克里布·波尔斯羽毛笔店",
+      "location": "对角巷",
+      "category": "文具",
+      "onlineDelivery": true
+    },
+    {
+      "id": "quality-quidditch",
+      "name": "魁地奇精品店（扩展）",
+      "location": "对角巷",
+      "category": "运动",
+      "onlineDelivery": true
+    },
+    {
+      "id": "magical-menagerie",
+      "name": "神奇动物园",
+      "location": "对角巷",
+      "category": "宠物",
+      "onlineDelivery": true
+    },
+    {
+      "id": "apothecary",
+      "name": "药材店",
+      "location": "对角巷",
+      "category": "魔药",
+      "onlineDelivery": true
+    },
+    {
+      "id": "wiseacres",
+      "name": "维泽埃克魔法用品店",
+      "location": "对角巷",
+      "category": "魔法器具",
+      "onlineDelivery": true
+    },
+    {
+      "id": "twilfitt",
+      "name": "特威菲特和塔廷服装店",
+      "location": "对角巷",
+      "category": "服饰",
+      "onlineDelivery": true
     }
   ],
   "items": [
@@ -1131,6 +1187,261 @@
       "tier": "medium",
       "giftable": true,
       "auOriginal": false
+    },
+    {
+      "id": "leaky-cauldron-1",
+      "name": "双人烤肉餐",
+      "storeId": "leaky-cauldron",
+      "location": "对角巷入口",
+      "priceKnuts": 103530,
+      "displayPrice": {
+        "galleons": 210,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "special",
+      "giftable": false,
+      "auOriginal": true
+    },
+    {
+      "id": "leaky-cauldron-2",
+      "name": "热南瓜汁与甜点",
+      "storeId": "leaky-cauldron",
+      "location": "对角巷入口",
+      "priceKnuts": 36975,
+      "displayPrice": {
+        "galleons": 75,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": false,
+      "auOriginal": true
+    },
+    {
+      "id": "florean-1",
+      "name": "双人魔法冰淇淋拼盘",
+      "storeId": "florean",
+      "location": "对角巷",
+      "priceKnuts": 44370,
+      "displayPrice": {
+        "galleons": 90,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "special",
+      "giftable": false,
+      "auOriginal": true
+    },
+    {
+      "id": "florean-2",
+      "name": "巧克力冰淇淋礼盒",
+      "storeId": "florean",
+      "location": "对角巷",
+      "priceKnuts": 23664,
+      "displayPrice": {
+        "galleons": 48,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": false,
+      "auOriginal": true
+    },
+    {
+      "id": "scribbulus-1",
+      "name": "精致速记羽毛笔",
+      "storeId": "scribbulus",
+      "location": "对角巷",
+      "priceKnuts": 32045,
+      "displayPrice": {
+        "galleons": 65,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "scribbulus-2",
+      "name": "魔法墨水套装",
+      "storeId": "scribbulus",
+      "location": "对角巷",
+      "priceKnuts": 20706,
+      "displayPrice": {
+        "galleons": 42,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "scribbulus-3",
+      "name": "羊皮纸礼盒",
+      "storeId": "scribbulus",
+      "location": "对角巷",
+      "priceKnuts": 17255,
+      "displayPrice": {
+        "galleons": 35,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "quality-quidditch-1",
+      "name": "魁地奇护腕",
+      "storeId": "quality-quidditch",
+      "location": "对角巷",
+      "priceKnuts": 27115,
+      "displayPrice": {
+        "galleons": 55,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "quality-quidditch-2",
+      "name": "球队纪念围巾",
+      "storeId": "quality-quidditch",
+      "location": "对角巷",
+      "priceKnuts": 32045,
+      "displayPrice": {
+        "galleons": 65,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "magical-menagerie-1",
+      "name": "宠物护理礼盒",
+      "storeId": "magical-menagerie",
+      "location": "对角巷",
+      "priceKnuts": 32045,
+      "displayPrice": {
+        "galleons": 65,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "magical-menagerie-2",
+      "name": "猫头鹰玩具",
+      "storeId": "magical-menagerie",
+      "location": "对角巷",
+      "priceKnuts": 19720,
+      "displayPrice": {
+        "galleons": 40,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "apothecary-1",
+      "name": "魔药材料礼盒",
+      "storeId": "apothecary",
+      "location": "对角巷",
+      "priceKnuts": 36975,
+      "displayPrice": {
+        "galleons": 75,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "apothecary-2",
+      "name": "精致玻璃药瓶组",
+      "storeId": "apothecary",
+      "location": "对角巷",
+      "priceKnuts": 27115,
+      "displayPrice": {
+        "galleons": 55,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "medium",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "wiseacres-1",
+      "name": "黄铜望远镜",
+      "storeId": "wiseacres",
+      "location": "对角巷",
+      "priceKnuts": 59160,
+      "displayPrice": {
+        "galleons": 120,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "special",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "wiseacres-2",
+      "name": "精美星象仪",
+      "storeId": "wiseacres",
+      "location": "对角巷",
+      "priceKnuts": 78880,
+      "displayPrice": {
+        "galleons": 160,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "special",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "twilfitt-1",
+      "name": "高级巫师围巾",
+      "storeId": "twilfitt",
+      "location": "对角巷",
+      "priceKnuts": 46835,
+      "displayPrice": {
+        "galleons": 95,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "special",
+      "giftable": true,
+      "auOriginal": true
+    },
+    {
+      "id": "twilfitt-2",
+      "name": "精致礼服手套",
+      "storeId": "twilfitt",
+      "location": "对角巷",
+      "priceKnuts": 54230,
+      "displayPrice": {
+        "galleons": 110,
+        "sickles": 0,
+        "knuts": 0
+      },
+      "tier": "special",
+      "giftable": true,
+      "auOriginal": true
     }
   ],
   "rules": {
@@ -1157,7 +1468,15 @@
       "eylops",
       "borgin",
       "cauldron",
-      "weasleys"
+      "weasleys",
+      "leaky-cauldron",
+      "florean",
+      "scribbulus",
+      "quality-quidditch",
+      "magical-menagerie",
+      "apothecary",
+      "wiseacres",
+      "twilfitt"
     ],
     "hogsmeadeOnly": [
       "honeydukes",
@@ -1167,11 +1486,15 @@
       "stationery",
       "souvenir",
       "charms"
-    ]
+    ],
+    "onlineDeliveryOnlyForPhysicalGoods": true,
+    "weekdayOwlDelivery": true,
+    "inPersonVisitsRequireSchedulePermission": true
   },
   "notes": [
     "商品价格均为游戏 AU 自定，并非原著官方标价",
     "某些商店礼物、仿制品、纪念品为游戏扩展商品",
-    "恶作剧物品不得用于伤害人物，魔药小瓶不含危险药剂"
+    "恶作剧物品不得用于伤害人物，魔药小瓶不含危险药剂",
+    "新增对角巷原著地点及 AU 商品；餐饮服务不可线上配送，实体商品可猫头鹰配送"
   ]
 }
