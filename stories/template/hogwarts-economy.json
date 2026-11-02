@@ -24,13 +24,8 @@
     },
     "totalGalleons": 55000
   },
-  "monthlyAllowanceGalleons": {
-    "5": 1500,
-    "6": 2000,
-    "7": 2400
-  },
   "allowanceSource": "父母",
-  "allowanceFrequency": "每游戏月一次",
+  "allowanceFrequency": "每游戏周一次（周一早晨）",
   "freeCosts": [
     "学费",
     "住宿费",
@@ -48,6 +43,18 @@
   "notes": [
     "金额直接定义为加隆，不使用现实货币换算",
     "金库与钱包分开记录，避免重复计数",
-    "金库提款、购物、送礼和每月生活费尚待接入运行时"
-  ]
+    "金库提款、购物、送礼和每月生活费尚待接入运行时",
+    "礼物商店采用游戏原创低价；每周零花钱远高于常规礼物支出，保持充足结余"
+  ],
+  "weeklyAllowanceGalleons": {
+    "5": 1500,
+    "6": 2000,
+    "7": 2400
+  },
+  "allowanceRules": {
+    "depositTarget": "wallet",
+    "idempotencyKey": "schoolYear-weekNumber",
+    "notification": "父母猫头鹰汇款通知",
+    "noRepeatedPayout": true
+  }
 }
