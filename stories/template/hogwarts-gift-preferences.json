@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "preferences": [
+    {
+      "id": "jacob",
+      "likes": [
+        "温暖实用",
+        "书籍",
+        "手工小物"
+      ],
+      "preferredStores": [
+        "flourish",
+        "malkins",
+        "puddifoot"
+      ],
+      "lessPreferredStores": [
+        "weasleys"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "younghoon",
+      "likes": [
+        "甜食",
+        "温暖织物",
+        "精致小物"
+      ],
+      "preferredStores": [
+        "honeydukes",
+        "malkins",
+        "puddifoot"
+      ],
+      "lessPreferredStores": [
+        "zonkos"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "hyunjae",
+      "likes": [
+        "古典书籍",
+        "精致魔法用品",
+        "贴心的实用品"
+      ],
+      "preferredStores": [
+        "flourish",
+        "ollivanders",
+        "charms"
+      ],
+      "lessPreferredStores": [
+        "zonkos"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "juyeon",
+      "likes": [
+        "魁地奇",
+        "实用装备",
+        "安静的心意"
+      ],
+      "preferredStores": [
+        "quidditch",
+        "malkins",
+        "threebroomsticks"
+      ],
+      "lessPreferredStores": [
+        "zonkos"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "kevin",
+      "likes": [
+        "创意文具",
+        "奇特魔法物品",
+        "艺术感"
+      ],
+      "preferredStores": [
+        "stationery",
+        "flourish",
+        "weasleys"
+      ],
+      "lessPreferredStores": [
+        "quidditch"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "q",
+      "likes": [
+        "趣味小物",
+        "魔法研究",
+        "意外惊喜"
+      ],
+      "preferredStores": [
+        "zonkos",
+        "weasleys",
+        "flourish"
+      ],
+      "lessPreferredStores": [
+        "malkins"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "sunwoo",
+      "likes": [
+        "机智恶作剧",
+        "魁地奇",
+        "有个性的饰品"
+      ],
+      "preferredStores": [
+        "weasleys",
+        "zonkos",
+        "quidditch"
+      ],
+      "lessPreferredStores": [
+        "puddifoot"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    },
+    {
+      "id": "eric",
+      "likes": [
+        "魁地奇",
+        "甜食",
+        "热闹有趣的小礼物"
+      ],
+      "preferredStores": [
+        "quidditch",
+        "honeydukes",
+        "zonkos"
+      ],
+      "lessPreferredStores": [
+        "flourish"
+      ],
+      "notes": "偏好为本游戏人物性格推演，不代表真人本人偏好"
+    }
+  ],
+  "mechanics": {
+    "preferredStoreBonus": 2,
+    "ordinaryGiftBonus": 1,
+    "lessPreferredStoreBonus": 0,
+    "repeatGiftDiminishing": true,
+    "noGiftingOwnedWands": true
+  }
+}
