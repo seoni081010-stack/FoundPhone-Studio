@@ -47,22 +47,22 @@ export function SpotifySkin(p: Props) {
       <Header p={p} />
       <div className="catalog-scroll">
         <div className="spotify-heading">
-          <Avatar name={p.owner ?? "我"} />
+          <Avatar name={p.owner ?? "나"} />
           <button
             className={tab === "홈" ? "selected" : ""}
-            onClick={() => setTab("首页")}
+            onClick={() => setTab("홈")}
           >
-            音乐
+            음악
           </button>
           <button
             className={tab === "보관함" ? "selected" : ""}
-            onClick={() => setTab("音乐库")}
+            onClick={() => setTab("보관함")}
           >
-            音乐库
+            보관함
           </button>
         </div>
-        {tab === "搜索" && <SearchBox value={q} set={setQ} placeholder="검색" />}
-        <h1>{playlist || (tab === "音乐库" ? "보관함" : "추천 음악")}</h1>
+        {tab === "검색" && <SearchBox value={q} set={setQ} placeholder="검색" />}
+        <h1>{playlist || (tab === "보관함" ? "보관함" : "추천 음악")}</h1>
         {!playlist && (
           <div className="spotify-playlists">
             {groupItems(items, "내 음악").map((g) => (
@@ -97,7 +97,7 @@ export function SpotifySkin(p: Props) {
             </button>
           ))}
         </div>
-        <Empty items={list} />
+        <Empty items={list} label="콘텐츠가 없습니다" />
       </div>
       {track && (
         <TrackPlayer
