@@ -114,3 +114,15 @@ type Lesson = {
 
 ## Additional course
 | Alchemy / 炼金术 | No fixed instructor named in the books / 原著未指定固定教师 | Only offered when enough students enroll; classroom unspecified | Optional advanced elective, availability conditional |
+
+
+## Elective course reference (creator-supplied)
+| Course | Instructor | Location | Timeline notes |
+| --- | --- | --- | --- |
+| Divination / 占卜学 | Sybill Trelawney / 西比尔·特里劳妮; later also Firenze / 费伦泽 | Top of North Tower, accessed by trapdoor; incense-filled circular room | Instructor assignment depends on chosen school year; Firenze may teach in a different classroom |
+| Arithmancy / 算术占卜 | Septima Vector / 塞普蒂默斯·薇朵 | Separate classroom; exact location unspecified | Elective, continued at advanced levels if enrolled |
+| Study of Ancient Runes / 古代如尼文 | Bathsheda Babbling / 巴希达·巴伯林 | Separate classroom; exact location unspecified | Elective, continued at advanced levels if enrolled |
+| Muggle Studies / 麻瓜研究 | Charity Burbage / 凯瑞迪·布巴吉; later Alecto Carrow / 阿莱克托·卡罗 | Muggle Studies classroom, precise location unspecified | Under Voldemort's regime the subject is transformed into anti-Muggle propaganda; never blend those eras accidentally |
+| Care of Magical Creatures / 保护神奇生物 | Rubeus Hagrid / 鲁伯·海格; substitute Wilhelmina Grubbly-Plank / 威尔米娜·格拉普兰 | Hogwarts grounds, Forbidden Forest edge, near Hagrid's hut | Instructor/substitute varies with story year |
+
+These are reference entries, not proof that every player automatically takes all five subjects. Elective enrollment, year, house teaching group, and school-year timeline determine lesson attendance and encounters. Keep unspecified classroom locations unspecified rather than inventing canon details. Note that Firenze's lessons may use a ground-floor classroom, rather than the North Tower room used by Trelawney.
