@@ -3,17 +3,16 @@
   "era": "Hogwarts AU",
   "notes": [
     "固定课程来自12套学院年级课表，不随攻略对象改变",
-    "同年级同时间同科目不代表必然同班，教学分组待进一步确认",
     "活动时间为游戏原创设定；与正式课程不冲突",
-    "格兰芬多不设置可互动的级长角色；三位指定级长分别代表斯莱特林、赫奇帕奇、拉文克劳",
-    "玩家选修课在角色创建或开学阶段确认后固定，不能逐节自行选课；课堂相遇需核对年级、学院分组、选课、时段"
+    "玩家选修课在角色创建或开学阶段确认后固定，不能逐节自行选课；课堂相遇需核对年级、学院分组、选课、时段",
+    "硬规则：同年级且同学院的玩家与男主属于同班，使用完全相同的固定课程表；任何课堂事件必须遵守课程时间。"
   ],
   "characters": [
     {
       "id": "hyunjae",
       "name": "李贤在",
       "year": 7,
-      "house": "Slytherin",
+      "house": "Gryffindor",
       "role": "prefect",
       "traits": [
         "温柔可靠的学长",
@@ -28,7 +27,7 @@
         {
           "day": 0,
           "time": "11:00",
-          "subject": "古代如尼文"
+          "subject": "保护神奇生物"
         },
         {
           "day": 0,
@@ -58,7 +57,7 @@
         {
           "day": 2,
           "time": "14:00",
-          "subject": "保护神奇生物"
+          "subject": "占卜学"
         },
         {
           "day": 3,
@@ -68,7 +67,7 @@
         {
           "day": 3,
           "time": "11:00",
-          "subject": "古代如尼文"
+          "subject": "保护神奇生物"
         },
         {
           "day": 3,
@@ -78,7 +77,7 @@
         {
           "day": 4,
           "time": "14:00",
-          "subject": "保护神奇生物"
+          "subject": "占卜学"
         }
       ],
       "weeklyActivities": [
@@ -184,7 +183,7 @@
       "id": "younghoon",
       "name": "金泳勋",
       "year": 7,
-      "house": "Hufflepuff",
+      "house": "Ravenclaw",
       "role": "student",
       "traits": [],
       "lessons": [
@@ -201,7 +200,7 @@
         {
           "day": 0,
           "time": "14:00",
-          "subject": "麻瓜研究"
+          "subject": "算术占卜"
         },
         {
           "day": 1,
@@ -216,7 +215,7 @@
         {
           "day": 2,
           "time": "09:00",
-          "subject": "保护神奇生物"
+          "subject": "古代如尼文"
         },
         {
           "day": 2,
@@ -241,12 +240,12 @@
         {
           "day": 3,
           "time": "14:00",
-          "subject": "麻瓜研究"
+          "subject": "算术占卜"
         },
         {
           "day": 4,
           "time": "09:00",
-          "subject": "保护神奇生物"
+          "subject": "古代如尼文"
         }
       ],
       "weeklyActivities": [
@@ -346,68 +345,68 @@
       "id": "kevin",
       "name": "文炯书",
       "year": 6,
-      "house": "Ravenclaw",
+      "house": "Slytherin",
       "role": "student",
       "traits": [],
       "lessons": [
         {
           "day": 0,
           "time": "09:00",
-          "subject": "魔咒学"
+          "subject": "保护神奇生物"
         },
         {
           "day": 0,
           "time": "11:00",
-          "subject": "算术占卜"
+          "subject": "变形术"
         },
         {
           "day": 0,
           "time": "14:00",
-          "subject": "变形术"
+          "subject": "魔咒学"
         },
         {
           "day": 1,
-          "time": "09:00",
-          "subject": "黑魔法防御术"
-        },
-        {
-          "day": 1,
-          "time": "14:00",
+          "time": "11:00",
           "subject": "魔药学"
         },
         {
-          "day": 2,
-          "time": "09:00",
-          "subject": "变形术"
+          "day": 1,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
         },
         {
           "day": 2,
-          "time": "11:00",
+          "time": "09:00",
           "subject": "魔咒学"
         },
         {
           "day": 2,
-          "time": "14:00",
+          "time": "11:00",
           "subject": "古代如尼文"
         },
         {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
           "day": 3,
           "time": "09:00",
-          "subject": "魔药学"
+          "subject": "保护神奇生物"
         },
         {
           "day": 3,
           "time": "11:00",
-          "subject": "算术占卜"
+          "subject": "黑魔法防御术"
         },
         {
           "day": 3,
           "time": "14:00",
-          "subject": "黑魔法防御术"
+          "subject": "魔药学"
         },
         {
           "day": 4,
-          "time": "14:00",
+          "time": "11:00",
           "subject": "古代如尼文"
         }
       ],
@@ -508,7 +507,7 @@
       "id": "sunwoo",
       "name": "金善旴",
       "year": 5,
-      "house": "Slytherin",
+      "house": "Gryffindor",
       "role": "quidditch",
       "traits": [],
       "lessons": [
@@ -570,7 +569,7 @@
         {
           "day": 3,
           "time": "14:00",
-          "subject": "古代如尼文"
+          "subject": "占卜学"
         },
         {
           "day": 4,
