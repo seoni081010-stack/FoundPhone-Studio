@@ -179,5 +179,29 @@
     },
     "hiddenEvents": "Map shows character locations but never event labels, affection opportunities, or trigger hints; player must reach correct place during event window",
     "implementationNote": "Design JSON only; app icon, map screen, animations and clock integration require future frontend/runtime work"
+  },
+  "firstSnowEvent": {
+    "date": "2026-12-06",
+    "weekday": "Sunday",
+    "weather": "First snowfall across Hogwarts regardless of route",
+    "trigger": "Optional hidden encounter: player reaches the selected lead's correct location within its event window; Marauder's Map shows location but never event hint",
+    "flag": "firstSnowEncounterByLead",
+    "endingCallback": {
+      "date": "2026-12-31",
+      "conditional": true,
+      "requires": "firstSnowEncounterByLead[selectedMainLead] == true",
+      "relationshipRule": "Only romance score 100 yields couple ending; below 100 remains ambiguous",
+      "missedEvent": "No penalty, no blocked 100% romance; alternate ending dialogue without false shared memories",
+      "hyunjae": {
+        "motif": "Scarf lent during Dec 6 snowfall and his reminder to dress warmly",
+        "example": [
+          "12月6日：下次下雪，记得穿暖和一点。",
+          "12月31日：这次倒是记得穿暖和了。",
+          "那以后也让我继续念叨吧。"
+        ],
+        "note": "Illustrative draft; exact wording subject to story approval"
+      }
+    },
+    "status": "design only; first snow and callback scenes not yet implemented"
   }
 }
