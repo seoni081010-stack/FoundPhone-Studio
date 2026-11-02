@@ -53,19 +53,20 @@
       "optional": true,
       "relationshipFlavorOnly": true,
       "fundingSource": "player spending wallet funded by weekly allowance; never auto-withdraw from Gringotts vault",
-      "lose": "stake permanently forfeited",
-      "win": "fixed prize specified before placing prediction; 80% of gross prize reserved for group drinks in Hogsmeade, 20% credited back to spending wallet",
+      "lose": "Player stake is forfeited; no refund and no celebration entitlement from this prediction.",
+      "win": "No cash payout to player. Winning team allocates 80% of the match prediction pool to drinks for students who backed that winning team; remaining 20% retained by winning Quidditch team members.",
       "celebrationVenue": "Three Broomsticks, Hogsmeade",
       "celebrationTiming": "after match if school-approved visit, otherwise next authorized Hogsmeade weekend",
-      "noAutomaticExtraChargeForCelebration": true,
       "example": {
-        "stake": 5,
-        "grossPrize": 10,
-        "groupDrinks": 8,
-        "walletPrizeReturn": 2,
-        "netWalletChange": -3
+        "totalPredictionPool": 100,
+        "drinksForWinningTeamBackers": 80,
+        "retainedByWinningTeamMembers": 20,
+        "playerCashReturn": 0
       },
-      "implementationStatus": "rules only; no wallet transactions or event runtime yet"
+      "implementationStatus": "rules only; no wallet transactions or event runtime yet",
+      "poolDefinition": "Total student prediction stakes collected for the match; distribution applies to this pooled amount.",
+      "playerCashPrize": false,
+      "teamPaysForSupporters": true
     }
   },
   "library": {
