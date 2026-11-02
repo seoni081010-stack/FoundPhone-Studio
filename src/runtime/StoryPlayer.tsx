@@ -12,14 +12,13 @@ const houses = [
   { id: "hufflepuff", name: "赫奇帕奇", english: "Hufflepuff", symbol: "❖", trait: "忠诚 · 公平 · 勤奋" },
 ] as const;
 const loveInterests = [
-  { id: "jacob", name: "裴俊英", english: "JACOB" },
-  { id: "younghoon", name: "金泳勋", english: "YOUNGHOON" },
-  { id: "hyunjae", name: "李贤在", english: "HYUNJAE" },
-  { id: "juyeon", name: "李柱延", english: "JUYEON" },
-  { id: "kevin", name: "文炯书", english: "KEVIN" },
-  { id: "q", name: "池昌珉", english: "Q" },
-  { id: "sunwoo", name: "金善旴", english: "SUNWOO" },
-  { id: "eric", name: "孙英宰", english: "ERIC" },
+  { id: "jacob", name: "裴俊英", english: "JACOB", house: "hufflepuff" },
+  { id: "younghoon", name: "金泳勋", english: "YOUNGHOON", house: "hufflepuff" },
+  { id: "hyunjae", name: "李贤在", english: "HYUNJAE", house: "slytherin" },
+  { id: "juyeon", name: "李柱延", english: "JUYEON", house: "slytherin" },
+  { id: "q", name: "池昌珉", english: "Q", house: "ravenclaw" },
+  { id: "sunwoo", name: "金善旴", english: "SUNWOO", house: "slytherin" },
+  { id: "eric", name: "孙英宰", english: "ERIC", house: "gryffindor" },
 ] as const;
 type Identity = { name: string; house: string; year: number; loveInterest: string };
 const storageKey = "foundphone-hogwarts-identity-v1";
@@ -96,7 +95,7 @@ function StoryPlayer() {
               <p className="hogwarts-love-note">THE BOYZ · 霍格沃茨平行世界。请选择你想攻略的角色。</p>
               <div className="hogwarts-love-grid" role="group" aria-label="选择攻略男主">
                 {loveInterests.map(m => <button key={m.id} type="button" className={`hogwarts-love-card ${loveInterest === m.id ? "selected" : ""}`} aria-pressed={loveInterest === m.id} onClick={() => setLoveInterest(m.id)}>
-                  <strong>{m.name}</strong><small>{m.english}</small>
+                  <strong>{m.name}</strong><small>{m.english}</small><small>{houses.find(h => h.id === m.house)?.name}</small>
                 </button>)}
               </div>
               <button className="hogwarts-enter" type="button" disabled={!name.trim() || !house || !loveInterest} onClick={confirm}>确认身份 · 进入魔法世界 →</button>
