@@ -21,3 +21,31 @@
     background: #000;
   }
 }
+
+
+/* Hogwarts identity gate: scoped to the public story player. */
+.hogwarts-entry { width:100%;height:100%;overflow-y:auto;background:radial-gradient(ellipse at top,#35433c 0%,#171e1b 48%,#090e0d 100%);color:#f5ead0;padding:24px 16px;box-sizing:border-box; }
+.hogwarts-form { max-width:620px;margin:0 auto;padding:20px 0 45px;text-align:center; }
+.hogwarts-crest { font-family:Georgia,serif;font-size:44px;color:#d6b976;letter-spacing:10px;margin-bottom:16px; }
+.hogwarts-eyebrow { font-size:10px;letter-spacing:2.5px;color:#cdbb95;line-height:1.7; }
+.hogwarts-form h1 { font-family:Georgia,"Noto Serif SC",serif;font-size:clamp(25px,6vw,38px);font-weight:500;margin:15px 0; }
+.hogwarts-intro { color:#c5bdad;font-size:14px;line-height:1.9;margin:0 auto 26px;max-width:410px; }
+.hogwarts-label { display:block;text-align:left;font-size:14px;font-weight:600;margin:22px 0 10px;color:#e9d6a9; }
+.hogwarts-input { width:100%;box-sizing:border-box;border:1px solid #77694d;background:#1a2421;color:#fff1d3;padding:14px 15px;border-radius:8px;font-size:16px; }
+.hogwarts-input:focus-visible,.hogwarts-house:focus-visible,.hogwarts-enter:focus-visible,.hogwarts-reset:focus-visible { outline:2px solid #e5c57d;outline-offset:3px; }
+.hogwarts-houses { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+.hogwarts-house { min-width:0;border:1px solid #6c6657;border-radius:10px;padding:15px 8px;display:flex;align-items:center;flex-direction:column;gap:5px;color:#fff4dd;background:#1d2726;cursor:pointer;transition:transform .15s,border-color .15s; }
+.hogwarts-house.selected { border:2px solid #f1d38a;box-shadow:0 0 0 2px #e6bd5340;transform:translateY(-2px); }
+.hogwarts-house.gryffindor { background:linear-gradient(145deg,#572321,#261b1d); }
+.hogwarts-house.slytherin { background:linear-gradient(145deg,#164a3c,#162522); }
+.hogwarts-house.ravenclaw { background:linear-gradient(145deg,#233f62,#1a2639); }
+.hogwarts-house.hufflepuff { background:linear-gradient(145deg,#5a4824,#28251b); }
+.hogwarts-symbol { font-size:27px;color:#e8cc8a; }
+.hogwarts-house strong { font-size:17px; }
+.hogwarts-house small { font-size:12px;color:#ddcba9; }
+.hogwarts-trait { font-size:11px;color:#d2c4b4;margin-top:5px; }
+.hogwarts-enter { display:block;width:100%;margin-top:28px;padding:15px 10px;border:0;border-radius:8px;background:#d8bd80;color:#211b10;font-weight:700;font-size:15px;cursor:pointer; }
+.hogwarts-enter:disabled { opacity:.45;cursor:not-allowed; }
+.hogwarts-footnote { font-size:11px;color:#a99e88;margin-top:14px; }
+.hogwarts-reset { position:fixed;z-index:200;right:12px;top:12px;max-width:calc(100vw - 24px);padding:7px 10px;border:1px solid #b99e67;border-radius:20px;background:#1a2522e8;color:#f4deb1;font-size:11px;cursor:pointer; }
+@media(min-width:700px) { .hogwarts-entry { padding-top:35px; } }
