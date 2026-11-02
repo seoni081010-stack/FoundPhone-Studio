@@ -90,10 +90,10 @@ export function SpotifyPlayer({ item, onNext, onPrevious, onShuffle }: {
       </div>
       <div className="spotify-full-controls">
         <button aria-label="셔플" onClick={onShuffle}>⤨</button>
-        <button aria-label="上一首" onClick={onPrevious}><SkipBack /></button>
-        <button className="spotify-big-play" aria-label={playing ? "일시정지" : "播放"} onClick={toggle}>{playing ? "Ⅱ" : "▶"}</button>
-        <button aria-label="下一首" onClick={onNext}><SkipForward /></button>
-        <button aria-label="循环" aria-pressed={repeat} onClick={() => setRepeat(!repeat)}>↻</button>
+        <button aria-label="이전 곡" onClick={onPrevious}><SkipBack /></button>
+        <button className="spotify-big-play" aria-label={playing ? "일시정지" : "재생"} onClick={toggle}>{playing ? "Ⅱ" : "▶"}</button>
+        <button aria-label="다음 곡" onClick={onNext}><SkipForward /></button>
+        <button aria-label="반복" aria-pressed={repeat} onClick={() => setRepeat(!repeat)}>↻</button>
       </div>
     </div>}
   </>;
