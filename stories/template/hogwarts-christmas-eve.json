@@ -33,10 +33,10 @@
     "declineDoesNotEndRoute": true,
     "inviteBeforeEvent": true,
     "availability": "All leads physically present; acceptance may still depend on relationship and existing partner",
-    "playerInvitesLead": "always_accept",
-    "leadInvitesPlayer": "player_can_accept_or_decline",
-    "acceptanceIndependentOfAffection": true,
-    "playerDeclineHasNoRelationshipPenalty": true,
+    "playerInvitesLead": "always_accept_if_affection_at_least_40",
+    "leadInvitesPlayer": "only_if_affection_at_least_60_and_story_conditions; player_can_accept_or_decline",
+    "acceptanceIndependentOfAffection": false,
+    "playerDeclineHasNoRelationshipPenalty": false,
     "playerCanReinviteBeforeBall": true,
     "leadOtherRomanticPartners": false,
     "leadOtherDancePartners": false,
@@ -123,7 +123,24 @@
     "No forced shopping or daily food clicks",
     "Invitation dialogue varies by lead personality and player relationship",
     "Event logic must be wired to game clock and holiday locations",
-    "Dream-romance rule: all player invitations to a lead are accepted; lead invitations may be declined by player without penalty; no romantic rivals or other lead dance partners."
+    "Dream-romance rule: all player invitations to a lead are accepted; lead invitations may be declined by player without penalty; no romantic rivals or other lead dance partners.",
+    "Affection thresholds and deltas are provisional balance values; user can tune them during character-by-character story review."
   ],
-  "status": "design specification only; not yet playable"
+  "status": "design specification only; not yet playable",
+  "affection": {
+    "scale": {
+      "min": 0,
+      "max": 100
+    },
+    "proposedBalancing": true,
+    "playerInviteUnlockAt": 40,
+    "leadInitiatedInviteAt": 60,
+    "acceptLeadInvitationDelta": 5,
+    "declineLeadInvitationDelta": -8,
+    "belowThreshold": "player invitation unavailable",
+    "playerInviteAtThreshold": "lead always accepts",
+    "leadInvitation": "only if threshold and story conditions met",
+    "reinvite": "allowed if player currently meets invitation threshold and before ball",
+    "display": "optional hidden numeric value with relationship stages in heart profile"
+  }
 }
