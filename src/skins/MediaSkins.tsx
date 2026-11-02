@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { safeMedia, type Item } from "../schema";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 import {
   Avatar,
   Empty,
@@ -30,34 +31,8 @@ import {
   useContent,
   type Props,
 } from "./shared";
-function TrackPlayer({
-  item,
-  p,
-  onNext,
-}: {
-  item: Item;
-  p: Props;
-  onNext: () => void;
-}) {
-  return (
-    <div className="track-player">
-      <button onClick={() => p.onItem(item)}>
-        <Music size={20} />
-        <span>
-          {item.title}
-          <small>{item.sender}</small>
-        </span>
-      </button>
-      {item.kind === "audio" && safeMedia(item.media) ? (
-        <AudioPlayer p={p} item={item} />
-      ) : (
-        <button onClick={() => p.onItem(item)}>查看</button>
-      )}
-      <button aria-label="下一首" onClick={onNext}>
-        <SkipForward size={19} />
-      </button>
-    </div>
-  );
+function TrackPlayer({ item, p, onNext, onPrevious }: { item: Item; p: Props; onNext: () => void; onPrevious: () => void }) {
+  return <SpotifyPlayer item={item} p={p} onNext={onNext} onPrevious={onPrevious} />;
 }
 export function SpotifySkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
@@ -127,13 +102,14 @@ export function SpotifySkin(p: Props) {
         <TrackPlayer
           item={track}
           p={p}
-          onNext={() =>
-            setTrack(
-              items[
-                (items.findIndex((i) => i.id === track.id) + 1) % items.length
-              ],
-            )
-          }
+          onNext={() => {
+            const index = items.findIndex((i) => i.id === track.id);
+            setTrack(items[(index + 1) % items.length] ?? null);
+          }}
+          onPrevious={() => {
+            const index = items.findIndex((i) => i.id === track.id);
+            setTrack(items[(index - 1 + items.length) % items.length] ?? null);
+          }}
         />
       )}
       <Tabs
