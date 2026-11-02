@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Phone } from "../Phone";
+import { MagicalShops } from "./MagicalShops";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
 import "./player.css";
@@ -133,6 +134,7 @@ function StoryPlayer() {
           <>
             {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
             <Phone work={work} />
+            {!isTest && identity && <MagicalShops key={identity.name+"-"+identity.house+"-"+identity.year} identityKey={identity.name+"-"+identity.house+"-"+identity.year} leadId={identity.loveInterest} />}
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}
