@@ -65,7 +65,10 @@
       ],
       "responseToAcceptance": "quietly visibly happy, warm and restrained",
       "responseToRejection": "respectful but disappointed; affection decreases according to his personality modifier",
-      "thirdWeekStatus": "user-approved gentle tentative invitation"
+      "thirdWeekStatus": "user-approved gentle tentative invitation",
+      "house": "Gryffindor",
+      "year": 7,
+      "sameYearSameHouseOpening": "Already classmates before December; no first introductions, protagonist starts deliberately approaching him in December"
     }
   },
   "status": "framework data only; runtime calendar and holiday branching not yet connected",
@@ -82,7 +85,9 @@
         "house common room",
         "Great Hall"
       ],
-      "dialogue": "same-year peers, no automatic senior/junior address"
+      "dialogue": "same-year peers, no automatic senior/junior address",
+      "priorAcquaintance": true,
+      "romanceArc": "Player and lead already know each other as classmates; in December the player begins deliberately seeking closeness and romance slowly grows"
     },
     "sameYearDifferentHouse": {
       "encounterFrequency": "medium",
