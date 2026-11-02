@@ -49,3 +49,10 @@
 .spotify-full-controls .spotify-big-play { width:58px; height:58px; border-radius:50%; background:#fff; color:#111; font-size:24px; }
 .spotify-ui .catalog-search { background:#292929; border:0; color:#fff; }
 .spotify-ui .catalog-search input { background:transparent; color:#fff; border:0; }
+
+.spotify-playlist-hero { display:flex; align-items:flex-end; gap:16px; margin:18px 0 14px; }
+.spotify-playlist-art { width:112px; height:112px; flex:none; display:grid; place-items:center; background:linear-gradient(135deg,#1ed760,#214b35); color:#102016; box-shadow:0 5px 20px #0005; }
+.spotify-playlist-art img { width:100%; height:100%; object-fit:cover; }
+.spotify-playlist-hero small { color:#bbb; font-size:10px; }
+.spotify-playlist-hero h2 { margin:5px 0; font-size:20px; line-height:1.2; overflow-wrap:anywhere; }
+.spotify-playlist-hero p { color:#bbb; font-size:11px; }
