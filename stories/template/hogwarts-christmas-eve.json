@@ -142,5 +142,109 @@
     "leadInvitation": "only if threshold and story conditions met",
     "reinvite": "allowed if player currently meets invitation threshold and before ball",
     "display": "optional hidden numeric value with relationship stages in heart profile"
+  },
+  "emotionalSystem": {
+    "status": "design only, not implemented",
+    "perLead": {
+      "affection": {
+        "min": 0,
+        "max": 100
+      },
+      "jealousy": {
+        "min": 0,
+        "max": 100
+      },
+      "emotionState": [
+        "neutral",
+        "happy",
+        "shy",
+        "excited",
+        "disappointed",
+        "jealous",
+        "comforted"
+      ]
+    },
+    "rules": [
+      "All meaningful interactions may change emotional state and affection/jealousy based on lead personality and context",
+      "Only leads who witness or plausibly learn of another invitation can become jealous",
+      "Jealousy response requires existing interest; never universal omniscience",
+      "Jealousy fades with time and reassuring interactions",
+      "Jealousy is not negative affection and must not cause coercive behavior",
+      "Player invitation still always accepted after affection threshold",
+      "Player rejection decreases affection with personality-specific small modifiers"
+    ],
+    "proposedBaseDeltas": {
+      "playerInvitesLead": {
+        "targetAffection": 5,
+        "observingInterestedLeadsJealousy": 8
+      },
+      "playerAcceptsLeadInvite": {
+        "targetAffection": 5
+      },
+      "playerRejectsLeadInvite": {
+        "targetAffection": -8
+      },
+      "danceWithPartner": {
+        "partnerAffection": 4
+      },
+      "comfortJealousLead": {
+        "targetAffection": 2,
+        "targetJealousy": -5
+      }
+    },
+    "personalityModifiers": "provisional +/-1 to 3 points; tune per character during story review"
+  },
+  "ballMovement": {
+    "status": "design only",
+    "priority": "confirmed dance partner stays together unless player explicitly agrees to split or transition",
+    "unpartnered": "each lead has independent plausible activities and movements",
+    "paired": "joint activities, request consent for breaks and excursions; no abandonment",
+    "allEightAttend": true,
+    "freeTracks": {
+      "jacob": [
+        "help classmates",
+        "chat at food tables"
+      ],
+      "younghoon": [
+        "dessert table",
+        "watch dancing"
+      ],
+      "hyunjae": [
+        "prefect chat",
+        "courtyard break"
+      ],
+      "juyeon": [
+        "quidditch teammates",
+        "watch dance floor"
+      ],
+      "kevin": [
+        "listen to music",
+        "discuss decorations"
+      ],
+      "q": [
+        "friends",
+        "minor prefect duties"
+      ],
+      "sunwoo": [
+        "food table",
+        "teammates"
+      ],
+      "eric": [
+        "dance floor",
+        "lively conversations"
+      ]
+    },
+    "pairedTracks": {
+      "jacob": "offer dessert and gentle dancing",
+      "younghoon": "shy attentive dinner and dance",
+      "hyunjae": "attentive slow-burn dance and shared break",
+      "juyeon": "earnest slightly nervous dance",
+      "kevin": "playful music and decorations",
+      "q": "teasing but attentive dance",
+      "sunwoo": "casual words, attentive actions",
+      "eric": "energetic dancing, invites player to rest together"
+    },
+    "noRomanticNPCInteraction": true,
+    "knowledgeBoundaries": true
   }
 }
