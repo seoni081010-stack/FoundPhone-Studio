@@ -74,9 +74,15 @@ export function SpotifySkin(p: Props) {
           </div>
         )}
         {playlist && (
-          <button className="playlist-back" onClick={() => setPlaylist("")}>
-            전체 재생목록
-          </button>
+          <>
+            <div className="spotify-playlist-hero">
+              <div className="spotify-playlist-art">
+                {safeMedia(meta(list[0], "cover")) ? <img src={safeMedia(meta(list[0], "cover"))} alt="" /> : <Music size={52} />}
+              </div>
+              <div><small>재생목록</small><h2>{playlist}</h2><p>{p.owner || "사용자"} · {list.length}곡</p></div>
+            </div>
+            <button className="playlist-back" onClick={() => setPlaylist("")}>전체 재생목록</button>
+          </>
         )}
         <div className="spotify-tracks">
           {list.map((i, n) => (
