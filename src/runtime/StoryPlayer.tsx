@@ -40,6 +40,10 @@ function StoryPlayer() {
   const [house, setHouse] = useState(identity?.house || "");
   const [year, setYear] = useState(identity?.year || 1);
   const [loveInterest, setLoveInterest] = useState(identity?.loveInterest || "");
+  const [unlocked, setUnlocked] = useState(false);
+  const [passcode, setPasscode] = useState("");
+  const [passcodeError, setPasscodeError] = useState(false);
+  const unlockPhone = () => { if (passcode === "1206") { setUnlocked(true); setPasscodeError(false); } else { setPasscodeError(true); setPasscode(""); } };
   useEffect(() => {
     const abort = new AbortController();
     fetch(
@@ -111,9 +115,23 @@ function StoryPlayer() {
               <p className="hogwarts-footnote">你可以自由选择学院。本设定不模拟分院帽测试。</p>
             </div>
           </section>
+        ) : !isTest && !unlocked ? (
+          <section className="hogwarts-entry" aria-label="魔法手机密码锁">
+            <form className="hogwarts-form" onSubmit={e => { e.preventDefault(); unlockPhone(); }}>
+              <div className="hogwarts-crest">✧ H ✧</div>
+              <p className="hogwarts-eyebrow">MAGICAL PHONE · LOCKED</p>
+              <h1>请输入手机密码</h1>
+              <p className="hogwarts-intro">欢迎回来，{identity?.name}。输入四位密码解锁你的魔法手机。</p>
+              <label className="hogwarts-label" htmlFor="magical-passcode">四位数字密码</label>
+              <input id="magical-passcode" className="hogwarts-input" type="password" inputMode="numeric" pattern="[0-9]{4}" maxLength={4} autoComplete="off" value={passcode} onChange={e => { setPasscode(e.target.value.replace(/\\D/g, "").slice(0, 4)); setPasscodeError(false); }} placeholder="••••" required />
+              {passcodeError && <p role="alert" className="hogwarts-love-note">密码不正确，请重试。</p>}
+              <button className="hogwarts-enter" type="submit" disabled={passcode.length !== 4}>解锁手机 →</button>
+              <button className="hogwarts-enter" type="button" onClick={() => { setIdentity(null); setPasscode(""); localStorage.removeItem(storageKey); }}>返回身份登记</button>
+            </form>
+          </section>
         ) : (
           <>
-            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
+            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
             <Phone work={work} />
           </>
         )
