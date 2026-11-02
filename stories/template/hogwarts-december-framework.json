@@ -150,5 +150,34 @@
       "couple": "雪落之前，先拥抱你",
       "ambiguous": "下一场雪，还想与你相见"
     }
+  },
+  "maraudersMapApp": {
+    "status": "approved design specification; runtime app and animations not yet implemented",
+    "placement": "existing in-game phone home screen as standalone app",
+    "name": "活点地图",
+    "englishName": "Marauder's Map",
+    "visualStyle": "Original-book-inspired aged parchment, intricate ink corridors, handwritten names and animated tiny footprints; no modern location pins or avatar markers",
+    "opening": [
+      "Tap app icon to show blank parchment",
+      "Display 我庄严宣誓我不干好事 / I solemnly swear that I am up to no good",
+      "One tap anywhere on parchment substitutes for speaking the phrase; ink reveals castle map"
+    ],
+    "closing": [
+      "Display 恶作剧完毕 / Mischief managed",
+      "One tap dismisses ink and returns to phone home screen"
+    ],
+    "interaction": "No microphone, voice recognition, typing or spoken incantation required",
+    "locationTracking": {
+      "scope": "all eight leads, regardless of selected romance route",
+      "clock": "in-game time; live visual updates while map remains open",
+      "sourceOfTruth": "shared character timetable, weekly duties, event overrides, free-time movements and player travel time",
+      "markers": "handwritten names and moving footprints",
+      "dormitories": "show name stationary in relevant house dormitory area only; never show exact bed or private interior details",
+      "transitions": "animate footsteps along plausible corridors/stairs and grounds, no instant teleportation",
+      "consistency": "map position must match actual encounter and story scene at the same game time",
+      "privacy": "do not show exact bed, shower, or intimate/private activity details"
+    },
+    "hiddenEvents": "Map shows character locations but never event labels, affection opportunities, or trigger hints; player must reach correct place during event window",
+    "implementationNote": "Design JSON only; app icon, map screen, animations and clock integration require future frontend/runtime work"
   }
 }
