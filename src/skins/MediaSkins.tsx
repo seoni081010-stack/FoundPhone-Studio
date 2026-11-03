@@ -12,7 +12,6 @@ import {
   Play,
   Plus,
   Search,
-  SkipForward,
   User,
   Users,
   Video,
