@@ -36,6 +36,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   }, [original]);
   const [state, setState] = useState<Runtime>(() => { const initial = initialRuntime(work); initial.variables.hyunjae_player_house = identity?.house ?? "unspecified"; initial.variables.hyunjae_player_year = identity?.year ?? 5; return dispatch(work, initial, "start"); });
   const [active, setActive] = useState("calendar");
+  const [clueOpen, setClueOpen] = useState(false);
   const [sceneOpen, setSceneOpen] = useState(false);
   const [seenScene, setSeenScene] = useState("");
   const entries = (state.messages.owlpost ?? []).filter(item => !item.hidden);
@@ -75,11 +76,13 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     /^(李贤在|你)[：:]/.test(body) &&
     !/你们一起去了大礼堂|李贤在先问|他笑了一下|停了一下，他又说/.test(body);
   const letters = conversation.filter(entry => owlDays.includes(entry.day) && isNote(entry.body));
-  const scenes = conversation.filter(entry => entry.day === day && (!owlToday || !isNote(entry.body)));
+  const soloSnow = day === 7 && !state.variables.hyunjae_first_snow_together;
+  const scenes = conversation.filter(entry => entry.day === day && (!owlToday || !isNote(entry.body)))
+    .map((entry, index) => soloSnow && index === 0 ? { ...entry, body: "走廊里。李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const choices = !nextDay && state.choices.length > 0 ? <div className="hogwarts-device-choices">
 
-    {state.choices.map(choice => <button key={choice.target} onClick={() => select(choice.target)}>{choice.label}</button>)}
+    {state.choices.filter((_, index) => !soloSnow || index === 1).map(choice => <button key={choice.target} onClick={() => select(choice.target)}>{choice.label}</button>)}
   </div> : null;
   const select = (target: string) => {
     const next = choose(work, state, target);
@@ -131,14 +134,14 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </>}
         </section> : active === "calendar" && identity ? <section>
           <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
-            sceneLabel={day === 12 ? "去看魁地奇比赛" : undefined}
+            sceneLabel={{3: "晚上下楼", 4: "去图书馆", 12: "去看魁地奇比赛"}[day]}
             onScene={!owlToday && scenes.length > 0 && !nextDay ? () => setSceneOpen(true) : undefined}
             attended={attended} onAttend={(id, time, last) => {
               setAttended(previous => ({ ...previous, [id]: true }));
               setLessonTime(time);
-              if (last && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
+              if (last && day !== 3 && day !== 4 && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); if (day === 6 && state.variables.hyunjae_first_snow_together) setClueOpen(true); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
           {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
           {finished && <p role="status">十二月已结束。</p>}
         </section> : active === "date" ? <section>
@@ -185,8 +188,12 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
                 })}
               </svg>}
             </div>)}
-          </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
+          </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>
+      {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene">
+        <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
+        <button onClick={() => setClueOpen(false)}>继续</button>
+      </dialog>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
         {scenes.map(scene => {
@@ -196,7 +203,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           const parts = text.split(/(?=李贤在：|你：)/);
           return <div key={scene.id}>{parts.map((part, index) => {
             const line = part.match(/^(李贤在|你)：(.*)$/s);
-            if (!line) return part && <p key={index} className="hogwarts-narration">{part}</p>;
+            if (!line) return part && <p key={index} className="hogwarts-narration">{part.split(/(槲寄生)/).map((word, i) => word === "槲寄生" ? <strong key={i}>{word}</strong> : word)}</p>;
             const asideStart = line[2].search(/(?<=。|！|？|；)(?:嘴上|还是伸手|李贤在(?!(?:：))|你们|他(?:走|看|低|抬|伸|点|笑|停|往|收|向|转|靠|没有|先|忽然)|后来|安静了一会|比赛开始|走了一段)/);
             const speech = asideStart < 0 ? line[2] : line[2].slice(0, asideStart);
             const aside = asideStart < 0 ? "" : line[2].slice(asideStart);
