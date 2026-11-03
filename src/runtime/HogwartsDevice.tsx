@@ -1,7 +1,7 @@
 import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { HogwartsCharacters } from "./HogwartsCharacters";
 import { HogwartsSchedule } from "./HogwartsSchedule";
-import { MagicalShops, useWeeklyAllowance } from "./MagicalShops";
+import { MagicalShops, useWeeklyAllowance, spendGalleons } from "./MagicalShops";
 import { useMemo, useState } from "react";
 import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft } from "lucide-react";
 import { initialRuntime, type Runtime, type Work } from "../schema";
@@ -50,6 +50,12 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [state, setState] = useState<Runtime>(() => { const initial = initialRuntime(work); initial.variables.hyunjae_player_house = identity?.house ?? "unspecified"; initial.variables.hyunjae_player_year = identity?.year ?? 5; return dispatch(work, initial, "start"); });
   const [active, setActive] = useState("calendar");
   const [clueOpen, setClueOpen] = useState(false);
+  const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">("bet");
+  const [team, setTeam] = useState("");
+  const [stake, setStake] = useState(1);
+  const [matchError, setMatchError] = useState("");
+  const [matchDialog, setMatchDialog] = useState(false);
+  const won = team === "斯莱特林";
   const [sceneOpen, setSceneOpen] = useState(false);
   const [seenScene, setSeenScene] = useState("");
   const entries = (state.messages.owlpost ?? []).filter(item => !item.hidden);
@@ -171,14 +177,17 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </>}
         </section> : active === "calendar" && identity ? <section>
           <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
-            sceneLabel={{3: "晚上下楼", 4: "去图书馆", 12: "去看魁地奇比赛"}[day]}
-            onScene={!owlToday && scenes.length > 0 && !nextDay ? () => setSceneOpen(true) : undefined}
+            sceneLabel={{3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : "去看台找李贤在"}[day]}
+            onScene={!owlToday && scenes.length > 0 && !nextDay ? () => {
+              if (day === 12 && matchStep === "bet") setMatchDialog(true);
+              else { if (day === 12) setLessonTime("14:00"); setSceneOpen(true); }
+            } : undefined}
             attended={attended} onAttend={(id, time, last) => {
               setAttended(previous => ({ ...previous, [id]: true }));
               setLessonTime(time);
               if (last && day !== 3 && day !== 4 && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(""); if (day === 6 && state.variables.hyunjae_first_snow_together) setClueOpen(true); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(""); if (day === 6 && state.variables.hyunjae_first_snow_together) setClueOpen(true); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
           {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
           {day >= 22 && <section aria-label="假期自由活动">
             <h3>自由活动</h3>
@@ -187,6 +196,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             {destination && <p role="status">你现在在：{destination}</p>}
           </section>}
           {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
+          {day === 12 && matchStep === "pub" && <button className="hogwarts-activity" onClick={() => setMatchDialog(true)}>和李贤在去三把扫帚</button>}
           {finished && <p role="status">十二月已结束。</p>}
         </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
@@ -281,6 +291,61 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           : note("李贤在", dateReply, false)}
         <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
       </dialog>}
+      {matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+        onCancel={event => event.preventDefault()} className="hogwarts-scene">
+        {matchStep === "bet" ? <>
+          <h2>看台上的小赌约</h2>
+          <p className="hogwarts-narration">李贤在忙完级长的事，在看台上找到你。一张羊皮纸从座位缝里冒出来，落款是弗雷德和乔治。</p>
+          {note("李贤在", "你来得还挺早。", false)}
+          <div>{["格兰芬多", "斯莱特林"].map(name => <button key={name} aria-pressed={team === name} onClick={() => setTeam(name)}>{name}{team === name ? " ✓" : ""}</button>)}</div>
+          <p><label>押 {stake} 加隆 <input type="range" min="1" max="10" value={stake} onChange={event => setStake(Number(event.target.value))} /></label></p>
+          <p>1 加隆 — 10 加隆</p>
+          <p>{stake < 4 ? "很好，输了也只需要叹一口气。" : stake < 8 ? "现在你已经有理由比球员还紧张了。" : "我们欣赏你的勇气。你的钱包有不同意见。"}</p>
+          <button disabled={!team} onClick={() => {
+            if (!spendGalleons(identityKey, stake)) { setMatchError("钱包里的加隆不够。"); return; }
+            setMatchError(""); setMatchStep("ready"); setMatchDialog(false);
+          }}>就押这个</button>
+          <button onClick={() => { setMatchError(""); setMatchDialog(false); }}>返回行程</button>
+        </> : matchStep === "result" ? <>
+          <h2>{won ? "恭喜，你押中了！" : "别灰心！"}</h2>
+          <p>{won ? `斯莱特林赢了。你押的 ${stake} 加隆已经光荣退役，但你赢得了一杯黄油啤酒。请到三把扫帚找斯莱特林那桌领取，趁他们还在高兴。` : `斯莱特林赢了。你押的 ${stake} 加隆和格兰芬多的比分一样，都回不来了。本纸条不提供饮料，但可以垫杯子。至少还有点用。`}</p>
+          <button onClick={() => { setMatchStep("pub"); setMatchDialog(false); }}>{won ? "收下饮料券" : "把纸条折起来"}</button>
+        </> : <>
+          <h2>三把扫帚</h2>
+          <p className="hogwarts-narration">斯莱特林那桌还在复盘最后一球。李贤在找到一张靠窗的小桌，把里面的位置留给你。</p>
+          {won ? <>
+            <p className="hogwarts-narration">斯莱特林那桌给你送来一杯黄油啤酒。他也给自己点了一杯。</p>
+            {note("李贤在", "你刚才在看台上那么紧张，我还以为你押的是我们。", false)}
+            {note(identity?.name ?? "我", "我就不能一边替你紧张，一边押他们赢吗？", true)}
+            {note("李贤在", "可以。那你喝第一口的时候，能不能稍微替我难过一下？", false)}
+          </> : <>
+            {note("李贤在", "我们输了球，你输了加隆。现在只剩一个问题了。", false)}
+            {note(identity?.name ?? "我", "什么？", true)}
+            {note("李贤在", "你还喝不喝黄油啤酒？我反正要喝一杯。", false)}
+            {matchStep === "pub" && <>
+              <button onClick={() => { if (spendGalleons(identityKey, 5)) { setMatchError(""); setMatchStep("buy"); } else setMatchError("钱包里的加隆不够。"); }}>自己买一杯 · 5 加隆</button>
+              <button onClick={() => { setMatchError(""); setMatchStep("stay"); }}>陪他坐一会儿</button>
+            </>}
+            {matchStep === "buy" && <>
+              {note(identity?.name ?? "我", "买。都到这儿了，我总不能只喝西北风吧。", true)}
+              <p className="hogwarts-narration">两杯黄油啤酒端上来，他拿自己的杯子碰了碰你的。</p>
+              {note("李贤在", "敬今天最有眼光的观众。", false)}
+              {note(identity?.name ?? "我", "我押错了。", true)}
+              {note("李贤在", "我说的是你选了靠窗的位置。球赛那件事，我们明天再提。", false)}
+            </>}
+            {matchStep === "stay" && <>
+              {note(identity?.name ?? "我", "我不点了。陪你坐一会儿吧。", true)}
+              <p className="hogwarts-narration">他把杯子往自己那边挪了挪，给你腾出放围巾的地方。</p>
+              {note("李贤在", "行。那你陪我听听，他们打算把最后一球讲几遍。", false)}
+              {note(identity?.name ?? "我", "这已经是第四遍了。", true)}
+              {note("李贤在", "你还真数了？", false)}
+              <p className="hogwarts-narration">斯莱特林那桌又敲了一下杯子。你们对视一眼，都笑了。</p>
+            </>}
+          </>}
+          {(won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); }}>返回今日行程</button>}
+        </>}
+        {matchError && <p role="alert">{matchError}</p>}
+      </dialog>}
       {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene hogwarts-clue">
         <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
         <button onClick={() => setClueOpen(false)}>继续</button>
@@ -306,7 +371,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         })}
         {!owlToday && choices}
         {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
-        {(!choices || owlToday) && <button onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); }}>继续今天的行程</button>}
+        {(!choices || owlToday) && <button onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
       </dialog>}
       <nav className="hogwarts-dock" aria-label="学生手机应用">
         {modules.filter(module => ["magicphotos", "owlpost", "wizardjournal", "date"].includes(module.id)).sort((a, b) => ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(a.id) - ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(b.id)).map(module =>

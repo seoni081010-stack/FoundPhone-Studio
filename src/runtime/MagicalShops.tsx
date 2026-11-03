@@ -15,6 +15,13 @@ function migrateVault(key: string, save: Save): Save {
  return upgraded;
 }
 const fmt=(v:number)=>v.toLocaleString("zh-CN")+" 加隆";
+export function spendGalleons(identityKey: string, amount: number) {
+ const key = storeKey + "-" + identityKey;
+ const save = load(key);
+ if (!Number.isSafeInteger(amount) || amount < 1 || save.wallet < amount) return false;
+ localStorage.setItem(key, JSON.stringify({ ...save, wallet: save.wallet - amount }));
+ return true;
+}
 export function creditWeeklyAllowance(identityKey: string, day: number) {
  const key = storeKey + "-" + identityKey;
  const save = load(key);
