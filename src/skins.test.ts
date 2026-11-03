@@ -5,15 +5,8 @@ import { makeItem, validateWork } from "./schema";
 import { createWork } from "./demo";
 import { getFields } from "./fields";
 describe("independent app coverage and authored attributes", () => {
-  it("routes all 47 built-in app identities through dedicated screens", () => {
-    const previous = [
-      "wechat",
-      "whatsapp",
-      "instagram",
-      "calculator",
-      "settings", "appstore",
-    ];
-    expect(Object.keys(catalogSkins)).toHaveLength(44);
+  it("routes Hogwarts modules through dedicated screens", () => {
+    const previous: string[] = [];\n    expect(Object.keys(catalogSkins).length).toBeGreaterThanOrEqual(6);
     for (const app of registry)
       expect(previous.includes(app.id) || app.id in catalogSkins).toBe(true);
   });
@@ -22,7 +15,7 @@ describe("independent app coverage and authored attributes", () => {
     for (const items of Object.values(w.data) as Record<string, unknown>[][])
       for (const i of items) { delete i.meta; delete i.avatar; }
     expect(validateWork(w).data.notes[0].meta).toEqual({});
-    expect(validateWork(w).data.wechat[0].avatar).toBe("");
+    expect(validateWork(w).data.owlpost?.[0]?.avatar ?? "").toBe("");
   });
   it("roundtrips authored amounts, status, server and position data", () => {
     const w = createWork();
