@@ -65,6 +65,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [lessonTime, setLessonTime] = useState<string>();
   const [region, setRegion] = useState<number>();
   const [recipient, setRecipient] = useState("");
+  const [giftReplies, setGiftReplies] = useState<string[]>([]);
   const [dateReplies, setDateReplies] = useState<string[]>([]);
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
@@ -157,6 +158,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           {recipient === "hyunjae" && owlToday && choices}
           {(sent[recipient] ?? []).map((body, index) => note(identity?.name ?? "我", body, true, index))}
           {recipient === "hyunjae" && dateReplies.map((reply, index) => note("李贤在", reply, false, index))}
+          {recipient === "hyunjae" && giftReplies.map((reply, index) => note("李贤在", reply, false, index))}
           <form onSubmit={event => {
             event.preventDefault();
             if (!draft.trim()) return;
@@ -219,11 +221,25 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           {dateContact && dateContact !== "hyunjae" && <p>这位角色的邀约剧情还在准备中。</p>}
           <p className="hogwarts-date-hint">每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
           {Object.entries(plans).filter(([value]) => Number(value) >= day).map(([value, plan]) => <p key={value}>12月{value}日 · {plan}</p>)}
-        </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} />
+        </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} contacts={contacts} onGift={(recipient, item, liked) => {
+            const affection = Number(state.variables.hyunjae_affection ?? 0);
+            if (recipient === identity.loveInterest && recipient === "hyunjae") {
+              setState(previous => ({ ...previous, variables: { ...previous.variables, hyunjae_affection: Math.min(100, affection + (liked ? 5 : 2)) } }));
+            } else if (recipient !== identity.loveInterest) {
+              const key = "friendship_" + recipient;
+              setState(previous => ({ ...previous, variables: { ...previous.variables, [key]: Math.min(100, Number(previous.variables[key] ?? 0) + (liked ? 5 : 2)) } }));
+              if (identity.loveInterest === "hyunjae" && affection > 40) {
+                const name = contacts.find(contact => contact.id === recipient)?.name;
+                setGiftReplies(previous => [...previous, affection >= 70
+                  ? `你给${name}寄了${item}啊。我刚才还想装作只是路过问一下。算了，有一点吃醋。`
+                  : `${name}刚才给我看了你送的${item}。我就是问问……下次你去挑礼物，叫我一声呗。`]);
+              }
+            }
+          }} />
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
-            <button onClick={() => setActive("maraudersmap")}>打开活点地图</button>
+            <details><summary>李贤在喜欢什么</summary><p>蜂蜜公爵的甜软糖、巡查时用得上的围巾和手套、好写的羽毛笔和小书签。</p></details><button onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <section className="hogwarts-map" aria-label="霍格沃茨城堡示意图">
             {[
