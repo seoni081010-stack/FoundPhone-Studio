@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "31天交互剧情开发版：好感度按日累计，条件回忆、可跳过事件和双结局测试；待扩写互动深度及身份适配。",
-  "revision": 6,
+  "revision": 7,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -12,12 +12,15 @@
     "wallpaper": "default"
   },
   "installedApps": [
-    "messages",
-    "contacts",
-    "calendar",
-    "notes",
-    "photos",
-    "settings"
+    "owlpost",
+    "schoolbook",
+    "magicshop",
+    "gringotts",
+    "maraudersmap",
+    "wizardjournal",
+    "magicphotos",
+    "prophetdaily",
+    "heartarchive"
   ],
   "contacts": [
     {
@@ -29,7 +32,7 @@
   "chats": [
     {
       "id": "hyunjae-dec-chat",
-      "app": "messages",
+      "app": "owlpost",
       "title": "李贤在",
       "participants": [
         "owner",
@@ -52,12 +55,40 @@
     }
   ],
   "content": {
-    "calendar": [
+    "schoolbook": [
       {
-        "id": "hy-dec-calendar",
-        "title": "十二月",
-        "body": "12月6日 初雪；12月12日 格兰芬多对斯莱特林；12月24日 圣诞舞会；12月31日 跨年",
+        "id": "hy-school-classes",
+        "title": "课程与作业",
+        "body": "魔法史、魔药学、变形术等课程与作业安排。请按玩家年级与学院显示适用课程。",
         "time": "2026-12-01"
+      },
+      {
+        "id": "hy-school-events",
+        "title": "十二月活动",
+        "body": "12月6日 初雪；12月12日 格兰芬多对斯莱特林魁地奇比赛；12月24日 圣诞舞会；12月31日 跨年。",
+        "time": "2026-12-01"
+      },
+      {
+        "id": "hy-school-points",
+        "title": "学院杯",
+        "body": "四学院积分在校园手册中展示，积分变化由剧情事件更新。",
+        "time": "2026-12-01"
+      }
+    ],
+    "owlpost": [
+      {
+        "id": "hy-owl-welcome",
+        "title": "来自李贤在的猫头鹰便笺",
+        "body": "你是不是忘了什么东西ㅋㅋ 我刚才看见一本书，上面写着你的名字。",
+        "time": "2026-12-01"
+      }
+    ],
+    "magicshop": [
+      {
+        "id": "hy-shop-drink",
+        "title": "饮品摊",
+        "body": "可以购买饮料，邀请朋友一起喝。12月12日赛前预测正确者可兑换免费饮料券。",
+        "time": "2026-12-12"
       }
     ]
   },
