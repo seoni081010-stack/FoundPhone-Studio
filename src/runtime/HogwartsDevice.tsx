@@ -54,6 +54,8 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [plans, setPlans] = useState<Record<number, string>>({});
   const [draft, setDraft] = useState("");
   const [sent, setSent] = useState<Record<string, string[]>>({});
+  const highlightMistletoe = (text: string) => text.split(/(槲寄生)/).map((word, index) =>
+    word === "槲寄生" ? <strong key={index}>{word}</strong> : word);
   const note = (name: string, body: string, outgoing: boolean, key?: number) =>
     <div key={key} className={`hogwarts-message ${outgoing ? "outgoing" : ""}`}>
       <span className="hogwarts-avatar" aria-hidden="true">{name.slice(-1)}</span>
@@ -191,7 +193,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>
       {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene">
-        <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
+        <h2>你已解锁一条线索</h2><p className="hogwarts-narration">{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p><p>在魔法相册中查看「庭院初雪」。</p>
         <button onClick={() => setClueOpen(false)}>继续</button>
       </dialog>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
@@ -203,13 +205,13 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           const parts = text.split(/(?=李贤在：|你：)/);
           return <div key={scene.id}>{parts.map((part, index) => {
             const line = part.match(/^(李贤在|你)：(.*)$/s);
-            if (!line) return part && <p key={index} className="hogwarts-narration">{part.split(/(槲寄生)/).map((word, i) => word === "槲寄生" ? <strong key={i}>{word}</strong> : word)}</p>;
+            if (!line) return part && <p key={index} className="hogwarts-narration">{highlightMistletoe(part)}</p>;
             const asideStart = line[2].search(/(?<=。|！|？|；)(?:嘴上|还是伸手|李贤在(?!(?:：))|你们|他(?:走|看|低|抬|伸|点|笑|停|往|收|向|转|靠|没有|先|忽然)|后来|安静了一会|比赛开始|走了一段)/);
             const speech = asideStart < 0 ? line[2] : line[2].slice(0, asideStart);
             const aside = asideStart < 0 ? "" : line[2].slice(asideStart);
             return <div key={index}>
               {speech && note(line[1] === "你" ? identity?.name ?? "我" : "李贤在", speech, line[1] === "你")}
-              {aside && <p className="hogwarts-narration">{aside}</p>}
+              {aside && <p className="hogwarts-narration">{highlightMistletoe(aside)}</p>}
             </div>;
           })}</div>;
         })}
