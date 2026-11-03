@@ -52,9 +52,9 @@ export function HogwartsCharacters({year,house,identityKey}:{year:number;house:s
     <p><strong>礼物偏好</strong> {selected.id === "hyunjae"
       ? "蜂蜜公爵的甜糖、厚围巾和手套、好写的羽毛笔和小书签"
       : giftPreferences.preferences.find(person => person.id === selected.id)?.likes.join("、")}</p>
-    <label style={{display:"flex",justifyContent:"space-between"}}><span>好感度</span><strong>{status(selected).affinity}%</strong></label>
+    <label style={{display:"flex",alignItems:"baseline",gap:8,whiteSpace:"nowrap"}}><span>好感度</span><strong>{status(selected).affinity}%</strong></label>
     <progress max={100} value={status(selected).affinity} style={{width:"100%",accentColor:"#d48ba2"}} />
-    <label style={{display:"flex",justifyContent:"space-between"}}><span>嫉妒值</span><strong>{status(selected).jealousy}%</strong></label>
+    <label style={{display:"flex",alignItems:"baseline",gap:8,whiteSpace:"nowrap"}}><span>嫉妒值</span><strong>{status(selected).jealousy}%</strong></label>
     <progress max={100} value={status(selected).jealousy} style={{width:"100%",accentColor:"#8d87bb"}} />
    </article>}
   </div>}
