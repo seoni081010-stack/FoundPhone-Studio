@@ -2,26 +2,22 @@
   "scriptVersion": 1,
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
-  "description": "31天交互剧情开发版：好感度按日累计，条件回忆、可跳过事件和双结局测试；待扩写互动深度及身份适配。",
-  "revision": 9,
+  "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
+  "revision": 10,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
     "time": "16:42",
-    "network": "魔法通讯",
-    "wallpaper": "default"
+    "network": "霍格沃茨",
+    "wallpaper": "parchment"
   },
   "installedApps": [
     "owlpost",
     "schoolbook",
-    "magicshop",
-    "gringotts",
-    "maraudersmap",
     "wizardjournal",
     "magicphotos",
-    "prophetdaily",
-    "heartarchive",
-    "music"
+    "maraudersmap",
+    "heartarchive"
   ],
   "contacts": [
     {
@@ -88,14 +84,6 @@
         "title": "来自李贤在的猫头鹰便笺",
         "body": "你是不是忘了什么东西ㅋㅋ 我刚才看见一本书，上面写着你的名字。",
         "time": "2026-12-01"
-      }
-    ],
-    "magicshop": [
-      {
-        "id": "hy-shop-drink",
-        "title": "饮品摊",
-        "body": "可以购买饮料，邀请朋友一起喝。12月12日赛前预测正确者可兑换免费饮料券。",
-        "time": "2026-12-12"
       }
     ]
   },
