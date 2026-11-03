@@ -2,8 +2,8 @@
   "scriptVersion": 1,
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
-  "description": "李贤在路线：前三日交互事件开发中。",
-  "revision": 2,
+  "description": "李贤在12月路线内部测试：前三日交互事件；后续日期尚未实现。",
+  "revision": 3,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -47,66 +47,6 @@
           "senderId": "hyunjae",
           "time": "12月1日 16:42",
           "body": "我刚才看见一本书，上面写着你的名字"
-        },
-        {
-          "id": "hy-d01-03",
-          "senderId": "owner",
-          "time": "12月1日 16:43",
-          "body": "完了！！我的魔法史课本！！"
-        },
-        {
-          "id": "hy-d01-04",
-          "senderId": "hyunjae",
-          "time": "12月1日 16:43",
-          "body": "ㅋㅋㅋㅋ我就知道你会忘。我帮你拿着了，来一楼找我吧"
-        },
-        {
-          "id": "hy-d02-01",
-          "senderId": "hyunjae",
-          "time": "12月2日 18:05",
-          "body": "我刚才买了个糖。他们说含着十分钟不咬碎很难"
-        },
-        {
-          "id": "hy-d02-02",
-          "senderId": "hyunjae",
-          "time": "12月2日 18:05",
-          "body": "我觉得不可能ㅋㅋ"
-        },
-        {
-          "id": "hy-d02-03",
-          "senderId": "owner",
-          "time": "12月2日 18:06",
-          "body": "你肯定坚持不了十分钟ㅋㅋ"
-        },
-        {
-          "id": "hy-d02-04",
-          "senderId": "hyunjae",
-          "time": "12月2日 18:06",
-          "body": "呀ㅋㅋ你等着"
-        },
-        {
-          "id": "hy-d02-05",
-          "senderId": "hyunjae",
-          "time": "12月2日 18:09",
-          "body": "……我咬碎了ㅋㅋㅋㅋㅋㅋ"
-        },
-        {
-          "id": "hy-d03-01",
-          "senderId": "hyunjae",
-          "time": "12月3日 21:14",
-          "body": "终于结束了。今天巡查走得我腿都酸了ㅋㅋ"
-        },
-        {
-          "id": "hy-d03-02",
-          "senderId": "owner",
-          "time": "12月3日 21:15",
-          "body": "辛苦啦，级长大人ㅋㅋ"
-        },
-        {
-          "id": "hy-d03-03",
-          "senderId": "hyunjae",
-          "time": "12月3日 21:15",
-          "body": "ㅋㅋㅋㅋ别这样叫我。我现在只想坐着"
         }
       ]
     }
@@ -126,7 +66,11 @@
     "hyunjae_jealousy": 0,
     "hyunjae_book_met": false,
     "hyunjae_candy_challenge": false,
-    "hyunjae_prefect_cared": false
+    "hyunjae_prefect_cared": false,
+    "hyunjae_chapter1_complete": false,
+    "hyunjae_day1_choice": "",
+    "hyunjae_day2_choice": "",
+    "hyunjae_day3_choice": ""
   },
   "events": [
     {
@@ -160,6 +104,16 @@
           "type": "variable",
           "key": "hyunjae_affection",
           "value": 3
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_day1_choice",
+          "value": "hy-book-now"
+        },
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：行，我在一楼走廊等你ㅋㅋ"
         }
       ],
       "next": [
@@ -180,6 +134,16 @@
           "type": "variable",
           "key": "hyunjae_affection",
           "value": 2
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_day1_choice",
+          "value": "hy-book-later"
+        },
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：那我先帮你拿着，晚点来找我ㅋㅋ"
         }
       ],
       "next": [
@@ -204,6 +168,16 @@
           "type": "variable",
           "key": "hyunjae_candy_challenge",
           "value": true
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_day2_choice",
+          "value": "hy-candy-tease"
+        },
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：呀ㅋㅋ你等着！……三分钟后：我咬碎了ㅋㅋㅋㅋ"
         }
       ],
       "next": [
@@ -219,6 +193,16 @@
           "type": "variable",
           "key": "hyunjae_candy_challenge",
           "value": true
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_day2_choice",
+          "value": "hy-candy-cheer"
+        },
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：还是你懂我ㅋㅋ ……三分钟后：我咬碎了"
         }
       ],
       "next": [
@@ -243,9 +227,21 @@
           "type": "variable",
           "key": "hyunjae_prefect_cared",
           "value": true
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_day3_choice",
+          "value": "hy-prefect-care"
+        },
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：嗯，等会儿就睡了。你也是"
         }
       ],
-      "next": []
+      "next": [
+        "hy-chapter1-ending"
+      ]
     },
     {
       "id": "hy-prefect-tease",
@@ -256,10 +252,71 @@
           "type": "variable",
           "key": "hyunjae_prefect_cared",
           "value": false
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_day3_choice",
+          "value": "hy-prefect-tease"
+        },
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：ㅋㅋㅋㅋ别这样叫我，今天真的走得腿酸"
+        }
+      ],
+      "next": [
+        "hy-chapter1-ending"
+      ]
+    },
+    {
+      "id": "hy-chapter1-ending",
+      "label": "前三日测试结束",
+      "type": "ending",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_chapter1_complete",
+          "value": true
+        },
+        {
+          "type": "ending",
+          "key": "",
+          "value": "hyunjae-chapter1-complete"
         }
       ],
       "next": []
     }
   ],
-  "tests": []
+  "tests": [
+    {
+      "name": "亲自取书并关心级长",
+      "steps": [
+        {
+          "choose": "hy-book-now"
+        },
+        {
+          "choose": "hy-candy-cheer"
+        },
+        {
+          "choose": "hy-prefect-care"
+        }
+      ],
+      "ending": "hyunjae-chapter1-complete"
+    },
+    {
+      "name": "稍后取书并调侃级长",
+      "steps": [
+        {
+          "choose": "hy-book-later"
+        },
+        {
+          "choose": "hy-candy-tease"
+        },
+        {
+          "choose": "hy-prefect-tease"
+        }
+      ],
+      "ending": "hyunjae-chapter1-complete"
+    }
+  ]
 }
