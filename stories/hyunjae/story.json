@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 14,
+  "revision": 15,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -2459,7 +2459,7 @@
         }
       ],
       "next": [
-        "hy-day27-scene"
+        "hy-day27-callback"
       ],
       "conditions": []
     },
@@ -2485,7 +2485,7 @@
         }
       ],
       "next": [
-        "hy-day27-scene"
+        "hy-day27-callback"
       ],
       "conditions": []
     },
@@ -3144,7 +3144,7 @@
         }
       ],
       "next": [
-        "hy-day20-scene"
+        "hy-day20-callback"
       ]
     },
     {
@@ -3166,7 +3166,7 @@
         }
       ],
       "next": [
-        "hy-day20-scene"
+        "hy-day20-callback"
       ]
     },
     {
@@ -3326,6 +3326,116 @@
       ],
       "next": [
         "hy-day31-scene"
+      ]
+    },
+    {
+      "id": "hy-day20-callback",
+      "label": "过去选择回调",
+      "type": "action",
+      "actions": [],
+      "next": [
+        "hy-day20-callback-yes",
+        "hy-day20-callback-no"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day20-callback-yes",
+      "label": "记得此前选择",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_candy_face_memory",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在：你怎么又在笑。……还在想上次那颗糖是不是？不许想了ㅋㅋ"
+        }
+      ],
+      "next": [
+        "hy-day20-scene"
+      ]
+    },
+    {
+      "id": "hy-day20-callback-no",
+      "label": "没有此前记忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_candy_face_memory",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在：蜂蜜公爵新出的巧克力要不要试？这次我保证不会乱推荐。"
+        }
+      ],
+      "next": [
+        "hy-day20-scene"
+      ]
+    },
+    {
+      "id": "hy-day27-callback",
+      "label": "过去选择回调",
+      "type": "action",
+      "actions": [],
+      "next": [
+        "hy-day27-callback-yes",
+        "hy-day27-callback-no"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day27-callback-yes",
+      "label": "记得此前选择",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_food_preference",
+          "op": "eq",
+          "value": "a"
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在：我给你留了点吃的。没拿错，是你之前说过喜欢的那个。"
+        }
+      ],
+      "next": [
+        "hy-day27-scene"
+      ]
+    },
+    {
+      "id": "hy-day27-callback-no",
+      "label": "没有此前记忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_food_preference",
+          "op": "neq",
+          "value": "a"
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在：我给你留了饼干。你喜欢什么口味来着？下次告诉我。"
+        }
+      ],
+      "next": [
+        "hy-day27-scene"
       ]
     }
   ],
