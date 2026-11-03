@@ -47,3 +47,21 @@
 .hogwarts-narration { font-size: .88rem; font-style: italic; color: #665f54; line-height: 1.6; }
 .hogwarts-scene .hogwarts-message:not(.outgoing) p { background: #d3e6d5; color: #183423; }
 .hogwarts-scene .hogwarts-message.outgoing p { background: #eee1d0; color: #30271e; }
+
+.hogwarts-device-stage:has(.hogwarts-device) { background: #e1ceb0; }
+.hogwarts-device[aria-label="Hogwarts Unspoken"] { background: #f6ecd8; color: #392c20; border-color: #bda581; }
+.hogwarts-device .hogwarts-device-top,
+.hogwarts-device .hogwarts-device-header { background: #ede0c6; color: #392c20; border-color: #cbb694; }
+.hogwarts-device .hogwarts-device-header small,
+.hogwarts-device .hogwarts-device-header p { color: #6e5741; }
+.hogwarts-device .hogwarts-today { background: #fcf4e4; border-color: #cbb694; }
+.hogwarts-device .hogwarts-today h2 small,
+.hogwarts-device-page h2 small { color: #735d47; font-size: .65em; letter-spacing: .18em; }
+.hogwarts-device .hogwarts-dock { background: #ede0c6; border-color: #cbb694; }
+.hogwarts-device .hogwarts-dock button { color: #493621; }
+.hogwarts-device .hogwarts-dock button span,
+.hogwarts-device .hogwarts-dock button[aria-pressed="true"] { background: #dbc49f; }
+.hogwarts-device .hogwarts-contact { background: transparent; color: #392c20; border: 0; border-bottom: 1px solid #d5c2a3; border-radius: 0; padding: 12px 4px; margin: 0; }
+.hogwarts-contact .hogwarts-avatar { flex-basis: 44px; height: 44px; background: #e6d1ac; }
+.hogwarts-contact-copy { min-width: 0; display: grid; gap: 4px; }
+.hogwarts-contact-copy small { color: #735d47; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

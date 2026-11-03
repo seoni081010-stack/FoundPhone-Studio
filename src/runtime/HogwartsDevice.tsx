@@ -85,19 +85,24 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   };
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
-      <div className="hogwarts-device-top"><span>12月{day}日 · {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} · D{day}/31</span><span>{lessonTime ?? startTime}</span></div>
+      <div className="hogwarts-device-top"><span>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} D{day}/31</span><span>{lessonTime ?? startTime}</span></div>
       <header className="hogwarts-device-header">
         <div className="hogwarts-device-seal">H</div>
-        <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p>{identity?.name || "年轻的巫师"} · {state.date || "2026-12-01"}</p></div>
+        <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p>{identity?.name || "年轻的巫师"} {state.date || "2026-12-01"}</p></div>
       </header>
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
-        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程</> : chosen.name}</h2>
+        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程</> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
           {!recipient ? <>
             <button onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
-              <span className="hogwarts-avatar">{contact.name.slice(-1)}</span>{contact.name}
+              <span className="hogwarts-avatar">{contact.name.slice(-1)}</span>
+              <span className="hogwarts-contact-copy"><strong>{contact.name}</strong><small>{
+                (sent[contact.id] ?? []).slice(-1)[0] ||
+                (contact.id === "hyunjae" ? letters.slice(-1)[0]?.body.split(/(?:李贤在|你)[：:]/).pop() : "") ||
+                "还没有消息"
+              }</small></span>
             </button>)}
           </> : <>
           <button onClick={() => { setRecipient(""); setDraft(""); }}>返回会话列表</button>
@@ -122,6 +127,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </>}
         </section> : active === "calendar" && identity ? <section>
           <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
+            sceneLabel={day === 12 ? "去看魁地奇比赛" : undefined}
             onScene={!owlToday && scenes.length > 0 && !nextDay ? () => setSceneOpen(true) : undefined}
             attended={attended} onAttend={(id, time, last) => {
               setAttended(previous => ({ ...previous, [id]: true }));
@@ -162,14 +168,18 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
         {scenes.map(scene => {
-          const text = scene.body.replace(/(把书递给你|接过去了|李贤在笑了|还是伸手拿走|他(?:压低声音|说|问|笑着说))：/g, "$1。李贤在：")
-            .replace(/(你接过书，摸出一颗糖递给他)：/g, "$1。你：");
-          return <div key={scene.id}>{text.split(/(?=李贤在：|你：)/).flatMap((part, index) => {
+          const text = scene.body
+            .replace(/(李贤在[^。！？；：]{0,28}(?:说|问|笑了|声音|口气)|他[^。！？；：]{0,22}(?:说|问|声音|口气)|把书递给你|接过去了|还是伸手拿走|第一句话就是)：/g, "$1。李贤在：")
+            .replace(/(你接过书，摸出一颗糖递给他|你说|你问)：/g, "$1。你：");
+          const parts = text.split(/(?=李贤在：|你：)/);
+          return <div key={scene.id}>{parts.map((part, index) => {
             const line = part.match(/^(李贤在|你)：(.*)$/s);
             if (!line) return part && <p key={index} className="hogwarts-narration">{part}</p>;
-            const [speech, aside] = line[2].split(/(?=嘴上这么说|李贤在笑了。|还是伸手拿走。)/, 2);
+            const asideStart = line[2].search(/(?<=。|！|？|；)(?:嘴上|还是伸手|李贤在(?!(?:：))|你们|他(?:走|看|低|抬|伸|点|笑|停|往|收|向|转|靠|没有|先|忽然)|后来|安静了一会|比赛开始|走了一段)/);
+            const speech = asideStart < 0 ? line[2] : line[2].slice(0, asideStart);
+            const aside = asideStart < 0 ? "" : line[2].slice(asideStart);
             return <div key={index}>
-              {note(line[1] === "你" ? identity?.name ?? "我" : "李贤在", speech, line[1] === "你")}
+              {speech && note(line[1] === "你" ? identity?.name ?? "我" : "李贤在", speech, line[1] === "你")}
               {aside && <p className="hogwarts-narration">{aside}</p>}
             </div>;
           })}</div>;
