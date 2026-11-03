@@ -247,7 +247,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
-            <button onClick={() => setActive("maraudersmap")}>打开活点地图</button>
+            <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <section className="hogwarts-map" aria-label="霍格沃茨城堡示意图">
             {[
