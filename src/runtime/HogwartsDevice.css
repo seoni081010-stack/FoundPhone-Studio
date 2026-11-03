@@ -108,3 +108,17 @@
 .hogwarts-date .hogwarts-send-invite { width: 100%; min-height: 52px; padding: 10px; font: inherit; font-weight: 700; background: #ede0c6; color: #493621; }
 .hogwarts-date .hogwarts-send-invite:disabled { opacity: .6; }
 .hogwarts-agenda-date { margin-inline-start: auto; font-size: .8em; white-space: nowrap; }
+
+.hogwarts-device .hogwarts-today { margin: 14px 8px; padding: 18px 14px; }
+.hogwarts-today h2 { font-weight: 800; }
+.hogwarts-today .hogwarts-agenda-row { font-size: 1.06rem; line-height: 1.55; gap: 14px; }
+.hogwarts-agenda-row button { flex-shrink: 0; }
+.hogwarts-end-day { font-size: 1.2rem; font-weight: 800; }
+.hogwarts-map button, .hogwarts-floorplan text { font-family: system-ui, sans-serif; font-weight: 700; }
+.hogwarts-floorplan text { font-size: 13px; }
+.hogwarts-date { padding-block: 16px 24px; font-size: 1.2rem; }
+.hogwarts-date select { border-width: 2px; font-weight: 700; min-height: 50px; }
+.hogwarts-date .hogwarts-send-invite { margin-top: 16px; }
+.hogwarts-date .hogwarts-date-hint { font-size: 1.05rem; }
+.hogwarts-shop-nav { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 6px; margin-block: 12px; }
+.hogwarts-shop-nav button { min-width: 0; min-height: 44px; padding-inline: 3px; }

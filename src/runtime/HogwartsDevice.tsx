@@ -31,7 +31,7 @@ const hyunjaeDeclines = [
   "今天可能去不了了，抱歉。格兰芬多那边临时要我换一轮巡查，等我忙完再找你。",
   "抱歉，我和同学约了整理魔咒学笔记，他还在等我。下次你再叫我，好不好？",
 ];
-type Props = { work: Work; contacts: readonly { id: string; name: string }[]; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
+type Props = { work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
 export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const work = useMemo(() => {
     const boundaries = original.nodes.filter(node => node.actions.some(action =>
@@ -86,6 +86,14 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     </div>;
   const [finished, setFinished] = useState(false);
   const [attended, setAttended] = useState<Record<string, boolean>>({});
+  const lead = contacts.find(contact => contact.id === identity?.loveInterest);
+  const sameHouse = lead?.house === identity?.house;
+  const sameYear = lead?.year === identity?.year;
+  const journalIntro = sameHouse
+    ? sameYear ? "你们平时一起上课，偶尔会聊几句作业。老师说下节课要换教室时，你还问过他该往哪边走。"
+      : "你常在公共休息室看见他。偶尔有人问壁炉旁还有没有空位，你们会搭上一两句话。"
+    : sameYear ? "你知道他和你同年级。有时两院的课排在一起，你会在教室里见到他。"
+      : "你见过他几次。大多是在门厅或楼梯上，擦肩就过去了。";
   const identityKey = identity ? [identity.name, identity.house, identity.year].join("-") : "";
   useWeeklyAllowance(identityKey, day);
   // The authored route stores both channels in owlpost. Keep the original text
@@ -209,11 +217,11 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               setDateReply(reply);
             }}>发送邀请</button>
           {dateContact && dateContact !== "hyunjae" && <p>这位角色的邀约剧情还在准备中。</p>}
-          <p>每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
+          <p className="hogwarts-date-hint">每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
           {Object.entries(plans).filter(([value]) => Number(value) >= day).map(([value, plan]) => <p key={value}>12月{value}日 · {plan}</p>)}
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} />
           : active === "wizardjournal" && identity ? <section>
-            {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.body}</p>)}
+            {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
             <button onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>

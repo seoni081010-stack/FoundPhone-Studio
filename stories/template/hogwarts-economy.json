@@ -17,12 +17,12 @@
   },
   "initial": {
     "gringottsVault": {
-      "galleons": 50000
+      "galleons": 100000
     },
     "wallet": {
       "galleons": 5000
     },
-    "totalGalleons": 55000
+    "totalGalleons": 105000
   },
   "allowanceSource": "父母",
   "allowanceFrequency": "每游戏周一次（周一早晨）",

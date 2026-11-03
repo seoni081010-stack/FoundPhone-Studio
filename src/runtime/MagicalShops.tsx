@@ -44,10 +44,10 @@ export function MagicalShops({identityKey,leadId}:{identityKey:string;leadId:str
   {!section ? <div className="hogwarts-economy-menu">
     <button onClick={() => setSection("shop")}>魔法商店</button>
     <button onClick={() => setSection("bank")}>古灵阁</button>
-  </div> : <button onClick={() => { setSection(undefined); setMessage(""); }}>返回送礼服务</button>}
+  </div> : section === "bank" && <button onClick={() => { setSection(undefined); setMessage(""); }}>返回送礼服务</button>}
   {section==="bank" && <div style={{padding:12,border:"1px solid #c4b18e",borderRadius:8,marginBottom:12}}><strong>古灵阁巫师银行</strong><p>提取或存入加隆</p><input aria-label="交易加隆数量" type="number" min={1} max={save.vault} step={1} value={amount} onChange={e=>setAmount(Number(e.target.value))} style={{maxWidth:110}}/> <button type="button" onClick={()=>transfer("withdraw")}>提款</button></div>}
   {section === "shop" && <>
-  <div style={{display:"flex",gap:8,marginBottom:12}}>{(["霍格莫德","对角巷"] as const).map(p=><button type="button" key={p} onClick={()=>{setPlace(p);setShop("");}} aria-pressed={place===p}>{p}</button>)}</div>
+  <div className="hogwarts-shop-nav"><button onClick={() => { setSection(undefined); setMessage(""); }}>返回送礼服务</button>{(["霍格莫德","对角巷"] as const).map(p=><button type="button" key={p} onClick={()=>{setPlace(p);setShop("");}} aria-pressed={place===p}>{p}</button>)}</div>
   <h3>{place}</h3>
 
   <label>选择店铺 <select value={activeShop} onChange={e=>setShop(e.target.value)}>{currentShops.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
