@@ -28,6 +28,8 @@ jobs:
       - run: npm run story:validate
       - run: npm run story:test
       - run: npm run build
+        env:
+          STORY_FILE: stories/hyunjae/story.json
       - uses: actions/configure-pages@v5
         with:
           enablement: true

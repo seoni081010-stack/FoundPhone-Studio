@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HogwartsDevice } from "./HogwartsDevice";
-import { MagicalShops } from "./MagicalShops";
-import { HogwartsSchedule } from "./HogwartsSchedule";
-import { HogwartsCharacters } from "./HogwartsCharacters";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
 import "./player.css";
@@ -125,7 +122,7 @@ function StoryPlayer() {
               <h1>解开卷宗封印</h1>
               <p className="hogwarts-intro">欢迎回来，{identity?.name}。输入四位封印符文，打开你的魔法卷宗。</p>
               <label className="hogwarts-label" htmlFor="magical-passcode">四位封印符文</label>
-              <input id="magical-passcode" className="hogwarts-input" type="password" inputMode="numeric" pattern="[0-9]{4}" maxLength={4} autoComplete="off" value={passcode} onChange={e => { setPasscode(e.target.value.replace(/\\D/g, "").slice(0, 4)); setPasscodeError(false); }} placeholder="••••" required />
+              <input id="magical-passcode" className="hogwarts-input" type="password" inputMode="numeric" pattern="[0-9]{4}" maxLength={4} autoComplete="off" value={passcode} onChange={e => { setPasscode(e.target.value.replace(/\D/g, "").slice(0, 4)); setPasscodeError(false); }} placeholder="••••" required />
               {passcodeError && <p role="alert" className="hogwarts-love-note">密码不正确，请重试。</p>}
               <button className="hogwarts-enter" type="submit" disabled={passcode.length !== 4}>解开封印 →</button>
               <button className="hogwarts-enter" type="button" onClick={() => { setIdentity(null); setPasscode(""); localStorage.removeItem(storageKey); }}>返回身份登记</button>
@@ -135,9 +132,6 @@ function StoryPlayer() {
           <>
             {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
             <HogwartsDevice work={work} identity={identity} />
-            {!isTest && identity && <HogwartsCharacters key={identity.name+"-"+identity.house+"-"+identity.year} year={identity.year} house={identity.house} identityKey={identity.name+"-"+identity.house+"-"+identity.year} />}
-            {!isTest && identity && <HogwartsSchedule year={identity.year} house={identity.house} />}
-            {!isTest && identity && <MagicalShops key={identity.name+"-"+identity.house+"-"+identity.year} identityKey={identity.name+"-"+identity.house+"-"+identity.year} leadId={identity.loveInterest} />}
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}
