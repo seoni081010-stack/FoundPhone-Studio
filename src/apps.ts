@@ -1,54 +1,23 @@
 import { uid, type Work } from "./schema";
 import { getApp, registry } from "./registry";
 export type AppConfig = Work["apps"][number];
-export const essentialApps = [
-  "appstore",
-  "phone",
-  "messages",
-  "photos",
-  "notes",
-  "safari",
-  "settings",
-];
-const systemApps = new Set([
-  "appstore",
-  "phone",
-  "messages",
-  "contacts",
-  "photos",
-  "camera",
-  "safari",
-  "notes",
-  "calendar",
-  "mail",
-  "clock",
-  "reminders",
-  "files",
-  "music",
-  "maps",
-  "weather",
-  "wallet",
-  "health",
-  "find",
-  "calculator",
-  "settings",
-]);
+export const essentialApps = ["owlpost", "schoolbook", "wizardjournal", "magicphotos", "maraudersmap", "heartarchive"];\nconst systemApps = new Set(essentialApps);
 export function category(id: string) {
-  if (systemApps.has(id)) return "系统";
+  if (systemApps.has(id)) return "魔法物品";
   const app = registry.find((a) => a.id === id);
   if (!app) return "自定义";
   return (
     (
       {
-        messaging: "通讯",
-        social: "社交",
-        media: "影音",
-        records: "生活",
-        document: "工具",
-        settings: "工具",
-        calculator: "工具",
+        messaging: "书信",
+        social: "交流",
+        media: "回忆",
+        records: "校园",
+        document: "卷宗",
+        settings: "卷宗",
+        calculator: "卷宗",
       } as Record<string, string>
-    )[app.engine] || "工具"
+    )[app.engine] || "卷宗"
   );
 }
 export function installApp(w: Work, id: string) {
