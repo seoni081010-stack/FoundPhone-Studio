@@ -17,13 +17,11 @@ export function HogwartsDevice({ work, identity }: Props) {
   const [state, setState] = useState<Runtime>(() => dispatch(work, initialRuntime(work), "start"));
   const [active, setActive] = useState("owlpost");
   const [opened, setOpened] = useState(false);
-  const [history, setHistory] = useState<string[]>([]);
   const entries = (state.messages.owlpost ?? []).filter(item => !item.hidden);
   const last = entries.slice(-4);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const select = (target: string) => {
     setState(previous => choose(work, previous, target));
-    setHistory(previous => [...previous, target]);
   };
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="霍格沃茨魔法卷宗">
