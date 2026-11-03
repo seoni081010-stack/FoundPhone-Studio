@@ -1,0 +1,133 @@
+{
+  "scriptVersion": 1,
+  "id": "hogwarts-hyunjae-december",
+  "title": "霍格沃茨十二月 · 李贤在",
+  "description": "李贤在路线独立开发文件。第一批12月1日至3日聊天内容；选择事件尚未接入，不能视为可玩分支。",
+  "revision": 1,
+  "phone": {
+    "owner": "你",
+    "date": "2026-12-01",
+    "time": "16:42",
+    "network": "魔法通讯",
+    "wallpaper": "default"
+  },
+  "installedApps": [
+    "messages",
+    "contacts",
+    "calendar",
+    "notes",
+    "photos",
+    "settings"
+  ],
+  "contacts": [
+    {
+      "id": "hyunjae",
+      "name": "李贤在",
+      "bio": "格兰芬多七年级级长"
+    }
+  ],
+  "chats": [
+    {
+      "id": "hyunjae-dec-chat",
+      "app": "messages",
+      "title": "李贤在",
+      "participants": [
+        "owner",
+        "hyunjae"
+      ],
+      "messages": [
+        {
+          "id": "hy-d01-01",
+          "senderId": "hyunjae",
+          "time": "12月1日 16:42",
+          "body": "你是不是忘了什么东西ㅋㅋ"
+        },
+        {
+          "id": "hy-d01-02",
+          "senderId": "hyunjae",
+          "time": "12月1日 16:42",
+          "body": "我刚才看见一本书，上面写着你的名字"
+        },
+        {
+          "id": "hy-d01-03",
+          "senderId": "owner",
+          "time": "12月1日 16:43",
+          "body": "完了！！我的魔法史课本！！"
+        },
+        {
+          "id": "hy-d01-04",
+          "senderId": "hyunjae",
+          "time": "12月1日 16:43",
+          "body": "ㅋㅋㅋㅋ我就知道你会忘。我帮你拿着了，来一楼找我吧"
+        },
+        {
+          "id": "hy-d02-01",
+          "senderId": "hyunjae",
+          "time": "12月2日 18:05",
+          "body": "我刚才买了个糖。他们说含着十分钟不咬碎很难"
+        },
+        {
+          "id": "hy-d02-02",
+          "senderId": "hyunjae",
+          "time": "12月2日 18:05",
+          "body": "我觉得不可能ㅋㅋ"
+        },
+        {
+          "id": "hy-d02-03",
+          "senderId": "owner",
+          "time": "12月2日 18:06",
+          "body": "你肯定坚持不了十分钟ㅋㅋ"
+        },
+        {
+          "id": "hy-d02-04",
+          "senderId": "hyunjae",
+          "time": "12月2日 18:06",
+          "body": "呀ㅋㅋ你等着"
+        },
+        {
+          "id": "hy-d02-05",
+          "senderId": "hyunjae",
+          "time": "12月2日 18:09",
+          "body": "……我咬碎了ㅋㅋㅋㅋㅋㅋ"
+        },
+        {
+          "id": "hy-d03-01",
+          "senderId": "hyunjae",
+          "time": "12月3日 21:14",
+          "body": "终于结束了。今天巡查走得我腿都酸了ㅋㅋ"
+        },
+        {
+          "id": "hy-d03-02",
+          "senderId": "owner",
+          "time": "12月3日 21:15",
+          "body": "辛苦啦，级长大人ㅋㅋ"
+        },
+        {
+          "id": "hy-d03-03",
+          "senderId": "hyunjae",
+          "time": "12月3日 21:15",
+          "body": "ㅋㅋㅋㅋ别这样叫我。我现在只想坐着"
+        }
+      ]
+    }
+  ],
+  "content": {
+    "calendar": [
+      {
+        "id": "hy-dec-calendar",
+        "title": "十二月",
+        "body": "12月6日 初雪；12月12日 格兰芬多对斯莱特林；12月24日 圣诞舞会；12月31日 跨年",
+        "time": "2026-12-01"
+      }
+    ]
+  },
+  "variables": {
+    "hyunjae_affection": 0,
+    "hyunjae_jealousy": 0,
+    "hyunjae_book_met": false,
+    "hyunjae_candy_challenge": false,
+    "hyunjae_prefect_cared": false
+  },
+  "events": [],
+  "tests": []
+}
