@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 19,
+  "revision": 20,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -2249,7 +2249,7 @@
         }
       ],
       "next": [
-        "hy-day24-choice"
+        "hy-day24-mistletoe-gate"
       ],
       "conditions": []
     },
@@ -3436,6 +3436,61 @@
       ],
       "next": [
         "hy-day27-scene"
+      ]
+    },
+    {
+      "id": "hy-day24-mistletoe-gate",
+      "label": "第二次槲寄生记忆判定",
+      "type": "action",
+      "actions": [],
+      "next": [
+        "hy-day24-mistletoe-remember",
+        "hy-day24-mistletoe-new"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day24-mistletoe-remember",
+      "label": "记得初雪的槲寄生",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_mistletoe_encountered",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "舞会结束后，你们并肩往回走。经过石拱门时，李贤在忽然慢了一点。他抬头看了一眼。是槲寄生。然后他低下头，又看向你。你们都记得初雪那天。他什么都没说，只是笑了一下，继续和你并肩往前走。"
+        }
+      ],
+      "next": [
+        "hy-day24-choice"
+      ]
+    },
+    {
+      "id": "hy-day24-mistletoe-new",
+      "label": "第一次注意到槲寄生",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_mistletoe_encountered",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "舞会结束后，你们并肩往回走。经过石拱门时，李贤在抬头看了一眼挂在上方的槲寄生，又看向你。他没有拿它开玩笑，只是笑了一下，继续和你往前走。"
+        }
+      ],
+      "next": [
+        "hy-day24-choice"
       ]
     }
   ],
