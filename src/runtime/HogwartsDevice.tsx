@@ -2,7 +2,7 @@ import { HogwartsCharacters } from "./HogwartsCharacters";
 import { HogwartsSchedule } from "./HogwartsSchedule";
 import { MagicalShops } from "./MagicalShops";
 import { useMemo, useState } from "react";
-import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft, WandSparkles } from "lucide-react";
+import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft } from "lucide-react";
 import { initialRuntime, type Runtime, type Work } from "../schema";
 import { dispatch, choose } from "../engine";
 import "./HogwartsDevice.css";
@@ -16,8 +16,8 @@ const modules = [
   { id: "calendar", name: "今日行程", subtitle: "课程与活动", Icon: BookOpen },
   { id: "market", name: "魔法商店与古灵阁", subtitle: "购物与金库", Icon: Heart },
 ] as const;
-type Props = { work: Work; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
-export function HogwartsDevice({ work: original, identity }: Props) {
+type Props = { work: Work; contacts: readonly { id: string; name: string }[]; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
+export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const work = useMemo(() => {
     const boundaries = original.nodes.filter(node => node.actions.some(action =>
       action.type === "date" && /^2026-12-(?!01$)\d{2}$/.test(String(action.value))));
@@ -43,7 +43,17 @@ export function HogwartsDevice({ work: original, identity }: Props) {
   const nextDay = state.choices.find(choice =>
     work.nodes.find(node => node.id === choice.target)?.actions.some(action =>
       action.type === "date" && String(action.value) > (state.date || "")));
+  const [startTime] = useState(() => new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false }));
   const [lessonTime, setLessonTime] = useState<string>();
+  const [region, setRegion] = useState<number>();
+  const [recipient, setRecipient] = useState("hyunjae");
+  const [draft, setDraft] = useState("");
+  const [sent, setSent] = useState<Record<string, string[]>>({});
+  const note = (name: string, body: string, outgoing: boolean, key?: number) =>
+    <div key={key} className={`hogwarts-message ${outgoing ? "outgoing" : ""}`}>
+      <span className="hogwarts-avatar" aria-hidden="true">{name.slice(-1)}</span>
+      <div><strong>{name}</strong><p>{body}</p></div>
+    </div>;
   const [finished, setFinished] = useState(false);
   const [attended, setAttended] = useState<Record<string, boolean>>({});
   const identityKey = identity ? [identity.name, identity.house, identity.year].join("-") : "";
@@ -64,7 +74,7 @@ export function HogwartsDevice({ work: original, identity }: Props) {
   const scenes = conversation.filter(entry => entry.day === day && (!owlToday || !isNote(entry.body)));
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const choices = !nextDay && state.choices.length > 0 ? <div className="hogwarts-device-choices">
-    <p>{owlToday ? "写张纸条回复" : "你会怎么回答？"}</p>
+
     {state.choices.map(choice => <button key={choice.target} onClick={() => select(choice.target)}>{choice.label}</button>)}
   </div> : null;
   const select = (target: string) => {
@@ -75,11 +85,11 @@ export function HogwartsDevice({ work: original, identity }: Props) {
     }
   };
   return <div className="hogwarts-device-stage">
-    <div className="hogwarts-device" aria-label="霍格沃茨魔法卷宗">
-      <div className="hogwarts-device-top"><WandSparkles size={17}/><span>12月{day}日 · {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} · D{day}/31</span><span>{lessonTime ?? state.time}</span></div>
+    <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
+      <div className="hogwarts-device-top"><span>12月{day}日 · {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} · D{day}/31</span><span>{lessonTime ?? startTime}</span></div>
       <header className="hogwarts-device-header">
         <div className="hogwarts-device-seal">H</div>
-        <div><small>THE ENCHANTED FOLIO</small><h1>霍格沃茨魔法卷宗</h1><p>{identity?.name || "年轻的巫师"} · {state.date || "2026-12-01"}</p></div>
+        <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p>{identity?.name || "年轻的巫师"} · {state.date || "2026-12-01"}</p></div>
       </header>
       {!opened ? <main className="hogwarts-device-home">
         <p className="hogwarts-device-section">魔法物品</p>
@@ -88,17 +98,29 @@ export function HogwartsDevice({ work: original, identity }: Props) {
         </div>
         <p className="hogwarts-device-note">羊皮纸会记住你的每一次选择。魔法故事正在继续。</p>
       </main> : <main className="hogwarts-device-page">
-        <button className="hogwarts-device-back" onClick={() => setOpened(false)}><ArrowLeft size={17}/> 返回卷宗</button>
+        <button className="hogwarts-device-back" onClick={() => setOpened(false)}><ArrowLeft size={17}/> 返回主页</button>
         <h2><chosen.Icon size={22}/> {chosen.name}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
-          <h3>李贤在 <small>· 猫头鹰纸条</small></h3>
+          <label>收件人 <select value={recipient} onChange={event => { setRecipient(event.target.value); setDraft(""); }}>
+            {contacts.map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
+          </select></label>
           {letters.length === 0 && <p>暂时没有新的猫头鹰纸条。</p>}
-          {letters.map(letter => <div key={letter.id} className="hogwarts-note-thread">
+          {recipient === "hyunjae" && letters.map(letter => <div key={letter.id} className="hogwarts-note-thread">
             <small>12月{letter.day}日</small>
             {letter.body.split(/(?<=[；;。！？?！]|\s)(?=(?:李贤在|你)[：:])/).map((line, index) =>
-              <p key={index} className={/^你[：:]/.test(line) ? "hogwarts-note-sent" : "hogwarts-note-received"}>{line}</p>)}
+              note(/^你[：:]/.test(line) ? identity?.name ?? "我" : "李贤在", line.replace(/^(李贤在|你)[：:]/, "").replace(/[；;]$/, ""), /^你[：:]/.test(line), index))}
           </div>)}
-          {owlToday && choices}
+          {recipient === "hyunjae" && owlToday && choices}
+          {(sent[recipient] ?? []).map((body, index) => note(identity?.name ?? "我", body, true, index))}
+          <form onSubmit={event => {
+            event.preventDefault();
+            if (!draft.trim()) return;
+            setSent(previous => ({ ...previous, [recipient]: [...(previous[recipient] ?? []), draft.trim()] }));
+            setDraft("");
+          }}>
+            <input aria-label="纸条内容" value={draft} onChange={event => setDraft(event.target.value)} maxLength={300} />
+            <button disabled={!draft.trim()}>寄出纸条</button>
+          </form>
         </section> : active === "calendar" && identity ? <section>
           <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
             onScene={!owlToday && scenes.length > 0 && !nextDay ? () => setSceneOpen(true) : undefined}
@@ -117,12 +139,32 @@ export function HogwartsDevice({ work: original, identity }: Props) {
               ["城堡主层", "门厅、大礼堂、长廊、变形术教室"],
               ["城堡地窖", "魔药学教室"],
               ["城堡外侧", "庭院、拱门、草药学温室、魁地奇球场、保护神奇生物课场地、禁林边缘"],
-            ].map(([area, places]) => <div key={area}><h3>{area}</h3><ul>{places.split("、").map(place => <li key={place}>{place}{seenScene && scenes.some(scene => scene.id === seenScene && scene.body.includes(place)) && <span aria-label="剧情中有足迹"> 👣</span>}</li>)}</ul></div>)}
+            ].map(([area, places], index) => <div key={area}>
+              <button aria-expanded={region === index} onClick={() => setRegion(region === index ? undefined : index)}>{area}</button>
+              {region === index && <svg viewBox="0 0 340 330" role="img" aria-label={area + "地图"} className="hogwarts-floorplan">
+                <path d="M170 32V298 M35 165H305" stroke="#8a6545" strokeWidth="12" fill="none" />
+                {places.split("、").map((place, position) => {
+                  const x = position % 2 ? 182 : 10;
+                  const y = 12 + Math.floor(position / 2) * 62;
+                  const marked = scenes.some(scene => scene.id === seenScene && scene.body.includes(place));
+                  return <g key={place}>
+                    {place === "魁地奇球场" ? <ellipse cx={x + 74} cy={y + 24} rx="74" ry="24" /> : <rect x={x} y={y} width="148" height="48" rx="5" />}
+                    <text x={x + 74} y={y + 28} textAnchor="middle">{place}{marked ? " 👣" : ""}</text>
+                  </g>;
+                })}
+              </svg>}
+            </div>)}
           </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
-        {scenes.map(scene => <article className="hogwarts-device-letter" key={scene.id}>{scene.body}</article>)}
+        {scenes.map(scene => {
+          const line = scene.body.match(/^(.*?)(?:李贤在：|他(?:压低声音|说|问|笑着说)：|把书递给你：)(.+)$/s);
+          return line ? <div key={scene.id}>
+            {line[1] && <p>{line[1]}{scene.body.startsWith(line[1] + "把书递给你") ? "把书递给你。" : ""}</p>}
+            <blockquote className="hogwarts-device-letter">{line[2]}</blockquote>
+          </div> : <p key={scene.id}>{scene.body}</p>;
+        })}
         {!owlToday && choices}
         {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
         {(!choices || owlToday) && <button onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); }}>继续今天的行程</button>}

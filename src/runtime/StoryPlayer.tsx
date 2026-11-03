@@ -60,7 +60,7 @@ function StoryPlayer() {
       })
       .then((x) => {
         const w = validateWork(x);
-        document.title = w.title + " · 霍格沃茨魔法卷宗";
+        document.title = w.title + " · Hogwarts Unspoken";
         setWork(w);
       })
       .catch((e) => { if (e.name !== "AbortError") setError(String(e)); });
@@ -131,8 +131,8 @@ function StoryPlayer() {
           </section>
         ) : (
           <>
-            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>✦ {chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
-            <HogwartsDevice work={work} identity={identity} />
+            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>{chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
+            <HogwartsDevice work={work} identity={identity} contacts={loveInterests} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}

@@ -25,3 +25,12 @@
 .hogwarts-map ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
 .hogwarts-map li { background: #faf3e6; color: #30271e; border-radius: 6px; padding: 6px 8px; }
 .hogwarts-scene::backdrop { background: #111b; }
+
+.hogwarts-message { display: flex; align-items: flex-start; gap: 8px; margin-block: 10px; }
+.hogwarts-message.outgoing { flex-direction: row-reverse; text-align: right; }
+.hogwarts-message p { margin: 4px 0 0; padding: 8px 12px; background: #faf3e6; color: #30271e; border-radius: 10px; }
+.hogwarts-message.outgoing p { background: #263b32; color: #fff3d5; }
+.hogwarts-avatar { display: grid; place-items: center; flex: 0 0 32px; height: 32px; border: 1px solid currentColor; border-radius: 50%; }
+.hogwarts-floorplan { display: block; width: 100%; margin-top: 8px; background: #e8d4ae; border-radius: 8px; }
+.hogwarts-floorplan rect, .hogwarts-floorplan ellipse { fill: #f8ebce; stroke: #785736; }
+.hogwarts-floorplan text { font-size: 12px; fill: #30271e; }
