@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 21,
+  "revision": 22,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -3427,14 +3427,14 @@
         {
           "key": "hyunjae_food_preference",
           "op": "eq",
-          "value": "a"
+          "value": "roast_chicken"
         }
       ],
       "actions": [
         {
           "type": "message",
           "key": "owlpost",
-          "value": "李贤在：我给你留了点吃的。没拿错，是你之前说过喜欢的那个。"
+          "value": "李贤在：我刚才看见烤鸡的时候就想起你之前说喜欢这个。"
         }
       ],
       "next": [
@@ -3448,15 +3448,15 @@
       "conditions": [
         {
           "key": "hyunjae_food_preference",
-          "op": "neq",
-          "value": "a"
+          "op": "eq",
+          "value": "light"
         }
       ],
       "actions": [
         {
           "type": "message",
           "key": "owlpost",
-          "value": "李贤在：我给你留了饼干。你喜欢什么口味来着？下次告诉我。"
+          "value": "李贤在：我记得你喜欢清淡一点的，所以没给你拿味道太重的。"
         }
       ],
       "next": [
