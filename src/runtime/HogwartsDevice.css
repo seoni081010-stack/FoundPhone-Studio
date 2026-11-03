@@ -65,3 +65,13 @@
 .hogwarts-contact .hogwarts-avatar { flex-basis: 44px; height: 44px; background: #e6d1ac; }
 .hogwarts-contact-copy { min-width: 0; display: grid; gap: 4px; }
 .hogwarts-contact-copy small { color: #735d47; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.hogwarts-device[aria-label="Hogwarts Unspoken"] { height: min(810px, calc(100dvh - 56px)); min-height: 0; }
+.hogwarts-device-top, .hogwarts-device-header, .hogwarts-dock { flex-shrink: 0; }
+.hogwarts-device-page { min-height: 0; overflow: auto; }
+.hogwarts-device .hogwarts-contact { display: grid; grid-template-columns: 44px minmax(0, 1fr); justify-items: start; justify-content: stretch; }
+.hogwarts-contact .hogwarts-avatar { width: 44px; box-sizing: border-box; }
+.hogwarts-contact-copy { width: 100%; }
+@media (max-width: 480px) {
+  .hogwarts-device[aria-label="Hogwarts Unspoken"] { height: 100dvh; }
+}

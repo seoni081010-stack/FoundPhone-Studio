@@ -88,7 +88,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       <div className="hogwarts-device-top"><span>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} D{day}/31</span><span>{lessonTime ?? startTime}</span></div>
       <header className="hogwarts-device-header">
         <div className="hogwarts-device-seal">H</div>
-        <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p>{identity?.name || "年轻的巫师"} {state.date || "2026-12-01"}</p></div>
+        <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p><time dateTime={state.date || "2026-12-01"}>2026年12月{day}日</time></p></div>
       </header>
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
@@ -97,7 +97,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           {!recipient ? <>
             <button onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
-              <span className="hogwarts-avatar">{contact.name.slice(-1)}</span>
+              <span className="hogwarts-avatar" aria-hidden="true" />
               <span className="hogwarts-contact-copy"><strong>{contact.name}</strong><small>{
                 (sent[contact.id] ?? []).slice(-1)[0] ||
                 (contact.id === "hyunjae" ? letters.slice(-1)[0]?.body.split(/(?:李贤在|你)[：:]/).pop() : "") ||
