@@ -2,8 +2,8 @@
   "scriptVersion": 1,
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
-  "description": "31天交互路线第一版：逐日选择、记忆标记、双结局。内部验证中。",
-  "revision": 4,
+  "description": "31天交互路线开发版：128+事件节点、条件记忆回调和双结局；好感度累积规则及交互验收仍待完善。",
+  "revision": 5,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -618,7 +618,7 @@
         }
       ],
       "next": [
-        "hy-day07-scene"
+        "hy-day07-memory-gate"
       ],
       "conditions": []
     },
@@ -644,7 +644,7 @@
         }
       ],
       "next": [
-        "hy-day07-scene"
+        "hy-day07-memory-gate"
       ],
       "conditions": []
     },
@@ -1310,7 +1310,7 @@
         }
       ],
       "next": [
-        "hy-day15-scene"
+        "hy-day15-memory-gate"
       ],
       "conditions": []
     },
@@ -1336,7 +1336,7 @@
         }
       ],
       "next": [
-        "hy-day15-scene"
+        "hy-day15-memory-gate"
       ],
       "conditions": []
     },
@@ -1735,7 +1735,7 @@
         }
       ],
       "next": [
-        "hy-day20-scene"
+        "hy-day20-memory-gate"
       ],
       "conditions": []
     },
@@ -1761,7 +1761,7 @@
         }
       ],
       "next": [
-        "hy-day20-scene"
+        "hy-day20-memory-gate"
       ],
       "conditions": []
     },
@@ -2076,7 +2076,7 @@
         }
       ],
       "next": [
-        "hy-day24-scene"
+        "hy-day24-memory-gate"
       ],
       "conditions": []
     },
@@ -2102,7 +2102,7 @@
         }
       ],
       "next": [
-        "hy-day24-scene"
+        "hy-day24-memory-gate"
       ],
       "conditions": []
     },
@@ -2165,7 +2165,7 @@
         }
       ],
       "next": [
-        "hy-day25-scene"
+        "hy-day25-memory-gate"
       ],
       "conditions": []
     },
@@ -2191,7 +2191,7 @@
         }
       ],
       "next": [
-        "hy-day25-scene"
+        "hy-day25-memory-gate"
       ],
       "conditions": []
     },
@@ -2669,7 +2669,7 @@
         }
       ],
       "next": [
-        "hy-day31-scene"
+        "hy-day31-memory-gate"
       ],
       "conditions": []
     },
@@ -2695,7 +2695,7 @@
         }
       ],
       "next": [
-        "hy-day31-scene"
+        "hy-day31-memory-gate"
       ],
       "conditions": []
     },
@@ -2775,7 +2775,7 @@
         {
           "type": "variable",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 96
         },
         {
           "type": "message",
@@ -2852,6 +2852,324 @@
           "op": "lt",
           "value": 100
         }
+      ]
+    },
+    {
+      "id": "hy-day07-memory-gate",
+      "label": "记忆回调判定",
+      "type": "action",
+      "next": [
+        "hy-day07-memory-gate-yes",
+        "hy-day07-memory-gate-no"
+      ]
+    },
+    {
+      "id": "hy-day07-memory-gate-yes",
+      "label": "已经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_first_snow_together",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：昨天你围巾上落了雪，我差点没忍住笑。"
+        }
+      ],
+      "next": [
+        "hy-day07-scene"
+      ]
+    },
+    {
+      "id": "hy-day07-memory-gate-no",
+      "label": "未经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_first_snow_together",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：今天楼梯又变了，差点走错路。"
+        }
+      ],
+      "next": [
+        "hy-day07-scene"
+      ]
+    },
+    {
+      "id": "hy-day15-memory-gate",
+      "label": "记忆回调判定",
+      "type": "action",
+      "next": [
+        "hy-day15-memory-gate-yes",
+        "hy-day15-memory-gate-no"
+      ]
+    },
+    {
+      "id": "hy-day15-memory-gate-yes",
+      "label": "已经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_food_preference",
+          "op": "eq",
+          "value": "roast_chicken"
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：我记得你说喜欢烤鸡，今天还有。"
+        }
+      ],
+      "next": [
+        "hy-day15-scene"
+      ]
+    },
+    {
+      "id": "hy-day15-memory-gate-no",
+      "label": "未经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_food_preference",
+          "op": "neq",
+          "value": "roast_chicken"
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：今天有什么想吃的吗？"
+        }
+      ],
+      "next": [
+        "hy-day15-scene"
+      ]
+    },
+    {
+      "id": "hy-day20-memory-gate",
+      "label": "记忆回调判定",
+      "type": "action",
+      "next": [
+        "hy-day20-memory-gate-yes",
+        "hy-day20-memory-gate-no"
+      ]
+    },
+    {
+      "id": "hy-day20-memory-gate-yes",
+      "label": "已经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_candy_face_memory",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：你不会还记得我那张苦得皱巴巴的脸吧ㅋㅋ"
+        }
+      ],
+      "next": [
+        "hy-day20-scene"
+      ]
+    },
+    {
+      "id": "hy-day20-memory-gate-no",
+      "label": "未经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_candy_face_memory",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：今天看到糖果店的新包装了。"
+        }
+      ],
+      "next": [
+        "hy-day20-scene"
+      ]
+    },
+    {
+      "id": "hy-day24-memory-gate",
+      "label": "记忆回调判定",
+      "type": "action",
+      "next": [
+        "hy-day24-memory-gate-yes",
+        "hy-day24-memory-gate-no"
+      ]
+    },
+    {
+      "id": "hy-day24-memory-gate-yes",
+      "label": "已经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_gift_chosen_by_player",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：你那天帮我选的礼物，其实是给你的。圣诞快乐。"
+        }
+      ],
+      "next": [
+        "hy-day24-scene"
+      ]
+    },
+    {
+      "id": "hy-day24-memory-gate-no",
+      "label": "未经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_gift_chosen_by_player",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：这个是我给你选的礼物。希望你喜欢。"
+        }
+      ],
+      "next": [
+        "hy-day24-scene"
+      ]
+    },
+    {
+      "id": "hy-day25-memory-gate",
+      "label": "记忆回调判定",
+      "type": "action",
+      "next": [
+        "hy-day25-memory-gate-yes",
+        "hy-day25-memory-gate-no"
+      ]
+    },
+    {
+      "id": "hy-day25-memory-gate-yes",
+      "label": "已经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_danced_at_ball",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：昨天那支舞我还记得。幸好没踩到你ㅋㅋ"
+        }
+      ],
+      "next": [
+        "hy-day25-scene"
+      ]
+    },
+    {
+      "id": "hy-day25-memory-gate-no",
+      "label": "未经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_danced_at_ball",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：昨天舞会结束得真晚。大家都玩得很开心。"
+        }
+      ],
+      "next": [
+        "hy-day25-scene"
+      ]
+    },
+    {
+      "id": "hy-day31-memory-gate",
+      "label": "记忆回调判定",
+      "type": "action",
+      "next": [
+        "hy-day31-memory-gate-yes",
+        "hy-day31-memory-gate-no"
+      ]
+    },
+    {
+      "id": "hy-day31-memory-gate-yes",
+      "label": "已经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_first_snow_together",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：还记得第一次下雪那天吗？我一直记得我们一起站在庭院。"
+        }
+      ],
+      "next": [
+        "hy-day31-scene"
+      ]
+    },
+    {
+      "id": "hy-day31-memory-gate-no",
+      "label": "未经历回忆",
+      "type": "action",
+      "conditions": [
+        {
+          "key": "hyunjae_first_snow_together",
+          "op": "neq",
+          "value": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "message",
+          "key": "messages",
+          "value": "李贤在：这个月城堡里发生了好多事。幸好有你。"
+        }
+      ],
+      "next": [
+        "hy-day31-scene"
       ]
     }
   ],
