@@ -190,10 +190,10 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
                 })}
               </svg>}
             </div>)}
-          </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
+          </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => item.title === "庭院初雪" ? <details className="hogwarts-device-letter" key={item.id}><summary>{item.title}</summary><p>{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p></details> : <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>
       {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene">
-        <h2>你已解锁一条线索</h2><p className="hogwarts-narration">{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p><p>在魔法相册中查看「庭院初雪」。</p>
+        <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
         <button onClick={() => setClueOpen(false)}>继续</button>
       </dialog>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">

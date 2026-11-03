@@ -25,7 +25,7 @@ export function HogwartsSchedule({year, house, day, interaction, attended, onAtt
      {time: "12:30", row: <p key="lunch" className="hogwarts-agenda-row">12:30 午餐 · {food.mains[(day - 1) % food.mains.length]}</p>},
      {time: "18:30", row: <p key="dinner" className="hogwarts-agenda-row">18:30 晚餐 · {food.mains[(day + 4) % food.mains.length]}</p>},
    ].sort((a, b) => a.time.localeCompare(b.time)).map(item => item.row)}
-   {allAttended && onScene && <button type="button" onClick={onScene}>{sceneLabel ?? "继续今天的行程"}</button>}
+   {allAttended && onScene && <button className="hogwarts-activity" type="button" onClick={onScene}>{sceneLabel ?? "继续今天的行程"}</button>}
    <button className="hogwarts-end-day" type="button" disabled={!onEnd || !allAttended} onClick={onEnd}>结束这一天</button>
    {!allAttended ? <p>请先完成今天的课程。</p> : !onEnd && interaction && day < 31 ? <p>请先到「{interaction}」完成今天的互动。</p> : null}
  </section>;
