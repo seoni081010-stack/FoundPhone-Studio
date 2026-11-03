@@ -1,3 +1,4 @@
+import giftPreferences from "../../stories/template/hogwarts-gift-preferences.json";
 import { useState } from "react";
 import timetable from "../../stories/template/hogwarts-timetables.json";
 
@@ -48,6 +49,9 @@ export function HogwartsCharacters({year,house,identityKey}:{year:number;house:s
     <h3 style={{marginTop:0}}>{selected.name}</h3>
     <p>{houseChinese[selected.house]} · {selected.year}年级 · {selected.role}</p>
     <p>{selected.bio}</p>
+    <p><strong>礼物偏好</strong> {selected.id === "hyunjae"
+      ? "蜂蜜公爵的甜糖、厚围巾和手套、好写的羽毛笔和小书签"
+      : giftPreferences.preferences.find(person => person.id === selected.id)?.likes.join("、")}</p>
     <label style={{display:"flex",justifyContent:"space-between"}}><span>好感度</span><strong>{status(selected).affinity}%</strong></label>
     <progress max={100} value={status(selected).affinity} style={{width:"100%",accentColor:"#d48ba2"}} />
     <label style={{display:"flex",justifyContent:"space-between"}}><span>嫉妒值</span><strong>{status(selected).jealousy}%</strong></label>

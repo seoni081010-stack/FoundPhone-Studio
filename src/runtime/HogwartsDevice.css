@@ -140,3 +140,4 @@
 .hogwarts-shop-picker select { font: inherit; min-height: 48px; width: 100%; }
 .hogwarts-device .hogwarts-today { margin-inline: 0; }
 .hogwarts-today h2 { font-size: 1.35rem; padding-block: 8px 16px; }
+.hogwarts-today .hogwarts-activity { display: block; margin-block: 20px 18px; }

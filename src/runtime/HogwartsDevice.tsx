@@ -224,6 +224,14 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} contacts={contacts} onGift={(recipient, item, liked) => {
             const affection = Number(state.variables.hyunjae_affection ?? 0);
             if (recipient === identity.loveInterest && recipient === "hyunjae") {
+              const reply = /围巾|手套|毛衣|厚袜|保暖帽/.test(item)
+                ? `收到你的${item}了。明天巡查我就用上。你要是碰见我，记得看一眼。`
+                : /羽毛笔|墨水|书签|羊皮/.test(item)
+                  ? `你寄的${item}我收到了。刚才拿它写了两行巡查记录，第三行写的就是这张回信。`
+                  : /糖|巧克力|蛋糕|馅饼|多味豆/.test(item)
+                    ? `收到${item}了！我先尝一口。要是又苦得皱脸，这次你可看不见ㅋㅋ`
+                    : `你挑的${item}我收到了。我刚放到床头了。明天见面记得问我喜不喜欢，我想当面告诉你。`;
+              setGiftReplies(previous => [...previous, reply]);
               setState(previous => ({ ...previous, variables: { ...previous.variables, hyunjae_affection: Math.min(100, affection + (liked ? 5 : 2)) } }));
             } else if (recipient !== identity.loveInterest) {
               const key = "friendship_" + recipient;
@@ -239,7 +247,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
-            <details><summary>李贤在喜欢什么</summary><p>蜂蜜公爵的甜软糖、巡查时用得上的围巾和手套、好写的羽毛笔和小书签。</p></details><button onClick={() => setActive("maraudersmap")}>打开活点地图</button>
+            <button onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <section className="hogwarts-map" aria-label="霍格沃茨城堡示意图">
             {[
