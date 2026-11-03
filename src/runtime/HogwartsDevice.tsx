@@ -9,12 +9,11 @@ import "./HogwartsDevice.css";
 
 const modules = [
   { id: "owlpost", name: "猫头鹰信箱", subtitle: "书信与便笺", Icon: Feather },
-  { id: "encounter", name: "当面相遇", subtitle: "今日剧情", Icon: Heart },
   { id: "schoolbook", name: "校园手册", subtitle: "课程与活动", Icon: BookOpen },
   { id: "wizardjournal", name: "巫师手札", subtitle: "私密记录", Icon: ScrollText },
   { id: "magicphotos", name: "魔法相册", subtitle: "会动的回忆", Icon: Images },
   { id: "maraudersmap", name: "活点地图", subtitle: "城堡探索", Icon: Map },
-  { id: "calendar", name: "日历", subtitle: "课表与每日进度", Icon: BookOpen },
+  { id: "calendar", name: "今日行程", subtitle: "课程与活动", Icon: BookOpen },
   { id: "market", name: "魔法商店与古灵阁", subtitle: "购物与金库", Icon: Heart },
 ] as const;
 type Props = { work: Work; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
@@ -34,8 +33,10 @@ export function HogwartsDevice({ work: original, identity }: Props) {
     };
   }, [original]);
   const [state, setState] = useState<Runtime>(() => { const initial = initialRuntime(work); initial.variables.hyunjae_player_house = identity?.house ?? "unspecified"; initial.variables.hyunjae_player_year = identity?.year ?? 5; return dispatch(work, initial, "start"); });
-  const [active, setActive] = useState("owlpost");
-  const [opened, setOpened] = useState(false);
+  const [active, setActive] = useState("calendar");
+  const [opened, setOpened] = useState(Boolean(identity));
+  const [sceneOpen, setSceneOpen] = useState(false);
+  const [seenScene, setSeenScene] = useState("");
   const entries = (state.messages.owlpost ?? []).filter(item => !item.hidden);
   const date = new Date((state.date || "2026-12-01") + "T12:00:00Z");
   const day = date.getUTCDate();
@@ -67,7 +68,11 @@ export function HogwartsDevice({ work: original, identity }: Props) {
     {state.choices.map(choice => <button key={choice.target} onClick={() => select(choice.target)}>{choice.label}</button>)}
   </div> : null;
   const select = (target: string) => {
-    setState(previous => choose(work, previous, target));
+    const next = choose(work, state, target);
+    setState(next);
+    if (owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice(entries.length).some(entry => !isNote(entry.body))) {
+      setSceneOpen(true);
+    }
   };
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="霍格沃茨魔法卷宗">
@@ -79,7 +84,7 @@ export function HogwartsDevice({ work: original, identity }: Props) {
       {!opened ? <main className="hogwarts-device-home">
         <p className="hogwarts-device-section">魔法物品</p>
         <div className="hogwarts-device-grid">
-          {modules.filter(m => (identity && (m.id === "calendar" || m.id === "market" || m.id === "encounter")) || work.apps.some(a => a.id === m.id && a.installed)).map(m => <button key={m.id} className="hogwarts-device-tile" onClick={() => {setActive(m.id);setOpened(true);}}><span className="hogwarts-device-icon"><m.Icon size={25}/></span><strong>{m.name}</strong><small>{m.subtitle}</small></button>)}
+          {modules.filter(m => (identity && (m.id === "calendar" || m.id === "market")) || work.apps.some(a => a.id === m.id && a.installed)).map(m => <button key={m.id} className="hogwarts-device-tile" onClick={() => {setActive(m.id);setOpened(true);}}><span className="hogwarts-device-icon"><m.Icon size={25}/></span><strong>{m.name}</strong><small>{m.subtitle}</small></button>)}
         </div>
         <p className="hogwarts-device-note">羊皮纸会记住你的每一次选择。魔法故事正在继续。</p>
       </main> : <main className="hogwarts-device-page">
@@ -94,26 +99,34 @@ export function HogwartsDevice({ work: original, identity }: Props) {
               <p key={index} className={/^你[：:]/.test(line) ? "hogwarts-note-sent" : "hogwarts-note-received"}>{line}</p>)}
           </div>)}
           {owlToday && choices}
-          {owlToday && scenes.length > 0 && <button onClick={() => setActive("encounter")}>查看当面相遇</button>}
-        </section> : active === "encounter" ? <section className="hogwarts-device-letters">
-          <h3>李贤在 <small>· HYUNJAE</small></h3>
-          {scenes.length ? scenes.map(scene => <article className="hogwarts-device-letter" key={scene.id}>{scene.body}</article>) : <p>今天还没有当面剧情。</p>}
-          {!owlToday && choices}
-          {state.endings.length > 0 && <div className="hogwarts-device-ending">{state.endings.includes("hyunjae-together") ? "✦ 十二月的约定 · 恋人" : "✦ 十二月的约定 · 未说破的喜欢"}</div>}
         </section> : active === "calendar" && identity ? <section>
-          <div className="hogwarts-month" aria-label="十二月月历">
-            {Array.from({ length: 31 }, (_, index) => <span key={index} aria-current={index + 1 === day ? "date" : undefined}>{index + 1}</span>)}
-          </div>
-          <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : "当面相遇"}
-            attended={attended} onAttend={(id, time) => {
+          <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
+            onScene={!owlToday && scenes.length > 0 && !nextDay ? () => setSceneOpen(true) : undefined}
+            attended={attended} onAttend={(id, time, last) => {
               setAttended(previous => ({ ...previous, [id]: true }));
               setLessonTime(time);
+              if (last && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay ? () => { select(nextDay.target); setLessonTime(undefined); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
           {finished && <p role="status">十二月已结束。</p>}
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} />
-          : <section className="hogwarts-device-letters">{active === "schoolbook" && identity && <details><summary>人物档案</summary><HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} /></details>}{(work.data[active] ?? []).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p>{active === "maraudersmap" && <small>✦ 已标记在活点地图</small>}</article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
+          : active === "schoolbook" && identity ? <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
+          : active === "maraudersmap" ? <section className="hogwarts-map" aria-label="霍格沃茨城堡示意图">
+            {[
+              ["城堡高层", "天文塔、图书馆、黑魔法防御术教室、魔咒学教室、魔法史教室、古代如尼文教室、算术占卜教室、占卜学教室、麻瓜研究教室"],
+              ["城堡主层", "门厅、大礼堂、长廊、变形术教室"],
+              ["城堡地窖", "魔药学教室"],
+              ["城堡外侧", "庭院、拱门、草药学温室、魁地奇球场、保护神奇生物课场地、禁林边缘"],
+            ].map(([area, places]) => <div key={area}><h3>{area}</h3><ul>{places.split("、").map(place => <li key={place}>{place}{seenScene && scenes.some(scene => scene.id === seenScene && scene.body.includes(place)) && <span aria-label="剧情中有足迹"> 👣</span>}</li>)}</ul></div>)}
+          </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>}
+      {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
+        <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
+        {scenes.map(scene => <article className="hogwarts-device-letter" key={scene.id}>{scene.body}</article>)}
+        {!owlToday && choices}
+        {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
+        {(!choices || owlToday) && <button onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); }}>继续今天的行程</button>}
+      </dialog>}
       <footer className="hogwarts-device-footer"><span>✦</span><span>HOGWARTS SCHOOL OF WITCHCRAFT AND WIZARDRY</span><span>✦</span></footer>
     </div>
   </div>;

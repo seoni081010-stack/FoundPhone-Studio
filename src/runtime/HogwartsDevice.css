@@ -16,3 +16,12 @@
 .hogwarts-note-received { align-self: flex-start; background: #faf3e6; color: #30271e; }
 .hogwarts-note-sent { align-self: flex-end; background: #263b32; color: #fff3d5; }
 .hogwarts-device-choices button { width: 100%; min-height: 44px; text-align: left; }
+
+.hogwarts-agenda-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #b99e67; }
+.hogwarts-agenda-row button, .hogwarts-scene button { min-height: 44px; }
+.hogwarts-scene { position: fixed; inset: 0; margin: auto; z-index: 220; width: min(90vw, 440px); box-sizing: border-box; max-height: 85dvh; overflow: auto; background: #faf3e6; color: #30271e; border: 1px solid #b99e67; border-radius: 18px; padding: 20px; box-shadow: 0 0 0 100vmax #111b; }
+.hogwarts-map { display: grid; gap: 10px; }
+.hogwarts-map > div { border: 1px solid #b99e67; border-radius: 12px; padding: 8px 14px; }
+.hogwarts-map ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.hogwarts-map li { background: #faf3e6; color: #30271e; border-radius: 6px; padding: 6px 8px; }
+.hogwarts-scene::backdrop { background: #111b; }
