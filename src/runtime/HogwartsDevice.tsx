@@ -56,7 +56,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const date = new Date((state.date || "2026-12-01") + "T12:00:00Z");
   const day = date.getUTCDate();
   const availableDateDays = Array.from({ length: 32 - day }, (_, offset) => day + offset)
-    .filter(value => value >= 22 || dateOptions.dateDays.includes(new Date(Date.UTC(2026, 11, value)).getUTCDay()));
+    .filter(value => value !== 12 && value !== 24 && (value >= 22 || dateOptions.dateDays.includes(new Date(Date.UTC(2026, 11, value)).getUTCDay())));
 
   const nextDay = state.choices.find(choice =>
     work.nodes.find(node => node.id === choice.target)?.actions.some(action =>
@@ -257,15 +257,15 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               ["城堡外侧", "庭院、拱门、草药学温室、魁地奇球场、保护神奇生物课场地、禁林边缘"],
             ].map(([area, places], index) => <div key={area}>
               <button aria-expanded={region === index} onClick={() => setRegion(region === index ? undefined : index)}>{area}</button>
-              {region === index && <svg viewBox="0 0 340 330" role="img" aria-label={area + "地图"} className="hogwarts-floorplan">
-                <path d="M170 32V298 M35 165H305" stroke="#8a6545" strokeWidth="12" fill="none" />
+              {region === index && <svg viewBox="0 0 380 350" role="img" aria-label={area + "地图"} className="hogwarts-floorplan">
+                <path d="M190 32V318 M35 165H345" stroke="#8a6545" strokeWidth="12" fill="none" />
                 {places.split("、").map((place, position) => {
-                  const x = position % 2 ? 182 : 10;
+                  const x = position % 2 ? 198 : 8;
                   const y = 12 + Math.floor(position / 2) * 62;
                   const marked = scenes.some(scene => scene.id === seenScene && scene.body.includes(place));
                   return <g key={place}>
-                    {place === "魁地奇球场" ? <ellipse cx={x + 74} cy={y + 24} rx="74" ry="24" /> : <rect x={x} y={y} width="148" height="48" rx="5" />}
-                    <text x={x + 74} y={y + 28} textAnchor="middle">{place}{marked ? " 👣" : ""}</text>
+                    {place === "魁地奇球场" ? <ellipse cx={x + 87} cy={y + 24} rx="87" ry="24" /> : <rect x={x} y={y} width="174" height="48" rx="5" />}
+                    <text x={x + 87} y={y + 28} textAnchor="middle">{place}{marked ? " 👣" : ""}</text>
                   </g>;
                 })}
               </svg>}

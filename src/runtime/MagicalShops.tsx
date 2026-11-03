@@ -59,7 +59,7 @@ export function MagicalShops({identityKey,leadId,contacts,onGift}:{identityKey:s
 
   <label className="hogwarts-shop-picker">选择店铺 <select value={activeShop} onChange={e=>setShop(e.target.value)}>{currentShops.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
   <ul style={{listStyle:"none",padding:0}}>{items.map(item=><li key={item.id} style={{padding:"9px 0",borderBottom:"1px solid #dfd3bf",display:"flex",justifyContent:"space-between",alignItems:"center",gap:10}}><span>{item.name}<small style={{display:"block"}}>{fmt(item.displayPrice.galleons)}</small></span><button type="button" onClick={()=>buy(item)}>购买</button></li>)}</ul>
-  <h3>待寄的礼物</h3><label>寄给谁 <select value={recipient} onChange={event=>setRecipient(event.target.value)}>{contacts.map(contact=><option key={contact.id} value={contact.id}>{contact.name}</option>)}</select></label>
+  <h3>待寄的礼物</h3><label className="hogwarts-gift-recipient">寄给谁 <select value={recipient} onChange={event=>setRecipient(event.target.value)}>{contacts.map(contact=><option key={contact.id} value={contact.id}>{contact.name}</option>)}</select></label>
   {catalog.items.filter(x=>(save.inventory[x.id]||0)>0 && x.giftable).length===0?<p>这里还空着。挑好的礼物可以托猫头鹰送出去。</p>:<ul style={{listStyle:"none",padding:0}}>{catalog.items.filter(x=>(save.inventory[x.id]||0)>0 && x.giftable).map(item=><li key={item.id} style={{display:"flex",justifyContent:"space-between",padding:"6px 0"}}>{item.name} × {save.inventory[item.id]} <button type="button" onClick={()=>give(item)}>赠送</button></li>)}</ul>}
   </>}
   <p role="status" aria-live="polite">{message}</p>

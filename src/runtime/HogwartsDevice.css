@@ -155,3 +155,10 @@
 
 .hogwarts-device .hogwarts-open-map { font-size: 1.2rem; font-weight: 750; min-height: 48px; padding: 8px 16px; }
 .hogwarts-date .hogwarts-send-invite { min-width: 8rem; padding-inline: 14px; border: 1px solid #b59b75; }
+
+.hogwarts-gift-recipient { display: grid; gap: 8px; font-size: 1.2rem; }
+.hogwarts-gift-recipient select { font: inherit; min-height: 48px; padding: 8px 12px; width: 100%; }
+.hogwarts-map { gap: 16px; }
+.hogwarts-map > div { padding: 12px 8px; }
+.hogwarts-map > div > button { width: 100%; min-height: 44px; }
+.hogwarts-floorplan text { font-size: 15px; }
