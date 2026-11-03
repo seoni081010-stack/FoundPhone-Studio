@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 17,
+  "revision": 18,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -2418,7 +2418,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月26日｜李贤在：今天已经第三次想给你发消息了ㅋㅋ"
+          "value": "12月26日｜李贤在：我今天已经第三次绕到这条走廊了ㅋㅋ 每次都觉得可能会碰见你。"
         }
       ],
       "next": [
@@ -2439,7 +2439,7 @@
     },
     {
       "id": "hy-day26-a",
-      "label": "那就发呀",
+      "label": "那你直接来找我呀",
       "type": "action",
       "actions": [
         {
@@ -2455,7 +2455,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：那就发呀；李贤在：好，我不找借口了"
+          "value": "你：那你直接来找我呀；李贤在：好。那我以后不找借口了ㅋㅋ"
         }
       ],
       "next": [
@@ -2465,7 +2465,7 @@
     },
     {
       "id": "hy-day26-b",
-      "label": "你今天这么闲？",
+      "label": "所以你是在等我？",
       "type": "action",
       "actions": [
         {
@@ -2481,7 +2481,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：你今天这么闲？；李贤在：被发现了ㅋㅋ"
+          "value": "你：所以你是在等我？；李贤在：……被发现了ㅋㅋ"
         }
       ],
       "next": [
