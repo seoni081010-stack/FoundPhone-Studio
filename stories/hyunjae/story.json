@@ -1741,7 +1741,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月18日｜李贤在：舞会结束后你也留校吧？"
+          "value": "12月18日｜李贤在问起假期安排。如果昨天已经约好舞会，他听见你也会留校，笑了：那今年城堡应该不会太无聊了。你：为什么？他看你一眼：因为你也在啊。如果昨天没一起看圣诞树，他会自然补上：对了，昨天忘了问你。24号舞会，你有约了吗？你说没有，他才问：那要不要一起？"
         }
       ],
       "next": [
@@ -1778,7 +1778,17 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：整个假期都留校；李贤在：那太好了"
+          "value": "你：整个假期都留校。李贤在：那今年城堡应该不会太无聊了。你：为什么？他看你一眼：因为你也在啊。"
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_ball_invited",
+          "value": true
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_danced_at_ball",
+          "value": true
         }
       ],
       "next": [
@@ -1804,7 +1814,17 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：假期一起逛城堡；李贤在：好啊ㅋㅋ"
+          "value": "你：假期一起逛城堡。李贤在笑了：好啊ㅋㅋ 反正人少，想去哪都行。"
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_ball_invited",
+          "value": true
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_danced_at_ball",
+          "value": true
         }
       ],
       "next": [
