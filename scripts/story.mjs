@@ -103,6 +103,7 @@ try {
   } else if (mode === "build") {
     await mkdir("public", { recursive: true });
     await writeFile("public/work.json", JSON.stringify(work, null, 2) + "\n");
+    if (!process.env.STORY_FILE) {
     const blank = compileStory(
       JSON.parse(await readFile("stories/blank/story.json", "utf8")),
     ).work;
@@ -118,6 +119,7 @@ try {
         "public/test-work.json",
         JSON.stringify(preview, null, 2) + "\n",
       );
+    }
     }
   } else if (!["validate", "test"].includes(mode))
     throw Error("未知命令 " + mode);
