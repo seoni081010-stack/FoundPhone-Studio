@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "31天交互剧情开发版：好感度按日累计，条件回忆、可跳过事件和双结局测试；待扩写互动深度及身份适配。",
-  "revision": 7,
+  "revision": 8,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -20,7 +20,8 @@
     "wizardjournal",
     "magicphotos",
     "prophetdaily",
-    "heartarchive"
+    "heartarchive",
+    "music"
   ],
   "contacts": [
     {
