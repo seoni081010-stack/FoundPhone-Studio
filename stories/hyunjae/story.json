@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "31天交互剧情开发版：好感度按日累计，条件回忆、可跳过事件和双结局测试；待扩写互动深度及身份适配。",
-  "revision": 8,
+  "revision": 9,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -74,6 +74,12 @@
         "title": "学院杯",
         "body": "四学院积分在校园手册中展示，积分变化由剧情事件更新。",
         "time": "2026-12-01"
+      },
+      {
+        "id": "hy-quidditch-prediction",
+        "title": "12月12日魁地奇赛前预测",
+        "body": "格兰芬多对斯莱特林。选择你预测的获胜学院。赛果固定为斯莱特林胜；猜中可兑换免费饮料，猜错没有罚款。正式预测及兑奖弹窗正在开发。",
+        "time": "2026-12-12"
       }
     ],
     "owlpost": [
@@ -113,7 +119,8 @@
     "hyunjae_slytherin_voucher": false,
     "hyunjae_route_complete": false,
     "hyunjae_player_house": "unspecified",
-    "hyunjae_player_year": 5
+    "hyunjae_player_year": 5,
+    "hyunjae_quidditch_prediction": ""
   },
   "events": [
     {
@@ -138,7 +145,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月1日｜李贤在：你的魔法史课本在我这里ㅋㅋ"
         }
       ],
@@ -175,7 +182,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我现在来拿；李贤在：我在一楼等你ㅋㅋ"
         },
         {
@@ -206,7 +213,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：先帮我收着；李贤在：好，我替你保管"
         },
         {
@@ -232,7 +239,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月2日｜李贤在：买了颗糖，听说十分钟不咬碎很难"
         }
       ],
@@ -269,7 +276,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我给你计时；李贤在：……三分钟就咬碎了ㅋㅋ"
         },
         {
@@ -300,7 +307,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你肯定坚持不了；李贤在：呀ㅋㅋ你猜对了"
         },
         {
@@ -326,7 +333,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月3日｜李贤在：巡查结束了，腿都酸了"
         }
       ],
@@ -363,7 +370,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：早点休息；李贤在：你也早点睡"
         },
         {
@@ -399,7 +406,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：辛苦了级长大人ㅋㅋ；李贤在：别这样叫我ㅋㅋ"
         },
         {
@@ -430,7 +437,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月4日｜李贤在：刚才图书馆里是你吧？"
         }
       ],
@@ -467,7 +474,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：坐我对面吧；李贤在：我保证不吵你"
         }
       ],
@@ -493,7 +500,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我在专心看书；李贤在：我还以为你故意不理我ㅋㅋ"
         }
       ],
@@ -514,7 +521,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月5日｜李贤在：今晚好冷。明天会下雪吗？"
         }
       ],
@@ -551,7 +558,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：希望能下雪；李贤在：那庭院应该很好看"
         }
       ],
@@ -577,7 +584,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：围巾记得戴；李贤在：知道啦，你也是"
         }
       ],
@@ -598,7 +605,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月6日｜李贤在：初雪了。要不要去庭院？"
         }
       ],
@@ -635,7 +642,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：一起去看雪；李贤在：石拱门旁的雪落得好慢。你手冷吗？"
         },
         {
@@ -671,7 +678,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我想自己走走；李贤在：好，记得暖暖手"
         }
       ],
@@ -692,7 +699,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月7日｜李贤在：昨天鞋子上全是雪ㅋㅋ"
         }
       ],
@@ -729,7 +736,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你差点滑倒；李贤在：你居然看见了ㅋㅋ"
         }
       ],
@@ -755,7 +762,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：今天巡查怎么样；李贤在：还行，楼梯又换方向了"
         }
       ],
@@ -776,7 +783,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月8日｜李贤在：今天烤鸡不错，你喜欢吗？"
         }
       ],
@@ -813,7 +820,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我喜欢烤鸡；李贤在：记住了，下次告诉你"
         },
         {
@@ -844,7 +851,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我喜欢清淡点；李贤在：那我下次推荐别的"
         },
         {
@@ -870,7 +877,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月9日｜李贤在：今天午饭没见到你"
         }
       ],
@@ -907,7 +914,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我坐得比较远；李贤在：原来如此ㅋㅋ"
         }
       ],
@@ -933,7 +940,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我今天没去；李贤在：那晚上记得吃"
         }
       ],
@@ -954,7 +961,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月10日｜李贤在：刚才和朋友聊什么呢？"
         }
       ],
@@ -991,7 +998,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：讲笑话呢；李贤在：怪不得笑得那么开心"
         }
       ],
@@ -1017,7 +1024,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：下次你也来；李贤在：好啊，记得叫我"
         }
       ],
@@ -1038,7 +1045,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月11日｜李贤在：明天格兰芬多比赛，善旴和英宰练得很认真"
         }
       ],
@@ -1075,7 +1082,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我给格兰芬多加油；李贤在：看台见ㅋㅋ"
         }
       ],
@@ -1101,7 +1108,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我支持精彩比赛；李贤在：公平，肯定精彩"
         }
       ],
@@ -1122,7 +1129,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月12日｜李贤在：输了。柱延那下游走球真准，斯莱特林拿到飞贼了"
         }
       ],
@@ -1159,7 +1166,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：陪你聊聊；李贤在：大家都尽力了"
         }
       ],
@@ -1185,13 +1192,8 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：先喝点东西；李贤在：好，今天他们确实打得好"
-        },
-        {
-          "type": "variable",
-          "key": "hyunjae_slytherin_voucher",
-          "value": true
         }
       ],
       "next": [
@@ -1211,7 +1213,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月13日｜李贤在：蜂蜜公爵的新糖，看我试试"
         }
       ],
@@ -1248,7 +1250,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你先尝一颗；李贤在：脸苦得皱巴巴的！你不许笑ㅋㅋ"
         },
         {
@@ -1279,7 +1281,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：别又逞强；李贤在：呜，好苦ㅋㅋ"
         }
       ],
@@ -1300,7 +1302,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月14日｜李贤在：今天一直忙，现在终于能找你了"
         }
       ],
@@ -1337,7 +1339,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：聊一会儿吧；李贤在：正好，我也想说话"
         }
       ],
@@ -1363,7 +1365,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你先休息；李贤在：好，晚点再聊"
         }
       ],
@@ -1384,7 +1386,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月15日｜李贤在：今天餐桌上有没有你喜欢的？"
         }
       ],
@@ -1421,7 +1423,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：还记得你上次推荐的；李贤在：你记得啊ㅋㅋ"
         }
       ],
@@ -1447,7 +1449,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：今天想换个口味；李贤在：那我们一起看看"
         }
       ],
@@ -1468,7 +1470,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月16日｜李贤在：刚才你笑什么？"
         }
       ],
@@ -1505,7 +1507,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：朋友讲笑话；李贤在：看你笑我都想笑"
         }
       ],
@@ -1531,7 +1533,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我讲给你听；李贤在：来，我听听"
         }
       ],
@@ -1552,7 +1554,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月17日｜李贤在：圣诞树装饰好了，一起看吗？"
         }
       ],
@@ -1589,7 +1591,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：好呀；李贤在：我等你"
         }
       ],
@@ -1615,7 +1617,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：今天有点累；李贤在：下次再看也行"
         }
       ],
@@ -1636,7 +1638,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月18日｜李贤在：舞会结束后你也留校吧？"
         }
       ],
@@ -1673,7 +1675,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：整个假期都留校；李贤在：那太好了"
         }
       ],
@@ -1699,7 +1701,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：假期一起逛城堡；李贤在：好啊ㅋㅋ"
         }
       ],
@@ -1720,7 +1722,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月19日｜李贤在：帮我选个圣诞礼物，送朋友的"
         }
       ],
@@ -1757,7 +1759,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：帮你挑围巾；李贤在：好，我记下了"
         },
         {
@@ -1788,7 +1790,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你自己挑更有心意；李贤在：也对，不过我想听你的意见"
         }
       ],
@@ -1809,7 +1811,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月20日｜李贤在：又看到那种糖的包装了ㅋㅋ"
         }
       ],
@@ -1846,7 +1848,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：还记得苦糖脸？；李贤在：你怎么还记得！ㅋㅋ"
         }
       ],
@@ -1872,7 +1874,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：还敢尝吗？；李贤在：这次我学乖了"
         }
       ],
@@ -1893,7 +1895,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月21日｜李贤在：我在核对假期离校名单"
         }
       ],
@@ -1930,7 +1932,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我们都留校吧；李贤在：当然，我们都留在这里"
         }
       ],
@@ -1956,7 +1958,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：工作多吗？；李贤在：快结束了，别担心"
         }
       ],
@@ -1977,7 +1979,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月22日｜李贤在：假期第一天，大礼堂真安静"
         }
       ],
@@ -2014,7 +2016,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：一起吃早餐；李贤在：给你留个座位"
         }
       ],
@@ -2040,7 +2042,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我晚点去；李贤在：我先看看有什么吃的"
         }
       ],
@@ -2061,7 +2063,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月23日｜李贤在：明天舞会，你准备好了吗？"
         }
       ],
@@ -2098,7 +2100,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：一起跳支舞？；李贤在：好啊，别笑我踩脚ㅋㅋ"
         },
         {
@@ -2129,7 +2131,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我先和朋友们待会儿；李贤在：当然，舞会上见"
         }
       ],
@@ -2150,7 +2152,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月24日｜李贤在：舞会结束了，大家都待到最后。你开心吗？"
         }
       ],
@@ -2187,7 +2189,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：和你一起很开心；李贤在：我也是。长廊那边的槲寄生还挂着……"
         },
         {
@@ -2218,7 +2220,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：大家都在真好；李贤在：你开心，我也开心"
         }
       ],
@@ -2239,7 +2241,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月25日｜李贤在：圣诞快乐！早餐很丰盛"
         }
       ],
@@ -2276,7 +2278,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：马上过去；李贤在：我给你留座位"
         }
       ],
@@ -2302,7 +2304,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：晚点过去；李贤在：我给你留了那份"
         }
       ],
@@ -2323,7 +2325,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月26日｜李贤在：今天已经第三次想给你发消息了ㅋㅋ"
         }
       ],
@@ -2360,7 +2362,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：那就发呀；李贤在：好，我不找借口了"
         }
       ],
@@ -2386,7 +2388,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你今天这么闲？；李贤在：被发现了ㅋㅋ"
         }
       ],
@@ -2407,7 +2409,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月27日｜李贤在：给你留了块刚出炉的饼干"
         }
       ],
@@ -2444,7 +2446,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你怎么知道我想吃；李贤在：看到就想起你了"
         }
       ],
@@ -2470,7 +2472,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：你也留一块；李贤在：当然，我也要吃ㅋㅋ"
         }
       ],
@@ -2491,7 +2493,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月28日｜李贤在：我们这个月好像经常一起做事"
         }
       ],
@@ -2528,7 +2530,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我很喜欢这些日子；李贤在：我也是，比想的还喜欢"
         }
       ],
@@ -2554,7 +2556,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我们越来越熟了；李贤在：是啊，最近又有点不一样"
         }
       ],
@@ -2575,7 +2577,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月29日｜李贤在：下午城堡有冬季灯展"
         }
       ],
@@ -2612,7 +2614,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：一起看灯；李贤在：好，灯亮起来很好看"
         }
       ],
@@ -2638,7 +2640,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：先在庭院走走；李贤在：我陪你走一段"
         }
       ],
@@ -2659,7 +2661,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月30日｜李贤在：明天有空吗？想当面说点事"
         }
       ],
@@ -2696,7 +2698,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：有空，见面说；李贤在：明晚长廊见"
         }
       ],
@@ -2722,7 +2724,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：先透露一点嘛ㅋㅋ；李贤在：不是坏事，别紧张ㅋㅋ"
         }
       ],
@@ -2743,7 +2745,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "12月31日｜李贤在：今年最后一天。我在长廊等你"
         }
       ],
@@ -2780,7 +2782,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我来了；李贤在：这个月的事我都记得"
         },
         {
@@ -2811,7 +2813,7 @@
         },
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "你：我也有话说；李贤在：那让我先说吧"
         },
         {
@@ -2843,7 +2845,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：这个月跟你一起做了很多事。有时候其实也没做什么，就是一起吃饭，聊天，或者到处走走。但我发现自己很喜欢那些时候。不是因为那些事情特别有意思，才想跟你一起做。是因为跟你一起做，所以才觉得开心。我喜欢你。不是朋友之间的那种。所以……你愿意跟我交往吗？"
         },
         {
@@ -2868,7 +2870,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：今年能和你一起待在霍格沃茨，真的很好。明年也一起做很多事吧。"
         },
         {
@@ -2909,7 +2911,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：昨天你围巾上落了雪，我差点没忍住笑。"
         }
       ],
@@ -2931,7 +2933,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：今天楼梯又变了，差点走错路。"
         }
       ],
@@ -2962,7 +2964,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：我记得你说喜欢烤鸡，今天还有。"
         }
       ],
@@ -2984,7 +2986,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：今天有什么想吃的吗？"
         }
       ],
@@ -3015,7 +3017,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：你不会还记得我那张苦得皱巴巴的脸吧ㅋㅋ"
         }
       ],
@@ -3037,7 +3039,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：今天看到糖果店的新包装了。"
         }
       ],
@@ -3068,7 +3070,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：你那天帮我选的礼物，其实是给你的。圣诞快乐。"
         }
       ],
@@ -3090,7 +3092,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：这个是我给你选的礼物。希望你喜欢。"
         }
       ],
@@ -3121,7 +3123,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：昨天那支舞我还记得。幸好没踩到你ㅋㅋ"
         }
       ],
@@ -3143,7 +3145,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：昨天舞会结束得真晚。大家都玩得很开心。"
         }
       ],
@@ -3174,7 +3176,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：还记得第一次下雪那天吗？我一直记得我们一起站在庭院。"
         }
       ],
@@ -3196,7 +3198,7 @@
       "actions": [
         {
           "type": "message",
-          "key": "messages",
+          "key": "owlpost",
           "value": "李贤在：这个月城堡里发生了好多事。幸好有你。"
         }
       ],
