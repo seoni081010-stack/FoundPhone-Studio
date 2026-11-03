@@ -39,6 +39,7 @@ function StoryPlayer() {
   const [house, setHouse] = useState(identity?.house || "");
   const [year, setYear] = useState(identity?.year || 5);
   const [loveInterest, setLoveInterest] = useState(identity?.loveInterest || "");
+  const requirePasscode = false;
   const [unlocked, setUnlocked] = useState(false);
   const [passcode, setPasscode] = useState("");
   const [passcodeError, setPasscodeError] = useState(false);
@@ -114,7 +115,7 @@ function StoryPlayer() {
               <p className="hogwarts-footnote">你可以自由选择学院。本设定不模拟分院帽测试。</p>
             </div>
           </section>
-        ) : !isTest && !unlocked ? (
+        ) : !isTest && requirePasscode && !unlocked ? (
           <section className="hogwarts-entry" aria-label="魔法卷宗封印">
             <form className="hogwarts-form" onSubmit={e => { e.preventDefault(); unlockPhone(); }}>
               <div className="hogwarts-crest">✧ H ✧</div>
