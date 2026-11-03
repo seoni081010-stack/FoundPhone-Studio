@@ -16,10 +16,10 @@ describe("story progression", () => {
     const original = initialRuntime(w);
     const started = dispatch(w, original, "start");
     expect(started.notifications).toHaveLength(1);
-    expect(visible(w.data.photos[0], started)).toBe(false);
+    expect(visible(w.data.magicphotos[0], started)).toBe(false);
     const read = dispatch(w, started, "read", "note-clue");
     expect(read.clues).toContain("ticket");
-    expect(visible(w.data.photos[0], read)).toBe(true);
+    expect(visible(w.data.magicphotos[0], read)).toBe(true);
     expect(read.choices).toHaveLength(2);
     const result = choose(w, read, "good");
     expect(result.endings).toHaveLength(1);
