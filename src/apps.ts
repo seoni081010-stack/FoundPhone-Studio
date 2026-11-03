@@ -1,7 +1,8 @@
 import { uid, type Work } from "./schema";
 import { getApp, registry } from "./registry";
 export type AppConfig = Work["apps"][number];
-export const essentialApps = ["owlpost", "schoolbook", "wizardjournal", "magicphotos", "maraudersmap", "heartarchive"];\nconst systemApps = new Set(essentialApps);
+export const essentialApps = ["owlpost", "schoolbook", "wizardjournal", "magicphotos", "maraudersmap", "heartarchive"];
+const systemApps = new Set(essentialApps);
 export function category(id: string) {
   if (systemApps.has(id)) return "魔法物品";
   const app = registry.find((a) => a.id === id);
