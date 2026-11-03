@@ -14,11 +14,11 @@ const modules = [
 ] as const;
 type Props = { work: Work; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
 export function HogwartsDevice({ work, identity }: Props) {
-  const [state, setState] = useState<Runtime>(() => dispatch(work, initialRuntime(work), "start"));
+  const [state, setState] = useState<Runtime>(() => { const initial = initialRuntime(work); initial.variables.hyunjae_player_house = identity?.house ?? "unspecified"; initial.variables.hyunjae_player_year = identity?.year ?? 5; return dispatch(work, initial, "start"); });
   const [active, setActive] = useState("owlpost");
   const [opened, setOpened] = useState(false);
   const entries = (state.messages.owlpost ?? []).filter(item => !item.hidden);
-  const last = entries.slice(-4);
+  const last = entries.slice(-7);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const select = (target: string) => {
     setState(previous => choose(work, previous, target));
