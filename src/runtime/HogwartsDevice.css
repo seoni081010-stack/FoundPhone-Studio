@@ -75,3 +75,5 @@
 @media (max-width: 480px) {
   .hogwarts-device[aria-label="Hogwarts Unspoken"] { height: 100dvh; }
 }
+
+.hogwarts-shop-link { margin-inline-start: auto; max-width: 55%; border: 1px solid #bda581; border-radius: 8px; background: #ede0c6; color: #493621; padding: 8px 10px; font-size: .82em; }

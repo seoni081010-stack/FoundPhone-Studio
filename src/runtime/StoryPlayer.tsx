@@ -131,7 +131,7 @@ function StoryPlayer() {
           </section>
         ) : (
           <>
-            {!isTest && chosen && <button type="button" className="hogwarts-reset" title="重新选择身份" onClick={() => { setIdentity(null); setUnlocked(false); setPasscode(""); localStorage.removeItem(storageKey); }}>{chosen.name} · {identity?.year}年级 · {loveInterests.find(m => m.id === identity?.loveInterest)?.name} · 更改身份</button>}
+            {!isTest && chosen && identity && <div className="hogwarts-reset">{chosen.name} {identity.year}年级 {identity.name}</div>}
             <HogwartsDevice work={work} identity={identity} contacts={loveInterests} />
           </>
         )

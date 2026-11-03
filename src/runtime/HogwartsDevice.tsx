@@ -1,3 +1,4 @@
+import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { HogwartsCharacters } from "./HogwartsCharacters";
 import { HogwartsSchedule } from "./HogwartsSchedule";
 import { MagicalShops } from "./MagicalShops";
@@ -14,6 +15,7 @@ const modules = [
   { id: "magicphotos", name: "魔法相册", subtitle: "会动的回忆", Icon: Images },
   { id: "maraudersmap", name: "活点地图", subtitle: "城堡探索", Icon: Map },
   { id: "calendar", name: "今日行程", subtitle: "课程与活动", Icon: BookOpen },
+  { id: "date", name: "Date", subtitle: "周末约会", Icon: Heart },
   { id: "market", name: "魔法商店与古灵阁", subtitle: "购物与金库", Icon: Heart },
 ] as const;
 type Props = { work: Work; contacts: readonly { id: string; name: string }[]; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
@@ -46,6 +48,9 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [lessonTime, setLessonTime] = useState<string>();
   const [region, setRegion] = useState<number>();
   const [recipient, setRecipient] = useState("");
+  const [dateContact, setDateContact] = useState("");
+  const [dateVenue, setDateVenue] = useState("");
+  const [plans, setPlans] = useState<Record<number, string>>({});
   const [draft, setDraft] = useState("");
   const [sent, setSent] = useState<Record<string, string[]>>({});
   const note = (name: string, body: string, outgoing: boolean, key?: number) =>
@@ -79,7 +84,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const select = (target: string) => {
     const next = choose(work, state, target);
     setState(next);
-    if (owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice(entries.length).some(entry => !isNote(entry.body))) {
+    if (owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice((state.messages.owlpost ?? []).length).some(entry => !isNote(entry.body))) {
       setSceneOpen(true);
     }
   };
@@ -92,10 +97,9 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       </header>
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
-        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程</> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}</h2>
+        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程</> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
           {!recipient ? <>
-            <button onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
               <span className="hogwarts-avatar" aria-hidden="true" />
               <span className="hogwarts-contact-copy"><strong>{contact.name}</strong><small>{
@@ -135,7 +139,25 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               if (last && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
             onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+          {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
           {finished && <p role="status">十二月已结束。</p>}
+        </section> : active === "date" ? <section>
+          <p>周末约会</p>
+          <label>约谁见面 <select value={dateContact} onChange={event => setDateContact(event.target.value)}>
+            <option value="">选择一位朋友</option>
+            {contacts.map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
+          </select></label>
+          <p><label>去哪里 <select value={dateVenue} onChange={event => setDateVenue(event.target.value)}>
+            <option value="">选择地点</option>
+            {dateOptions.venues.map(venue => <option key={venue.id} value={venue.id}
+              disabled={("requiresHolidayOrSpecialPass" in venue && day < 22) || (venue.region.startsWith("对角巷") && day < 22)}>
+              {venue.name}（{venue.region}）
+            </option>)}
+          </select></label></p>
+          <button disabled={!dateContact || !dateVenue || !dateOptions.dateDays.includes(date.getUTCDay())}
+            onClick={() => setPlans(previous => ({ ...previous, [day]: contacts.find(contact => contact.id === dateContact)?.name + " · " + dateOptions.venues.find(venue => venue.id === dateVenue)?.name }))}>记入约会计划</button>
+          {!dateOptions.dateDays.includes(date.getUTCDay()) && <p>周六和周日可以安排约会。</p>}
+          {plans[day] && <p role="status">今日约会计划：{plans[day]}</p>}
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} />
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.body}</p>)}
@@ -189,7 +211,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         {(!choices || owlToday) && <button onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); }}>继续今天的行程</button>}
       </dialog>}
       <nav className="hogwarts-dock" aria-label="学生手机应用">
-        {modules.filter(module => ["magicphotos", "market", "owlpost", "wizardjournal"].includes(module.id)).map(module =>
+        {modules.filter(module => ["magicphotos", "owlpost", "wizardjournal", "date"].includes(module.id)).sort((a, b) => ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(a.id) - ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(b.id)).map(module =>
           <button key={module.id} aria-pressed={active === module.id} onClick={() => setActive(active === module.id ? "calendar" : module.id)}>
             <span><module.Icon size={19} /></span>{module.id === "market" ? "魔法商店" : module.name}
           </button>)}
