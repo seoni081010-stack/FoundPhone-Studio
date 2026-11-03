@@ -37,6 +37,12 @@ function apply(a: Action, s: Runtime, w: Work) {
     case "variable":
       s.variables[a.key] = a.value;
       break;
+    case "increment": {
+      const current = s.variables[a.key];
+      if (typeof current === "number" && typeof a.value === "number")
+        s.variables[a.key] = Math.max(0, Math.min(100, current + a.value));
+      break;
+    }
     case "unlock":
       if (!s.unlocked.includes(a.key)) s.unlocked.push(a.key);
       break;
@@ -118,13 +124,13 @@ function runQueue(
     s.trace.push(`${event}:${target} → ${n.label}`);
     for (const a of n.actions) {
       const previous =
-        a.type === "variable"
+        (a.type === "variable" || a.type === "increment")
           ? s.variables[a.key]
           : a.type === "time"
             ? s.time
             : undefined;
       apply(a, s, w);
-      if (a.type === "variable" && previous !== s.variables[a.key])
+      if ((a.type === "variable" || a.type === "increment") && previous !== s.variables[a.key])
         queue.push(
           ...w.nodes
             .filter(
