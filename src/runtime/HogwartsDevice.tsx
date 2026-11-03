@@ -40,7 +40,7 @@ export function HogwartsDevice({ work, identity }: Props) {
         <button className="hogwarts-device-back" onClick={() => setOpened(false)}><ArrowLeft size={17}/> 返回卷宗</button>
         <h2><chosen.Icon size={22}/> {chosen.name}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
-          <p className="hogwarts-device-section">李贤在 · 格兰芬多七年级级长</p>
+          <p className="hogwarts-device-section">李贤在 · 格兰芬多七年级级长</p>{identity && <p className="hogwarts-device-context">你 · {identity.year}年级 · {identity.house === "gryffindor" ? "格兰芬多" : identity.house === "slytherin" ? "斯莱特林" : identity.house === "ravenclaw" ? "拉文克劳" : "赫奇帕奇"}</p>}
           {last.length ? last.map(item => <article className="hogwarts-device-letter" key={item.id}>{item.body}</article>) : <p>暂时没有新的猫头鹰便笺。</p>}
           {state.choices.length > 0 && <div className="hogwarts-device-choices"><p>你会怎么回答？</p>{state.choices.map(c => <button key={c.target} onClick={() => select(c.target)}>{c.label}</button>)}</div>}
           {state.endings.length > 0 && <div className="hogwarts-device-ending">{state.endings.includes("hyunjae-together") ? "✦ 十二月的约定 · 恋人" : "✦ 十二月的约定 · 未说破的喜欢"}</div>}
