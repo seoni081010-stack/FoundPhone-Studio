@@ -52,6 +52,15 @@ const definitions: [
   LucideIcon,
   string[],
 ][] = [
+  ["owlpost", "猫头鹰信箱", "messaging", "#91704b", Mail, ["收件箱","写信","礼物通知"]],
+  ["schoolbook", "霍格沃茨校园手册", "records", "#8b694b", Calendar, ["课程与作业","日历与活动","学院积分"]],
+  ["magicshop", "魔法商店", "records", "#9d7654", ShoppingBag, ["商品","礼物","订单"]],
+  ["gringotts", "古灵阁", "records", "#8c8361", Wallet, ["金库","收支"]],
+  ["maraudersmap", "活点地图", "records", "#9b8867", Map, ["地点","探索"]],
+  ["wizardjournal", "巫师手札", "document", "#84735c", StickyNote, ["日记","线索"]],
+  ["magicphotos", "魔法相册", "media", "#8279a0", Image, ["会动的照片","回忆"]],
+  ["prophetdaily", "预言家日报", "document", "#7c746c", Files, ["新闻","传闻"]],
+  ["heartarchive", "心动档案", "document", "#a57580", Heart, ["人物","回忆"]],
   ["phone", "电话", "records", "#30c65a", Phone, ["最近通话", "通讯录"]],
   [
     "messages",
