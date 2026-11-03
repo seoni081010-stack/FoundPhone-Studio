@@ -128,7 +128,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   };
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
-      <div className="hogwarts-device-top"><span>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} D{day}/31</span><span>{lessonTime ?? startTime}</span></div>
+      <div className="hogwarts-device-top"><span>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} <strong>D{day}/31</strong></span><span>{lessonTime ?? startTime}</span></div>
       <header className="hogwarts-device-header">
         <div className="hogwarts-device-seal">H</div>
         <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p><time dateTime={state.date || "2026-12-01"}>2026年12月{day}日</time></p></div>

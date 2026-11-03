@@ -149,3 +149,6 @@
 .hogwarts-clue h2 { margin: 0 0 16px; }
 .hogwarts-clue p { margin: 0 0 20px; }
 .hogwarts-clue button { min-height: 36px; padding: 5px 14px; width: auto; }
+
+.hogwarts-device-back + h2 { margin-top: 28px; }
+.hogwarts-device-top strong { font-weight: 700; }
