@@ -34,3 +34,16 @@
 .hogwarts-floorplan { display: block; width: 100%; margin-top: 8px; background: #e8d4ae; border-radius: 8px; }
 .hogwarts-floorplan rect, .hogwarts-floorplan ellipse { fill: #f8ebce; stroke: #785736; }
 .hogwarts-floorplan text { font-size: 12px; fill: #30271e; }
+
+.hogwarts-device[aria-label="Hogwarts Unspoken"] { background: #101013; color: #f1ece6; }
+.hogwarts-today { margin: 14px; padding: 18px; border: 1px solid #49464d; border-radius: 20px; background: #1a191e; }
+.hogwarts-today h2 small { letter-spacing: .18em; color: #b1aab5; margin-right: 12px; }
+.hogwarts-today button { border-radius: 999px; }
+.hogwarts-dock { position: sticky; bottom: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; background: #161519; padding: 8px 4px max(8px, env(safe-area-inset-bottom)); border-top: 1px solid #49464d; }
+.hogwarts-dock button { display: grid; justify-items: center; gap: 4px; color: #ddd5df; border: 0; background: transparent; padding: 4px 0; font-size: 12px; }
+.hogwarts-dock button[aria-pressed="true"] { color: white; background: #343039; border-radius: 10px; }
+.hogwarts-dock button span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #343039; }
+.hogwarts-contact { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; margin-top: 6px; text-align: left; }
+.hogwarts-narration { font-size: .88rem; font-style: italic; color: #665f54; line-height: 1.6; }
+.hogwarts-scene .hogwarts-message:not(.outgoing) p { background: #d3e6d5; color: #183423; }
+.hogwarts-scene .hogwarts-message.outgoing p { background: #eee1d0; color: #30271e; }
