@@ -1,7 +1,7 @@
 import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { HogwartsCharacters } from "./HogwartsCharacters";
 import { HogwartsSchedule } from "./HogwartsSchedule";
-import { MagicalShops } from "./MagicalShops";
+import { MagicalShops, useWeeklyAllowance } from "./MagicalShops";
 import { useMemo, useState } from "react";
 import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft } from "lucide-react";
 import { initialRuntime, type Runtime, type Work } from "../schema";
@@ -18,6 +18,19 @@ const modules = [
   { id: "date", name: "Date", subtitle: "周末约会", Icon: Heart },
   { id: "market", name: "魔法商店与古灵阁", subtitle: "购物与金库", Icon: Heart },
 ] as const;
+const hyunjaeDates: Record<string, { reply: string; scene: string[] }> = {
+  puddifoot: { reply: "好啊。先说好，你点的蛋糕要分我一口。", scene: ["他把蛋糕推到桌子正中，自己先拿起叉子。", "你不是说分我一口？我这才第一口。", "你那一口怎么切了半块？", "……那剩下半块都归你。"] },
+  "three-broomsticks": { reply: "去啊。你先到的话，帮我留个靠窗的位置。", scene: ["他端着两杯黄油啤酒回来，在你对面坐下。", "我刚才差点把这杯端给隔壁桌。", "那你怎么认出我的？", "你从我站起来就一直盯着这杯。"] },
+  "hogs-head": { reply: "好。那里安静，你上次没讲完的事可以接着讲了。", scene: ["角落里只剩一张小桌，他把椅子往你这边拖了一点。", "行了，刚才说到哪儿了？", "你真记得我没讲完？", "记得。你每次讲到最好笑的地方就被人打断。"] },
+  "diagon-alley-walk": { reply: "可以。丽痕书店见，你要是先到，别一个人把整间店逛完。", scene: ["你从书架上抽出一本书，发现他正从另一侧看着同一本。", "你也想看这个？", "我只是想看看你挑了什么。", "那一起翻吧。你翻慢一点，我还没看完这一页。"] },
+  "leaky-cauldron": { reply: "好啊，正好我饿了。你想吃什么？我可以先帮你占座。", scene: ["他朝你招手，把菜单转到你面前。", "我看了半天，最后决定等你来选。", "你就这么信我的口味？", "嗯。选错了我也能帮你吃一半。"] },
+  "florean-fortescue": { reply: "好！你挑一个口味，我挑一个，先别告诉我你选什么。", scene: ["两份冰淇淋端上来，居然是同一个口味。你们对视了一眼。", "等一下，你是不是偷听我点单了？", "明明是我先点的。", "那没办法了。下次再来一次，看看还会不会撞。"] },
+};
+const hyunjaeDeclines = [
+  "对不起啊，变形术的练习还没补完。我答应教授今天交，下次我早点留时间。",
+  "今天可能去不了了，抱歉。格兰芬多那边临时要我换一轮巡查，等我忙完再找你。",
+  "抱歉，我和同学约了整理魔咒学笔记，他还在等我。下次你再叫我，好不好？",
+];
 type Props = { work: Work; contacts: readonly { id: string; name: string }[]; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
 export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const work = useMemo(() => {
@@ -49,9 +62,14 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [lessonTime, setLessonTime] = useState<string>();
   const [region, setRegion] = useState<number>();
   const [recipient, setRecipient] = useState("");
+  const [dateReplies, setDateReplies] = useState<string[]>([]);
+  const [dateReply, setDateReply] = useState("");
+  const [outing, setOuting] = useState(false);
   const [dateContact, setDateContact] = useState("");
   const [dateVenue, setDateVenue] = useState("");
+  const [destination, setDestination] = useState("");
   const [plans, setPlans] = useState<Record<number, string>>({});
+  const [acceptedVenues, setAcceptedVenues] = useState<Record<number, string>>({});
   const [draft, setDraft] = useState("");
   const [sent, setSent] = useState<Record<string, string[]>>({});
   const highlightMistletoe = (text: string) => text.split(/(槲寄生)/).map((word, index) =>
@@ -64,6 +82,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [finished, setFinished] = useState(false);
   const [attended, setAttended] = useState<Record<string, boolean>>({});
   const identityKey = identity ? [identity.name, identity.house, identity.year].join("-") : "";
+  useWeeklyAllowance(identityKey, day);
   // The authored route stores both channels in owlpost. Keep the original text
   // and mark which opening scenes are delivered by owl.
   const owlDays = [2, 5, 6, 13, 15, 17, 19, 20, 30];
@@ -124,6 +143,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </div>)}
           {recipient === "hyunjae" && owlToday && choices}
           {(sent[recipient] ?? []).map((body, index) => note(identity?.name ?? "我", body, true, index))}
+          {recipient === "hyunjae" && dateReplies.map((reply, index) => note("李贤在", reply, false, index))}
           <form onSubmit={event => {
             event.preventDefault();
             if (!draft.trim()) return;
@@ -143,11 +163,18 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               setLessonTime(time);
               if (last && day !== 3 && day !== 4 && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); if (day === 6 && state.variables.hyunjae_first_snow_together) setClueOpen(true); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(""); if (day === 6 && state.variables.hyunjae_first_snow_together) setClueOpen(true); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
           {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
+          {day >= 22 && <section aria-label="假期自由活动">
+            <h3>自由活动</h3>
+            {["公共区域", "温室", "城堡外散步", "对角巷", "霍格莫德镇"].map(place =>
+              <button type="button" key={place} aria-pressed={destination === place} onClick={() => setDestination(place)}>{place}</button>)}
+            {destination && <p role="status">你现在在：{destination}</p>}
+          </section>}
+          {plans[day] && <p>今日约会：{plans[day]} <button onClick={() => setOuting(true)}>去赴约</button></p>}
           {finished && <p role="status">十二月已结束。</p>}
         </section> : active === "date" ? <section>
-          <p>周末约会</p>
+          <p>周末与假期约会</p>
           <label>约谁见面 <select value={dateContact} onChange={event => setDateContact(event.target.value)}>
             <option value="">选择一位朋友</option>
             {contacts.map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
@@ -155,13 +182,25 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           <p><label>去哪里 <select value={dateVenue} onChange={event => setDateVenue(event.target.value)}>
             <option value="">选择地点</option>
             {dateOptions.venues.map(venue => <option key={venue.id} value={venue.id}
-              disabled={("requiresHolidayOrSpecialPass" in venue && day < 22) || (venue.region.startsWith("对角巷") && day < 22)}>
+>
               {venue.name}（{venue.region}）
             </option>)}
           </select></label></p>
-          <button disabled={!dateContact || !dateVenue || !dateOptions.dateDays.includes(date.getUTCDay())}
-            onClick={() => setPlans(previous => ({ ...previous, [day]: contacts.find(contact => contact.id === dateContact)?.name + " · " + dateOptions.venues.find(venue => venue.id === dateVenue)?.name }))}>记入约会计划</button>
-          {!dateOptions.dateDays.includes(date.getUTCDay()) && <p>周六和周日可以安排约会。</p>}
+          <button disabled={dateContact !== "hyunjae" || !hyunjaeDates[dateVenue] || Boolean(plans[day]) || (day < 22 && !dateOptions.dateDays.includes(date.getUTCDay()))}
+            onClick={() => {
+              const accepted = identity?.loveInterest === "hyunjae" && Number(state.variables.hyunjae_affection ?? 0) > 45;
+              const reply = accepted ? hyunjaeDates[dateVenue].reply : hyunjaeDeclines[(day - 1) % hyunjaeDeclines.length];
+              const venue = dateOptions.venues.find(item => item.id === dateVenue);
+              if (accepted) {
+                setPlans(previous => ({ ...previous, [day]: "李贤在 · " + venue?.name }));
+                setAcceptedVenues(previous => ({ ...previous, [day]: dateVenue }));
+              }
+              setSent(previous => ({ ...previous, hyunjae: [...(previous.hyunjae ?? []), "邀约：" + venue?.name] }));
+              setDateReplies(previous => [...previous, reply]);
+              setDateReply(reply);
+            }}>发送邀请</button>
+          {dateContact && dateContact !== "hyunjae" && <p>这位角色的邀约剧情还在准备中。</p>}
+          {day < 22 && !dateOptions.dateDays.includes(date.getUTCDay()) && <p>周六和周日可以安排约会。</p>}
           {plans[day] && <p role="status">今日约会计划：{plans[day]}</p>}
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} />
           : active === "wizardjournal" && identity ? <section>
@@ -192,6 +231,15 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             </div>)}
           </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => item.title === "庭院初雪" ? <details className="hogwarts-device-letter" key={item.id}><summary>{item.title}</summary><p>{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p></details> : <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>
+      {(dateReply || outing) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+        onClose={() => { setDateReply(""); setOuting(false); }} className="hogwarts-scene">
+        <h2>{outing ? plans[day] : "李贤在的猫头鹰回信"}</h2>
+        {outing ? hyunjaeDates[acceptedVenues[day]]?.scene.map((line, index) => index === 0
+          ? <p key={index} className="hogwarts-narration">{line}</p>
+          : note(index === 2 ? identity?.name ?? "我" : "李贤在", line, index === 2, index))
+          : note("李贤在", dateReply, false)}
+        <button onClick={() => { setDateReply(""); setOuting(false); }}>返回</button>
+      </dialog>}
       {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene">
         <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
         <button onClick={() => setClueOpen(false)}>继续</button>

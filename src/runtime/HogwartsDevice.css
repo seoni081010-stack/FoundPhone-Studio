@@ -81,3 +81,4 @@
 .hogwarts-scene .hogwarts-narration { font-size: 1.125rem; line-height: 1.65; }
 .hogwarts-scene .hogwarts-narration strong { font-weight: 800; color: #392c20; }
 .hogwarts-activity, .hogwarts-today > section > button { font-size: 1.125rem; min-height: 44px; padding: 8px 14px; }
+.hogwarts-economy-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }.hogwarts-economy-menu button { min-height: 52px; }

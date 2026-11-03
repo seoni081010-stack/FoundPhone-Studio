@@ -9,13 +9,13 @@ export function HogwartsSchedule({year, house, day, interaction, attended, onAtt
  const byYear = timetable.timetables[String(year) as keyof typeof timetable.timetables];
  const entries = byYear?.[houseNames[house] as keyof typeof byYear] ?? [];
  const weekday = new Date(Date.UTC(2026, 11, day)).getUTCDay();
- const lessons = entries.filter(entry => weekday >= 1 && weekday <= 5 && entry.day === weekday - 1)
+ const lessons = entries.filter(entry => day < 22 && weekday >= 1 && weekday <= 5 && entry.day === weekday - 1)
    .sort((a, b) => a.time.localeCompare(b.time));
  const lessonId = (lesson: (typeof lessons)[number]) => [day, lesson.time, lesson.subject].join("-");
  const allAttended = lessons.every(lesson => attended[lessonId(lesson)]);
  return <section aria-label="当天日程">
    <h3>12月{day}日 · {weekdays[weekday - 1] ?? (weekday === 0 ? "周日" : "周六")}</h3>
-   {lessons.length === 0 && <p>今天没有常规课程。</p>}
+   {lessons.length === 0 && <p>{day >= 22 ? "圣诞假期 · 自由活动" : "今天没有常规课程。"}</p>}
    {[
      {time: "07:30", row: <p key="breakfast" className="hogwarts-agenda-row">07:30 早餐 · {food.breakfast.starches[(day - 1) % food.breakfast.starches.length]}、{food.breakfast.proteins[(day - 1) % food.breakfast.proteins.length]}、{food.breakfast.drinks[(day - 1) % food.breakfast.drinks.length]}</p>},
      ...lessons.map((lesson, index) => ({ time: lesson.time, row: <p className="hogwarts-agenda-row" key={lessonId(lesson)}>
