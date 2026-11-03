@@ -6,7 +6,8 @@ import { createWork } from "./demo";
 import { getFields } from "./fields";
 describe("independent app coverage and authored attributes", () => {
   it("routes Hogwarts modules through dedicated screens", () => {
-    const previous: string[] = [];\n    expect(Object.keys(catalogSkins).length).toBeGreaterThanOrEqual(6);
+    const previous: string[] = [];
+    expect(Object.keys(catalogSkins).length).toBeGreaterThanOrEqual(6);
     for (const app of registry)
       expect(previous.includes(app.id) || app.id in catalogSkins).toBe(true);
   });
