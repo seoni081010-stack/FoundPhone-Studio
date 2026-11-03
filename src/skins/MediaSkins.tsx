@@ -204,7 +204,8 @@ export function NeteaseSkin(p: Props) {
       {track && (
         <TrackPlayer
           item={track}
-          p={p}
+          onPrevious={() => setTrack(items[(items.findIndex(i => i.id === track.id) - 1 + items.length) % items.length])}
+          onShuffle={() => setTrack(items[(items.findIndex(i => i.id === track.id) + 1) % items.length])}
           onNext={() =>
             setTrack(
               items[
