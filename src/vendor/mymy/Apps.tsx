@@ -640,7 +640,7 @@ function MymyInstagramFeed(p: SkinProps) {
 }
 export function MymyInstagram(p: SkinProps) {
   const caller = p.items.find((item) => item.folder === "来电" || item.meta.call === "true");
-  return caller ? <InstagramCall p={p} caller={caller} /> : <MymyInstagramFeed p={p} />;
+  return caller ? <InstagramCall p={p} caller={caller} /> : <MymyInstagramFeed {...p} />;
 }
 export function MymyX(p: SkinProps) {
   const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
