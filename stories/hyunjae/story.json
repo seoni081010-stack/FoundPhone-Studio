@@ -2,8 +2,8 @@
   "scriptVersion": 1,
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
-  "description": "31天交互路线开发版：128+事件节点、条件记忆回调和双结局；好感度累积规则及交互验收仍待完善。",
-  "revision": 5,
+  "description": "31天交互剧情开发版：好感度按日累计，条件回忆、可跳过事件和双结局测试；待扩写互动深度及身份适配。",
+  "revision": 6,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -137,7 +137,7 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
           "value": 4
         },
@@ -168,9 +168,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 2
+          "value": 3
         },
         {
           "type": "message",
@@ -231,9 +231,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 8
+          "value": 4
         },
         {
           "type": "message",
@@ -262,9 +262,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 6
+          "value": 3
         },
         {
           "type": "message",
@@ -325,9 +325,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 12
+          "value": 4
         },
         {
           "type": "message",
@@ -361,9 +361,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 10
+          "value": 3
         },
         {
           "type": "message",
@@ -429,9 +429,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 16
+          "value": 4
         },
         {
           "type": "message",
@@ -455,9 +455,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 14
+          "value": 3
         },
         {
           "type": "message",
@@ -513,9 +513,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 20
+          "value": 4
         },
         {
           "type": "message",
@@ -539,9 +539,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 18
+          "value": 3
         },
         {
           "type": "message",
@@ -597,9 +597,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 24
+          "value": 4
         },
         {
           "type": "message",
@@ -633,9 +633,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 22
+          "value": 3
         },
         {
           "type": "message",
@@ -691,9 +691,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 28
+          "value": 4
         },
         {
           "type": "message",
@@ -717,9 +717,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 26
+          "value": 3
         },
         {
           "type": "message",
@@ -775,9 +775,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 32
+          "value": 4
         },
         {
           "type": "message",
@@ -806,9 +806,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 30
+          "value": 3
         },
         {
           "type": "message",
@@ -869,9 +869,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 36
+          "value": 4
         },
         {
           "type": "message",
@@ -895,9 +895,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 34
+          "value": 3
         },
         {
           "type": "message",
@@ -953,9 +953,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 40
+          "value": 4
         },
         {
           "type": "message",
@@ -979,9 +979,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 38
+          "value": 3
         },
         {
           "type": "message",
@@ -1037,9 +1037,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 44
+          "value": 4
         },
         {
           "type": "message",
@@ -1063,9 +1063,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 42
+          "value": 3
         },
         {
           "type": "message",
@@ -1121,9 +1121,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 48
+          "value": 4
         },
         {
           "type": "message",
@@ -1147,9 +1147,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 46
+          "value": 3
         },
         {
           "type": "message",
@@ -1210,9 +1210,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 52
+          "value": 4
         },
         {
           "type": "message",
@@ -1241,9 +1241,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 50
+          "value": 3
         },
         {
           "type": "message",
@@ -1299,9 +1299,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 56
+          "value": 4
         },
         {
           "type": "message",
@@ -1325,9 +1325,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 54
+          "value": 3
         },
         {
           "type": "message",
@@ -1383,9 +1383,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 60
+          "value": 4
         },
         {
           "type": "message",
@@ -1409,9 +1409,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 58
+          "value": 3
         },
         {
           "type": "message",
@@ -1467,9 +1467,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 64
+          "value": 4
         },
         {
           "type": "message",
@@ -1493,9 +1493,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 62
+          "value": 3
         },
         {
           "type": "message",
@@ -1551,9 +1551,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 68
+          "value": 4
         },
         {
           "type": "message",
@@ -1577,9 +1577,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 66
+          "value": 3
         },
         {
           "type": "message",
@@ -1635,9 +1635,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 72
+          "value": 4
         },
         {
           "type": "message",
@@ -1661,9 +1661,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 70
+          "value": 3
         },
         {
           "type": "message",
@@ -1719,9 +1719,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 76
+          "value": 4
         },
         {
           "type": "message",
@@ -1750,9 +1750,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 74
+          "value": 3
         },
         {
           "type": "message",
@@ -1808,9 +1808,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 80
+          "value": 4
         },
         {
           "type": "message",
@@ -1834,9 +1834,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 78
+          "value": 3
         },
         {
           "type": "message",
@@ -1892,9 +1892,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 84
+          "value": 4
         },
         {
           "type": "message",
@@ -1918,9 +1918,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 82
+          "value": 3
         },
         {
           "type": "message",
@@ -1976,9 +1976,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 88
+          "value": 4
         },
         {
           "type": "message",
@@ -2002,9 +2002,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 86
+          "value": 3
         },
         {
           "type": "message",
@@ -2060,9 +2060,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 92
+          "value": 4
         },
         {
           "type": "message",
@@ -2091,9 +2091,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 90
+          "value": 3
         },
         {
           "type": "message",
@@ -2149,9 +2149,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 96
+          "value": 4
         },
         {
           "type": "message",
@@ -2180,9 +2180,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 94
+          "value": 3
         },
         {
           "type": "message",
@@ -2238,9 +2238,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2264,9 +2264,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 98
+          "value": 3
         },
         {
           "type": "message",
@@ -2322,9 +2322,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2348,9 +2348,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 3
         },
         {
           "type": "message",
@@ -2406,9 +2406,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2432,9 +2432,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 3
         },
         {
           "type": "message",
@@ -2490,9 +2490,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2516,9 +2516,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 3
         },
         {
           "type": "message",
@@ -2574,9 +2574,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2600,9 +2600,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 3
         },
         {
           "type": "message",
@@ -2658,9 +2658,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2684,9 +2684,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 3
         },
         {
           "type": "message",
@@ -2742,9 +2742,9 @@
           "value": "a"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 100
+          "value": 4
         },
         {
           "type": "message",
@@ -2773,9 +2773,9 @@
           "value": "b"
         },
         {
-          "type": "variable",
+          "type": "increment",
           "key": "hyunjae_affection",
-          "value": 96
+          "value": 3
         },
         {
           "type": "message",
@@ -3175,7 +3175,7 @@
   ],
   "tests": [
     {
-      "name": "全积极选择告白",
+      "name": "积极互动31天达到100并告白",
       "steps": [
         {
           "choose": "hy-day01-a"
@@ -3274,7 +3274,7 @@
       "ending": "hyunjae-together"
     },
     {
-      "name": "全部保守选择暧昧",
+      "name": "低好感持续暧昧",
       "steps": [
         {
           "choose": "hy-day01-b"
@@ -3371,6 +3371,105 @@
         }
       ],
       "ending": "hyunjae-unspoken"
+    },
+    {
+      "name": "错过初雪和舞会共舞仍可告白",
+      "steps": [
+        {
+          "choose": "hy-day01-a"
+        },
+        {
+          "choose": "hy-day02-a"
+        },
+        {
+          "choose": "hy-day03-a"
+        },
+        {
+          "choose": "hy-day04-a"
+        },
+        {
+          "choose": "hy-day05-a"
+        },
+        {
+          "choose": "hy-day06-b"
+        },
+        {
+          "choose": "hy-day07-a"
+        },
+        {
+          "choose": "hy-day08-a"
+        },
+        {
+          "choose": "hy-day09-a"
+        },
+        {
+          "choose": "hy-day10-a"
+        },
+        {
+          "choose": "hy-day11-a"
+        },
+        {
+          "choose": "hy-day12-a"
+        },
+        {
+          "choose": "hy-day13-b"
+        },
+        {
+          "choose": "hy-day14-a"
+        },
+        {
+          "choose": "hy-day15-a"
+        },
+        {
+          "choose": "hy-day16-a"
+        },
+        {
+          "choose": "hy-day17-a"
+        },
+        {
+          "choose": "hy-day18-a"
+        },
+        {
+          "choose": "hy-day19-b"
+        },
+        {
+          "choose": "hy-day20-a"
+        },
+        {
+          "choose": "hy-day21-a"
+        },
+        {
+          "choose": "hy-day22-a"
+        },
+        {
+          "choose": "hy-day23-b"
+        },
+        {
+          "choose": "hy-day24-b"
+        },
+        {
+          "choose": "hy-day25-a"
+        },
+        {
+          "choose": "hy-day26-a"
+        },
+        {
+          "choose": "hy-day27-a"
+        },
+        {
+          "choose": "hy-day28-a"
+        },
+        {
+          "choose": "hy-day29-a"
+        },
+        {
+          "choose": "hy-day30-a"
+        },
+        {
+          "choose": "hy-day31-a"
+        }
+      ],
+      "ending": "hyunjae-together"
     }
   ]
 }
