@@ -33,26 +33,7 @@ export const layoutSchema = z
 export type DeviceLayout = z.infer<typeof layoutSchema>;
 export type Widget = z.infer<typeof widgetSchema>;
 export type AppConfig = Work["apps"][number];
-export function ensureAppStore(work: Work): Work {
-  return work.apps.some((a) => a.id === "appstore")
-    ? work
-    : {
-        ...work,
-        apps: [
-          ...work.apps,
-          {
-            id: "appstore",
-            name: "App Store",
-            installed: true,
-            visible: true,
-            dock: false,
-            folder: "",
-            icon: "",
-          },
-        ],
-      };
-}
-export function defaultLayout(input: Work): DeviceLayout {
+export function ensureAppStore(work: Work): Work { return work; }\nexport function defaultLayout(input: Work): DeviceLayout {
   const w = ensureAppStore(input);
   return {
     version: 1,
@@ -88,12 +69,6 @@ export function validateLayout(raw: unknown, input: Work) {
   layout.apps.push(
     ...w.apps.filter((a) => !layout.apps.some((b) => b.id === a.id)),
   );
-  const store = layout.apps.find((a) => a.id === "appstore");
-  if (store) {
-    store.installed = true;
-    store.visible = true;
-    store.folder = "";
-  }
   if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 1) {
     const visibleApps = ["wechat", "douyin"];
     for (const app of layout.apps) {
