@@ -145,3 +145,7 @@
 .hogwarts-date label { font-size: 1.25rem; }
 .hogwarts-date select { font-size: 1.175rem; }
 .hogwarts-device .hogwarts-device-back { width: 148px; min-height: 32px; padding: 4px 12px; gap: 10px; }
+
+.hogwarts-clue h2 { margin: 0 0 16px; }
+.hogwarts-clue p { margin: 0 0 20px; }
+.hogwarts-clue button { min-height: 36px; padding: 5px 14px; width: auto; }

@@ -192,7 +192,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           <p>周末与假期约会</p>
           <label>约谁见面 <select value={dateContact} onChange={event => setDateContact(event.target.value)}>
             <option value="">选择一位朋友</option>
-            {contacts.map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
+            {contacts.filter(contact => contact.id === identity?.loveInterest).map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
           </select></label>
           <p><label>约会日期 <select value={availableDateDays.includes(dateDay) ? dateDay : 0} onChange={event => setDateDay(Number(event.target.value))}>
             <option value={0}>选择日期</option>
@@ -281,7 +281,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           : note("李贤在", dateReply, false)}
         <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
       </dialog>}
-      {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene">
+      {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene hogwarts-clue">
         <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
         <button onClick={() => setClueOpen(false)}>继续</button>
       </dialog>}
