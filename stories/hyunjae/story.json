@@ -2,8 +2,8 @@
   "scriptVersion": 1,
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
-  "description": "李贤在路线独立开发文件。第一批12月1日至3日聊天内容；选择事件尚未接入，不能视为可玩分支。",
-  "revision": 1,
+  "description": "李贤在路线：前三日交互事件开发中。",
+  "revision": 2,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -128,6 +128,138 @@
     "hyunjae_candy_challenge": false,
     "hyunjae_prefect_cared": false
   },
-  "events": [],
+  "events": [
+    {
+      "id": "hy-start",
+      "label": "第一天",
+      "type": "start",
+      "next": [
+        "hy-book-choice"
+      ]
+    },
+    {
+      "id": "hy-book-choice",
+      "label": "怎么取回课本",
+      "type": "choice",
+      "next": [
+        "hy-book-now",
+        "hy-book-later"
+      ]
+    },
+    {
+      "id": "hy-book-now",
+      "label": "现在去取",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_book_met",
+          "value": true
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_affection",
+          "value": 3
+        }
+      ],
+      "next": [
+        "hy-day2-choice"
+      ]
+    },
+    {
+      "id": "hy-book-later",
+      "label": "稍后去取",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_book_met",
+          "value": false
+        },
+        {
+          "type": "variable",
+          "key": "hyunjae_affection",
+          "value": 2
+        }
+      ],
+      "next": [
+        "hy-day2-choice"
+      ]
+    },
+    {
+      "id": "hy-day2-choice",
+      "label": "糖果挑战",
+      "type": "choice",
+      "next": [
+        "hy-candy-tease",
+        "hy-candy-cheer"
+      ]
+    },
+    {
+      "id": "hy-candy-tease",
+      "label": "你肯定坚持不了ㅋㅋ",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_candy_challenge",
+          "value": true
+        }
+      ],
+      "next": [
+        "hy-day3-choice"
+      ]
+    },
+    {
+      "id": "hy-candy-cheer",
+      "label": "我觉得你可以",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_candy_challenge",
+          "value": true
+        }
+      ],
+      "next": [
+        "hy-day3-choice"
+      ]
+    },
+    {
+      "id": "hy-day3-choice",
+      "label": "级长巡查结束",
+      "type": "choice",
+      "next": [
+        "hy-prefect-care",
+        "hy-prefect-tease"
+      ]
+    },
+    {
+      "id": "hy-prefect-care",
+      "label": "早点休息",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_prefect_cared",
+          "value": true
+        }
+      ],
+      "next": []
+    },
+    {
+      "id": "hy-prefect-tease",
+      "label": "辛苦了级长大人ㅋㅋ",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_prefect_cared",
+          "value": false
+        }
+      ],
+      "next": []
+    }
+  ],
   "tests": []
 }
