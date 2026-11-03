@@ -1,7 +1,6 @@
 import food from "../../stories/template/hogwarts-food.json";
 import timetable from "../../stories/template/hogwarts-timetables.json";
 const houseNames: Record<string,string> = { gryffindor:"Gryffindor",slytherin:"Slytherin",ravenclaw:"Ravenclaw",hufflepuff:"Hufflepuff" };
-const weekdays=["周一","周二","周三","周四","周五"];
 export function HogwartsSchedule({year, house, day, interaction, attended, onAttend, onEnd, onScene, sceneLabel}: {
  year: number; house: string; day: number; interaction?: string; attended: Record<string, boolean>;
  onAttend: (id: string, time: string, last: boolean) => void; onEnd?: () => void; onScene?: () => void; sceneLabel?: string;
@@ -14,7 +13,6 @@ export function HogwartsSchedule({year, house, day, interaction, attended, onAtt
  const lessonId = (lesson: (typeof lessons)[number]) => [day, lesson.time, lesson.subject].join("-");
  const allAttended = lessons.every(lesson => attended[lessonId(lesson)]);
  return <section aria-label="当天日程">
-   <h3>12月{day}日 · {weekdays[weekday - 1] ?? (weekday === 0 ? "周日" : "周六")}</h3>
    {lessons.length === 0 && <p>{day >= 22 ? "圣诞假期 · 自由活动" : "今天没有常规课程。"}</p>}
    {[
      {time: "07:30", row: <p key="breakfast" className="hogwarts-agenda-row">07:30 早餐 · {food.breakfast.starches[(day - 1) % food.breakfast.starches.length]}、{food.breakfast.proteins[(day - 1) % food.breakfast.proteins.length]}、{food.breakfast.drinks[(day - 1) % food.breakfast.drinks.length]}</p>},

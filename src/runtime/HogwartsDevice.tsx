@@ -55,6 +55,9 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const entries = (state.messages.owlpost ?? []).filter(item => !item.hidden);
   const date = new Date((state.date || "2026-12-01") + "T12:00:00Z");
   const day = date.getUTCDate();
+  const availableDateDays = Array.from({ length: 32 - day }, (_, offset) => day + offset)
+    .filter(value => value >= 22 || dateOptions.dateDays.includes(new Date(Date.UTC(2026, 11, value)).getUTCDay()));
+
   const nextDay = state.choices.find(choice =>
     work.nodes.find(node => node.id === choice.target)?.actions.some(action =>
       action.type === "date" && String(action.value) > (state.date || "")));
@@ -66,6 +69,8 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
   const [dateContact, setDateContact] = useState("");
+  const [dateDay, setDateDay] = useState(0);
+  const [attendedDates, setAttendedDates] = useState<number[]>([]);
   const [dateVenue, setDateVenue] = useState("");
   const [destination, setDestination] = useState("");
   const [plans, setPlans] = useState<Record<number, string>>({});
@@ -121,7 +126,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       </header>
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
-        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程</> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
+        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={state.date || "2026-12-01"}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
           {!recipient ? <>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
@@ -171,14 +176,18 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               <button type="button" key={place} aria-pressed={destination === place} onClick={() => setDestination(place)}>{place}</button>)}
             {destination && <p role="status">你现在在：{destination}</p>}
           </section>}
-          {plans[day] && <p>今日约会：{plans[day]} <button onClick={() => setOuting(true)}>去赴约</button></p>}
+          {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
           {finished && <p role="status">十二月已结束。</p>}
-        </section> : active === "date" ? <section>
+        </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
           <label>约谁见面 <select value={dateContact} onChange={event => setDateContact(event.target.value)}>
             <option value="">选择一位朋友</option>
             {contacts.map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
           </select></label>
+          <p><label>约会日期 <select value={availableDateDays.includes(dateDay) ? dateDay : 0} onChange={event => setDateDay(Number(event.target.value))}>
+            <option value={0}>选择日期</option>
+            {availableDateDays.map(value => <option key={value} value={value} disabled={Boolean(plans[value])}>12月{value}日</option>)}
+          </select></label></p>
           <p><label>去哪里 <select value={dateVenue} onChange={event => setDateVenue(event.target.value)}>
             <option value="">选择地点</option>
             {dateOptions.venues.map(venue => <option key={venue.id} value={venue.id}
@@ -186,22 +195,22 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               {venue.name}（{venue.region}）
             </option>)}
           </select></label></p>
-          <button disabled={dateContact !== "hyunjae" || !hyunjaeDates[dateVenue] || Boolean(plans[day]) || (day < 22 && !dateOptions.dateDays.includes(date.getUTCDay()))}
+          <button className="hogwarts-send-invite" disabled={dateContact !== "hyunjae" || !hyunjaeDates[dateVenue] || Boolean(plans[dateDay]) || !availableDateDays.includes(dateDay)}
             onClick={() => {
               const accepted = identity?.loveInterest === "hyunjae" && Number(state.variables.hyunjae_affection ?? 0) > 45;
               const reply = accepted ? hyunjaeDates[dateVenue].reply : hyunjaeDeclines[(day - 1) % hyunjaeDeclines.length];
               const venue = dateOptions.venues.find(item => item.id === dateVenue);
               if (accepted) {
-                setPlans(previous => ({ ...previous, [day]: "李贤在 · " + venue?.name }));
-                setAcceptedVenues(previous => ({ ...previous, [day]: dateVenue }));
+                setPlans(previous => ({ ...previous, [dateDay]: "李贤在 · " + venue?.name }));
+                setAcceptedVenues(previous => ({ ...previous, [dateDay]: dateVenue }));
               }
-              setSent(previous => ({ ...previous, hyunjae: [...(previous.hyunjae ?? []), "邀约：" + venue?.name] }));
+              setSent(previous => ({ ...previous, hyunjae: [...(previous.hyunjae ?? []), "邀约：12月" + dateDay + "日 · " + venue?.name] }));
               setDateReplies(previous => [...previous, reply]);
               setDateReply(reply);
             }}>发送邀请</button>
           {dateContact && dateContact !== "hyunjae" && <p>这位角色的邀约剧情还在准备中。</p>}
-          {day < 22 && !dateOptions.dateDays.includes(date.getUTCDay()) && <p>周六和周日可以安排约会。</p>}
-          {plans[day] && <p role="status">今日约会计划：{plans[day]}</p>}
+          <p>每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
+          {Object.entries(plans).filter(([value]) => Number(value) >= day).map(([value, plan]) => <p key={value}>12月{value}日 · {plan}</p>)}
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} />
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.body}</p>)}
@@ -238,7 +247,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           ? <p key={index} className="hogwarts-narration">{line}</p>
           : note(index === 2 ? identity?.name ?? "我" : "李贤在", line, index === 2, index))
           : note("李贤在", dateReply, false)}
-        <button onClick={() => { setDateReply(""); setOuting(false); }}>返回</button>
+        <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
       </dialog>}
       {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene">
         <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
