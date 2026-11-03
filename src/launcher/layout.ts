@@ -33,7 +33,8 @@ export const layoutSchema = z
 export type DeviceLayout = z.infer<typeof layoutSchema>;
 export type Widget = z.infer<typeof widgetSchema>;
 export type AppConfig = Work["apps"][number];
-export function ensureAppStore(work: Work): Work { return work; }\nexport function defaultLayout(input: Work): DeviceLayout {
+export function ensureAppStore(work: Work): Work { return work; }
+export function defaultLayout(input: Work): DeviceLayout {
   const w = ensureAppStore(input);
   return {
     version: 1,
