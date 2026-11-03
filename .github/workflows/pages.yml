@@ -1,7 +1,7 @@
 name: Validate and deploy Pages
 on:
   push:
-    branches: [main, feature/instagram-video-call-spotify-playlist]
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
