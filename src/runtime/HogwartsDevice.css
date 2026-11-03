@@ -122,3 +122,11 @@
 .hogwarts-date .hogwarts-date-hint { font-size: 1.05rem; }
 .hogwarts-shop-nav { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 6px; margin-block: 12px; }
 .hogwarts-shop-nav button { min-width: 0; min-height: 44px; padding-inline: 3px; }
+
+.hogwarts-device .hogwarts-today { margin-inline: 4px; padding-inline: 18px; }
+.hogwarts-today h2 { gap: 10px; flex-wrap: wrap; }
+.hogwarts-today .hogwarts-agenda-row { column-gap: 18px; }
+.hogwarts-today .hogwarts-agenda-row button { padding-inline: 12px; }
+.hogwarts-date label { font-size: 1.35rem; gap: 8px; }
+.hogwarts-date select { font-size: 1.25rem; min-height: 60px; padding: 10px 14px; }
+.hogwarts-date .hogwarts-send-invite { width: auto; min-width: 9rem; padding-inline: 20px; }

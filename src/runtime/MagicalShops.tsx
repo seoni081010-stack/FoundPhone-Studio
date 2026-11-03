@@ -4,10 +4,16 @@ import economy from "../../stories/template/hogwarts-economy.json";
 import preferences from "../../stories/template/hogwarts-gift-preferences.json";
 
 type Item = (typeof catalog.items)[number];
-type Save = { wallet: number; vault: number; inventory: Record<string,number>; gifts: Record<string,number>; paid?: number[] };
+type Save = { wallet: number; vault: number; inventory: Record<string,number>; gifts: Record<string,number>; paid?: number[]; vaultUpgrade?: boolean };
 const storeKey = "foundphone-hogwarts-shopping-v1";
-const start = (): Save => ({wallet:economy.initial.wallet.galleons,vault:economy.initial.gringottsVault.galleons,inventory:{},gifts:{}});
-function load(key:string):Save { try { const saved=JSON.parse(localStorage.getItem(key)||"null"); return saved && typeof saved.wallet==="number" && typeof saved.vault==="number" && saved.inventory && saved.gifts ? saved : start(); } catch { return start(); } }
+const start = (): Save => ({wallet:economy.initial.wallet.galleons,vault:economy.initial.gringottsVault.galleons,inventory:{},gifts:{},vaultUpgrade:true});
+function load(key:string):Save { try { const saved=JSON.parse(localStorage.getItem(key)||"null"); return saved && typeof saved.wallet==="number" && typeof saved.vault==="number" && saved.inventory && saved.gifts ? migrateVault(key, saved) : start(); } catch { return start(); } }
+function migrateVault(key: string, save: Save): Save {
+ if (save.vaultUpgrade) return save;
+ const upgraded = { ...save, vault: Math.max(100000, save.vault), vaultUpgrade: true };
+ localStorage.setItem(key, JSON.stringify(upgraded));
+ return upgraded;
+}
 const fmt=(v:number)=>v.toLocaleString("zh-CN")+" 加隆";
 export function creditWeeklyAllowance(identityKey: string, day: number) {
  const key = storeKey + "-" + identityKey;
