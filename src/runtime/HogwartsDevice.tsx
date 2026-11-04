@@ -71,8 +71,6 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [lessonTime, setLessonTime] = useState<string>();
   const [region, setRegion] = useState<number>();
   const [recipient, setRecipient] = useState("");
-  const [giftReplies, setGiftReplies] = useState<string[]>([]);
-  const [dateReplies, setDateReplies] = useState<string[]>([]);
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
   const [dateContact, setDateContact] = useState("");
@@ -83,7 +81,6 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [plans, setPlans] = useState<Record<number, string>>({});
   const [acceptedVenues, setAcceptedVenues] = useState<Record<number, string>>({});
   const [draft, setDraft] = useState("");
-  const [sent, setSent] = useState<Record<string, string[]>>({});
   const highlightMistletoe = (text: string) => text.split(/(槲寄生)/).map((word, index) =>
     word === "槲寄生" ? <strong key={index}>{word}</strong> : word);
   const note = (name: string, body: string, outgoing: boolean, key?: number) =>
@@ -116,10 +113,25 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const isNote = (body: string) =>
     /^(李贤在|你)[：:]/.test(body) &&
     !/你们一起去了大礼堂|李贤在先问|他笑了一下|停了一下，他又说/.test(body);
-  const letters = conversation.filter(entry => owlDays.includes(entry.day) && isNote(entry.body));
+  const [extraMail, setExtraMail] = useState<{ recipient: string; body: string; outgoing: boolean; day: number; order: number }[]>([]);
+  const addMail = (recipient: string, body: string, outgoing: boolean) =>
+    setExtraMail(previous => [...previous, { recipient, body, outgoing, day, order: entries.length }]);
+  const thread = (contact: string) => [
+    ...conversation.flatMap((entry, order) => contact === "hyunjae" && owlDays.includes(entry.day) && isNote(entry.body)
+      ? entry.body.split(/(?<=[；;。！？?！]|\s)(?=(?:李贤在|你)[：:])/).map(line => ({
+        body: line.replace(/^(李贤在|你)[：:]/, "").replace(/[；;]$/, ""),
+        outgoing: /^你[：:]/.test(line), day: entry.day, order: order + .5,
+      })) : []),
+    ...extraMail.filter(entry => entry.recipient === contact),
+  ].sort((a, b) => a.day - b.day || a.order - b.order);
+  const currentThread = thread(recipient);
   const soloSnow = day === 7 && !state.variables.hyunjae_first_snow_together;
   const scenes = conversation.filter(entry => entry.day === day && (!owlToday || !isNote(entry.body)))
-    .map((entry, index) => soloSnow && index === 0 ? { ...entry, body: "走廊里。李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
+    .map((entry, index) => day === 18 && index === 0 ? { ...entry, body: state.variables.hyunjae_day17_choice === "a"
+      ? "门厅里，李贤在手里捏着一张折好的羊皮纸。李贤在：你圣诞假期回家吗？你：不回，我留校。你呢？李贤在：我也留。那今年城堡应该不会太无聊了。你：为什么？李贤在：因为你也在啊。"
+      : "门厅里，李贤在手里捏着一张折好的羊皮纸。李贤在：你圣诞假期回家吗？你：不回，我留校。你呢？李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？你：还没有。李贤在：那要不要一起？你：好啊。李贤在：那天我在大礼堂门口等你。"
+    } : day === 18 && entry.body.startsWith("你：整个假期都留校") ? { ...entry, body: "你：整个假期都留校。李贤在：那晚别站得离我太远。我怕第一支舞都跳完了，你还在甜点桌那边。" }
+      : soloSnow && index === 0 ? { ...entry, body: "走廊里。李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const choices = !nextDay && state.choices.length > 0 ? <div className="hogwarts-device-choices">
 
@@ -147,28 +159,23 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
               <span className="hogwarts-avatar" aria-hidden="true" />
               <span className="hogwarts-contact-copy"><strong>{contact.name}</strong><small>{
-                (sent[contact.id] ?? []).slice(-1)[0] ||
-                (contact.id === "hyunjae" ? letters.slice(-1)[0]?.body.split(/(?:李贤在|你)[：:]/).pop() : "") ||
+                thread(contact.id).slice(-1)[0]?.body ||
                 "还没有消息"
               }</small></span>
             </button>)}
           </> : <>
           <button onClick={() => { setRecipient(""); setDraft(""); }}>返回会话列表</button>
           <h3>{contacts.find(contact => contact.id === recipient)?.name}</h3>
-          {letters.length === 0 && <p>暂时没有新的猫头鹰纸条。</p>}
-          {recipient === "hyunjae" && letters.map(letter => <div key={letter.id} className="hogwarts-note-thread">
-            <small>12月{letter.day}日</small>
-            {letter.body.split(/(?<=[；;。！？?！]|\s)(?=(?:李贤在|你)[：:])/).map((line, index) =>
-              note(/^你[：:]/.test(line) ? identity?.name ?? "我" : "李贤在", line.replace(/^(李贤在|你)[：:]/, "").replace(/[；;]$/, ""), /^你[：:]/.test(line), index))}
+          {currentThread.length === 0 && <p>暂时没有新的猫头鹰纸条。</p>}
+          {currentThread.map((message, index) => <div key={index} className="hogwarts-note-thread">
+            {(index === 0 || currentThread[index - 1].day !== message.day) && <small>12月{message.day}日</small>}
+            {note(message.outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === recipient)?.name ?? "", message.body, message.outgoing)}
           </div>)}
           {recipient === "hyunjae" && owlToday && choices}
-          {(sent[recipient] ?? []).map((body, index) => note(identity?.name ?? "我", body, true, index))}
-          {recipient === "hyunjae" && dateReplies.map((reply, index) => note("李贤在", reply, false, index))}
-          {recipient === "hyunjae" && giftReplies.map((reply, index) => note("李贤在", reply, false, index))}
           <form onSubmit={event => {
             event.preventDefault();
             if (!draft.trim()) return;
-            setSent(previous => ({ ...previous, [recipient]: [...(previous[recipient] ?? []), draft.trim()] }));
+            addMail(recipient, draft.trim(), true);
             setDraft("");
           }}>
             <input aria-label="纸条内容" value={draft} onChange={event => setDraft(event.target.value)} maxLength={300} />
@@ -224,8 +231,8 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
                 setPlans(previous => ({ ...previous, [dateDay]: "李贤在 · " + venue?.name }));
                 setAcceptedVenues(previous => ({ ...previous, [dateDay]: dateVenue }));
               }
-              setSent(previous => ({ ...previous, hyunjae: [...(previous.hyunjae ?? []), "邀约：12月" + dateDay + "日 · " + venue?.name] }));
-              setDateReplies(previous => [...previous, reply]);
+              addMail("hyunjae", "邀约：12月" + dateDay + "日 · " + venue?.name, true);
+              addMail("hyunjae", reply, false);
               setDateReply(reply);
             }}>发送邀请</button>
           {dateContact && dateContact !== "hyunjae" && <p>这位角色的邀约剧情还在准备中。</p>}
@@ -241,16 +248,16 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
                   : /糖|巧克力|蛋糕|馅饼|多味豆/.test(item)
                     ? `收到${item}了！我先尝一口。要是又苦得皱脸，这次你可看不见ㅋㅋ`
                     : `你挑的${item}我收到了。我刚放到床头了。明天见面记得问我喜不喜欢，我想当面告诉你。`;
-              setGiftReplies(previous => [...previous, reply]);
+              addMail("hyunjae", reply, false);
               setState(previous => ({ ...previous, variables: { ...previous.variables, hyunjae_affection: Math.min(100, affection + (liked ? 5 : 2)) } }));
             } else if (recipient !== identity.loveInterest) {
               const key = "friendship_" + recipient;
               setState(previous => ({ ...previous, variables: { ...previous.variables, [key]: Math.min(100, Number(previous.variables[key] ?? 0) + (liked ? 5 : 2)) } }));
               if (identity.loveInterest === "hyunjae" && affection > 40) {
                 const name = contacts.find(contact => contact.id === recipient)?.name;
-                setGiftReplies(previous => [...previous, affection >= 70
+                addMail("hyunjae", affection >= 70
                   ? `你给${name}寄了${item}啊。我刚才还想装作只是路过问一下。算了，有一点吃醋。`
-                  : `${name}刚才给我看了你送的${item}。我就是问问……下次你去挑礼物，叫我一声呗。`]);
+                  : `${name}刚才给我看了你送的${item}。我就是问问……下次你去挑礼物，叫我一声呗。`, false);
               }
             }
           }} />
@@ -372,7 +379,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         })}
         {!owlToday && choices}
         {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
-        {(!choices || owlToday) && <button onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
+        {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
       </dialog>}
       <nav className="hogwarts-dock" aria-label="学生手机应用">
         {modules.filter(module => ["magicphotos", "owlpost", "wizardjournal", "date"].includes(module.id)).sort((a, b) => ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(a.id) - ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(b.id)).map(module =>

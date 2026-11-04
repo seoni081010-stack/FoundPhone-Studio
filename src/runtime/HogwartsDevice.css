@@ -177,3 +177,4 @@
 .wager-ticket { animation: wager-pop .6s .15s ease-out both; }
 @keyframes wager-pop { from { transform: scale(.75); opacity: .3; } to { transform: scale(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .wager-confetti, .wager-ticket { animation: none; } }
+.hogwarts-device .hogwarts-continue-day { font-size: 1rem; min-height: 38px; padding: 5px 12px; }
