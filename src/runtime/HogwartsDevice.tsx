@@ -27,6 +27,14 @@ const hyunjaeDates: Record<string, { reply: string; scene: string[] }> = {
   "leaky-cauldron": { reply: "好啊，正好我饿了。你想吃什么？我可以先帮你占座。", scene: ["他朝你招手，把菜单转到你面前。", "我看了半天，最后决定等你来选。", "你就这么信我的口味？", "嗯。选错了我也能帮你吃一半。"] },
   "florean-fortescue": { reply: "好！你挑一个口味，我挑一个，先别告诉我你选什么。", scene: ["两份冰淇淋端上来，居然是同一个口味。你们对视了一眼。", "等一下，你是不是偷听我点单了？", "明明是我先点的。", "那没办法了。下次再来一次，看看还会不会撞。"] },
 };
+// Entries are the places named in the route, not an inferred daily timetable.
+const hyunjaeEncounterPlaces: Partial<Record<number, string>> = {
+  1: "魔法史", 3: "城堡楼梯", 4: "图书馆", 7: "长廊", 8: "大礼堂",
+  9: "长廊", 11: "大礼堂", 16: "城堡楼梯", 18: "门厅",
+  22: "大礼堂", 24: "大礼堂", 25: "大礼堂", 26: "城堡楼梯",
+  27: "大礼堂", 28: "庭院与拱门", 31: "长廊",
+};
+
 const hyunjaeDeclines = [
   "对不起啊，变形术的练习还没补完。我答应教授今天交，下次我早点留时间。",
   "今天可能去不了了，抱歉。格兰芬多那边临时要我换一轮巡查，等我忙完再找你。",
@@ -56,6 +64,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [stake, setStake] = useState(1);
   const [matchError, setMatchError] = useState("");
   const [matchDialog, setMatchDialog] = useState(false);
+  const [visitedMatchPub, setVisitedMatchPub] = useState(false);
   const won = team === "斯莱特林";
   const [sceneOpen, setSceneOpen] = useState(false);
   const [seenScene, setSeenScene] = useState("");
@@ -132,6 +141,17 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       : "门厅里，李贤在手里捏着一张折好的羊皮纸。李贤在：你圣诞假期回家吗？你：不回，我留校。你呢？李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？你：还没有。李贤在：那要不要一起？你：好啊。李贤在：那天我在大礼堂门口等你。"
     } : day === 18 && entry.body.startsWith("你：整个假期都留校") ? { ...entry, body: "你：整个假期都留校。李贤在：那晚别站得离我太远。我怕第一支舞都跳完了，你还在甜点桌那边。" }
       : soloSnow && index === 0 ? { ...entry, body: "走廊里。李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
+  const encounterReached = sceneOpen || Boolean(seenScene && scenes.some(entry => entry.id === seenScene));
+  const storyPlace = encounterReached ? hyunjaeEncounterPlaces[day] : undefined;
+  // The device clock starts at local time, so only use time set by in-game actions.
+  const mapPlace = attendedDates.includes(day) ? (acceptedVenues[day] === "diagon-alley-walk" ? "丽痕书店" : plans[day])
+    : day === 12 ? (visitedMatchPub ? "三把扫帚" : matchStep === "result" ? "回城堡的路上"
+      : matchStep === "pub" ? "霍格沃茨城堡" : matchStep === "ready" || matchDialog ? "魁地奇球场" : undefined)
+    : day === 6 && state.variables.hyunjae_first_snow_together === true ? "庭院与拱门"
+    : day === 17 && ["a", "b"].includes(String(state.variables.hyunjae_day17_choice)) ? "大礼堂"
+    : day === 24 && ["a", "b"].includes(String(state.variables.hyunjae_day24_choice)) ? "长廊"
+    : day === 29 && ["a", "b"].includes(String(state.variables.hyunjae_day29_choice)) ? "冬季灯展"
+    : storyPlace ?? (encounterReached && [14, 21].includes(day) ? "霍格沃茨城堡" : undefined);
   const albumClues = [
     {
       id: "photo-snow",
@@ -231,7 +251,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             {destination && <p role="status">你现在在：{destination}</p>}
           </section>}
           {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
-          {day === 12 && matchStep === "pub" && <button className="hogwarts-activity" onClick={() => setMatchDialog(true)}>和李贤在去三把扫帚</button>}
+          {day === 12 && matchStep === "pub" && <button className="hogwarts-activity" onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和李贤在去三把扫帚</button>}
           {finished && <p role="status">十二月已结束。</p>}
         </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
@@ -294,7 +314,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
-          : active === "maraudersmap" ? <MaraudersMap />
+          : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime} place={mapPlace} />
           : active === "magicphotos" ? <section className="hogwarts-device-letters">
             {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
               <summary>{clue.title}</summary>
