@@ -162,3 +162,18 @@
 .hogwarts-map > div { padding: 12px 8px; }
 .hogwarts-map > div > button { width: 100%; min-height: 44px; }
 .hogwarts-floorplan text { font-size: 15px; }
+
+.hogwarts-wager { background: #fff0cb; border: 3px double #975f37; }
+.wager-stamp { display: inline-block; color: #773b24; font-weight: 800; letter-spacing: .06em; }
+.wager-teams { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.hogwarts-wager .wager-teams button { min-height: 58px; font-size: 1.22rem; font-weight: 900; color: #fff8de; background: #842d38; border: 2px solid #ad8250; }
+.hogwarts-wager .wager-teams [data-team="斯莱特林"] { background: #26523e; }
+.hogwarts-wager .wager-teams [aria-pressed="true"] { outline: 3px solid #a96d29; outline-offset: 2px; }
+.hogwarts-wager .wager-primary, .hogwarts-wager .wager-secondary { padding: 8px 16px; margin: 4px 8px 4px 0; font-weight: 750; }
+.hogwarts-wager .wager-primary { background: #703825; color: #fff6de; }
+.hogwarts-wager .wager-primary:disabled { opacity: .55; }
+.hogwarts-wager .wager-secondary { background: #f9dfad; color: #572f21; }
+.wager-confetti { font-size: 1.8rem; text-align: center; animation: wager-pop .55s ease-out both; }
+.wager-ticket { animation: wager-pop .6s .15s ease-out both; }
+@keyframes wager-pop { from { transform: scale(.75); opacity: .3; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .wager-confetti, .wager-ticket { animation: none; } }

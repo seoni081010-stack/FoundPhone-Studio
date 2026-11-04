@@ -292,24 +292,25 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
       </dialog>}
       {matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
-        onCancel={event => event.preventDefault()} className="hogwarts-scene">
+        onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-wager">
         {matchStep === "bet" ? <>
-          <h2>看台上的小赌约</h2>
+          <small className="wager-stamp">弗雷德 &amp; 乔治 · 看台特刊</small><h2>谁的扫帚先得意？</h2>
           <p className="hogwarts-narration">李贤在忙完级长的事，在看台上找到你。一张羊皮纸从座位缝里冒出来，落款是弗雷德和乔治。</p>
           {note("李贤在", "你来得还挺早。", false)}
-          <div>{["格兰芬多", "斯莱特林"].map(name => <button key={name} aria-pressed={team === name} onClick={() => setTeam(name)}>{name}{team === name ? " ✓" : ""}</button>)}</div>
+          <div className="wager-teams">{["格兰芬多", "斯莱特林"].map(name => <button key={name} data-team={name} aria-pressed={team === name} onClick={() => setTeam(name)}>{name}{team === name ? " ✓" : ""}</button>)}</div>
           <p><label>押 {stake} 加隆 <input type="range" min="1" max="10" value={stake} onChange={event => setStake(Number(event.target.value))} /></label></p>
-          <p>1 加隆 — 10 加隆</p>
+          <p>1 加隆：意思一下 · 10 加隆：钱包尖叫</p>
           <p>{stake < 4 ? "很好，输了也只需要叹一口气。" : stake < 8 ? "现在你已经有理由比球员还紧张了。" : "我们欣赏你的勇气。你的钱包有不同意见。"}</p>
-          <button disabled={!team} onClick={() => {
+          <button className="wager-primary" disabled={!team} onClick={() => {
             if (!spendGalleons(identityKey, stake)) { setMatchError("钱包里的加隆不够。"); return; }
             setMatchError(""); setMatchStep("ready"); setMatchDialog(false);
           }}>就押这个</button>
-          <button onClick={() => { setMatchError(""); setMatchDialog(false); }}>返回行程</button>
+          <button className="wager-secondary" onClick={() => { setMatchError(""); setMatchDialog(false); }}>返回行程</button>
         </> : matchStep === "result" ? <>
+          {won && <div className="wager-confetti" aria-hidden="true">✦ 🎉 ✧ 🍺 ✦</div>}
           <h2>{won ? "恭喜，你押中了！" : "别灰心！"}</h2>
           <p>{won ? `斯莱特林赢了。你押的 ${stake} 加隆已经光荣退役，但你赢得了一杯黄油啤酒。请到三把扫帚找斯莱特林那桌领取，趁他们还在高兴。` : `斯莱特林赢了。你押的 ${stake} 加隆和格兰芬多的比分一样，都回不来了。本纸条不提供饮料，但可以垫杯子。至少还有点用。`}</p>
-          <button onClick={() => { setMatchStep("pub"); setMatchDialog(false); }}>{won ? "收下饮料券" : "把纸条折起来"}</button>
+          <button className={won ? "wager-primary wager-ticket" : "wager-secondary"} onClick={() => { setMatchStep("pub"); setMatchDialog(false); }}>{won ? "收下饮料券" : "把纸条折起来"}</button>
         </> : <>
           <h2>三把扫帚</h2>
           <p className="hogwarts-narration">斯莱特林那桌还在复盘最后一球。李贤在找到一张靠窗的小桌，把里面的位置留给你。</p>
