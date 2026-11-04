@@ -1,9 +1,9 @@
 import { MaraudersMap } from "./MaraudersMap";
 import dateOptions from "../../stories/template/hogwarts-dates.json";
-import { HogwartsCharacters } from "./HogwartsCharacters";
+import { affinityKey, characterStatus, HogwartsCharacters, jealousyKey } from "./HogwartsCharacters";
 import { dailyLessons, HogwartsSchedule } from "./HogwartsSchedule";
 import { MagicalShops, useWeeklyAllowance, spendGalleons } from "./MagicalShops";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft } from "lucide-react";
 import { initialRuntime, type Runtime, type Work } from "../schema";
 import { dispatch, choose } from "../engine";
@@ -100,6 +100,24 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     };
   }, [original]);
   const [state, setState] = useState<Runtime>(() => { const initial = initialRuntime(work); initial.variables.hyunjae_player_house = identity?.house ?? "unspecified"; initial.variables.hyunjae_player_year = identity?.year ?? 5; return dispatch(work, initial, "start"); });
+  const [relationshipNotice, setRelationshipNotice] = useState("");
+  useEffect(() => {
+    if (!relationshipNotice) return;
+    const timer = window.setTimeout(() => setRelationshipNotice(""), 4500);
+    return () => window.clearTimeout(timer);
+  }, [relationshipNotice]);
+  const relationship = (id: string, runtime: Runtime) =>
+    characterStatus(id, identity?.year ?? 5, identity?.house ?? "", runtime.variables);
+  const showRelationshipChange = (id: string, before: Runtime, after: Runtime) => {
+    const previous = relationship(id, before);
+    const current = relationship(id, after);
+    const changes = [
+      current.affinity > previous.affinity && `好感度 +${current.affinity - previous.affinity}`,
+      current.jealousy > previous.jealousy && `嫉妒值 +${current.jealousy - previous.jealousy}`,
+    ].filter(Boolean);
+    if (changes.length) setRelationshipNotice(`${contacts.find(contact => contact.id === id)?.name ?? ""} · ${changes.join(" · ")}`);
+  };
+  const relationshipHint = relationshipNotice && <p className="hogwarts-narration" role="status" style={{ fontSize: ".9rem" }}>{relationshipNotice}</p>;
   const [active, setActive] = useState("calendar");
   const [acknowledgedClues, setAcknowledgedClues] = useState<string[]>([]);
   const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">("bet");
@@ -245,6 +263,10 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   </div> : null;
   const select = (target: string) => {
     const next = choose(work, state, target);
+    if (target === "hy-day10-a" || target === "hy-day10-b") {
+      next.variables.hyunjae_jealousy = Math.min(100, relationship("hyunjae", state).jealousy + (target.endsWith("-a") ? 3 : 1));
+    }
+    showRelationshipChange("hyunjae", state, next);
     setState(next);
     if (owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice((state.messages.owlpost ?? []).length).some(entry => !isNote(entry.body))) {
       setSceneOpen(true);
@@ -258,6 +280,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p><time dateTime={state.date || "2026-12-01"}>2026年12月{day}日</time></p></div>
       </header>
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
+        {active === "market" && relationshipHint}
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
         <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={state.date || "2026-12-01"}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
@@ -277,7 +300,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             {(index === 0 || currentThread[index - 1].day !== message.day) && <small>12月{message.day}日</small>}
             {note(message.outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === recipient)?.name ?? "", message.body, message.outgoing)}
           </div>)}
-          {recipient === "hyunjae" && owlToday && choices}
+          {recipient === "hyunjae" && owlToday && <>{choices}{!sceneOpen && relationshipHint}</>}
           <form onSubmit={event => {
             event.preventDefault();
             if (!draft.trim()) return;
@@ -329,7 +352,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </select></label></p>
           <button className="hogwarts-send-invite" disabled={dateContact !== "hyunjae" || !hyunjaeDates[dateVenue] || Boolean(plans[dateDay]) || !availableDateDays.includes(dateDay)}
             onClick={() => {
-              const accepted = identity?.loveInterest === "hyunjae" && Number(state.variables.hyunjae_affection ?? 0) > 45;
+              const accepted = identity?.loveInterest === "hyunjae" && relationship("hyunjae", state).affinity > 45;
               const reply = accepted ? hyunjaeDates[dateVenue].reply : hyunjaeDeclines[(day - 1) % hyunjaeDeclines.length];
               const venue = dateOptions.venues.find(item => item.id === dateVenue);
               if (accepted) {
@@ -344,7 +367,17 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           <p className="hogwarts-date-hint">每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
           {Object.entries(plans).filter(([value]) => Number(value) >= day).map(([value, plan]) => <p key={value}>12月{value}日 · {plan}</p>)}
         </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} contacts={contacts} onGift={(recipient, item, liked) => {
-            const affection = Number(state.variables.hyunjae_affection ?? 0);
+            const leadId = identity.loveInterest;
+            const affection = relationship(leadId, state).affinity;
+            const key = affinityKey(recipient);
+            const variables = { ...state.variables,
+              [key]: Math.min(100, Number(state.variables[key] ?? state.variables["friendship_" + recipient] ?? 0) + (liked ? 5 : 2)),
+            };
+            const jealous = recipient !== leadId && affection > 40;
+            if (jealous) variables[jealousyKey(leadId)] = Math.min(100, relationship(leadId, state).jealousy + (affection >= 70 ? 5 : 3));
+            const next = { ...state, variables };
+            setState(next);
+            showRelationshipChange(jealous ? leadId : recipient, state, next);
             if (recipient === identity.loveInterest && recipient === "hyunjae") {
               const reply = /围巾|手套|毛衣|厚袜|保暖帽/.test(item)
                 ? `收到你的${item}了。明天巡查我就用上。你要是碰见我，记得看一眼。`
@@ -354,11 +387,9 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
                     ? `收到${item}了！我先尝一口。要是又苦得皱脸，这次你可看不见ㅋㅋ`
                     : `你挑的${item}我收到了。我刚放到床头了。明天见面记得问我喜不喜欢，我想当面告诉你。`;
               addMail("hyunjae", reply, false);
-              setState(previous => ({ ...previous, variables: { ...previous.variables, hyunjae_affection: Math.min(100, affection + (liked ? 5 : 2)) } }));
+
             } else if (recipient !== identity.loveInterest) {
-              const key = "friendship_" + recipient;
-              setState(previous => ({ ...previous, variables: { ...previous.variables, [key]: Math.min(100, Number(previous.variables[key] ?? 0) + (liked ? 5 : 2)) } }));
-              if (identity.loveInterest === "hyunjae" && affection > 40) {
+              if (leadId === "hyunjae" && jealous) {
                 const name = contacts.find(contact => contact.id === recipient)?.name;
                 addMail("hyunjae", affection >= 70
                   ? `你给${name}寄了${item}啊。我刚才还想装作只是路过问一下。算了，有一点吃醋。`
@@ -368,7 +399,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           }} />
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
-            <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
+            <HogwartsCharacters year={identity.year} house={identity.house} variables={state.variables} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime} place={mapPlace ?? scheduledPlace} activity={scheduledLesson?.subject} />
@@ -472,6 +503,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           return part && <p key={index} className="hogwarts-narration">{highlightMistletoe(part)}</p>;
         })}</div>)}
         {!owlToday && choices}
+        {relationshipHint}
         {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
         {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
       </dialog>}
