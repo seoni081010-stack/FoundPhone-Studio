@@ -263,3 +263,77 @@
   font: italic .9rem/1.3 Georgia, "Kaiti SC", KaiTi, serif;
 }
 .marauder-signature strong { font-size: 1.2rem; }
+
+/* The existing map stays inside the journal. Animate the paper's exposed height,
+   so the lower brass roller follows its edge instead of scaling the drawing. */
+.marauder-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 27% 0%, #9a83a436, transparent 53%),
+    linear-gradient(143deg, #211627, #170e1b 53%, #301b15);
+}
+.marauder-dust { position: absolute; inset: 0; pointer-events: none; }
+.marauder-dust i {
+  position: absolute; color: #dfbd7c; opacity: .4;
+  font: .85rem Georgia, serif; animation: marauder-drift 12s ease-in-out infinite alternate;
+}
+.marauder-sheet { transition: grid-template-rows 1.45s cubic-bezier(.48, .04, .27, 1); }
+.marauder-roll {
+  height: 19px;
+  border: 1px solid #704820;
+  border-radius: 7px / 45%;
+  background: repeating-linear-gradient(95deg, #3b271028 0 1px, transparent 1px 6px),
+    linear-gradient(#5c3823, #ad7a43 20%, #ede4bc 39%, #ad834d 58%, #55351e);
+  box-shadow: 0 3px 9px #160d14c9, inset 0 1px #e7c28c80;
+}
+.marauder-roll::before, .marauder-roll::after {
+  content: ""; position: absolute; inset-block: -3px; width: 18px;
+  border: 1px solid #bb8c50; border-radius: 5px;
+  background: repeating-linear-gradient(105deg, transparent 0 3px, #4e321e7a 3px 4px),
+    linear-gradient(#633c24, #efdb9d 44%, #986232 67%, #432b1b);
+}
+.marauder-roll::before { left: -4px; }
+.marauder-roll::after { right: -4px; }
+.marauder-paper {
+  background: repeating-linear-gradient(7deg, #5b301211 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(99deg, #fffae325 0 1px, transparent 1px 7px),
+    radial-gradient(ellipse at 49% 48%, #f4e4bd 19%, #e4c28d 76%, #926441);
+  box-shadow: inset 0 0 24px #54280d8a;
+}
+.marauder-paper::after {
+  content: "✥"; position: absolute; left: 9%; bottom: 9%;
+  color: #6b42272a; border: 1px double currentColor; border-radius: 50%;
+  padding: 2px 9px; font: 1.3rem Georgia, serif; pointer-events: none;
+}
+.marauder-oath b { display: inline-block; }
+.marauder-stage[data-stage="oath"] .marauder-oath b { animation: marauder-letter .9s both; }
+.marauder-stage[data-stage="oath"] .marauder-oath { transition-delay: 1.05s; }
+.marauder-stage[data-stage="map"] [pathLength="1"] {
+  stroke-dasharray: 1; animation: marauder-trace 2.6s .45s both;
+}
+.marauder-stage[data-stage="map"] .marauder-lines text,
+.marauder-stage[data-stage="map"] .marauder-person text { animation: marauder-letter 1.4s 1.25s both; }
+.marauder-stage[data-stage="map"] .marauder-person-second text {
+  animation: marauder-letter 1.4s 1.25s both, marauder-flicker 9s 3s infinite;
+}
+.marauder-stage[data-stage="erasing"] .marauder-ink { transition: opacity .9s ease, filter .9s ease; filter: blur(2px); }
+.hogwarts-device .marauder-close {
+  border: 1px solid #8d6236; outline: 1px solid #d0a76d; outline-offset: -4px;
+  padding: 6px 13px; border-radius: 3px 9px;
+  background: linear-gradient(155deg, #f3d6a3, #b68043); text-decoration: none;
+}
+.hogwarts-device .marauder-close:hover, .hogwarts-device .marauder-close:focus-visible {
+  outline-color: #3b6b43; box-shadow: 0 0 12px #3b6b4366;
+}
+@keyframes marauder-drift { to { transform: translate(8px, -13px); opacity: .65; } }
+@keyframes marauder-letter {
+  from { opacity: 0; filter: blur(2px); }
+  65% { text-shadow: 0 0 9px #67ac65; }
+  to { opacity: 1; filter: none; }
+}
+@keyframes marauder-trace { from { stroke-dashoffset: 1; opacity: .2; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes marauder-flicker { 0%, 90%, 100% { opacity: 1; } 95% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) {
+  .marauder-stage *, .marauder-stage[data-stage] * { animation: none !important; transition: none !important; }
+}
