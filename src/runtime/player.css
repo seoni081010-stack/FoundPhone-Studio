@@ -64,3 +64,26 @@
 .hogwarts-avatar-picker:focus-within .hogwarts-avatar-trigger { outline: 2px solid #e5c57d; outline-offset: 4px; }
 .hogwarts-avatar-accessible { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .hogwarts-lead-avatar { display: block; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center 35%; margin: 0 auto 6px; }.hogwarts-avatar img { object-position: center 35%; }
+
+.hogwarts-player-menu summary { cursor: pointer; }
+.hogwarts-player-menu button { display: block; margin: 8px 0 2px auto; padding: 6px 12px; border: 1px solid #b99e67; border-radius: 8px; background: #f6ecd8; color: #392c20; font: inherit; }
+
+.hogwarts-device .hogwarts-avatar {
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+.hogwarts-device .hogwarts-contact .hogwarts-avatar {
+  width: 44px;
+  height: 44px;
+}
+.hogwarts-device .hogwarts-avatar img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

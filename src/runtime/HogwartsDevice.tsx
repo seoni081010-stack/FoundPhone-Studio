@@ -32,8 +32,8 @@ const hyunjaeDeclines = [
   "今天可能去不了了，抱歉。格兰芬多那边临时要我换一轮巡查，等我忙完再找你。",
   "抱歉，我和同学约了整理魔咒学笔记，他还在等我。下次你再叫我，好不好？",
 ];
-type Props = { work: Work; onRestart?: () => void; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
-export function HogwartsDevice({ work: original, identity, contacts, onRestart }: Props) {
+type Props = { work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
+export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const work = useMemo(() => {
     const boundaries = original.nodes.filter(node => node.actions.some(action =>
       action.type === "date" && /^2026-12-(?!01$)\d{2}$/.test(String(action.value))));
@@ -267,7 +267,6 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <MaraudersMap /> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => item.title === "庭院初雪" ? <details className="hogwarts-device-letter" key={item.id}><summary>{item.title}</summary><p>{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p></details> : <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
-        {active === "wizardjournal" && onRestart && <p><button type="button" onClick={onRestart}>重新开始</button></p>}
       </main>
       {(dateReply || outing) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onClose={() => { setDateReply(""); setOuting(false); }} className="hogwarts-scene">

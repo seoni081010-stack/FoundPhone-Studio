@@ -173,9 +173,9 @@ function StoryPlayer() {
           </section>
         ) : (
           <>
-            {!isTest && chosen && identity && <div className="hogwarts-reset">{chosen.name} {identity.year}年级 {identity.name}</div>}
-            <HogwartsDevice work={work} identity={identity} contacts={loveInterests}
-              onRestart={!isTest && identity ? () => {
+            {!isTest && chosen && identity && <details className="hogwarts-reset hogwarts-player-menu">
+              <summary>{chosen.name} {identity.year}年级 {identity.name}</summary>
+              <button type="button" onClick={() => {
                 if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
                 localStorage.removeItem(storageKey);
                 setIdentity(null);
@@ -187,7 +187,9 @@ function StoryPlayer() {
                 setAvatarError("");
                 setUnlocked(false);
                 setPasscode("");
-              } : undefined} />
+              }}>重新开始</button>
+            </details>}
+            <HogwartsDevice work={work} identity={identity} contacts={loveInterests} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}
