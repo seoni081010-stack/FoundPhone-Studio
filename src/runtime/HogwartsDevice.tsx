@@ -1,3 +1,4 @@
+import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
 import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { affinityKey, characterStatus, HogwartsCharacters, jealousyKey } from "./HogwartsCharacters";
@@ -83,8 +84,8 @@ const hyunjaeDeclines = [
   "今天可能去不了了，抱歉。格兰芬多那边临时要我换一轮巡查，等我忙完再找你。",
   "抱歉，我和同学约了整理魔咒学笔记，他还在等我。下次你再叫我，好不好？",
 ];
-type Props = { work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
-export function HogwartsDevice({ work: original, identity, contacts }: Props) {
+type Props = { onRestart: () => void; work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
+export function HogwartsDevice({ work: original, identity, contacts, onRestart }: Props) {
   const work = useMemo(() => {
     const boundaries = original.nodes.filter(node => node.actions.some(action =>
       action.type === "date" && /^2026-12-(?!01$)\d{2}$/.test(String(action.value))));
@@ -160,6 +161,18 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       <div><strong>{name}</strong><p>{body}</p></div>
     </div>;
   const [finished, setFinished] = useState(false);
+  const [finalMemoryOpen, setFinalMemoryOpen] = useState(false);
+  const [archiveStatus, setArchiveStatus] = useState("");
+  const ending = state.endings.includes("hyunjae-together") ? {
+    kind: "together" as const, title: "恋人结局 · 雪停之前", text: "他在石拱门下牵住了你的手。你们谁都没催着走。等窗外的雪停下来，你才发现，刚才还冻得发僵的那只手，已经暖了。",
+    memory: "再经过那道石拱门时，他看见了槲寄生，这次什么也没说，只是牵住了你的手。",
+  } : state.endings.includes("hyunjae-friends") ? {
+    kind: "friends" as const, title: "朋友结局 · 窗边那个位置", text: "把话说开以后，你们还是并肩走了回去。快到楼梯口，他问下次去三把扫帚还给不给他留位置。你说：「留啊。但窗边那个归我。」他笑了：「我就知道。」",
+    memory: "雪落在长廊外，你们说好下次去三把扫帚，还是坐窗边。",
+  } : {
+    kind: "unspoken" as const, title: "暧昧结局 · 明年第一个", text: "走到长廊尽头，你们就该往不同的方向走了。他多站了一会儿，说：「明年我还是想第一个来找你。」你说：「那你得来早点。」",
+    memory: "长廊里很安静，他说，明年还是想第一个来找你。",
+  };
   const [attended, setAttended] = useState<Record<string, boolean>>({});
   const lead = contacts.find(contact => contact.id === identity?.loveInterest);
   const sameHouse = lead?.house === identity?.house;
@@ -245,15 +258,13 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     {
       id: "photo-new-year",
       title: "跨年长廊",
-      body: state.endings.includes("hyunjae-together")
-        ? "再经过那道石拱门时，他看见了槲寄生，这次什么也没说，只是牵住了你的手。"
-        : "长廊里很安静，他说，明年还是想第一个来找你。",
-      unlocked: day === 31 && (state.endings.includes("hyunjae-together") || state.endings.includes("hyunjae-unspoken")),
+      body: ending.memory,
+      unlocked: finalMemoryOpen || finished,
     },
   ].filter(clue => clue.unlocked);
   // Let story dialogs finish first, then announce each new entry in album order.
   const pendingClue = sceneOpen || matchDialog || dateReply || outing || destination
-    ? undefined : albumClues.find(clue => !acknowledgedClues.includes(clue.id));
+    ? undefined : albumClues.find(clue => clue.id !== "photo-new-year" && !acknowledgedClues.includes(clue.id));
   const acknowledgeClue = (id: string) =>
     setAcknowledgedClues(previous => previous.includes(id) ? previous : [...previous, id]);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
@@ -272,6 +283,25 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       setSceneOpen(true);
     }
   };
+  if (finished) {
+    const character = contacts.find(contact => contact.id === identity?.loveInterest) ?? { id: "hyunjae", name: "李贤在" };
+    const stats = relationship(character.id, state);
+    const archive = () => {
+      try {
+        const key = "foundphone-hogwarts-endings-v1";
+        const records = JSON.parse(localStorage.getItem(key) ?? "{}");
+        localStorage.setItem(key, JSON.stringify({ ...records, [identityKey || "default"]: {
+          player: identity?.name, character: character.name, ...ending, ...stats,
+        } }));
+        setArchiveStatus("已归档到此浏览器。");
+      } catch {
+        setArchiveStatus("这次没能保存归档，请再试一次。");
+      }
+    };
+    return <HogwartsEnding kind={ending.kind} title={ending.title} text={ending.text} character={character}
+      affinity={stats.affinity} jealousy={stats.jealousy} onRestart={onRestart}
+      onArchive={archive} archiveStatus={archiveStatus} />;
+  }
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
       <div className="hogwarts-device-top"><span>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} <strong>D{day}/31</strong></span><span>{lessonTime ?? startTime}</span></div>
@@ -323,7 +353,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               setLessonTime(time);
               if (last && day !== 3 && day !== 4 && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(undefined); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(undefined); } : undefined} />
           {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
           {day >= 22 && <section aria-label="假期自由活动">
             <h3>自由活动</h3>
@@ -332,7 +362,6 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
           </section>}
           {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
           {day === 12 && matchStep === "pub" && <button className="hogwarts-activity" onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和李贤在去三把扫帚</button>}
-          {finished && <p role="status">十二月已结束。</p>}
         </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
           <label>约谁见面 <select value={dateContact} onChange={event => setDateContact(event.target.value)}>
@@ -491,6 +520,13 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         </>}
         {matchError && <p role="alert">{matchError}</p>}
       </dialog>}
+      {finalMemoryOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+        onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="final-memory-title">
+        <p>魔法相册解锁最后一条回忆</p>
+        <h2 id="final-memory-title">跨年长廊</h2>
+        <p className="hogwarts-narration">{highlightMistletoe(ending.memory)}</p>
+        <button type="button" onClick={() => { setFinalMemoryOpen(false); setFinished(true); }}>读完了 · 查看结局</button>
+      </dialog>}
       {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => acknowledgeClue(pendingClue.id)} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
         <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>
         <button onClick={() => acknowledgeClue(pendingClue.id)}>继续</button>
@@ -504,8 +540,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         })}</div>)}
         {!owlToday && choices}
         {relationshipHint}
-        {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
-        {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
+        {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 31 && state.endings.length) { setActive("magicphotos"); setFinalMemoryOpen(true); } if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
       </dialog>}
       <nav className="hogwarts-dock" aria-label="学生手机应用">
         {modules.filter(module => ["magicphotos", "owlpost", "wizardjournal", "date"].includes(module.id)).sort((a, b) => ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(a.id) - ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(b.id)).map(module =>

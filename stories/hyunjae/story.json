@@ -2868,7 +2868,8 @@
       "actions": [],
       "next": [
         "hy-day31-a",
-        "hy-day31-b"
+        "hy-day31-b",
+        "hy-ending-friends"
       ],
       "conditions": []
     },
@@ -2963,12 +2964,12 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "他停了一下，看着\n你：所以我想清楚了。我喜欢你。不是朋友的那种喜欢。你呢？你愿不愿意……和我在一起？"
+          "value": "他停了一下，看着你。\n李贤在：所以我想清楚了。我喜欢你。不是朋友的那种喜欢。你呢？你愿不愿意……和我在一起？"
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你答应以后，李贤在愣了一下，随后一下笑开。\n李贤在：真的？\n得到你第二次肯定，他才像终于松了口气。\n你们一起往回走。经过石拱门时，他先看见上方的槲寄生，又看向你。这一次谁都没有提以前的事。他的手碰到你的手，停了一下，然后很自然地牵住，继续往前走。"
+          "value": "你：好啊，我们在一起吧。\n李贤在愣了一下，随后笑开。\n李贤在：真的？\n你：真的。\n他终于松了口气。\n你们一起往回走。经过石拱门时，他先看见上方的槲寄生，又看向你。这一次谁都没有提以前的事。他的手碰到你的手，停了一下，然后很自然地牵住，继续往前走。"
         },
         {
           "type": "ending",
@@ -3024,6 +3025,25 @@
           "value": 100
         }
       ]
+    },
+    {
+      "id": "hy-ending-friends",
+      "label": "我还是想和你做朋友",
+      "type": "ending",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "长廊里只剩你们两个人。窗外落着很细的雪。\n你：有件事想先跟你说。我还是想跟你做朋友。\n李贤在安静了一下，点了点头。\n李贤在：好啊。那下次去三把扫帚，你还给我留个位子吧？\n你：行啊，但窗边那个归我。\n他笑了。你们沿着长廊往回走，谁都没急着先道别。"
+        },
+        {
+          "type": "ending",
+          "key": "",
+          "value": "hyunjae-friends"
+        }
+      ],
+      "next": [],
+      "conditions": []
     },
     {
       "id": "hy-day07-memory-gate",
@@ -3806,6 +3826,105 @@
         }
       ],
       "ending": "hyunjae-together"
+    },
+    {
+      "name": "跨年选择维持朋友关系",
+      "steps": [
+        {
+          "choose": "hy-day01-a"
+        },
+        {
+          "choose": "hy-day02-a"
+        },
+        {
+          "choose": "hy-day03-a"
+        },
+        {
+          "choose": "hy-day04-a"
+        },
+        {
+          "choose": "hy-day05-a"
+        },
+        {
+          "choose": "hy-day06-a"
+        },
+        {
+          "choose": "hy-day07-a"
+        },
+        {
+          "choose": "hy-day08-a"
+        },
+        {
+          "choose": "hy-day09-a"
+        },
+        {
+          "choose": "hy-day10-a"
+        },
+        {
+          "choose": "hy-day11-a"
+        },
+        {
+          "choose": "hy-day12-a"
+        },
+        {
+          "choose": "hy-day13-a"
+        },
+        {
+          "choose": "hy-day14-a"
+        },
+        {
+          "choose": "hy-day15-a"
+        },
+        {
+          "choose": "hy-day16-a"
+        },
+        {
+          "choose": "hy-day17-a"
+        },
+        {
+          "choose": "hy-day18-a"
+        },
+        {
+          "choose": "hy-day19-a"
+        },
+        {
+          "choose": "hy-day20-a"
+        },
+        {
+          "choose": "hy-day21-a"
+        },
+        {
+          "choose": "hy-day22-a"
+        },
+        {
+          "choose": "hy-day23-a"
+        },
+        {
+          "choose": "hy-day24-a"
+        },
+        {
+          "choose": "hy-day25-a"
+        },
+        {
+          "choose": "hy-day26-a"
+        },
+        {
+          "choose": "hy-day27-a"
+        },
+        {
+          "choose": "hy-day28-a"
+        },
+        {
+          "choose": "hy-day29-a"
+        },
+        {
+          "choose": "hy-day30-a"
+        },
+        {
+          "choose": "hy-ending-friends"
+        }
+      ],
+      "ending": "hyunjae-friends"
     }
   ]
 }

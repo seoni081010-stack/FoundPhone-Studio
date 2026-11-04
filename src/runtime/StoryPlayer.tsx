@@ -94,6 +94,20 @@ function StoryPlayer() {
   const isTest = new URLSearchParams(location.search).get("preview") === "test" || new URLSearchParams(location.search).get("template") === "blank";
   const chosen = houses.find(h => h.id === identity?.house);
   const selectedLead = loveInterests.find(m => m.id === loveInterest);
+  const restart = () => {
+    if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
+    localStorage.removeItem(storageKey);
+    setCoverOpened(false);
+    setIdentity(null);
+    setName("");
+    setHouse("");
+    setYear(5);
+    setLoveInterest("");
+    setAvatar(undefined);
+    setAvatarError("");
+    setUnlocked(false);
+    setPasscode("");
+  };
   const confirm = () => {
     if (!name.trim() || !house || !loveInterest || avatarBusy) return;
     const next = { name: name.trim().slice(0, 40), house, year, loveInterest, avatar, runId: crypto.randomUUID() };
@@ -177,22 +191,9 @@ function StoryPlayer() {
           <>
             {!isTest && chosen && identity && <details className="hogwarts-reset hogwarts-player-menu">
               <summary>{chosen.name} {identity.year}年级 {identity.name}</summary>
-              <button type="button" onClick={() => {
-                if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
-                localStorage.removeItem(storageKey);
-                setCoverOpened(false);
-                setIdentity(null);
-                setName("");
-                setHouse("");
-                setYear(5);
-                setLoveInterest("");
-                setAvatar(undefined);
-                setAvatarError("");
-                setUnlocked(false);
-                setPasscode("");
-              }}>重新开始</button>
+              <button type="button" onClick={restart}>重新开始</button>
             </details>}
-            <HogwartsDevice work={work} identity={identity} contacts={loveInterests} />
+            <HogwartsDevice work={work} identity={identity} contacts={loveInterests} onRestart={restart} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}
