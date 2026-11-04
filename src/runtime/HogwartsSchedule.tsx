@@ -31,15 +31,19 @@ function dailyMenu(day: number) {
  return {breakfast, lunch, dinner};
 }
 
+export function dailyLessons(year: number, house: string, day: number) {
+ const byYear = timetable.timetables[String(year) as keyof typeof timetable.timetables];
+ const entries = byYear?.[houseNames[house] as keyof typeof byYear] ?? [];
+ const weekday = new Date(Date.UTC(2026, 11, day)).getUTCDay();
+ return entries.filter(entry => day < 22 && weekday >= 1 && weekday <= 5 && entry.day === weekday - 1)
+   .sort((a, b) => a.time.localeCompare(b.time));
+}
+
 export function HogwartsSchedule({year, house, day, interaction, attended, onAttend, onEnd, onScene, sceneLabel}: {
  year: number; house: string; day: number; interaction?: string; attended: Record<string, boolean>;
  onAttend: (id: string, time: string, last: boolean) => void; onEnd?: () => void; onScene?: () => void; sceneLabel?: string;
 }) {
- const byYear = timetable.timetables[String(year) as keyof typeof timetable.timetables];
- const entries = byYear?.[houseNames[house] as keyof typeof byYear] ?? [];
- const weekday = new Date(Date.UTC(2026, 11, day)).getUTCDay();
- const lessons = entries.filter(entry => day < 22 && weekday >= 1 && weekday <= 5 && entry.day === weekday - 1)
-   .sort((a, b) => a.time.localeCompare(b.time));
+ const lessons = dailyLessons(year, house, day);
  const lessonId = (lesson: (typeof lessons)[number]) => [day, lesson.time, lesson.subject].join("-");
  const allAttended = lessons.every(lesson => attended[lessonId(lesson)]);
  const menu = dailyMenu(day);
