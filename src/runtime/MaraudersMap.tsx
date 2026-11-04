@@ -16,7 +16,14 @@ type MapAudioWindow = Window & { webkitAudioContext?: typeof AudioContext };
 
 type MapStage = "closed" | "oath" | "map" | "erasing";
 
-export function MaraudersMap() {
+const landmarks: Partial<Record<string, readonly [number, number]>> = {
+  "长廊": [180, 280],
+  "城堡楼梯": [180, 320],
+};
+
+export function MaraudersMap({ day, time, place }: { day: number; time?: string; place?: string }) {
+  const room = rooms.find(([name]) => name === place);
+  const marker = room ? [room[1], room[2] + 23] : place ? landmarks[place] : undefined;
   const [stage, setStage] = useState<MapStage>("closed");
   const audio = useRef<AudioContext | null>(null);
   const scroll = useRef<HTMLDivElement>(null);
@@ -89,6 +96,7 @@ export function MaraudersMap() {
   }
 
   return <section className="marauder-stage" data-stage={stage} aria-label="活点地图卷轴">
+    <style>{`@keyframes marauder-local-walk { from { transform: translateX(-5px); } to { transform: translateX(5px); } }`}</style>
     <div className="marauder-dust" aria-hidden="true">
       {Array.from({ length: 16 }, (_, i) => <i key={i} style={{
         left: `${i * 37 % 97}%`, top: `${i * 23 % 93}%`, animationDelay: `-${i * .8}s`,
@@ -110,6 +118,7 @@ export function MaraudersMap() {
               <span lang="en-GB">Moony, Wormtail, Padfoot &amp; Prongs</span>
               <span>月亮脸、虫尾巴、大脚板和尖头叉子</span>
               <strong lang="en-GB">The Marauder’s Map</strong>
+              <span aria-live="polite">12月{day}日{time && ` · ${time}`} · 李贤在{place ? ` · ${place}` : " · 暂无踪迹"}</span>
             </header>
             <svg viewBox="0 0 360 565" role="img" aria-label="霍格沃茨城堡、走廊与秘密通道">
               <title>霍格沃茨活点地图</title>
@@ -129,9 +138,12 @@ export function MaraudersMap() {
                 <text x="180" y="258">长廊</text>
                 <text x="280" y="390">⋯ 秘密通道</text>
               </g>
-              <g className="marauder-person marauder-person-first"><text x="135" y="293">李贤在</text><path d="M106 298l4 3m3-1 4 3" /></g>
-              <g className="marauder-person marauder-person-second"><text x="223" y="238">孙英宰</text><path d="M199 244l4 3m3-1 4 3" /></g>
-              <g className="marauder-person marauder-person-third"><text x="212" y="450">李柱延</text><path d="M185 455l4 3m3-1 4 3" /></g>
+              {marker && <g transform={`translate(${marker[0]} ${marker[1]})`}>
+                <g className="marauder-person marauder-person-first" style={{ animationName: "marauder-local-walk" }}>
+                  <text style={{ paintOrder: "stroke", stroke: "#f2dcac", strokeWidth: 3 }}>李贤在</text>
+                  <path d="M-12 5l3 2m5-1 3 2" />
+                </g>
+              </g>}
             </svg>
             <button className="marauder-close" onClick={() => turn("erasing")}>恶作剧完毕</button>
           </div>
