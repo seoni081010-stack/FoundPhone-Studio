@@ -32,7 +32,7 @@ const hyunjaeDeclines = [
   "今天可能去不了了，抱歉。格兰芬多那边临时要我换一轮巡查，等我忙完再找你。",
   "抱歉，我和同学约了整理魔咒学笔记，他还在等我。下次你再叫我，好不好？",
 ];
-type Props = { work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string } | null };
+type Props = { work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string } | null };
 export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const work = useMemo(() => {
     const boundaries = original.nodes.filter(node => node.actions.some(action =>
@@ -85,7 +85,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     word === "槲寄生" ? <strong key={index}>{word}</strong> : word);
   const note = (name: string, body: string, outgoing: boolean, key?: number) =>
     <div key={key} className={`hogwarts-message ${outgoing ? "outgoing" : ""}`}>
-      <span className="hogwarts-avatar" aria-hidden="true">{name.slice(-1)}</span>
+      <span className="hogwarts-avatar" aria-hidden="true">{outgoing && identity?.avatar ? <img src={identity.avatar} alt="" /> : name.slice(-1)}</span>
       <div><strong>{name}</strong><p>{body}</p></div>
     </div>;
   const [finished, setFinished] = useState(false);
