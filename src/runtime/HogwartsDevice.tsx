@@ -1,7 +1,7 @@
 import { MaraudersMap } from "./MaraudersMap";
 import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { HogwartsCharacters } from "./HogwartsCharacters";
-import { HogwartsSchedule } from "./HogwartsSchedule";
+import { dailyLessons, HogwartsSchedule } from "./HogwartsSchedule";
 import { MagicalShops, useWeeklyAllowance, spendGalleons } from "./MagicalShops";
 import { useMemo, useState } from "react";
 import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft } from "lucide-react";
@@ -152,6 +152,16 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     : day === 24 && ["a", "b"].includes(String(state.variables.hyunjae_day24_choice)) ? "长廊"
     : day === 29 && ["a", "b"].includes(String(state.variables.hyunjae_day29_choice)) ? "冬季灯展"
     : storyPlace ?? (encounterReached && [14, 21].includes(day) ? "霍格沃茨城堡" : undefined);
+  const scheduledLesson = !mapPlace && lessonTime
+    ? dailyLessons(7, "gryffindor", day).find(lesson => lesson.time === lessonTime)
+    : undefined;
+  const scheduledPlace = scheduledLesson && ({
+    "保护神奇生物": "神奇动物课场地",
+    "魔药学": "魔药学 · 地窖",
+    "自习与作业": "图书馆",
+    "毕业研究": "图书馆",
+    "N.E.W.T.复习": "图书馆",
+  }[scheduledLesson.subject] ?? scheduledLesson.subject);
   const albumClues = [
     {
       id: "photo-snow",
@@ -314,7 +324,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
-          : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime} place={mapPlace} />
+          : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime} place={mapPlace ?? scheduledPlace} activity={scheduledLesson?.subject} />
           : active === "magicphotos" ? <section className="hogwarts-device-letters">
             {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
               <summary>{clue.title}</summary>
