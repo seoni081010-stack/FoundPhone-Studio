@@ -1,3 +1,4 @@
+import { HogwartsCover } from "./HogwartsCover";
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HogwartsDevice } from "./HogwartsDevice";
@@ -52,6 +53,7 @@ async function prepareAvatar(file: File) {
 }
 
 function StoryPlayer() {
+  const [coverOpened, setCoverOpened] = useState(false);
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
   const [identity, setIdentity] = useState<Identity | null>(savedIdentity);
@@ -100,7 +102,7 @@ function StoryPlayer() {
   };
   return (
     <main className="story-runtime">
-      {work ? (
+      {!isTest && !coverOpened && !error ? <HogwartsCover onEnter={() => setCoverOpened(true)} /> : work ? (
         !isTest && !identity ? (
           <section className="hogwarts-entry" aria-label="霍格沃茨入学登记">
             <div className="hogwarts-form">
@@ -178,6 +180,7 @@ function StoryPlayer() {
               <button type="button" onClick={() => {
                 if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
                 localStorage.removeItem(storageKey);
+                setCoverOpened(false);
                 setIdentity(null);
                 setName("");
                 setHouse("");
