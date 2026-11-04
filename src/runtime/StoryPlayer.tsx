@@ -20,7 +20,7 @@ const loveInterests = [
   { id: "sunwoo", year: 5, name: "金善旴", english: "SUNWOO", house: "gryffindor", traits: "机敏 · 自信 · 口才", intro: "想赢过我？那你得先猜到我下一步要做什么。", affinity: { slytherin: 95, ravenclaw: 86, gryffindor: 73, hufflepuff: 48 } },
   { id: "eric", year: 5, name: "孙英宰", english: "ERIC", house: "gryffindor", traits: "热情 · 直率 · 勇敢", intro: "要不要一起去冒险？放心，我会跑在你前面！", affinity: { gryffindor: 97, hufflepuff: 83, slytherin: 60, ravenclaw: 56 } },
 ] as const;
-type Identity = { name: string; house: string; year: number; loveInterest: string; avatar?: string };
+type Identity = { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string };
 const storageKey = "foundphone-hogwarts-identity-v1";
 function savedIdentity(): Identity | null {
   try {
@@ -28,7 +28,7 @@ function savedIdentity(): Identity | null {
     if (!value || typeof value !== "object") return null;
     const data = value as Partial<Identity>;
     if (typeof data.name !== "string" || !data.name.trim() || !houses.some(h => h.id === data.house) || !loveInterests.some(m => m.id === data.loveInterest) || !Number.isInteger(data.year) || (data.year ?? 0) < 5 || (data.year ?? 8) > 7) return null;
-    return { name: data.name, house: data.house!, year: data.year!, loveInterest: data.loveInterest!, avatar: typeof data.avatar === "string" && data.avatar.startsWith("data:image/jpeg;base64,") ? data.avatar : undefined };
+    return { name: data.name, house: data.house!, year: data.year!, loveInterest: data.loveInterest!, runId: typeof data.runId === "string" ? data.runId : undefined, avatar: typeof data.avatar === "string" && data.avatar.startsWith("data:image/jpeg;base64,") ? data.avatar : undefined };
   } catch { return null; }
 }
 async function prepareAvatar(file: File) {
@@ -94,7 +94,7 @@ function StoryPlayer() {
   const selectedLead = loveInterests.find(m => m.id === loveInterest);
   const confirm = () => {
     if (!name.trim() || !house || !loveInterest || avatarBusy) return;
-    const next = { name: name.trim().slice(0, 40), house, year, loveInterest, avatar };
+    const next = { name: name.trim().slice(0, 40), house, year, loveInterest, avatar, runId: crypto.randomUUID() };
     try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch { setAvatarError("无法保存资料，请检查浏览器储存空间后重试。"); return; }
     setIdentity(next);
   };
@@ -174,7 +174,20 @@ function StoryPlayer() {
         ) : (
           <>
             {!isTest && chosen && identity && <div className="hogwarts-reset">{chosen.name} {identity.year}年级 {identity.name}</div>}
-            <HogwartsDevice work={work} identity={identity} contacts={loveInterests} />
+            <HogwartsDevice work={work} identity={identity} contacts={loveInterests}
+              onRestart={!isTest && identity ? () => {
+                if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
+                localStorage.removeItem(storageKey);
+                setIdentity(null);
+                setName("");
+                setHouse("");
+                setYear(5);
+                setLoveInterest("");
+                setAvatar(undefined);
+                setAvatarError("");
+                setUnlocked(false);
+                setPasscode("");
+              } : undefined} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}
