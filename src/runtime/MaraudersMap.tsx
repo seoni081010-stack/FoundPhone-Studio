@@ -21,7 +21,7 @@ const landmarks: Partial<Record<string, readonly [number, number]>> = {
   "城堡楼梯": [180, 320],
 };
 
-export function MaraudersMap({ day, time, place }: { day: number; time?: string; place?: string }) {
+export function MaraudersMap({ day, time, place, activity }: { day: number; time?: string; place?: string; activity?: string }) {
   const room = rooms.find(([name]) => name === place);
   const marker = room ? [room[1], room[2] + 23] : place ? landmarks[place] : undefined;
   const [stage, setStage] = useState<MapStage>("closed");
@@ -118,7 +118,7 @@ export function MaraudersMap({ day, time, place }: { day: number; time?: string;
               <span lang="en-GB">Moony, Wormtail, Padfoot &amp; Prongs</span>
               <span>月亮脸、虫尾巴、大脚板和尖头叉子</span>
               <strong lang="en-GB">The Marauder’s Map</strong>
-              <span aria-live="polite">12月{day}日{time && ` · ${time}`} · 李贤在{place ? ` · ${place}` : " · 暂无踪迹"}</span>
+              <span aria-live="polite">12月{day}日{time && ` · ${time}`} · 李贤在{place ? ` · ${place}` : " · 暂无踪迹"}{activity && activity !== place ? ` · ${activity}` : ""}</span>
             </header>
             <svg viewBox="0 0 360 565" role="img" aria-label="霍格沃茨城堡、走廊与秘密通道">
               <title>霍格沃茨活点地图</title>
