@@ -19,6 +19,49 @@ const modules = [
   { id: "date", name: "Date", subtitle: "周末约会", Icon: Heart },
   { id: "market", name: "魔法商店与古灵阁", subtitle: "购物与金库", Icon: Heart },
 ] as const;
+const freeTimeScenes = [
+  {
+    place: "公共区域",
+    arrival: "壁炉里的木柴啪地响了一声。放假后，靠窗那排椅子终于空了，桌上还留着一副巫师棋。",
+    choices: [
+      { label: "坐到壁炉边", result: "你把围巾搭上椅背。等冻僵的手指暖过来，窗台上又积了一薄层雪。" },
+      { label: "摆一局巫师棋", result: "你刚把骑士放到棋盘上，它就抱怨：放假了还得加班？你把它挪到国王旁边，它立刻闭了嘴。" },
+    ],
+  },
+  {
+    place: "温室",
+    arrival: "温室的玻璃蒙着水汽。门一开，潮湿的泥土味便盖过了外头的冷风。",
+    choices: [
+      { label: "看看架上的幼苗", result: "最小的那株缩着叶子。你把花盆往光里挪了挪，它慢吞吞地舒展开，像刚睡醒。" },
+      { label: "给盆栽浇水", result: "你刚抬起水壶，最靠外的叶片就卷了起来。看样子，这盆今天已经喝够了。" },
+    ],
+  },
+  {
+    place: "城堡外散步",
+    arrival: "庭院的石板上有一串新脚印，到了拱门底下就断了。风把雪从另一边吹进来。",
+    choices: [
+      { label: "绕庭院走一圈", result: "你专挑没人踩过的地方走。回头时，雪地里多了一串歪歪扭扭、只属于你的脚印。" },
+      { label: "在拱门下躲一会儿风", result: "你站到背风的一侧，听见雪粒轻轻敲在石阶上。城堡里有人关了一扇窗。" },
+    ],
+  },
+  {
+    place: "对角巷",
+    arrival: "丽痕书店的橱窗前挤了几个人。每隔几秒，橱窗里的书就自己翻一页，像怕人看得太慢。",
+    choices: [
+      { label: "进丽痕书店翻翻", result: "你抽出一本薄薄的旅行手册。封面上的小巫师看了看你鞋上的雪，默默把自己那双靴子系紧了。" },
+      { label: "逛逛沿街的橱窗", result: "你看见一支羽毛笔在玻璃上写「圣诞快乐」。它漏写了一个字，又悄悄把整行擦掉重来。" },
+    ],
+  },
+  {
+    place: "霍格莫德镇",
+    arrival: "三把扫帚的窗子亮着，隔着玻璃都能看见黄油啤酒杯上冒的热气。再往前走，就是蜂蜜公爵。",
+    choices: [
+      { label: "进三把扫帚暖一暖", result: "你在门边站了一会儿，等耳朵暖回来。靠窗那桌还在争论上场比赛的最后一球。" },
+      { label: "看看蜂蜜公爵的新橱窗", result: "一只巧克力蛙在玻璃后连跳了三次，最后落回自己的盒子里，装作什么都没发生。" },
+    ],
+  },
+];
+
 const hyunjaeDates: Record<string, { reply: string; scene: string[] }> = {
   puddifoot: { reply: "好啊。先说好，你点的蛋糕要分我一口。", scene: ["他把蛋糕推到桌子正中，自己先拿起叉子。", "你不是说分我一口？我这才第一口。", "你那一口怎么切了半块？", "……那剩下半块都归你。"] },
   "three-broomsticks": { reply: "去啊。你先到的话，帮我留个靠窗的位置。", scene: ["他端着两杯黄油啤酒回来，在你对面坐下。", "我刚才差点把这杯端给隔壁桌。", "那你怎么认出我的？", "你从我站起来就一直盯着这杯。"] },
@@ -86,7 +129,8 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const [dateDay, setDateDay] = useState(0);
   const [attendedDates, setAttendedDates] = useState<number[]>([]);
   const [dateVenue, setDateVenue] = useState("");
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState<(typeof freeTimeScenes)[number]>();
+  const [freeTimeResult, setFreeTimeResult] = useState("");
   const [plans, setPlans] = useState<Record<number, string>>({});
   const [acceptedVenues, setAcceptedVenues] = useState<Record<number, string>>({});
   const [draft, setDraft] = useState("");
@@ -191,7 +235,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     },
   ].filter(clue => clue.unlocked);
   // Let story dialogs finish first, then announce each new entry in album order.
-  const pendingClue = sceneOpen || matchDialog || dateReply || outing
+  const pendingClue = sceneOpen || matchDialog || dateReply || outing || destination
     ? undefined : albumClues.find(clue => !acknowledgedClues.includes(clue.id));
   const acknowledgeClue = (id: string) =>
     setAcknowledgedClues(previous => previous.includes(id) ? previous : [...previous, id]);
@@ -257,13 +301,12 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               setLessonTime(time);
               if (last && day !== 3 && day !== 4 && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(""); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(undefined); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
           {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
           {day >= 22 && <section aria-label="假期自由活动">
             <h3>自由活动</h3>
-            {["公共区域", "温室", "城堡外散步", "对角巷", "霍格莫德镇"].map(place =>
-              <button type="button" key={place} aria-pressed={destination === place} onClick={() => setDestination(place)}>{place}</button>)}
-            {destination && <p role="status">你现在在：{destination}</p>}
+            {freeTimeScenes.map(scene => <button className="hogwarts-activity" type="button" key={scene.place}
+              onClick={() => { setFreeTimeResult(""); setDestination(scene); }}>{scene.place}</button>)}
           </section>}
           {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
           {day === 12 && matchStep === "pub" && <button className="hogwarts-activity" onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和李贤在去三把扫帚</button>}
@@ -343,6 +386,16 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             {!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}
           </section>}
       </main>
+      {destination && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+        onClose={() => setDestination(undefined)} className="hogwarts-scene" aria-labelledby="free-time-title">
+        <h2 id="free-time-title">{destination.place}</h2>
+        <p className="hogwarts-narration">{destination.arrival}</p>
+        {freeTimeResult ? <p className="hogwarts-narration" role="status">{freeTimeResult}</p>
+          : <div className="hogwarts-device-choices">{destination.choices.map(choice =>
+            <button type="button" key={choice.label} onClick={() => setFreeTimeResult(choice.result)}>{choice.label}</button>
+          )}</div>}
+        <button className="hogwarts-continue-day" type="button" onClick={() => setDestination(undefined)}>返回今日行程</button>
+      </dialog>}
       {(dateReply || outing) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onClose={() => { setDateReply(""); setOuting(false); }} className="hogwarts-scene">
         <h2>{outing ? plans[day] : "李贤在的猫头鹰回信"}</h2>
