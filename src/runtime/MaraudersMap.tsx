@@ -12,14 +12,21 @@ const rooms = [
   ["禁林边缘", 180, 535],
 ] as const;
 
+type MapAudioWindow = Window & { webkitAudioContext?: typeof AudioContext };
+
 type MapStage = "closed" | "oath" | "map" | "erasing";
 
 export function MaraudersMap() {
   const [stage, setStage] = useState<MapStage>("closed");
+  const [soundStatus, setSoundStatus] = useState("");
   const audio = useRef<AudioContext | null>(null);
   const scroll = useRef<HTMLDivElement>(null);
 
-  useEffect(() => () => { void audio.current?.close().catch(() => {}); }, []);
+  useEffect(() => () => {
+    const context = audio.current;
+    audio.current = null;
+    void context?.close().catch(() => {});
+  }, []);
   useEffect(() => {
     if (stage !== "erasing") return;
     // Remove the ink before the lower roller starts moving.
@@ -31,11 +38,21 @@ export function MaraudersMap() {
   function turn(next: MapStage) {
     setStage(next);
     scroll.current?.focus({ preventScroll: true });
+    void playSound(next);
+  }
+
+  async function playSound(next: MapStage | "test") {
     // Audio starts on a user gesture. Browsers without Web Audio still play the full visual sequence.
     try {
-      audio.current ??= new AudioContext();
+      const Audio = window.AudioContext ?? (window as MapAudioWindow).webkitAudioContext;
+      if (!Audio) throw new Error("Web Audio unavailable");
+      audio.current ??= new Audio();
       const context = audio.current;
-      void context.resume().catch(() => {});
+      if (context.state !== "running") await context.resume();
+      if (audio.current !== context) return;
+      if (context.state !== "running") throw new Error("Audio is not running");
+      if (next === "test") setSoundStatus("已播放试听音");
+      const cueTime = context.currentTime + .04;
       if (next === "oath" || next === "erasing") {
         // A short filtered noise envelope gives the paper a quiet rustle.
         const buffer = context.createBuffer(1, Math.floor(context.sampleRate * .55), context.sampleRate);
@@ -46,30 +63,30 @@ export function MaraudersMap() {
         const paper = context.createBufferSource();
         paper.buffer = buffer;
         const filter = context.createBiquadFilter();
-        filter.type = "lowpass";
-        filter.frequency.value = 950;
+        filter.type = "bandpass";
+        filter.frequency.value = 1700;
         const level = context.createGain();
-        level.gain.value = .085;
+        level.gain.value = .25;
         paper.connect(filter).connect(level).connect(context.destination);
-        paper.start(context.currentTime + (next === "erasing" ? 1.3 : .13));
+        paper.start(cueTime + (next === "erasing" ? 1.3 : .13));
       }
-      const notes = next === "oath" ? [165, 262, 392] : next === "map" ? [330, 440, 659] : [262, 175];
+      const notes = next === "oath" ? [392, 523, 784] : next === "erasing" ? [523, 392] : [523, 659, 880];
       notes.forEach((pitch, index) => {
-        const start = context.currentTime + index * .18 + (next === "oath" && index === 2 ? 1.18 : 0);
+        const start = cueTime + index * .18 + (next === "oath" && index === 2 ? 1.18 : 0);
         const voice = context.createOscillator();
         const gain = context.createGain();
         voice.type = index === 0 ? "triangle" : "sine";
         voice.frequency.setValueAtTime(pitch, start);
         voice.frequency.exponentialRampToValueAtTime(pitch * .84, start + .4);
         gain.gain.setValueAtTime(.001, start);
-        gain.gain.exponentialRampToValueAtTime(.035, start + .08);
+        gain.gain.exponentialRampToValueAtTime(.16, start + .08);
         gain.gain.exponentialRampToValueAtTime(.001, start + .42);
         voice.connect(gain).connect(context.destination);
         voice.start(start);
         voice.stop(start + .43);
       });
     } catch {
-      // Animation remains usable when sound is unavailable.
+      if (next === "test") setSoundStatus("浏览器未能启动音效");
     }
   }
 
@@ -124,6 +141,10 @@ export function MaraudersMap() {
       </div>
       <div className="marauder-roll" aria-hidden="true"><i /></div>
       {stage === "closed" && <button className="marauder-unroll" aria-label="展开羊皮卷轴" onClick={() => turn("oath")} />}
+    </div>
+    <div style={{ position: "relative", marginTop: 24, textAlign: "right", color: "#efdaa9", fontFamily: "KaiTi, Georgia, serif" }}>
+      <button type="button" onClick={() => void playSound("test")}>试听音效</button>
+      <div role="status">{soundStatus}</div>
     </div>
   </section>;
 }
