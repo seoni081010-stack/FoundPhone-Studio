@@ -132,6 +132,34 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       : "门厅里，李贤在手里捏着一张折好的羊皮纸。李贤在：你圣诞假期回家吗？你：不回，我留校。你呢？李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？你：还没有。李贤在：那要不要一起？你：好啊。李贤在：那天我在大礼堂门口等你。"
     } : day === 18 && entry.body.startsWith("你：整个假期都留校") ? { ...entry, body: "你：整个假期都留校。李贤在：那晚别站得离我太远。我怕第一支舞都跳完了，你还在甜点桌那边。" }
       : soloSnow && index === 0 ? { ...entry, body: "走廊里。李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
+  const albumClues = [
+    {
+      id: "photo-snow",
+      title: "庭院初雪",
+      body: "初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。",
+      unlocked: day > 6 && state.variables.hyunjae_first_snow_together === true,
+    },
+    {
+      id: "photo-ball",
+      title: "圣诞舞会",
+      body: "跳第一支舞时，你们一抬头就撞上对方的视线，又同时移开眼，忍不住笑了。",
+      unlocked: day > 24 && state.variables.hyunjae_danced_at_ball === true,
+    },
+    {
+      id: "photo-ball-mistletoe",
+      title: "舞会后的石拱门",
+      body: "舞会散场后，他在石拱门下放慢脚步，抬头看了一眼槲寄生，又看向你。",
+      unlocked: day > 24 && state.variables.hyunjae_day24_choice === "a",
+    },
+    {
+      id: "photo-new-year",
+      title: "跨年长廊",
+      body: state.endings.includes("hyunjae-together")
+        ? "再经过那道石拱门时，他看见了槲寄生，这次什么也没说，只是牵住了你的手。"
+        : "长廊里很安静，他说，明年还是想第一个来找你。",
+      unlocked: day === 31 && (state.endings.includes("hyunjae-together") || state.endings.includes("hyunjae-unspoken")),
+    },
+  ].filter(clue => clue.unlocked);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const choices = !nextDay && state.choices.length > 0 ? <div className="hogwarts-device-choices">
 
@@ -266,7 +294,19 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
-          : active === "maraudersmap" ? <MaraudersMap /> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => item.title === "庭院初雪" ? <details className="hogwarts-device-letter" key={item.id}><summary>{item.title}</summary><p>{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p></details> : <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
+          : active === "maraudersmap" ? <MaraudersMap />
+          : active === "magicphotos" ? <section className="hogwarts-device-letters">
+            {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
+              <summary>{clue.title}</summary>
+              <p>{highlightMistletoe(clue.body)}</p>
+            </details>)}
+            {!albumClues.length && <p>这页羊皮纸还没有写下新的内容。</p>}
+          </section> : <section className="hogwarts-device-letters">
+            {(work.data[active] ?? []).map(item => <article className="hogwarts-device-letter" key={item.id}>
+              <strong>{item.title}</strong><p>{item.body}</p>
+            </article>)}
+            {!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}
+          </section>}
       </main>
       {(dateReply || outing) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onClose={() => { setDateReply(""); setOuting(false); }} className="hogwarts-scene">
