@@ -143,7 +143,7 @@ function StoryPlayer() {
               <p className="hogwarts-love-note">THE BOYZ · 霍格沃茨平行世界。请选择你想攻略的角色。</p>
               <div className="hogwarts-love-grid" role="group" aria-label="选择攻略男主">
                 {loveInterests.map(m => <button key={m.id} type="button" className={`hogwarts-love-card ${loveInterest === m.id ? "selected" : ""}`} aria-pressed={loveInterest === m.id} onClick={() => setLoveInterest(m.id)}>
-                  <strong>{m.name}</strong><small>{m.english}</small><small>{houses.find(h => h.id === m.house)?.name} · {m.year}年级</small>
+                  <img className="hogwarts-lead-avatar" src={`./portraits/${m.id}.webp`} alt="" /><strong>{m.name}</strong><small>{m.english}</small><small>{houses.find(h => h.id === m.house)?.name} · {m.year}年级</small>
                 </button>)}
               </div>
               {selectedLead && <section className="hogwarts-lead-profile" aria-live="polite">

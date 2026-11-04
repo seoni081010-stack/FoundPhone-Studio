@@ -46,7 +46,7 @@ export function HogwartsCharacters({year,house,identityKey}:{year:number;house:s
    <p>选择人物查看简介、好感度与嫉妒值。聊天界面不显示数值。</p>
    <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>{people.map(p=><button key={p.id} type="button" onClick={()=>setActive(p.id)} aria-pressed={active===p.id} style={{padding:"8px 12px",borderRadius:12,border:"1px solid #bda78b",background:active===p.id?"#e8d8c1":"#fff9ed",color:"#30271e",cursor:"pointer"}}>{p.name}</button>)}</div>
    {selected&&<article style={{padding:16,borderRadius:12,background:"#fff9ed"}}>
-    <h3 style={{marginTop:0}}>{selected.name}</h3>
+    <img className="hogwarts-lead-avatar" src={`./portraits/${selected.id}.webp`} alt="" /><h3 style={{marginTop:0}}>{selected.name}</h3>
     <p>{houseChinese[selected.house]} · {selected.year}年级 · {selected.role}</p>
     <p>{selected.bio}</p>
     <p><strong>礼物偏好</strong> {selected.id === "hyunjae"

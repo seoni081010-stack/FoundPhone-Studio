@@ -85,7 +85,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
     word === "槲寄生" ? <strong key={index}>{word}</strong> : word);
   const note = (name: string, body: string, outgoing: boolean, key?: number) =>
     <div key={key} className={`hogwarts-message ${outgoing ? "outgoing" : ""}`}>
-      <span className="hogwarts-avatar" aria-hidden="true">{outgoing && identity?.avatar ? <img src={identity.avatar} alt="" /> : name.slice(-1)}</span>
+      <span className="hogwarts-avatar" aria-hidden="true">{outgoing && identity?.avatar ? <img src={identity.avatar} alt="" /> : !outgoing && contacts.some(contact => contact.name === name) ? <img src={`./portraits/${contacts.find(contact => contact.name === name)?.id}.webp`} alt="" /> : name.slice(-1)}</span>
       <div><strong>{name}</strong><p>{body}</p></div>
     </div>;
   const [finished, setFinished] = useState(false);
@@ -157,7 +157,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
         {active === "owlpost" ? <section className="hogwarts-device-letters">
           {!recipient ? <>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
-              <span className="hogwarts-avatar" aria-hidden="true" />
+              <span className="hogwarts-avatar" aria-hidden="true"><img src={`./portraits/${contact.id}.webp`} alt="" /></span>
               <span className="hogwarts-contact-copy"><strong>{contact.name}</strong><small>{
                 thread(contact.id).slice(-1)[0]?.body ||
                 "还没有消息"
