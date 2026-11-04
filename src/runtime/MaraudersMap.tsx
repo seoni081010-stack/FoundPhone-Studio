@@ -24,7 +24,7 @@ export function MaraudersMap() {
     if (stage !== "erasing") return;
     // Remove the ink before the lower roller starts moving.
     const timer = window.setTimeout(() => setStage("closed"),
-      matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 950);
+      matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1350);
     return () => window.clearTimeout(timer);
   }, [stage]);
 
@@ -51,11 +51,11 @@ export function MaraudersMap() {
         const level = context.createGain();
         level.gain.value = .085;
         paper.connect(filter).connect(level).connect(context.destination);
-        paper.start(context.currentTime + (next === "erasing" ? .92 : .13));
+        paper.start(context.currentTime + (next === "erasing" ? 1.3 : .13));
       }
       const notes = next === "oath" ? [165, 262, 392] : next === "map" ? [330, 440, 659] : [262, 175];
       notes.forEach((pitch, index) => {
-        const start = context.currentTime + index * .18 + (next === "oath" && index === 2 ? .85 : 0);
+        const start = context.currentTime + index * .18 + (next === "oath" && index === 2 ? 1.18 : 0);
         const voice = context.createOscillator();
         const gain = context.createGain();
         voice.type = index === 0 ? "triangle" : "sine";
@@ -80,13 +80,13 @@ export function MaraudersMap() {
       }}>{["✧", "·", "☽", "·", "ᛟ", "·"][i % 6]}</i>)}
     </div>
     <div className="marauder-scroll" ref={scroll} tabIndex={-1}>
-      <div className="marauder-roll" />
+      <div className="marauder-roll" aria-hidden="true"><i /></div>
       <div className="marauder-sheet" data-open={stage !== "closed"} inert={stage === "closed"}>
         <div className="marauder-paper">
-          <button className="marauder-oath" inert={stage !== "oath"} onClick={() => turn("map")}>
-            <span aria-label="我庄严宣誓，我不干好事">
+          <button className="marauder-oath" aria-label="我庄严宣誓，我不干好事" inert={stage !== "oath"} onClick={() => turn("map")}>
+            <span className="marauder-oath-letters">
               {Array.from("我庄严宣誓，我不干好事", (letter, i) =>
-                <b key={i} aria-hidden="true" style={{ animationDelay: `${1.3 + i * .09}s` }}>{letter}</b>)}
+                <b key={i} aria-hidden="true" style={{ animationDelay: `${1.62 + i * .09}s` }}>{letter}</b>)}
             </span>
             <span className="marauder-oath-english" lang="en-GB">I solemnly swear that I am up to no good.</span>
           </button>
@@ -99,6 +99,10 @@ export function MaraudersMap() {
             <svg viewBox="0 0 360 565" role="img" aria-label="霍格沃茨城堡、走廊与秘密通道">
               <title>霍格沃茨活点地图</title>
               <g className="marauder-lines">
+                <path className="marauder-etch" pathLength="1" d="M10 387V48l24-24 21 21h65V37l20-24 19 23h37V25L218 4l21 21v20h64l21-23 25 26v342l-20 16H33Zm150-89h40m-40 8h40m-40 8h40m-40 8h40m-40 8h40M154 340h52M154 349h52m-52 9h52M21 244h26m-26 7h26m-26 7h26m265-14h24m-24 7h24m-24 7h24" />
+                <g className="marauder-etch" aria-hidden="true">
+                  <path pathLength="1" d="M44 510q-4-16 22-19-6 16-22 19m-6 6 21-20m-12 9 8-2M305 508l8 15 15-9-15-8-8 16m11-23v32m-17-16h33" />
+                </g>
                 <path pathLength="1" d="M16 387V51l18-20 18 20h73V40l15-20 16 20h46V28l16-18 15 18v23h72l20-20 19 20v335l-18 13H34Z" />
                 <path pathLength="1" d="M171 58v328m18-328v328M22 265h315m-315 10h315M82 279v17m194-17v17M179 386l-97 31m97-31 97 31M82 434l1 32m193-31v31" />
                 <path className="marauder-secret" d="M280 76C345 138 324 202 306 240S238 330 284 355 327 440 198 522M76 302C34 343 54 393 104 416" />
@@ -110,15 +114,15 @@ export function MaraudersMap() {
                 <text x="180" y="258">长廊</text>
                 <text x="280" y="390">⋯ 秘密通道</text>
               </g>
-              <g className="marauder-person marauder-person-first"><text x="135" y="293">李贤在</text></g>
-              <g className="marauder-person marauder-person-second"><text x="223" y="238">孙英宰</text></g>
-              <g className="marauder-person marauder-person-third"><text x="212" y="450">李柱延</text></g>
+              <g className="marauder-person marauder-person-first"><text x="135" y="293">李贤在</text><path d="M106 298l4 3m3-1 4 3" /></g>
+              <g className="marauder-person marauder-person-second"><text x="223" y="238">孙英宰</text><path d="M199 244l4 3m3-1 4 3" /></g>
+              <g className="marauder-person marauder-person-third"><text x="212" y="450">李柱延</text><path d="M185 455l4 3m3-1 4 3" /></g>
             </svg>
             <button className="marauder-close" onClick={() => turn("erasing")}>恶作剧完毕</button>
           </div>
         </div>
       </div>
-      <div className="marauder-roll" />
+      <div className="marauder-roll" aria-hidden="true"><i /></div>
       {stage === "closed" && <button className="marauder-unroll" aria-label="展开羊皮卷轴" onClick={() => turn("oath")} />}
     </div>
   </section>;
