@@ -63,12 +63,12 @@ const freeTimeScenes = [
 ];
 
 const hyunjaeDates: Record<string, { reply: string; scene: string[] }> = {
-  puddifoot: { reply: "好啊。先说好，你点的蛋糕要分我一口。", scene: ["他把蛋糕推到桌子正中，自己先拿起叉子。", "你不是说分我一口？我这才第一口。", "你管这叫一口？叉子都快拿不动了。", "……那剩下半块都归你。"] },
+  puddifoot: { reply: "好啊。先说好，你点的蛋糕要分我一口。", scene: ["他把蛋糕推到桌子正中，自己先拿起叉子。", "你不是说分我一口？我这才第一口。", "你那一口怎么切了半块？", "……那剩下半块都归你。"] },
   "three-broomsticks": { reply: "去啊。你先到的话，帮我留个靠窗的位置。", scene: ["他端着两杯黄油啤酒回来，在你对面坐下。", "我刚才差点把这杯端给隔壁桌。", "那你怎么认出我的？", "你从我站起来就一直盯着这杯。"] },
-  "hogs-head": { reply: "好。那里安静，你上次没讲完的事可以接着讲了。", scene: ["角落里只剩一张小桌，他把椅子往你这边拖了一点。", "行了，刚才说到哪儿了？", "你还记得啊？我都快忘了讲到哪儿了。", "记得。你每次讲到最好笑的地方就被人打断。"] },
-  "diagon-alley-walk": { reply: "可以。丽痕书店见，你要是先到，别一个人把整间店逛完。", scene: ["你从书架上抽出一本书，发现他正从另一侧看着同一本。", "你也想看这个？", "我只是想看看你挑了什么。", "一起看呗。手慢点，我这页还差两行。"] },
-  "leaky-cauldron": { reply: "好啊，正好我饿了。你想吃什么？我可以先帮你占座。", scene: ["他朝你招手，把菜单转到你面前。", "我看了半天，最后决定等你来选。", "这么信我？那我可要乱点了。", "嗯。选错了我也能帮你吃一半。"] },
-  "florean-fortescue": { reply: "好！你挑一个口味，我挑一个，先别告诉我你选什么。", scene: ["两份冰淇淋端上来，居然是同一个口味。你们对视了一眼。", "等一下，你是不是偷听我点单了？", "喂，我先点的。你才可疑。", "那没办法了。下次再来一次，看看还会不会撞。"] },
+  "hogs-head": { reply: "好。那里安静，你上次没讲完的事可以接着讲了。", scene: ["角落里只剩一张小桌，他把椅子往你这边拖了一点。", "行了，刚才说到哪儿了？", "你真记得我没讲完？", "记得。你每次讲到最好笑的地方就被人打断。"] },
+  "diagon-alley-walk": { reply: "可以。丽痕书店见，你要是先到，别一个人把整间店逛完。", scene: ["你从书架上抽出一本书，发现他正从另一侧看着同一本。", "你也想看这个？", "我只是想看看你挑了什么。", "那一起翻吧。你翻慢一点，我还没看完这一页。"] },
+  "leaky-cauldron": { reply: "好啊，正好我饿了。你想吃什么？我可以先帮你占座。", scene: ["他朝你招手，把菜单转到你面前。", "我看了半天，最后决定等你来选。", "你就这么信我的口味？", "嗯。选错了我也能帮你吃一半。"] },
+  "florean-fortescue": { reply: "好！你挑一个口味，我挑一个，先别告诉我你选什么。", scene: ["两份冰淇淋端上来，居然是同一个口味。你们对视了一眼。", "等一下，你是不是偷听我点单了？", "明明是我先点的。", "那没办法了。下次再来一次，看看还会不会撞。"] },
 };
 // Entries are the places named in the route, not an inferred daily timetable.
 const hyunjaeEncounterPlaces: Partial<Record<number, string>> = {
@@ -164,7 +164,8 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
     return { ...entry, day: entryDay, body: entry.body.replace(/^12月\d+日｜/, "") };
   });
   const isNote = (body: string) =>
-    body.split("\n").every(line => /^(李贤在|你)[：:]/.test(line));
+    /^(李贤在|你)[：:]/.test(body) &&
+    !/你们一起去了大礼堂|李贤在先问|他笑了一下|停了一下，他又说/.test(body);
   const [extraMail, setExtraMail] = useState<{ recipient: string; body: string; outgoing: boolean; day: number; order: number }[]>([]);
   const addMail = (recipient: string, body: string, outgoing: boolean) =>
     setExtraMail(previous => [...previous, { recipient, body, outgoing, day, order: entries.length }]);
@@ -180,10 +181,10 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   const soloSnow = day === 7 && !state.variables.hyunjae_first_snow_together;
   const scenes = conversation.filter(entry => entry.day === day && (!owlToday || !isNote(entry.body)))
     .map((entry, index) => day === 18 && index === 0 ? { ...entry, body: state.variables.hyunjae_day17_choice === "a"
-      ? "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。那今年城堡应该不会太无聊了。\n你：哦？我还有这本事？\n李贤在：因为你也在啊。"
-      : "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？\n你：还没。怎么，你要排队啊？\n李贤在：那要不要一起？\n你：好啊，那你排第一个。\n李贤在：那天我在大礼堂门口等你。"
-    } : day === 18 && entry.body.startsWith("你：我留校啊，城堡想赶我也来不及了。") ? { ...entry, body: "你：我留校啊，城堡想赶我也来不及了。\n李贤在：那晚别站得离我太远。我怕第一支舞都跳完了，你还在甜点桌那边。" }
-      : soloSnow && index === 0 ? { ...entry, body: "走廊里。\n李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
+      ? "门厅里，李贤在手里捏着一张折好的羊皮纸。李贤在：你圣诞假期回家吗？你：不回，我留校。你呢？李贤在：我也留。那今年城堡应该不会太无聊了。你：为什么？李贤在：因为你也在啊。"
+      : "门厅里，李贤在手里捏着一张折好的羊皮纸。李贤在：你圣诞假期回家吗？你：不回，我留校。你呢？李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？你：还没有。李贤在：那要不要一起？你：好啊。李贤在：那天我在大礼堂门口等你。"
+    } : day === 18 && entry.body.startsWith("你：整个假期都留校") ? { ...entry, body: "你：整个假期都留校。李贤在：那晚别站得离我太远。我怕第一支舞都跳完了，你还在甜点桌那边。" }
+      : soloSnow && index === 0 ? { ...entry, body: "走廊里。李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
   const encounterReached = sceneOpen || Boolean(seenScene && scenes.some(entry => entry.id === seenScene));
   const storyPlace = encounterReached ? hyunjaeEncounterPlaces[day] : undefined;
   // The device clock starts at local time, so only use time set by in-game actions.
@@ -444,7 +445,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               {note(identity?.name ?? "我", "买。都到这儿了，我总不能只喝西北风吧。", true)}
               <p className="hogwarts-narration">两杯黄油啤酒端上来，他拿自己的杯子碰了碰你的。</p>
               {note("李贤在", "敬今天最有眼光的观众。", false)}
-              {note(identity?.name ?? "我", "你确定要夸我？我刚押错了。", true)}
+              {note(identity?.name ?? "我", "我押错了。", true)}
               {note("李贤在", "我说的是你选了靠窗的位置。球赛那件事，我们明天再提。", false)}
             </>}
             {matchStep === "stay" && <>
@@ -466,11 +467,23 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       </dialog>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
-        {scenes.map(scene => <div key={scene.id}>{scene.body.split("\n").map((part, index) => {
-          const line = part.match(/^(李贤在|你)[：:](.+)$/);
-          if (line) return note(line[1] === "你" ? identity?.name ?? "我" : "李贤在", line[2], line[1] === "你", index);
-          return part && <p key={index} className="hogwarts-narration">{highlightMistletoe(part)}</p>;
-        })}</div>)}
+        {scenes.map(scene => {
+          const text = scene.body
+            .replace(/(李贤在[^。！？；：]{0,28}(?:说|问|笑了|声音|口气)|他[^。！？；：]{0,22}(?:说|问|声音|口气)|把书递给你|接过去了|还是伸手拿走|第一句话就是)：/g, "$1。李贤在：")
+            .replace(/(你接过书，摸出一颗糖递给他|你说|你问)：/g, "$1。你：");
+          const parts = text.split(/(?=李贤在：|你：)/);
+          return <div key={scene.id}>{parts.map((part, index) => {
+            const line = part.match(/^(李贤在|你)：(.*)$/s);
+            if (!line) return part && <p key={index} className="hogwarts-narration">{highlightMistletoe(part)}</p>;
+            const asideStart = line[2].search(/(?<=。|！|？|；)(?:嘴上|还是伸手|李贤在(?!(?:：))|你们|他(?:走|看|低|抬|伸|点|笑|停|往|收|向|转|靠|没有|先|忽然)|后来|安静了一会|比赛开始|走了一段)/);
+            const speech = asideStart < 0 ? line[2] : line[2].slice(0, asideStart);
+            const aside = asideStart < 0 ? "" : line[2].slice(asideStart);
+            return <div key={index}>
+              {speech && note(line[1] === "你" ? identity?.name ?? "我" : "李贤在", speech, line[1] === "你")}
+              {aside && <p className="hogwarts-narration">{highlightMistletoe(aside)}</p>}
+            </div>;
+          })}</div>;
+        })}
         {!owlToday && choices}
         {state.endings.length > 0 && <p>{state.endings.includes("hyunjae-together") ? "十二月的约定 · 恋人" : "十二月的约定 · 未说破的喜欢"}</p>}
         {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
