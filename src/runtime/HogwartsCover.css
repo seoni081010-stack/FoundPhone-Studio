@@ -24,3 +24,13 @@
 @keyframes winter-dissolve { to {opacity:0; filter:blur(5px) brightness(1.4);} }
 @media(max-height:460px) { .winter-copy button { margin-top:38px; } }
 @media(prefers-reduced-motion:reduce) { .winter-cover *, .winter-cover[data-leaving="true"] { animation:none; } }
+
+.winter-copy { padding-top: clamp(48px, 12dvh, 110px); }
+.winter-copy h1 { margin-top: 18px; font-size: clamp(2.55rem, 8vw, 7rem); }
+.winter-copy h1 em { font-size: .65em; margin-top: 13px; }
+.winter-copy p { font-size: clamp(.94rem, 3vw, 1.4rem); }
+.winter-copy button { font-size: clamp(1.02rem, 3.2vw, 1.24rem); }
+@media (max-height: 540px) {
+  .winter-copy { padding-top: 28px; }
+  .winter-copy button { margin-top: 34px; }
+}
