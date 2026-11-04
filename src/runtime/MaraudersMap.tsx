@@ -21,9 +21,15 @@ export function MaraudersMap() {
       <div className="marauder-sheet" data-open={stage !== "closed"} inert={stage === "closed"}>
         <div className="marauder-paper">
           <button className="marauder-oath" inert={stage !== "oath"} onClick={() => setStage("map")}>
-            我庄严宣誓，我不干好事
+            <span>我庄严宣誓，我不干好事</span>
+            <span className="marauder-oath-english" lang="en-GB">I solemnly swear that I am up to no good.</span>
           </button>
           <div className="marauder-ink" inert={stage !== "map"}>
+            <header className="marauder-signature">
+              <span lang="en-GB">Moony, Wormtail, Padfoot &amp; Prongs</span>
+              <span>月亮脸、虫尾巴、大脚板和尖头叉子</span>
+              <strong lang="en-GB">The Marauder’s Map</strong>
+            </header>
             <svg viewBox="0 0 360 565" role="img" aria-label="霍格沃茨城堡、走廊与秘密通道">
               <title>霍格沃茨活点地图</title>
               <g className="marauder-lines">

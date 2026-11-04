@@ -239,3 +239,27 @@
 @media (prefers-reduced-motion: reduce) {
   .marauder-stage[data-stage] .marauder-oath, .marauder-stage[data-stage] .marauder-ink { transition: none; }
 }
+
+.hogwarts-device .marauder-oath {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+}
+.marauder-oath-english {
+  max-width: 23ch;
+  font: italic 500 clamp(1rem, 4vw, 1.3rem)/1.45 Georgia, "Times New Roman", serif;
+  letter-spacing: .025em;
+}
+
+.marauder-signature {
+  display: grid;
+  gap: 3px;
+  padding: 6px 4px 2px;
+  color: #274c34;
+  text-align: center;
+  font: italic .9rem/1.3 Georgia, "Kaiti SC", KaiTi, serif;
+}
+.marauder-signature strong { font-size: 1.2rem; }
