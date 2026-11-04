@@ -58,7 +58,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
   }, [original]);
   const [state, setState] = useState<Runtime>(() => { const initial = initialRuntime(work); initial.variables.hyunjae_player_house = identity?.house ?? "unspecified"; initial.variables.hyunjae_player_year = identity?.year ?? 5; return dispatch(work, initial, "start"); });
   const [active, setActive] = useState("calendar");
-  const [clueOpen, setClueOpen] = useState(false);
+  const [acknowledgedClues, setAcknowledgedClues] = useState<string[]>([]);
   const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">("bet");
   const [team, setTeam] = useState("");
   const [stake, setStake] = useState(1);
@@ -190,6 +190,11 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       unlocked: day === 31 && (state.endings.includes("hyunjae-together") || state.endings.includes("hyunjae-unspoken")),
     },
   ].filter(clue => clue.unlocked);
+  // Let story dialogs finish first, then announce each new entry in album order.
+  const pendingClue = sceneOpen || matchDialog || dateReply || outing
+    ? undefined : albumClues.find(clue => !acknowledgedClues.includes(clue.id));
+  const acknowledgeClue = (id: string) =>
+    setAcknowledgedClues(previous => previous.includes(id) ? previous : [...previous, id]);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
   const choices = !nextDay && state.choices.length > 0 ? <div className="hogwarts-device-choices">
 
@@ -252,7 +257,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
               setLessonTime(time);
               if (last && day !== 3 && day !== 4 && !owlToday && scenes.length > 0 && !nextDay) setSceneOpen(true);
             }}
-            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(""); if (day === 6 && state.variables.hyunjae_first_snow_together) setClueOpen(true); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
+            onEnd={nextDay && (day !== 12 || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(undefined); setDestination(""); } : day === 31 && state.endings.length && !finished ? () => setFinished(true) : undefined} />
           {owlToday && !nextDay && <button onClick={() => { setRecipient("hyunjae"); setActive("owlpost"); }}>{day === 6 ? "查看李贤在的新纸条" : "打开猫头鹰信箱"}</button>}
           {day >= 22 && <section aria-label="假期自由活动">
             <h3>自由活动</h3>
@@ -403,9 +408,9 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
         </>}
         {matchError && <p role="alert">{matchError}</p>}
       </dialog>}
-      {clueOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => setClueOpen(false)} className="hogwarts-scene hogwarts-clue">
-        <h2>你已解锁一条线索</h2><p>在魔法相册中查看「庭院初雪」。</p>
-        <button onClick={() => setClueOpen(false)}>继续</button>
+      {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => acknowledgeClue(pendingClue.id)} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
+        <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>
+        <button onClick={() => acknowledgeClue(pendingClue.id)}>继续</button>
       </dialog>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
