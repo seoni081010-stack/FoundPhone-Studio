@@ -1,3 +1,4 @@
+import { MaraudersMap } from "./MaraudersMap";
 import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { HogwartsCharacters } from "./HogwartsCharacters";
 import { HogwartsSchedule } from "./HogwartsSchedule";
@@ -69,7 +70,6 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
       action.type === "date" && String(action.value) > (state.date || "")));
   const [startTime] = useState(() => new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false }));
   const [lessonTime, setLessonTime] = useState<string>();
-  const [region, setRegion] = useState<number>();
   const [recipient, setRecipient] = useState("");
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
@@ -266,28 +266,7 @@ export function HogwartsDevice({ work: original, identity, contacts }: Props) {
             <HogwartsCharacters year={identity.year} house={identity.house} identityKey={identityKey} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
-          : active === "maraudersmap" ? <section className="hogwarts-map" aria-label="霍格沃茨城堡示意图">
-            {[
-              ["城堡高层", "天文塔、图书馆、黑魔法防御术教室、魔咒学教室、魔法史教室、古代如尼文教室、算术占卜教室、占卜学教室、麻瓜研究教室"],
-              ["城堡主层", "门厅、大礼堂、长廊、变形术教室"],
-              ["城堡地窖", "魔药学教室"],
-              ["城堡外侧", "庭院、拱门、草药学温室、魁地奇球场、保护神奇生物课场地、禁林边缘"],
-            ].map(([area, places], index) => <div key={area}>
-              <button aria-expanded={region === index} onClick={() => setRegion(region === index ? undefined : index)}>{area}</button>
-              {region === index && <svg viewBox="0 0 380 350" role="img" aria-label={area + "地图"} className="hogwarts-floorplan">
-                <path d="M190 32V318 M35 165H345" stroke="#8a6545" strokeWidth="12" fill="none" />
-                {places.split("、").map((place, position) => {
-                  const x = position % 2 ? 198 : 8;
-                  const y = 12 + Math.floor(position / 2) * 62;
-                  const marked = scenes.some(scene => scene.id === seenScene && scene.body.includes(place));
-                  return <g key={place}>
-                    {place === "魁地奇球场" ? <ellipse cx={x + 87} cy={y + 24} rx="87" ry="24" /> : <rect x={x} y={y} width="174" height="48" rx="5" />}
-                    <text x={x + 87} y={y + 28} textAnchor="middle">{place}{marked ? " 👣" : ""}</text>
-                  </g>;
-                })}
-              </svg>}
-            </div>)}
-          </section> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => item.title === "庭院初雪" ? <details className="hogwarts-device-letter" key={item.id}><summary>{item.title}</summary><p>{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p></details> : <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
+          : active === "maraudersmap" ? <MaraudersMap /> : <section className="hogwarts-device-letters">{(work.data[active] ?? []).filter(item => active !== "magicphotos" || (item.title === "庭院初雪" ? day > 6 && state.variables.hyunjae_first_snow_together === true : day > 24)).map(item => item.title === "庭院初雪" ? <details className="hogwarts-device-letter" key={item.id}><summary>{item.title}</summary><p>{highlightMistletoe("初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。")}</p></details> : <article className="hogwarts-device-letter" key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}{!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}</section>}
       </main>
       {(dateReply || outing) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onClose={() => { setDateReply(""); setOuting(false); }} className="hogwarts-scene">
