@@ -29,11 +29,16 @@ export function HogwartsCover({ onEnter }: { onEnter: () => void }) {
       <path d="M225 471l98-36 681-10 133 48-182 10-91-8-137 16-161-14-151 9z" fill="#11182c"/>
       <g fill="#14182d" stroke="#54516b" strokeWidth="1.2">
         <path d="M346 451v-91l56-40 75 25v-47h245v54h96l49-25 94 33v93z"/>
+        <path d="M196 443v-25h158v25h-17v-9a12 12 0 0 0-24 0v9h-17v-9a12 12 0 0 0-24 0v9h-17v-9a12 12 0 0 0-24 0v9z" fill="#24253d"/>
         {towers.map(([x,y,w,h], i) => <g key={x}>
           <path d={`M${x} ${y}l${w/2} ${-w*.9} ${w/2} ${w*.9}v${h}h-${w}z`}/>
           <path d={`M${x+w/2} ${y-w*.9}v-13`} stroke="#81778d"/>
           {[0,1,2].map(row => <path className="winter-window" style={{animationDelay:`${i*.51+row*.37}s`}} key={row} d={`M${x+w/2-4} ${y+21+row*34}q4-10 8 0v13h-8z`} fill="#e8b574" stroke="none"/>)}
         </g>)}
+        <path d="M529 445V242l17-49 17 49v203zm101 0V222l15-43 16 43v223z" fill="#202238"/>
+        <path d="M676 448v-79l92-57 113 40v96z" fill="#24243b"/>
+        <path d="M668 369l100-65 126 46-13 9-113-40-92 57z" fill="#17192e"/>
+        {[704, 730, 756, 782, 808, 834].map((x, i) => <path key={x} className="winter-window" style={{animationDelay: `${i * .43}s`}} d={`M${x} 422v-30l5-10 5 10v30z`} fill="#e2b87b"/>)}
       </g>
       {Array.from({length: 29}, (_, i) => <path key={i} d={`M${385+i*23} ${489+i%5*12}h${26+i%4*23}`} stroke={i%3 ? "#a4a0c7" : "#e6b985"} opacity={.14+i%4*.045}/>)}
       <g fill="#0c1428">{Array.from({length: 30}, (_, i) => <use key={i} href="#winter-fir" transform={`translate(${i<15 ? i*22 : 1120+(i-15)*24} ${390+i%5*15}) scale(${.7+i%4*.21})`}/>)}</g>
