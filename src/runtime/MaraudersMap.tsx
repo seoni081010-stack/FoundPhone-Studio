@@ -18,7 +18,6 @@ type MapStage = "closed" | "oath" | "map" | "erasing";
 
 export function MaraudersMap() {
   const [stage, setStage] = useState<MapStage>("closed");
-  const [soundStatus, setSoundStatus] = useState("");
   const audio = useRef<AudioContext | null>(null);
   const scroll = useRef<HTMLDivElement>(null);
 
@@ -41,7 +40,7 @@ export function MaraudersMap() {
     void playSound(next);
   }
 
-  async function playSound(next: MapStage | "test") {
+  async function playSound(next: MapStage) {
     // Audio starts on a user gesture. Browsers without Web Audio still play the full visual sequence.
     try {
       const Audio = window.AudioContext ?? (window as MapAudioWindow).webkitAudioContext;
@@ -51,7 +50,6 @@ export function MaraudersMap() {
       if (context.state !== "running") await context.resume();
       if (audio.current !== context) return;
       if (context.state !== "running") throw new Error("Audio is not running");
-      if (next === "test") setSoundStatus("已播放试听音");
       const cueTime = context.currentTime + .04;
       if (next === "oath" || next === "erasing") {
         // A short filtered noise envelope gives the paper a quiet rustle.
@@ -86,7 +84,7 @@ export function MaraudersMap() {
         voice.stop(start + .43);
       });
     } catch {
-      if (next === "test") setSoundStatus("浏览器未能启动音效");
+      // Keep the scroll usable when the browser cannot start audio.
     }
   }
 
@@ -141,10 +139,6 @@ export function MaraudersMap() {
       </div>
       <div className="marauder-roll" aria-hidden="true"><i /></div>
       {stage === "closed" && <button className="marauder-unroll" aria-label="展开羊皮卷轴" onClick={() => turn("oath")} />}
-    </div>
-    <div style={{ position: "relative", marginTop: 24, textAlign: "right", color: "#efdaa9", fontFamily: "KaiTi, Georgia, serif" }}>
-      <button type="button" onClick={() => void playSound("test")}>试听音效</button>
-      <div role="status">{soundStatus}</div>
     </div>
   </section>;
 }
