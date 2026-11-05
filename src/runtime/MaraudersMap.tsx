@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { characterLocations } from "./characterLocations";
 
 const rooms = [
   ["天文塔", 82, 68], ["图书馆", 276, 68],
@@ -21,9 +22,11 @@ const landmarks: Partial<Record<string, readonly [number, number]>> = {
   "城堡楼梯": [180, 320],
 };
 
-export function MaraudersMap({ day, time, place, activity }: { day: number; time?: string; place?: string; activity?: string }) {
-  const room = rooms.find(([name]) => name === place);
-  const marker = room ? [room[1], room[2] + 23] : place ? landmarks[place] : undefined;
+export function MaraudersMap({ day, time = "09:00", place, activity, selectedId = "hyunjae", onEncounter }: {
+  day: number; time?: string; place?: string; activity?: string; selectedId?: string; onEncounter?: () => void;
+}) {
+  const locations = characterLocations(day, time, selectedId, place);
+  const selected = locations.find(person => person.id === selectedId) ?? locations[2];
   const [stage, setStage] = useState<MapStage>("closed");
   const audio = useRef<AudioContext | null>(null);
   const scroll = useRef<HTMLDivElement>(null);
@@ -118,7 +121,7 @@ export function MaraudersMap({ day, time, place, activity }: { day: number; time
               <span lang="en-GB">Moony, Wormtail, Padfoot &amp; Prongs</span>
               <span>月亮脸、虫尾巴、大脚板和尖头叉子</span>
               <strong lang="en-GB">The Marauder’s Map</strong>
-              <span aria-live="polite">12月{day}日{time && ` · ${time}`} · 李贤在{place ? ` · ${place}` : " · 暂无踪迹"}{activity && activity !== place ? ` · ${activity}` : ""}</span>
+              <span aria-live="polite">12月{day}日 · {time} · {selected.name} · {selected.place}{activity && activity !== selected.place ? ` · ${activity}` : ""}</span>
             </header>
             <svg viewBox="0 0 360 565" role="img" aria-label="霍格沃茨城堡、走廊与秘密通道">
               <title>霍格沃茨活点地图</title>
@@ -138,13 +141,27 @@ export function MaraudersMap({ day, time, place, activity }: { day: number; time
                 <text x="180" y="258">长廊</text>
                 <text x="280" y="390">⋯ 秘密通道</text>
               </g>
-              {marker && <g transform={`translate(${marker[0]} ${marker[1]})`}>
+              {locations.map(person => {
+                const room = rooms.find(([name]) => name === person.place);
+                const point = room ? [room[1], room[2] + 15] : landmarks[person.place] ?? landmarks["长廊"]!;
+                const group = locations.filter(other => other.place === person.place);
+                const slot = group.findIndex(other => other.id === person.id);
+                const columns = Math.min(group.length, 3);
+                const x = point[0] + (slot % 3 - (columns - 1) / 2) * 37;
+                const y = point[1] + Math.floor(slot / 3) * 12;
+                return <g key={person.id} transform={`translate(${x} ${y})`}>
                 <g className="marauder-person marauder-person-first" style={{ animationName: "marauder-local-walk" }}>
-                  <text style={{ paintOrder: "stroke", stroke: "#f2dcac", strokeWidth: 3 }}>李贤在</text>
+                  <title>{person.name} · {person.place}</title>
+                  <text style={{ paintOrder: "stroke", stroke: "#f2dcac", strokeWidth: 3, fontSize: 9, textAnchor: "middle", fontWeight: person.id === selectedId ? "bold" : "normal" }}>{person.name}</text>
                   <path d="M-12 5l3 2m5-1 3 2" />
                 </g>
-              </g>}
+              </g>;
+              })}
             </svg>
+            <ul className="marauder-locations" aria-label="七位学生当前位置">
+              {locations.map(person => <li key={person.id}><strong>{person.name}</strong> · {person.place}</li>)}
+            </ul>
+            {onEncounter && <button className="hogwarts-activity" onClick={onEncounter}>去{selected.place}找{selected.name}</button>}
             <button className="marauder-close" onClick={() => turn("erasing")}>恶作剧完毕</button>
           </div>
         </div>

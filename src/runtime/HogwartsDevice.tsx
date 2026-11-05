@@ -432,7 +432,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
             <HogwartsCharacters year={identity.year} house={identity.house} variables={state.variables} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
-          : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime} place={mapPlace ?? scheduledPlace} activity={scheduledLesson?.subject} />
+          : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime ?? startTime} selectedId={identity?.loveInterest}
+              place={identity?.loveInterest === "hyunjae" ? mapPlace ?? scheduledPlace : undefined}
+              activity={identity?.loveInterest === "hyunjae" ? scheduledLesson?.subject : undefined} />
           : active === "magicphotos" ? <section className="hogwarts-device-letters">
             {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
               <summary>{clue.title}</summary>

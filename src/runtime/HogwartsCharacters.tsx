@@ -4,12 +4,12 @@ import timetable from "../../stories/template/hogwarts-timetables.json";
 
 const houseNames: Record<string,string> = { gryffindor:"Gryffindor", slytherin:"Slytherin", ravenclaw:"Ravenclaw", hufflepuff:"Hufflepuff" };
 const houseChinese: Record<string,string> = { gryffindor:"格兰芬多", slytherin:"斯莱特林", ravenclaw:"拉文克劳", hufflepuff:"赫奇帕奇" };
-const people = [
+export const people = [
   { id:"jacob", name:"裴俊英", house:"hufflepuff", year:7, role:"级长", bio:"温柔耐心，认真对待每一个人。" },
   { id:"younghoon", name:"金泳勋", house:"ravenclaw", year:7, role:"学生", bio:"安静细腻，熟悉以后会显露柔软的一面。" },
   { id:"hyunjae", name:"李贤在", house:"gryffindor", year:7, role:"级长", bio:"爱开玩笑，有责任心，偶尔也有点幼稚。" },
   { id:"juyeon", name:"李柱延", house:"slytherin", year:6, role:"魁地奇击球手", bio:"专注好胜，习惯用行动表达关心。" },
-  { id:"q", name:"池昌珉", house:"ravenclaw", year:6, role:"级长", bio:"好奇心旺盛，喜欢研究新奇魔法。" },
+  { id:"q", name:"池昌民", house:"ravenclaw", year:6, role:"级长", bio:"好奇心旺盛，喜欢研究新奇魔法。" },
   { id:"sunwoo", name:"金善旴", house:"gryffindor", year:5, role:"魁地奇追球手", bio:"直率好胜，嘴上不服输。" },
   { id:"eric", name:"孙英宰", house:"gryffindor", year:5, role:"魁地奇找球手", bio:"活泼热情，喜欢和朋友一起冒险。" },
 ] as const;
