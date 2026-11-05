@@ -158,9 +158,6 @@ export function MaraudersMap({ day, time = "09:00", place, activity, selectedId 
               </g>;
               })}
             </svg>
-            <ul className="marauder-locations" aria-label="七位学生当前位置">
-              {locations.map(person => <li key={person.id}><strong>{person.name}</strong> · {person.place}</li>)}
-            </ul>
             {onEncounter && <button className="hogwarts-activity" onClick={onEncounter}>去{selected.place}找{selected.name}</button>}
             <button className="marauder-close" onClick={() => turn("erasing")}>恶作剧完毕</button>
           </div>

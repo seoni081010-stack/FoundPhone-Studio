@@ -2,7 +2,6 @@ import { HogwartsCover } from "./HogwartsCover";
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HogwartsDevice } from "./HogwartsDevice";
-import { QDayOne } from "./QDayOne";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
 import "./player.css";
@@ -194,8 +193,7 @@ function StoryPlayer() {
               <summary>{chosen.name} {identity.year}年级 {identity.name}</summary>
               <button type="button" onClick={restart}>重新开始</button>
             </details>}
-            {!isTest && identity?.loveInterest === "q" ? <QDayOne key={identity.runId} identity={identity} />
-              : <HogwartsDevice work={work} identity={identity} contacts={loveInterests} onRestart={restart} />}
+            <HogwartsDevice key={identity?.runId} work={work} identity={identity} contacts={loveInterests} onRestart={restart} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}

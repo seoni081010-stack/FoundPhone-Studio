@@ -391,7 +391,3 @@
   .marauder-stage .marauder-oath-letters::before,
   .marauder-stage .marauder-oath-letters::after { animation: none; }
 }
-
-.marauder-locations { margin: 10px 0; padding: 0 10px; list-style: none; font-size: 12px; line-height: 1.7; color: #503822; }
-
-.marauder-paper::before { height: calc(min(145vw, 510px) + 180px); }
