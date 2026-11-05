@@ -1,3 +1,4 @@
+import { people } from "./HogwartsCharacters";
 import story from "../../stories/q/day01.json";
 import { makeItem, nodeSchema, type Work } from "../schema";
 
@@ -41,4 +42,20 @@ export function savedQChoice(key: string): number | null {
     const saved = JSON.parse(localStorage.getItem(key) ?? "null");
     return saved?.finished === true && [0, 1].includes(saved.choice) ? saved.choice : null;
   } catch { return null; }
+}
+
+export function characterRouteWork(original: Work, characterId: string): Work {
+  if (characterId === "hyunjae") return original;
+  if (characterId === "q") return qRouteWork(original);
+  const person = people.find(character => character.id === characterId);
+  return {
+    ...original,
+    id: `hogwarts-${characterId}-december`, title: `霍格沃茨十二月 · ${person?.name ?? ""}`,
+    data: { ...original.data, owlpost: [], magicphotos: [], wizardjournal: [makeItem({ id: "journal-route", body: "" })] },
+    variables: { [`${characterId}_affection`]: 0, [`${characterId}_jealousy`]: 0 },
+    nodes: [nodeSchema.parse({
+      id: `${characterId}-start`, label: "十二月开始", type: "start", event: "", target: "",
+      conditions: [], actions: [], next: [], once: true, x: 0, y: 0,
+    })],
+  };
 }

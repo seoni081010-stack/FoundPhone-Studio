@@ -1,3 +1,4 @@
+import { isHoliday, sharedRules } from "./sharedRules";
 import timetable from "../../stories/template/hogwarts-timetables.json";
 const houseNames: Record<string,string> = { gryffindor:"Gryffindor",slytherin:"Slytherin",ravenclaw:"Ravenclaw",hufflepuff:"Hufflepuff" };
 const breads = ["烤面包", "面包卷", "黄油吐司"];
@@ -24,7 +25,7 @@ function dailyMenu(day: number) {
    ...pick(breads, day + 13), ...pick(["巧克力松糕", "巧克力泡芙", "蛋奶果馅饼", "各式冰淇淋", "酒浸果酱布丁"], day + 14),
    ...pick(drinks, day + 15),
  ];
- if (day === 24 || day === 25) {
+ if (day === sharedRules.ballDay || day === 25) {
    dinner.push("迷你小香肠", "火焰圣诞布丁", "圣诞蛋糕");
    if (!dinner.includes("烤火鸡")) dinner.unshift("烤火鸡");
  }
@@ -35,7 +36,7 @@ export function dailyLessons(year: number, house: string, day: number) {
  const byYear = timetable.timetables[String(year) as keyof typeof timetable.timetables];
  const entries = byYear?.[houseNames[house] as keyof typeof byYear] ?? [];
  const weekday = new Date(Date.UTC(2026, 11, day)).getUTCDay();
- return entries.filter(entry => day < 22 && weekday >= 1 && weekday <= 5 && entry.day === weekday - 1)
+ return entries.filter(entry => !isHoliday(day) && weekday >= 1 && weekday <= 5 && entry.day === weekday - 1)
    .sort((a, b) => a.time.localeCompare(b.time));
 }
 
@@ -48,7 +49,7 @@ export function HogwartsSchedule({year, house, day, interaction, attended, onAtt
  const allAttended = lessons.every(lesson => attended[lessonId(lesson)]);
  const menu = dailyMenu(day);
  return <section aria-label="当天日程">
-   {lessons.length === 0 && <p>{day >= 22 ? "圣诞假期 · 自由活动" : "今天没有常规课程。"}</p>}
+   {lessons.length === 0 && <p>{isHoliday(day) ? "圣诞假期 · 自由活动" : "今天没有常规课程。"}</p>}
    {[
      {time: "07:30", row: <p key="breakfast" className="hogwarts-agenda-row">07:30 早餐 · {menu.breakfast.join("、")}</p>},
      ...lessons.map((lesson, index) => ({ time: lesson.time, row: <p className="hogwarts-agenda-row" key={lessonId(lesson)}>
@@ -60,6 +61,6 @@ export function HogwartsSchedule({year, house, day, interaction, attended, onAtt
    ].sort((a, b) => a.time.localeCompare(b.time)).map(item => item.row)}
    {allAttended && onScene && <button className={sceneLabel ? "hogwarts-activity" : "hogwarts-activity hogwarts-continue-day"} type="button" onClick={onScene}>{sceneLabel ?? "继续今天的行程"}</button>}
    <button className="hogwarts-end-day" type="button" disabled={!onEnd || !allAttended} onClick={onEnd}>结束这一天</button>
-   {!allAttended ? <p>请先完成今天的课程。</p> : !onEnd && interaction && day < 31 ? <p>请先到「{interaction}」完成今天的互动。</p> : null}
+   {!allAttended ? <p>请先完成今天的课程。</p> : !onEnd && interaction && day < sharedRules.confessionDay ? <p>请先到「{interaction}」完成今天的互动。</p> : null}
  </section>;
 }

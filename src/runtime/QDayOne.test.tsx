@@ -6,11 +6,23 @@ import { compileStory } from "../story-engine/compiler";
 import { choose, dispatch } from "../engine";
 import { initialRuntime, validateWork } from "../schema";
 import hyunjaeStory from "../../stories/hyunjae/story.json";
-import { qRouteWork } from "./qRoute";
+import { characterRouteWork, qRouteWork } from "./routeWork";
 import { MaraudersMap } from "./MaraudersMap";
 import story from "../../stories/q/day01.json";
 
 describe("Q first day", () => {
+  it("keeps authored plots separate and leaves unwritten routes ready for their own content", () => {
+    const original = compileStory(hyunjaeStory).work;
+    expect(characterRouteWork(original, "hyunjae")).toBe(original);
+    expect(characterRouteWork(original, "q").nodes.some(node => node.id.startsWith("hy-"))).toBe(false);
+    for (const person of people.filter(person => !["hyunjae", "q"].includes(person.id))) {
+      const route = validateWork(characterRouteWork(original, person.id));
+      const runtime = dispatch(route, initialRuntime(route), "start");
+      expect(runtime.messages.owlpost ?? []).toEqual([]);
+      expect(route.nodes).toHaveLength(1);
+      expect(route.title).toContain(person.name);
+    }
+  });
   it("uses the normal four-app phone for Q without leaking Hyunjae's route", () => {
     const work = compileStory(hyunjaeStory).work;
     const html = renderToStaticMarkup(<HogwartsDevice work={work} identity={{ name: "玩家", house: "ravenclaw", year: 6, loveInterest: "q", runId: "q-test" }} contacts={people} onRestart={() => {}} />);
