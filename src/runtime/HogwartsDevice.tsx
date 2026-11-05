@@ -1,3 +1,4 @@
+import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
 import dateOptions from "../../stories/template/hogwarts-dates.json";
@@ -448,26 +449,31 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       {destination && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onClose={() => setDestination(undefined)} className="hogwarts-scene" aria-labelledby="free-time-title">
         <h2 id="free-time-title">{destination.place}</h2>
+        <SceneDialogue>
         <p className="hogwarts-narration">{destination.arrival}</p>
         {freeTimeResult ? <p className="hogwarts-narration" role="status">{freeTimeResult}</p>
           : <div className="hogwarts-device-choices">{destination.choices.map(choice =>
             <button type="button" key={choice.label} onClick={() => setFreeTimeResult(choice.result)}>{choice.label}</button>
           )}</div>}
         <button className="hogwarts-continue-day" type="button" onClick={() => setDestination(undefined)}>返回今日行程</button>
+        </SceneDialogue>
       </dialog>}
       {(dateReply || outing) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onClose={() => { setDateReply(""); setOuting(false); }} className="hogwarts-scene">
         <h2>{outing ? plans[day] : "李贤在的猫头鹰回信"}</h2>
+        <SceneDialogue key={outing ? `outing-${day}-${acceptedVenues[day]}` : "mail"}>
         {outing ? hyunjaeDates[acceptedVenues[day]]?.scene.map((line, index) => index === 0
           ? <p key={index} className="hogwarts-narration">{line}</p>
           : note(index === 2 ? identity?.name ?? "我" : "李贤在", line, index === 2, index))
-          : note("李贤在", dateReply, false)}
+          : <div className="date-mail-reply">{note("李贤在", dateReply, false)}</div>}
         <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
+        </SceneDialogue>
       </dialog>}
       {matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-wager">
         {matchStep === "bet" ? <>
           <small className="wager-stamp">弗雷德 &amp; 乔治 · 看台特刊</small><h2>谁的扫帚先得意？</h2>
+          <SceneDialogue key="match-bet">
           <p className="hogwarts-narration">李贤在忙完级长的事，在看台上找到你。一张羊皮纸从座位缝里冒出来，落款是弗雷德和乔治。</p>
           {note("李贤在", "你来得还挺早。", false)}
           <div className="wager-teams">{["格兰芬多", "斯莱特林"].map(name => <button key={name} data-team={name} aria-pressed={team === name} onClick={() => setTeam(name)}>{name}{team === name ? " ✓" : ""}</button>)}</div>
@@ -479,6 +485,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
             setMatchError(""); setMatchStep("ready"); setMatchDialog(false);
           }}>就押这个</button>
           <button className="wager-secondary" onClick={() => { setMatchError(""); setMatchDialog(false); }}>返回行程</button>
+          </SceneDialogue>
         </> : matchStep === "result" ? <>
           {won && <div className="wager-confetti" aria-hidden="true">✦ 🎉 ✧ 🍺 ✦</div>}
           <h2>{won ? "恭喜，你押中了！" : "别灰心！"}</h2>
@@ -486,6 +493,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
           <button className={won ? "wager-primary wager-ticket" : "wager-secondary"} onClick={() => { setMatchStep("pub"); setMatchDialog(false); }}>{won ? "收下饮料券" : "把纸条折起来"}</button>
         </> : <>
           <h2>三把扫帚</h2>
+          <SceneDialogue key="match-pub">
           <p className="hogwarts-narration">斯莱特林那桌还在复盘最后一球。李贤在找到一张靠窗的小桌，把里面的位置留给你。</p>
           {won ? <>
             <p className="hogwarts-narration">斯莱特林那桌给你送来一杯黄油啤酒。他也给自己点了一杯。</p>
@@ -517,6 +525,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
             </>}
           </>}
           {(won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); }}>返回今日行程</button>}
+          </SceneDialogue>
         </>}
         {matchError && <p role="alert">{matchError}</p>}
       </dialog>}
@@ -533,14 +542,18 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       </dialog>}
       {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">李贤在 <small>· HYUNJAE</small></h2>
+        <SceneDialogue key={`story-${day}`}>
         {scenes.map(scene => <div key={scene.id}>{scene.body.split("\n").map((part, index) => {
-          const line = part.match(/^(李贤在|你)[：:](.+)$/);
-          if (line) return note(line[1] === "你" ? identity?.name ?? "我" : "李贤在", line[2], line[1] === "你", index);
+          const line = part.match(/^([^：:]{1,30})[：:](.+)$/);
+          const speaker = line?.[1];
+          const player = speaker === "你" || speaker === "我" || speaker === identity?.name;
+          if (line && (player || contacts.some(contact => contact.name === speaker))) return note(player ? identity?.name ?? "我" : line[1], line[2], player, index);
           return part && <p key={index} className="hogwarts-narration">{highlightMistletoe(part)}</p>;
         })}</div>)}
         {!owlToday && choices}
         {relationshipHint}
         {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={() => { setSeenScene(scenes[scenes.length - 1]?.id ?? ""); setSceneOpen(false); if (day === 31 && state.endings.length) { setActive("magicphotos"); setFinalMemoryOpen(true); } if (day === 12) { setMatchStep("result"); setMatchDialog(true); } }}>继续今天的行程</button>}
+        </SceneDialogue>
       </dialog>}
       <nav className="hogwarts-dock" aria-label="学生手机应用">
         {modules.filter(module => ["magicphotos", "owlpost", "wizardjournal", "date"].includes(module.id)).sort((a, b) => ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(a.id) - ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(b.id)).map(module =>
