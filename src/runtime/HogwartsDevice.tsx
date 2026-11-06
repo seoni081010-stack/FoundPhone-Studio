@@ -1,3 +1,4 @@
+import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
 import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nextAlbumNotice } from "./albumNotices";
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
@@ -134,6 +135,8 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
   const [stake, setStake] = useState(() => isQ ? restoredQ.match?.stake ?? 1 : 1);
   const [matchError, setMatchError] = useState("");
   const [matchDialog, setMatchDialog] = useState(false);
+  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => isQ ? restoredQ.match?.conversation : undefined);
+  const [matchIntroRead, setMatchIntroRead] = useState(false);
   const [visitedMatchPub, setVisitedMatchPub] = useState(() => isQ && restoredQ.match?.visitedPub === true);
   const [mailRead, setMailRead] = useState<Record<string, number>>(() => isQ ? restoredQ.mailRead ?? {} : {});
   const won = team === "斯莱特林";
@@ -250,6 +253,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       : "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？\n你：还没。怎么，你要排队啊？\n李贤在：那要不要一起？\n你：好啊，那你排第一个。\n李贤在：那天我在大礼堂门口等你。"
     } : selectedLeadId === "hyunjae" && day === 18 && entry.body.startsWith("你：我留校啊，城堡想赶我也来不及了。") ? { ...entry, body: "你：我留校啊，城堡想赶我也来不及了。\n李贤在：那晚别站得离我太远。我怕第一支舞都跳完了，你还在甜点桌那边。" }
       : soloSnow && index === 0 ? { ...entry, body: "走廊里。\n李贤在：你昨天后来去哪儿走了？我回去的时候，鞋里都是雪。" } : entry);
+  const matchScenes = selectedLeadId === "hyunjae" && day === sharedRules.quidditchDay
+    ? scenes.map((entry, index) => index === 0 && entry.body.includes("比赛开始后")
+      ? { ...entry, body: entry.body.slice(entry.body.indexOf("比赛开始后")) } : entry) : scenes;
   const encounterReached = sceneOpen || Boolean(seenScene && scenes.some(entry => entry.id === seenScene));
   const encounterPlaces: Partial<Record<number, string>> = selectedLeadId === "hyunjae" ? hyunjaeEncounterPlaces : {};
   const storyPlace = encounterReached ? isQ ? String(state.variables.scene_place ?? "图书馆") : encounterPlaces[day] : undefined;
@@ -300,7 +306,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
   ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked).concat(isQ ? qDays.flatMap(entry => entry.album && qReadDays.includes(entry.day) ? [{ ...entry.album, unlocked: true }] : []) : []);
   // Let story dialogs finish first, then announce each new entry in album order.
   const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== "photo-new-year"), acknowledgedClues,
-    Boolean(sceneOpen || matchDialog || dateReply || outing || destination || finalMemoryOpen || finished));
+    Boolean(sceneOpen || matchDialog || matchConversation || dateReply || outing || destination || finalMemoryOpen || finished));
   useEffect(() => {
     saveAlbumNotices(albumStorageKey, { acknowledged: acknowledgedClues, completedDays: completedSceneDays });
   }, [albumStorageKey, acknowledgedClues, completedSceneDays]);
@@ -348,12 +354,21 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
         version: 2, choices: qChoiceHistory, readDays: qReadDays, attended,
         time: lessonTime ?? startTime, extraMail, acknowledgedClues, mailUnlocked: state.variables.q_mail_unlocked === true,
         affinity: state.variables.q_affection, jealousy: state.variables.q_jealousy,
-        match: { step: matchStep, team, stake, visitedPub: visitedMatchPub }, mailRead,
+        match: { step: matchStep, team, stake, visitedPub: visitedMatchPub, conversation: matchConversation }, mailRead,
       }));
     } catch { setRelationshipNotice("这次进度没能保存在浏览器中，刷新后可能需要重新阅读。"); }
   }, [isQ, qStorageKey, qChoiceHistory, qReadDays, attended, lessonTime, startTime, extraMail, acknowledgedClues,
-    state.variables.q_mail_unlocked, state.variables.q_affection, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead]);
+    state.variables.q_mail_unlocked, state.variables.q_affection, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation]);
   function openScene() {
+    if (day === sharedRules.quidditchDay) {
+      setLessonTime("14:00");
+      if (matchStep === "bet") { setMatchConversation("intro"); return; }
+      if (matchConversation === "reaction") return;
+    }
+    resumeStoryScene();
+  }
+  function resumeStoryScene() {
+    setMatchConversation(undefined);
     if (waitingToMeet && state.choices[0]) select(state.choices[0].target);
     if (isQ) setLessonTime(qToday?.stages.find(stage => stage.channel === "scene")?.time ?? sceneTime);
     else if (day === sharedRules.quidditchDay) setLessonTime("14:00");
@@ -426,15 +441,13 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
           <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
             sceneLabel={isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`}[day]}
             onScene={!owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
-              if (day === sharedRules.quidditchDay && matchStep === "bet") setMatchDialog(true);
-              else openScene();
+              openScene();
             } : undefined}
             attended={attended} onAttend={(id, time, last) => {
               setAttended(previous => ({ ...previous, [id]: true }));
               setLessonTime(isQ && day === 1 && last ? "17:00" : time);
               if (last && !sharedRules.manualSceneDays.includes(day) && !owlToday && scenes.length > 0 && !nextDay) {
-                if (day === sharedRules.quidditchDay && matchStep === "bet") setMatchDialog(true);
-                else openScene();
+                openScene();
               }
             }}
             onEnd={nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
@@ -558,35 +571,43 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
         <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
         </SceneDialogue>
       </dialog>}
-      {matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
-        onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-wager">
-        {matchStep === "bet" ? <>
-          <small className="wager-stamp">弗雷德 &amp; 乔治 · 看台特刊</small><h2>谁的扫帚先得意？</h2>
-          <SceneDialogue key="match-bet">
-          {isQ && qMatch && authoredLines(qMatch.opening)}
-          <p className="hogwarts-narration">{selectedLeadId === "hyunjae" ? "李贤在忙完级长的事，在看台上找到你。" : ""}一张羊皮纸从座位缝里冒出来，落款是弗雷德和乔治。</p>
-          {matchLine("opening", false)}
-          <div className="wager-teams">{["格兰芬多", "斯莱特林"].map(name => <button key={name} data-team={name} aria-pressed={team === name} onClick={() => setTeam(name)}>{name}{team === name ? " ✓" : ""}</button>)}</div>
-          <p><label>押 {stake} 加隆 <input type="range" min={sharedRules.wagerMin} max={sharedRules.wagerMax} value={stake} onChange={event => setStake(Number(event.target.value))} /></label></p>
-          <p>1 加隆：意思一下 · 10 加隆：钱包尖叫</p>
-          <p>{stake < 4 ? "很好，输了也只需要叹一口气。" : stake < 8 ? "现在你已经有理由比球员还紧张了。" : "我们欣赏你的勇气。你的钱包有不同意见。"}</p>
-          <SceneDialogue key={`match-team-${team}`}>
-          {isQ && qMatch && team && authoredLines(team === "格兰芬多" ? qMatch.gryffindor : qMatch.slytherin)}
-          <button className="wager-primary" disabled={!team} onClick={() => {
-            if (!spendGalleons(identityKey, stake)) { setMatchError("钱包里的加隆不够。"); return; }
-            setMatchError(""); setMatchStep("ready"); setMatchDialog(false);
-            if (isQ) openScene();
-          }}>就押这个</button>
-          </SceneDialogue>
-          <button className="wager-secondary" onClick={() => { setMatchError(""); setMatchDialog(false); }}>返回行程</button>
-          </SceneDialogue>
-        </> : matchStep === "result" ? <>
-          {won && <div className="wager-confetti" aria-hidden="true">✦ 🎉 ✧ 🍺 ✦</div>}
-          <h2>{won ? "恭喜，你押中了！" : "别灰心！"}</h2>
-          <p>{won ? `斯莱特林赢了。你押的 ${stake} 加隆已经光荣退役，但你赢得了一杯黄油啤酒。请到三把扫帚找斯莱特林那桌领取，趁他们还在高兴。` : `斯莱特林赢了。你押的 ${stake} 加隆和格兰芬多的比分一样，都回不来了。本纸条不提供饮料，但可以垫杯子。至少还有点用。`}</p>
-          <button className={won ? "wager-primary wager-ticket" : "wager-secondary"} onClick={() => { setMatchStep("pub"); setMatchDialog(false); }}>{won ? "收下饮料券" : "把纸条折起来"}</button>
-        </> : <>
-          <h2>三把扫帚</h2>
+      {matchConversation && !matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+        onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="match-conversation-title">
+        <h2 id="match-conversation-title">{lead?.name ?? "比赛日"}</h2>
+        <SceneDialogue key={`match-conversation-${matchConversation}`}>
+          {matchConversation === "intro" ? <>
+            {!matchIntroRead && <>
+              {isQ && qMatch ? authoredLines(qMatch.opening) : <>
+                {selectedLeadId === "hyunjae" && <>
+                  <p className="hogwarts-narration">早餐的大礼堂比平时吵得多。</p>
+                  <p className="hogwarts-narration">李贤在忙完级长的事，在看台上找到你。</p>
+                </>}
+                {matchLine("opening", false)}
+              </>}
+              <p className="hogwarts-narration">一张羊皮纸飘到你面前，落款是弗雷德和乔治。</p>
+            </>}
+            {matchIntroRead && <p className="hogwarts-narration">你将羊皮纸折好，暂时放在手边。</p>}
+            <button onClick={() => { setMatchIntroRead(true); setMatchConversation(undefined); setMatchDialog(true); }}>展开羊皮纸</button>
+          </> : <>
+            {isQ && qMatch && authoredLines(team === "格兰芬多" ? qMatch.gryffindor : qMatch.slytherin)}
+            <button onClick={resumeStoryScene}>继续看比赛</button>
+          </>}
+        </SceneDialogue>
+      </dialog>}
+      {matchDialog && matchStep === "bet" && <QuidditchPaper team={team} stake={stake} error={matchError}
+        onTeam={setTeam} onStake={setStake}
+        onReturn={() => { setMatchError(""); setMatchDialog(false); setMatchConversation("intro"); }}
+        onSubmit={() => {
+          if (!spendGalleons(identityKey, stake)) { setMatchError("钱包里的加隆不够。"); return; }
+          setMatchError(""); setMatchStep("ready"); setMatchDialog(false);
+          if (isQ && qMatch) setMatchConversation("reaction");
+          else resumeStoryScene();
+        }} />}
+      {matchDialog && matchStep === "result" && <QuidditchResult won={won} stake={stake}
+        onContinue={() => { setMatchStep("pub"); setMatchDialog(false); }} />}
+      {matchDialog && !["bet", "result"].includes(matchStep) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+        onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="match-pub-title">
+          <h2 id="match-pub-title">三把扫帚</h2>
           <SceneDialogue key="match-pub">
           <p className="hogwarts-narration">斯莱特林那桌还在复盘最后一球。{selectedLeadId === "hyunjae" ? "李贤在找到一张靠窗的小桌，把里面的位置留给你。" : ""}</p>
           {won ? <>
@@ -604,26 +625,25 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
               <button onClick={() => { if (spendGalleons(identityKey, sharedRules.matchDrinkPrice)) { setMatchError(""); setMatchStep("buy"); } else setMatchError("钱包里的加隆不够。"); }}>自己买一杯 · 5 加隆</button>
               <button onClick={() => { setMatchError(""); setMatchStep("stay"); }}>陪他坐一会儿</button>
             </>}
-            {matchStep === "buy" && <>
+            {matchStep === "buy" && <div data-scene-segment="match-pub-buy">
               {matchLine("buyPlayerReply", true)}
               <p className="hogwarts-narration">{selectedLeadId === "hyunjae" ? "两杯黄油啤酒端上来，他拿自己的杯子碰了碰你的。" : "黄油啤酒端上来了。"}</p>
               {matchLine("buyToast", false)}
               {matchLine("buyPlayerQuestion", true)}
               {matchLine("buyAnswer", false)}
-            </>}
-            {matchStep === "stay" && <>
+            </div>}
+            {matchStep === "stay" && <div data-scene-segment="match-pub-stay">
               {matchLine("stayPlayerReply", true)}
               <p className="hogwarts-narration">{selectedLeadId === "hyunjae" ? "他把杯子往自己那边挪了挪，给你腾出放围巾的地方。" : "你在桌旁坐下来。"}</p>
               {matchLine("stayAnswer", false)}
               {matchLine("stayPlayerQuestion", true)}
               {matchLine("stayTease", false)}
               <p className="hogwarts-narration">斯莱特林那桌又敲了一下杯子。{selectedLeadId === "hyunjae" ? "你们对视一眼，都笑了。" : ""}</p>
-            </>}
+            </div>}
           </>}
           {isQ && qMatch && (won || matchStep !== "pub") && authoredLines(qMatch.closing)}
           {(won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); }}>返回今日行程</button>}
           </SceneDialogue>
-        </>}
         {matchError && <p role="alert">{matchError}</p>}
       </dialog>}
       {finalMemoryOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
@@ -637,10 +657,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
         <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>
         <button onClick={() => acknowledgeClue(pendingClue.id)}>继续</button>
       </dialog>}
-      {sceneOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
+      {sceneOpen && !matchDialog && !matchConversation && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">{lead?.name ?? ""} <small>· {selectedLeadId.toUpperCase()}</small></h2>
         <SceneDialogue key={`story-${day}`}>
-        {scenes.map(scene => <div key={scene.id}>{scene.body.split("\n").map((part, index) => {
+        {matchScenes.map(scene => <div key={scene.id} data-scene-segment={scene.id}>{scene.body.split("\n").map((part, index) => {
           const line = part.match(/^([^：:]{1,30})[：:](.+)$/);
           const speaker = line?.[1];
           const player = speaker === "你" || speaker === "我" || speaker === identity?.name;

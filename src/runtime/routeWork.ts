@@ -110,7 +110,7 @@ export function qProgressKey(identity?: { name: string; house: string; year: num
 }
 
 export type QMail = { recipient: string; body: string; outgoing: boolean; day: number; order: number };
-export type QMatchProgress = { step: "bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done"; team: string; stake: number; visitedPub: boolean };
+export type QMatchProgress = { step: "bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done"; team: string; stake: number; visitedPub: boolean; conversation?: "intro" | "reaction" };
 export type QProgress = {
   match?: QMatchProgress; mailRead?: Record<string, number>;
   choices: string[]; readDays: number[]; attended: Record<string, boolean>; time: string;
@@ -135,7 +135,7 @@ export function readQProgress(key: string): QProgress {
         match: saved.match && ["bet", "ready", "result", "pub", "buy", "stay", "done"].includes(saved.match.step)
           && ["", "格兰芬多", "斯莱特林"].includes(saved.match.team) && Number.isInteger(saved.match.stake)
           && saved.match.stake >= 1 && saved.match.stake <= 10
-          ? { ...saved.match, visitedPub: saved.match.visitedPub === true } : undefined,
+          ? { ...saved.match, visitedPub: saved.match.visitedPub === true, conversation: ["intro", "reaction"].includes(saved.match.conversation) ? saved.match.conversation : undefined } : undefined,
         affinity: Number.isFinite(saved.affinity) ? saved.affinity : undefined,
         jealousy: Number.isFinite(saved.jealousy) ? saved.jealousy : undefined,
       };

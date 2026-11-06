@@ -33,3 +33,29 @@ describe("published Q snow popup", () => {
     }
   });
 });
+
+
+describe("restored Q match conversations stay outside the paper", () => {
+  it.each(["intro", "reaction"] as const)("restores %s into the ordinary dialogue surface", conversation => {
+    const original = compileStory(story).work;
+    const work = gateRouteDays(qRouteWork(original));
+    let state = dispatch(work, initialRuntime(work), "start");
+    const history: string[] = [];
+    for (let step = 0; state.date !== "2026-12-12" && step < 150; step++) {
+      const target = state.choices[0].target;
+      history.push(target);
+      state = choose(work, state, target);
+    }
+    expect(state.date).toBe("2026-12-12");
+    const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "match-test" };
+    const saved = { version: 2, choices: history, readDays: [6], acknowledgedClues: ["q-photo-snow"],
+      match: { step: conversation === "intro" ? "bet" : "ready", team: "斯莱特林", stake: 1, conversation } };
+    vi.stubGlobal("localStorage", { getItem: (key: string) => key === qProgressKey(identity) ? JSON.stringify(saved) : null });
+    const html = renderToStaticMarkup(<HogwartsDevice work={original} identity={identity} contacts={people} onRestart={() => {}} />);
+    expect(html).toContain('aria-labelledby="match-conversation-title"');
+    expect(html).toContain("scene-dialogue");
+    expect(html).not.toContain("hogwarts-wager");
+    expect(html).not.toContain("谁的扫帚先得意？");
+    expect(html).not.toContain('aria-labelledby="scene-title"');
+  });
+});
