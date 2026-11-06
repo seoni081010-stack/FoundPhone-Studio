@@ -20,6 +20,12 @@ type MapStage = "closed" | "oath" | "map" | "erasing";
 const landmarks: Partial<Record<string, readonly [number, number]>> = {
   "长廊": [180, 280],
   "城堡楼梯": [180, 320],
+  "图书馆门口": [235, 96],
+  "图书馆外的走廊": [235, 96],
+  "画像后的小房间": [310, 96],
+  "霍格莫德镇": [70, 548],
+  "蜂蜜公爵": [70, 548],
+  "城堡外的石桥": [280, 548],
 };
 
 export function MaraudersMap({ day, time = "09:00", place, activity, selectedId = "hyunjae", onEncounter }: {
@@ -140,6 +146,8 @@ export function MaraudersMap({ day, time = "09:00", place, activity, selectedId 
                 <text className="marauder-doodle" x="45" y="395" aria-hidden="true">✧ ☽</text>
                 <text x="180" y="258">长廊</text>
                 <text x="280" y="390">⋯ 秘密通道</text>
+                {locations.some(person => ["霍格莫德镇", "蜂蜜公爵"].includes(person.place)) && <text x="70" y="534" style={{ fontSize: 9 }}>霍格莫德</text>}
+                {locations.some(person => person.place === "城堡外的石桥") && <text x="280" y="534" style={{ fontSize: 9 }}>石桥</text>}
               </g>
               {locations.map(person => {
                 const room = rooms.find(([name]) => name === person.place);

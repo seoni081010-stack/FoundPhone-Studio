@@ -6,7 +6,7 @@ import { compileStory } from "../story-engine/compiler";
 import { choose, dispatch } from "../engine";
 import { initialRuntime, validateWork } from "../schema";
 import hyunjaeStory from "../../stories/hyunjae/story.json";
-import { characterRouteWork, qRouteWork } from "./routeWork";
+import { characterRouteWork, gateRouteDays, qRouteWork } from "./routeWork";
 import { MaraudersMap } from "./MaraudersMap";
 import story from "../../stories/q/day01.json";
 
@@ -43,14 +43,15 @@ describe("Q first day", () => {
     expect(html).not.toContain("<ul");
   });
   it.each([0, 1])("runs Q branch %s through the shared event engine", index => {
-    const work = validateWork(qRouteWork(compileStory(hyunjaeStory).work));
+    const work = validateWork(gateRouteDays(qRouteWork(compileStory(hyunjaeStory).work)));
     const start = dispatch(work, initialRuntime(work), "start");
     expect(start.choices).toHaveLength(2);
     const next = choose(work, start, `q-day01-${index}`);
     expect(next.variables.q_day1_complete).toBe(true);
     expect(next.variables.q_day1_choice).toBe(index);
     expect(next.endings).toEqual([]);
-    expect(next.choices).toEqual([]);
+    expect(next.date).toBe("2026-12-01");
+    expect(next.choices).toEqual([{ label: "傍晚 · 去图书馆", target: "q-day02-stage0" }]);
   });
   it("keeps both approved branches and the revised bookmark reaction", () => {
     expect(story.choices).toHaveLength(2);
