@@ -1,6 +1,8 @@
 import { people } from "./HogwartsCharacters";
 import story from "../../stories/q/day01.json";
-import followingDays from "../../stories/q/days02-06.json";
+import earlyDays from "../../stories/q/days02-06.json";
+import laterDays from "../../stories/q/days07-16.json";
+const followingDays = [...earlyDays, ...laterDays];
 import { makeItem, nodeSchema, type Work } from "../schema";
 
 // Reuse the normal phone and event engine; only the authored route data changes.
@@ -31,7 +33,9 @@ export function qRouteWork(original: Work): Work {
       ], ["q-day02-stage0"])),
       ...followingDays.flatMap((day, dayIndex) => day.stages.flatMap((stage, stageIndex) => {
         const prefix = `q-day${String(day.day).padStart(2, "0")}-stage${stageIndex}`;
-        const nextStage = stageIndex + 1 < day.stages.length ? `${prefix}-travel` : undefined;
+        const hasNextStage = stageIndex + 1 < day.stages.length;
+        const travel = hasNextStage && stage.channel === "mail";
+        const nextStage = hasNextStage ? travel ? `${prefix}-travel` : `q-day${String(day.day).padStart(2, "0")}-stage${stageIndex + 1}` : undefined;
         const nextDay = followingDays[dayIndex + 1];
         const next = nextStage ? [nextStage] : nextDay ? [`q-day${String(nextDay.day).padStart(2, "0")}-stage0`] : [];
         const channel = stage.channel === "mail" ? "owlpost" : "scene";
@@ -45,7 +49,7 @@ export function qRouteWork(original: Work): Work {
             { type: "variable", key: "story_delivery", value: stage.channel },
             { type: "variable", key: "scene_time", value: stage.time },
             { type: "variable", key: "scene_place", value: stage.place },
-            { type: "message", key: channel, value: `12月${day.day}日｜` + stage.opening.join("\n") },
+            ...(stage.opening.length ? [{ type: "message", key: channel, value: `12月${day.day}日｜` + stage.opening.join("\n") }] : []),
           ], [`${prefix}-choice`]),
           node(`${prefix}-choice`, "你的回答", "choice", [], stage.choices.map((_, index) => `${prefix}-${index}`)),
           ...stage.choices.map((choice, index) => node(`${prefix}-${index}`, choice.label, "action", [
@@ -58,7 +62,7 @@ export function qRouteWork(original: Work): Work {
             ...("endPlace" in stage ? [{ type: "variable", key: "scene_place", value: stage.endPlace }] : []),
             ...completedActions,
           ], next),
-          ...(nextStage ? [node(nextStage, "前往见面地点", "choice", [
+          ...(travel && nextStage ? [node(nextStage, "前往见面地点", "choice", [
             { type: "variable", key: "story_delivery", value: "travel" },
           ], [`q-day${String(day.day).padStart(2, "0")}-stage${stageIndex + 1}`])] : []),
         ];
@@ -78,11 +82,11 @@ export function gateRouteDays(route: Work): Work {
   ] };
 }
 
-export const qDays: { day: number; label: string; album?: { id: string; title: string; body: string }; stages: {
+export const qDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string }; stages: {
   channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[] }[];
   tail: string[]; endPlace?: string; endTime?: string;
 }[] }[] = followingDays;
-export const qSceneSpeakers = new Set(["池昌民", "你", "学生", "画像里的老巫师"]);
+export const qSceneSpeakers = new Set(["池昌民", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像"]);
 
 export function qLetters(messages: Work["data"][string]) {
   let day = 1;
@@ -106,7 +110,9 @@ export function qProgressKey(identity?: { name: string; house: string; year: num
 }
 
 export type QMail = { recipient: string; body: string; outgoing: boolean; day: number; order: number };
+export type QMatchProgress = { step: "bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done"; team: string; stake: number; visitedPub: boolean };
 export type QProgress = {
+  match?: QMatchProgress; mailRead?: Record<string, number>;
   choices: string[]; readDays: number[]; attended: Record<string, boolean>; time: string;
   mailUnlocked: boolean; extraMail: QMail[]; acknowledgedClues: string[]; legacy: boolean; affinity?: number; jealousy?: number;
 };
@@ -125,6 +131,11 @@ export function readQProgress(key: string): QProgress {
         extraMail: Array.isArray(saved.extraMail) ? saved.extraMail.filter((value: QMail) => value && typeof value.body === "string" && typeof value.recipient === "string" && typeof value.outgoing === "boolean" && Number.isFinite(value.day) && Number.isFinite(value.order)) : [],
         acknowledgedClues: Array.isArray(saved.acknowledgedClues) ? saved.acknowledgedClues.filter((value: unknown) => typeof value === "string") : [],
         legacy: false,
+        mailRead: Object.fromEntries(Object.entries(saved.mailRead ?? {}).filter(([, value]) => Number.isInteger(value) && Number(value) >= 0).map(([key, value]) => [key, Number(value)])),
+        match: saved.match && ["bet", "ready", "result", "pub", "buy", "stay", "done"].includes(saved.match.step)
+          && ["", "格兰芬多", "斯莱特林"].includes(saved.match.team) && Number.isInteger(saved.match.stake)
+          && saved.match.stake >= 1 && saved.match.stake <= 10
+          ? { ...saved.match, visitedPub: saved.match.visitedPub === true } : undefined,
         affinity: Number.isFinite(saved.affinity) ? saved.affinity : undefined,
         jealousy: Number.isFinite(saved.jealousy) ? saved.jealousy : undefined,
       };

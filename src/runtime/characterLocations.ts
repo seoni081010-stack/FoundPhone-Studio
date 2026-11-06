@@ -22,12 +22,13 @@ export function characterLocations(day: number, time: string, selectedId: string
           : person.id === "jacob" ? "草药学温室" : person.house === "ravenclaw" ? "图书馆" : "长廊";
     if (person.id === "q" && day === 1 && now >= 17 * 60 && now < 18 * 60) place = "图书馆";
     if (person.id === "q") {
-      const scene = qDays.find(entry => entry.day === day)?.stages.find(stage => stage.channel === "scene");
-      if (scene && now >= minutes(scene.time) && now < minutes(scene.time) + 120) {
+      const scene = qDays.find(entry => entry.day === day)?.stages.filter(stage => stage.channel === "scene" && now >= minutes(stage.time)).at(-1);
+      if (scene && now < minutes(scene.time) + 120) {
         place = scene.endTime && scene.endPlace && now >= minutes(scene.endTime)
           ? scene.endPlace : scene.place;
       }
     }
+    if (day === 12 && now >= 14 * 60 && now < 16 * 60) place = "魁地奇球场";
     if (person.id === selectedId && selectedPlace) place = selectedPlace;
     return { ...person, place, activity: lesson?.subject };
   });
