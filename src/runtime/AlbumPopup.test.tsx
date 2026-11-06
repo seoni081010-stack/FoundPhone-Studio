@@ -72,3 +72,23 @@ it("opens the direct day-twelve preview in character conversation, before the pa
   expect(html).not.toContain("hogwarts-wager");
   expect(html).not.toContain('aria-labelledby="album-clue-title"');
 });
+
+it("announces the newly added day-fourteen clue to an existing day-sixteen save", () => {
+  const original = compileStory(story).work;
+  const work = gateRouteDays(qRouteWork(original));
+  let state = dispatch(work, initialRuntime(work), "start");
+  const history: string[] = [];
+  for (let step = 0; state.variables.q_completed_day !== 16 && step < 250; step++) {
+    const target = state.choices[0].target;
+    history.push(target);
+    state = choose(work, state, target);
+  }
+  const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "existing-day16" };
+  const saved = { version: 2, choices: history, readDays: Array.from({ length: 16 }, (_, index) => index + 1),
+    acknowledgedClues: ["q-photo-snow"], time: "17:00" };
+  vi.stubGlobal("localStorage", { getItem: (key: string) => key === qProgressKey(identity) ? JSON.stringify(saved) : null });
+  const html = renderToStaticMarkup(<HogwartsDevice work={original} identity={identity} contacts={people} onRestart={() => {}} />);
+  expect(html).toContain("D16/31");
+  expect(html).toContain('aria-labelledby="album-clue-title"');
+  expect(html).toContain("在魔法相册中查看「银叶别针」。");
+});

@@ -39,12 +39,12 @@ describe("Q's reviewed sixteen-day route", () => {
     expect(replayed.date).toBe(state.date);
     expect(replayed.variables).toEqual(state.variables);
   });
-  it("uses the approved B choices and adds just the approved snow clue", () => {
+  it("uses the approved B choices and keeps the reviewed snow and silver-leaf clues", () => {
     const snow = qDays.find(day => day.day === 6)!;
     expect(snow.stages[0].choices.map(choice => choice.label)).toEqual([
       "走啊，第一场雪当然要出去看。", "刚修好椅子，让我多坐一会儿嘛。",
     ]);
-    expect(qDays.filter(day => day.album)).toHaveLength(1);
+    expect(qDays.filter(day => day.album).map(day => day.day)).toEqual([6, 14]);
     expect(snow.album?.body).toBe("槲寄生勾住你的帽沿。他说“别动”，靠近替你拨开叶片，肩上落着细雪。");
   });
   it("migrates the published first-day save into the extended route", () => {
@@ -136,4 +136,17 @@ it("starts the match-day preview before betting and suppresses earlier album not
   expect(preview.readDays).not.toContain(12);
   expect(preview.acknowledgedClues).toContain("q-photo-snow");
   expect(state.variables.q_completed_day).toBe(11);
+});
+
+
+it("unlocks the approved silver-leaf album after day fourteen and uses the existing notification queue", async () => {
+  const { nextAlbumNotice } = await import("./albumNotices");
+  const gift = qDays.find(day => day.day === 14)!;
+  expect(gift.album).toEqual({ id: "q-photo-silver-leaf", title: "银叶别针",
+    body: "翻过银叶，背面刻着一只很小的甲虫，藏在细细的叶脉之间。和他书页上画的那只一样。你抬头看向槲寄生，回过眼时，他正看着你。" });
+  const unlocked = (readDays: number[]) => qDays.flatMap(day => day.album && readDays.includes(day.day) ? [{ ...day.album, unlocked: true }] : []);
+  expect(nextAlbumNotice(unlocked([6]), ["q-photo-snow"], false)).toBeUndefined();
+  expect(nextAlbumNotice(unlocked([6, 14]), ["q-photo-snow"], true)).toBeUndefined();
+  expect(nextAlbumNotice(unlocked([6, 14]), ["q-photo-snow"], false)?.id).toBe("q-photo-silver-leaf");
+  expect(nextAlbumNotice(unlocked([6, 14]), ["q-photo-snow", "q-photo-silver-leaf"], false)).toBeUndefined();
 });
