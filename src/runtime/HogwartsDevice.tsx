@@ -1,3 +1,4 @@
+import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nextAlbumNotice } from "./albumNotices";
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
@@ -120,7 +121,14 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
   };
   const relationshipHint = relationshipNotice && <p className="hogwarts-narration" role="status" style={{ fontSize: ".9rem" }}>{relationshipNotice}</p>;
   const [active, setActive] = useState("calendar");
-  const [acknowledgedClues, setAcknowledgedClues] = useState<string[]>(() => isQ ? restoredQ.acknowledgedClues : []);
+  const albumStorageKey = albumNoticeKey(identity);
+  const [restoredAlbum] = useState(() => readAlbumNotices(albumStorageKey));
+  const [completedSceneDays, setCompletedSceneDays] = useState<number[]>(() => [...new Set([
+    ...restoredAlbum.completedDays, ...(isQ ? restoredQ.readDays : []),
+  ])]);
+  const [acknowledgedClues, setAcknowledgedClues] = useState<string[]>(() => [...new Set([
+    ...restoredAlbum.acknowledged, ...(isQ ? restoredQ.acknowledgedClues : []),
+  ])]);
   const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">(() => isQ ? restoredQ.match?.step ?? "bet" : "bet");
   const [team, setTeam] = useState(() => isQ ? restoredQ.match?.team ?? "" : "");
   const [stake, setStake] = useState(() => isQ ? restoredQ.match?.stake ?? 1 : 1);
@@ -269,19 +277,19 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       id: "photo-snow",
       title: "庭院初雪",
       body: "初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。",
-      unlocked: day > sharedRules.firstSnowDay && state.variables.hyunjae_first_snow_together === true,
+      unlocked: albumSceneRead(day, sharedRules.firstSnowDay, completedSceneDays) && state.variables.hyunjae_first_snow_together === true,
     },
     {
       id: "photo-ball",
       title: "圣诞舞会",
       body: "跳第一支舞时，你们一抬头就撞上对方的视线，又同时移开眼，忍不住笑了。",
-      unlocked: day > sharedRules.ballDay && state.variables.hyunjae_danced_at_ball === true,
+      unlocked: albumSceneRead(day, sharedRules.ballDay, completedSceneDays) && state.variables.hyunjae_danced_at_ball === true,
     },
     {
       id: "photo-ball-mistletoe",
       title: "舞会后的石拱门",
       body: "舞会散场后，他在石拱门下放慢脚步，抬头看了一眼槲寄生，又看向你。",
-      unlocked: day > sharedRules.ballDay && state.variables.hyunjae_day24_choice === "a",
+      unlocked: albumSceneRead(day, sharedRules.ballDay, completedSceneDays) && state.variables.hyunjae_day24_choice === "a",
     },
     {
       id: "photo-new-year",
@@ -289,10 +297,13 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       body: ending.memory,
       unlocked: finalMemoryOpen || finished,
     },
-  ].filter(clue => !isQ && clue.unlocked).concat(isQ ? qDays.flatMap(entry => entry.album && qReadDays.includes(entry.day) ? [{ ...entry.album, unlocked: true }] : []) : []);
+  ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked).concat(isQ ? qDays.flatMap(entry => entry.album && qReadDays.includes(entry.day) ? [{ ...entry.album, unlocked: true }] : []) : []);
   // Let story dialogs finish first, then announce each new entry in album order.
-  const pendingClue = sceneOpen || matchDialog || dateReply || outing || destination
-    ? undefined : albumClues.find(clue => clue.id !== "photo-new-year" && !acknowledgedClues.includes(clue.id));
+  const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== "photo-new-year"), acknowledgedClues,
+    Boolean(sceneOpen || matchDialog || dateReply || outing || destination || finalMemoryOpen || finished));
+  useEffect(() => {
+    saveAlbumNotices(albumStorageKey, { acknowledged: acknowledgedClues, completedDays: completedSceneDays });
+  }, [albumStorageKey, acknowledgedClues, completedSceneDays]);
   const acknowledgeClue = (id: string) =>
     setAcknowledgedClues(previous => previous.includes(id) ? previous : [...previous, id]);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
@@ -315,6 +326,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
   function finishScene() {
     setSeenScene(scenes[scenes.length - 1]?.id ?? "");
     setSceneOpen(false);
+    setCompletedSceneDays(previous => previous.includes(day) ? previous : [...previous, day]);
     if (isQ && state.variables.q_day1_complete === true && state.variables.q_mail_unlocked !== true) {
       setState(previous => ({ ...previous, variables: { ...previous.variables, q_mail_unlocked: true } }));
       setExtraMail(previous => [...previous, ...qFirstDayMail]);
@@ -616,12 +628,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       </dialog>}
       {finalMemoryOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="final-memory-title">
-        <p>魔法相册解锁最后一条回忆</p>
-        <h2 id="final-memory-title">跨年长廊</h2>
+        <h2 id="final-memory-title">魔法相册解锁新内容</h2>
+        <p>跨年长廊</p>
         <p className="hogwarts-narration">{highlightMistletoe(ending.memory)}</p>
-        <button type="button" onClick={() => { setFinalMemoryOpen(false); setFinished(true); }}>读完了 · 查看结局</button>
+        <button type="button" onClick={() => { acknowledgeClue("photo-new-year"); setFinalMemoryOpen(false); setFinished(true); }}>读完了 · 查看结局</button>
       </dialog>}
-      {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onClose={() => acknowledgeClue(pendingClue.id)} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
+      {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
         <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>
         <button onClick={() => acknowledgeClue(pendingClue.id)}>继续</button>
       </dialog>}
