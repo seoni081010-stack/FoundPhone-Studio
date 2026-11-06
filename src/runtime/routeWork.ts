@@ -179,5 +179,6 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
   }
   if (state.date !== date) throw new Error("该日期尚未开放预览。");
   return { choices: history, readDays: Array.from({ length: day - 1 }, (_, index) => index + 1),
-    attended: {}, time: "16:00", mailUnlocked: true, extraMail: [], acknowledgedClues: [], legacy: false };
+    attended: {}, time: day === 12 ? "14:00" : "16:00", mailUnlocked: true, extraMail: [],
+    acknowledgedClues: qDays.flatMap(entry => entry.day < day && entry.album ? [entry.album.id] : []), legacy: false };
 }

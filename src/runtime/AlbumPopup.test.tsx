@@ -59,3 +59,16 @@ describe("restored Q match conversations stay outside the paper", () => {
     expect(html).not.toContain('aria-labelledby="scene-title"');
   });
 });
+
+
+it("opens the direct day-twelve preview in character conversation, before the paper or match", () => {
+  const original = compileStory(story).work;
+  vi.stubGlobal("localStorage", { getItem: () => null });
+  const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "review-q-day12" };
+  const html = renderToStaticMarkup(<HogwartsDevice previewDay={12} work={original} identity={identity} contacts={people} onRestart={() => {}} />);
+  expect(html).toContain("D12/31");
+  expect(html).toContain('aria-labelledby="match-conversation-title"');
+  expect(html).not.toContain('aria-labelledby="scene-title"');
+  expect(html).not.toContain("hogwarts-wager");
+  expect(html).not.toContain('aria-labelledby="album-clue-title"');
+});

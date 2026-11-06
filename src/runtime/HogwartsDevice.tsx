@@ -135,12 +135,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [stake, setStake] = useState(() => isQ ? restoredQ.match?.stake ?? 1 : 1);
   const [matchError, setMatchError] = useState("");
   const [matchDialog, setMatchDialog] = useState(false);
-  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => isQ ? restoredQ.match?.conversation : undefined);
+  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => previewDay === 12 ? "intro" : isQ ? restoredQ.match?.conversation : undefined);
   const [matchIntroRead, setMatchIntroRead] = useState(false);
   const [visitedMatchPub, setVisitedMatchPub] = useState(() => isQ && restoredQ.match?.visitedPub === true);
   const [mailRead, setMailRead] = useState<Record<string, number>>(() => isQ ? restoredQ.mailRead ?? {} : {});
   const won = team === "斯莱特林";
-  const [sceneOpen, setSceneOpen] = useState(Boolean(previewDay));
+  const [sceneOpen, setSceneOpen] = useState(Boolean(previewDay && previewDay !== 12));
   const [seenScene, setSeenScene] = useState(() => isQ && restoredQ.readDays.includes(new Date(`${state.date}T12:00:00Z`).getUTCDate()) ? state.messages.scene?.at(-1)?.id ?? "" : "");
   const entries = (state.messages[isQ ? "scene" : "owlpost"] ?? []).filter(item => !item.hidden);
   const date = new Date((state.date || "2026-12-01") + "T12:00:00Z");
