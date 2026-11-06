@@ -286,12 +286,6 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       unlocked: albumSceneRead(day, sharedRules.firstSnowDay, completedSceneDays) && state.variables.hyunjae_first_snow_together === true,
     },
     {
-      id: "photo-ball",
-      title: "圣诞舞会",
-      body: "跳第一支舞时，你们一抬头就撞上对方的视线，又同时移开眼，忍不住笑了。",
-      unlocked: albumSceneRead(day, sharedRules.ballDay, completedSceneDays) && state.variables.hyunjae_danced_at_ball === true,
-    },
-    {
       id: "photo-ball-mistletoe",
       title: "舞会后的石拱门",
       body: "舞会散场后，他在石拱门下放慢脚步，抬头看了一眼槲寄生，又看向你。",
