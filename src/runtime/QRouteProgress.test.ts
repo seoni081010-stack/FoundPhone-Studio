@@ -45,7 +45,7 @@ describe("Q's reviewed sixteen-day route", () => {
       "走啊，第一场雪当然要出去看。", "刚修好椅子，让我多坐一会儿嘛。",
     ]);
     expect(qDays.filter(day => day.album)).toHaveLength(1);
-    expect(snow.album?.body).toBe("雪落在他袖口上，他举着手，等你凑近来看。");
+    expect(snow.album?.body).toBe("槲寄生勾住你的帽沿。他说“别动”，靠近替你拨开叶片，肩上落着细雪。");
   });
   it("migrates the published first-day save into the extended route", () => {
     vi.stubGlobal("localStorage", { getItem: () => JSON.stringify({ choice: 1, finished: true, mailRead: 6 }) });
