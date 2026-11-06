@@ -1,9 +1,10 @@
+import { choose, dispatch } from "../engine";
 import { people } from "./HogwartsCharacters";
 import story from "../../stories/q/day01.json";
 import earlyDays from "../../stories/q/days02-06.json";
 import laterDays from "../../stories/q/days07-16.json";
 const followingDays = [...earlyDays, ...laterDays];
-import { makeItem, nodeSchema, type Work } from "../schema";
+import { initialRuntime, makeItem, nodeSchema, type Work } from "../schema";
 
 // Reuse the normal phone and event engine; only the authored route data changes.
 export function qRouteWork(original: Work): Work {
@@ -162,4 +163,21 @@ export function characterRouteWork(original: Work, characterId: string): Work {
       conditions: [], actions: [], next: [], once: true, x: 0, y: 0,
     })],
   };
+}
+
+
+// Read-only review starts on the requested authored day, never by changing the real save.
+export function qDayPreviewProgress(original: Work, day: number): QProgress {
+  const work = gateRouteDays(qRouteWork(original));
+  let state = dispatch(work, initialRuntime(work), "start");
+  const history: string[] = [];
+  const date = `2026-12-${String(day).padStart(2, "0")}`;
+  for (let step = 0; state.date !== date && state.choices.length && step < 500; step++) {
+    const target = state.choices[0].target;
+    history.push(target);
+    state = choose(work, state, target);
+  }
+  if (state.date !== date) throw new Error("该日期尚未开放预览。");
+  return { choices: history, readDays: Array.from({ length: day - 1 }, (_, index) => index + 1),
+    attended: {}, time: "16:00", mailUnlocked: true, extraMail: [], acknowledgedClues: [], legacy: false };
 }

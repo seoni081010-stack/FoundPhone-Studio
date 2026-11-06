@@ -3,7 +3,7 @@ import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nex
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
-import { qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qDays, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qDays, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
@@ -78,14 +78,14 @@ const hyunjaeEncounterPlaces: Partial<Record<number, string>> = {
   27: "大礼堂", 28: "庭院与拱门", 31: "长廊",
 };
 
-type Props = { onRestart: () => void; work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
-export function HogwartsDevice({ work: original, identity, contacts, onRestart }: Props) {
+type Props = { previewDay?: number; onRestart: () => void; work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
+export function HogwartsDevice({ work: original, identity, contacts, onRestart, previewDay }: Props) {
   const selectedLeadId = identity?.loveInterest ?? "hyunjae";
   const dateRoute = routeDateContent[selectedLeadId];
   const dateScenes = dateRoute?.venues ?? {};
   const isQ = selectedLeadId === "q";
   const qStorageKey = qProgressKey(identity);
-  const [restoredQ] = useState(() => readQProgress(qStorageKey));
+  const [restoredQ] = useState(() => previewDay ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
   const route = useMemo(() => characterRouteWork(original, selectedLeadId), [original, selectedLeadId]);
@@ -140,7 +140,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
   const [visitedMatchPub, setVisitedMatchPub] = useState(() => isQ && restoredQ.match?.visitedPub === true);
   const [mailRead, setMailRead] = useState<Record<string, number>>(() => isQ ? restoredQ.mailRead ?? {} : {});
   const won = team === "斯莱特林";
-  const [sceneOpen, setSceneOpen] = useState(false);
+  const [sceneOpen, setSceneOpen] = useState(Boolean(previewDay));
   const [seenScene, setSeenScene] = useState(() => isQ && restoredQ.readDays.includes(new Date(`${state.date}T12:00:00Z`).getUTCDate()) ? state.messages.scene?.at(-1)?.id ?? "" : "");
   const entries = (state.messages[isQ ? "scene" : "owlpost"] ?? []).filter(item => !item.hidden);
   const date = new Date((state.date || "2026-12-01") + "T12:00:00Z");
@@ -206,7 +206,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       : "你常在公共休息室看见他。偶尔有人问壁炉旁还有没有空位，你们会搭上一两句话。"
     : sameYear ? "你知道他和你同年级。有时两院的课排在一起，你会在教室里见到他。"
       : "你见过他几次。大多是在门厅或楼梯上，擦肩就过去了。";
-  const identityKey = identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
+  const identityKey = previewDay ? `review-q-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
   useWeeklyAllowance(identityKey, day);
   // The authored route stores both channels in owlpost. Keep the original text
   // and mark which opening scenes are delivered by owl.
@@ -308,8 +308,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
   const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== "photo-new-year"), acknowledgedClues,
     Boolean(sceneOpen || matchDialog || matchConversation || dateReply || outing || destination || finalMemoryOpen || finished));
   useEffect(() => {
+    if (previewDay) return;
     saveAlbumNotices(albumStorageKey, { acknowledged: acknowledgedClues, completedDays: completedSceneDays });
-  }, [albumStorageKey, acknowledgedClues, completedSceneDays]);
+  }, [albumStorageKey, acknowledgedClues, completedSceneDays, previewDay]);
   const acknowledgeClue = (id: string) =>
     setAcknowledgedClues(previous => previous.includes(id) ? previous : [...previous, id]);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
@@ -348,7 +349,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
     if (day === sharedRules.quidditchDay) { setMatchStep("result"); setMatchDialog(true); }
   }
   useEffect(() => {
-    if (!isQ) return;
+    if (!isQ || previewDay) return;
     try {
       localStorage.setItem(qStorageKey, JSON.stringify({
         version: 2, choices: qChoiceHistory, readDays: qReadDays, attended,
@@ -358,7 +359,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
       }));
     } catch { setRelationshipNotice("这次进度没能保存在浏览器中，刷新后可能需要重新阅读。"); }
   }, [isQ, qStorageKey, qChoiceHistory, qReadDays, attended, lessonTime, startTime, extraMail, acknowledgedClues,
-    state.variables.q_mail_unlocked, state.variables.q_affection, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation]);
+    state.variables.q_mail_unlocked, state.variables.q_affection, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation, previewDay]);
   function openScene() {
     if (day === sharedRules.quidditchDay) {
       setLessonTime("14:00");
@@ -450,7 +451,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart }
                 openScene();
               }
             }}
-            onEnd={nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
+            onEnd={!previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
           {isQ && day === qDays.at(-1)?.day && qReadDays.includes(day) && <p role="status">已完成第{day}天，后续剧情待续。</p>}
           {isQ && day === 1 && state.variables.q_mail_unlocked === true && <p><button onClick={() => { setActive("owlpost"); setRecipient("q"); }}>查看池昌民的来信</button></p>}
           {owlToday && !nextDay && <button onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}

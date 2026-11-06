@@ -3,7 +3,7 @@ import { compileStory } from "../story-engine/compiler";
 import { choose, dispatch, validateGraph } from "../engine";
 import { initialRuntime, validateWork } from "../schema";
 import hyunjaeStory from "../../stories/hyunjae/story.json";
-import { gateRouteDays, qDays, qLetters, qRouteWork, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, gateRouteDays, qDays, qLetters, qRouteWork, readQProgress } from "./routeWork";
 import { characterLocations } from "./characterLocations";
 
 const work = validateWork(gateRouteDays(qRouteWork(compileStory(hyunjaeStory).work)));
@@ -111,4 +111,18 @@ describe("Q's reviewed additions", () => {
       }
     }
   });
+});
+
+
+it("opens a fresh sixth-day preview without reading or changing a real sixteenth-day save", () => {
+  const getItem = vi.fn(() => JSON.stringify({ version: 2, readDays: [16] }));
+  const setItem = vi.fn();
+  vi.stubGlobal("localStorage", { getItem, setItem });
+  const preview = qDayPreviewProgress(compileStory(hyunjaeStory).work, 6);
+  expect(preview.readDays).toEqual([1, 2, 3, 4, 5]);
+  const state = preview.choices.reduce((previous, target) => choose(work, previous, target), dispatch(work, initialRuntime(work), "start"));
+  expect(state.date).toBe("2026-12-06");
+  expect(state.messages.scene?.at(-1)?.body).toContain("12月6日｜");
+  expect(getItem).not.toHaveBeenCalled();
+  expect(setItem).not.toHaveBeenCalled();
 });

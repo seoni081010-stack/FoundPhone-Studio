@@ -53,10 +53,14 @@ async function prepareAvatar(file: File) {
 }
 
 function StoryPlayer() {
-  const [coverOpened, setCoverOpened] = useState(false);
+  const previewDay = new URLSearchParams(location.search).get("preview") === "q-day6" ? 6 : undefined;
+  const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
-  const [identity, setIdentity] = useState<Identity | null>(savedIdentity);
+  const [identity, setIdentity] = useState<Identity | null>(() => previewDay ? {
+    name: savedIdentity()?.name ?? "你", house: savedIdentity()?.house ?? "ravenclaw",
+    year: savedIdentity()?.year ?? 6, loveInterest: "q", runId: "review-q-day6",
+  } : savedIdentity());
   const [avatar, setAvatar] = useState(identity?.avatar);
   const [avatarBusy, setAvatarBusy] = useState(false);
   const [avatarError, setAvatarError] = useState("");
@@ -95,6 +99,7 @@ function StoryPlayer() {
   const chosen = houses.find(h => h.id === identity?.house);
   const selectedLead = loveInterests.find(m => m.id === loveInterest);
   const restart = () => {
+    if (previewDay) { location.href = "./"; return; }
     if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
     localStorage.removeItem(storageKey);
     setCoverOpened(false);
@@ -189,11 +194,12 @@ function StoryPlayer() {
           </section>
         ) : (
           <>
-            {!isTest && chosen && identity && <details className="hogwarts-reset hogwarts-player-menu">
+            {previewDay && <p role="status">池昌民 · 第六天单独预览 · 不影响正式进度 · <a href="./">返回正式游戏</a></p>}
+            {!previewDay && !isTest && chosen && identity && <details className="hogwarts-reset hogwarts-player-menu">
               <summary>{chosen.name} {identity.year}年级 {identity.name}</summary>
               <button type="button" onClick={restart}>重新开始</button>
             </details>}
-            <HogwartsDevice key={identity?.runId} work={work} identity={identity} contacts={loveInterests} onRestart={restart} />
+            <HogwartsDevice previewDay={previewDay} key={identity?.runId} work={work} identity={identity} contacts={loveInterests} onRestart={restart} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}
