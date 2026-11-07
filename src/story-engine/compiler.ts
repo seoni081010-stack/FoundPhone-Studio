@@ -41,15 +41,7 @@ export const storySchema = z
       .strict(),
     installedApps: z
       .array(z.union([z.string(), workSchema.shape.apps.element]))
-      .default([
-        "appstore",
-        "phone",
-        "messages",
-        "photos",
-        "notes",
-        "safari",
-        "settings",
-      ]),
+      .default(["owlpost", "schoolbook", "wizardjournal", "magicphotos", "maraudersmap", "heartarchive"]),
     contacts: z
       .array(
         z.object({
@@ -65,7 +57,7 @@ export const storySchema = z
       .array(
         z.object({
           id,
-          app: z.string().default("messages"),
+          app: z.string().default("owlpost"),
           title: z.string(),
           participants: z.array(z.string()),
           messages: z.array(
@@ -267,16 +259,16 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     id: s.id,
     title: s.title,
     description: s.description,
-    category: "互动手机故事",
+    category: "霍格沃茨互动故事",
     cover: "",
     updatedAt: s.revision,
     phone: {
       passcode: "",
-      wallpaper: "sage",
+      wallpaper: "parchment",
       theme: "light",
       time: "21:41",
       battery: 86,
-      network: "5G",
+      network: "霍格沃茨",
       notifications: true,
       ...s.phone,
     },
@@ -299,7 +291,7 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
           name: r.name,
           installed: installed.has(r.id),
           visible: installed.has(r.id),
-          dock: ["phone", "messages", "safari"].includes(r.id),
+          dock: false,
           folder: "",
           icon: "",
           ...(typeof custom === "object" ? custom : {}),

@@ -1,0 +1,979 @@
+{
+  "version": 1,
+  "kind": "game-original",
+  "days": [
+    "周一",
+    "周二",
+    "周三",
+    "周四",
+    "周五"
+  ],
+  "slots": [
+    "09:00",
+    "11:00",
+    "14:00"
+  ],
+  "houseNames": [
+    "Gryffindor",
+    "Slytherin",
+    "Ravenclaw",
+    "Hufflepuff"
+  ],
+  "years": [
+    5,
+    6,
+    7
+  ],
+  "timetables": {
+    "5": {
+      "Gryffindor": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "占卜学"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 2,
+          "time": "20:00",
+          "subject": "天文学"
+        }
+      ],
+      "Slytherin": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 2,
+          "time": "20:00",
+          "subject": "天文学"
+        }
+      ],
+      "Ravenclaw": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "20:00",
+          "subject": "天文学"
+        }
+      ],
+      "Hufflepuff": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "草药学"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "魔法史"
+        },
+        {
+          "day": 2,
+          "time": "20:00",
+          "subject": "天文学"
+        }
+      ]
+    },
+    "6": {
+      "Gryffindor": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "占卜学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "占卜学"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "导师答疑"
+        }
+      ],
+      "Slytherin": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "导师答疑"
+        }
+      ],
+      "Ravenclaw": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "导师答疑"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "古代如尼文"
+        }
+      ],
+      "Hufflepuff": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "导师答疑"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        }
+      ]
+    },
+    "7": {
+      "Gryffindor": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "占卜学"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "毕业研究"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "N.E.W.T.复习"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "占卜学"
+        }
+      ],
+      "Slytherin": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "毕业研究"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "N.E.W.T.复习"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "保护神奇生物"
+        }
+      ],
+      "Ravenclaw": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "算术占卜"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "古代如尼文"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "毕业研究"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "N.E.W.T.复习"
+        }
+      ],
+      "Hufflepuff": [
+        {
+          "day": 0,
+          "time": "09:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 0,
+          "time": "11:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 0,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 1,
+          "time": "09:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 1,
+          "time": "11:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 1,
+          "time": "14:00",
+          "subject": "自习与作业"
+        },
+        {
+          "day": 2,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 2,
+          "time": "11:00",
+          "subject": "魔药学"
+        },
+        {
+          "day": 2,
+          "time": "14:00",
+          "subject": "变形术"
+        },
+        {
+          "day": 3,
+          "time": "09:00",
+          "subject": "黑魔法防御术"
+        },
+        {
+          "day": 3,
+          "time": "11:00",
+          "subject": "魔咒学"
+        },
+        {
+          "day": 3,
+          "time": "14:00",
+          "subject": "麻瓜研究"
+        },
+        {
+          "day": 4,
+          "time": "09:00",
+          "subject": "保护神奇生物"
+        },
+        {
+          "day": 4,
+          "time": "11:00",
+          "subject": "毕业研究"
+        },
+        {
+          "day": 4,
+          "time": "14:00",
+          "subject": "N.E.W.T.复习"
+        }
+      ]
+    }
+  }
+}

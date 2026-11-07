@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "scope": "single December",
+  "gameStart": "12-01",
+  "gameEnd": "12-31",
+  "totalDays": 31,
+  "calendarYear": "configurable; weekdays computed from selected year",
+  "term": {
+    "lastTeachingDay": "12-21",
+    "holidayStarts": "12-22",
+    "holidayEnds": "12-31",
+    "classRules": "Monday-Friday only before holiday, load fixed timetable by player year and house; weekends no regular classes"
+  },
+  "holiday": {
+    "playerChoice": [
+      "stay_at_hogwarts",
+      "go_home_after_ball",
+      "go_home_and_return_for_ball"
+    ],
+    "leadChoice": "Each lead independently chooses to go home or stay for Dec 25-31; all attend Dec 24 feast and ball",
+    "locations": "dates and encounters must respect physical locations; remote owl correspondence available",
+    "travel": "home dates possible when both are geographically compatible; no teleportation",
+    "christmasEve": "12-24",
+    "christmasDay": "12-25",
+    "ending": "12-31",
+    "allLeadsAndPlayerAttendDec24Ball": true,
+    "holidayDeparture": "Home departures may be after Dec 24 ball; player can return for event if already home"
+  },
+  "sharedSystems": [
+    "identical shop inventory and prices for every player",
+    "wallet and gifts",
+    "quidditch fixtures and library encounter rules tied to date/time"
+  ],
+  "storyDesign": {
+    "hyunjae": {
+      "pace": "slow burn",
+      "traits": [
+        "gentle",
+        "reliable",
+        "observant",
+        "playfully teasing",
+        "somewhat guarded"
+      ],
+      "prefectDuties": [
+        "Tuesday 17:00 meeting",
+        "Thursday 17:00 rounds"
+      ],
+      "library": "one plausible encounter; books are not a dominant motif",
+      "focus": [
+        "prefect responsibilities",
+        "casual daily meetings",
+        "holiday plans",
+        "emotional vulnerability"
+      ],
+      "remove": [
+        "book-centered mystery as main plot",
+        "excessive runes and reading scenes"
+      ],
+      "resolution": "by December 31",
+      "invitationStyle": "gentle and tentative, asks about December 24 plans and whether player already has a partner before directly inviting",
+      "invitationDialogue": [
+        "24号晚上，你已经有安排了吗？",
+        "那我是不是还有机会？",
+        "其实我想问，你愿不愿意和我一起去舞会？"
+      ],
+      "responseToAcceptance": "quietly visibly happy, warm and restrained",
+      "responseToRejection": "respectful but disappointed; affection decreases according to his personality modifier",
+      "thirdWeekStatus": "user-approved gentle tentative invitation",
+      "house": "Gryffindor",
+      "year": 7,
+      "sameYearSameHouseOpening": "Already classmates before December; no first introductions, protagonist starts deliberately approaching him in December"
+    }
+  },
+  "status": "framework data only; runtime calendar and holiday branching not yet connected",
+  "encounterRules": {
+    "status": "design only, not yet wired to runtime",
+    "sameYearSameHouse": {
+      "sameClass": true,
+      "sameTimetable": true,
+      "encounterFrequency": "highest",
+      "venues": [
+        "shared lessons",
+        "class transitions",
+        "group assignments",
+        "house common room",
+        "Great Hall"
+      ],
+      "dialogue": "same-year peers, no automatic senior/junior address",
+      "priorAcquaintance": true,
+      "romanceArc": "Player and lead already know each other as classmates; in December the player begins deliberately seeking closeness and romance slowly grows"
+    },
+    "sameYearDifferentHouse": {
+      "encounterFrequency": "medium",
+      "sharedLessons": "only if explicitly scheduled joint class",
+      "venues": [
+        "Great Hall",
+        "library",
+        "corridors",
+        "activities"
+      ]
+    },
+    "differentYearSameHouse": {
+      "encounterFrequency": "medium",
+      "sharedLessons": false,
+      "venues": [
+        "house common room",
+        "house events",
+        "Great Hall",
+        "prefect duties"
+      ]
+    },
+    "differentYearDifferentHouse": {
+      "encounterFrequency": "lower",
+      "sharedLessons": false,
+      "venues": [
+        "Great Hall",
+        "library",
+        "corridors",
+        "Hogsmeade",
+        "Quidditch"
+      ]
+    },
+    "principles": [
+      "Player year and house affect encounters with every lead, not only selected romance target",
+      "Same year and house guarantees shared lessons in this game's fixed timetable model",
+      "Respect class and duty schedules; no encounters during conflicting lessons",
+      "Small ambient encounters may occur without affection change",
+      "As affection rises, shared-class behaviors can evolve from greetings to saved seats and walking together",
+      "Do not force repeated romance events every class"
+    ]
+  },
+  "romanceRouteRules": {
+    "status": "approved design rules, implementation pending",
+    "selectMainLeadAtStart": true,
+    "mainLeadInteractions": "more frequent; romance affection 0-100",
+    "noDatingBeforeDecember31": true,
+    "endingDate": "December 31",
+    "mainLeadEnding": {
+      "affection100": "mutual confession and couple ending, no rejection option",
+      "affectionBelow100": "ambiguous romantic ending",
+      "friendEnding": false
+    },
+    "endingScreen": {
+      "hero": "large selected male lead portrait, name, poetic personalized ending title and short prose; avoid literal '恋人结局'/'暧昧结局' as displayed heading",
+      "supporting": "six smaller portraits each with friendship percentage only",
+      "values": "actual player values, not example placeholders"
+    },
+    "hyunjaeEndingTitles": {
+      "couple": "雪落之前，先拥抱你",
+      "ambiguous": "下一场雪，还想与你相见"
+    },
+    "otherSixLeads": "friendship 0-100 only; may encounter and interact; no romance endings regardless of friendship"
+  },
+  "maraudersMapApp": {
+    "status": "approved design specification; runtime app and animations not yet implemented",
+    "placement": "existing in-game phone home screen as standalone app",
+    "name": "活点地图",
+    "englishName": "Marauder's Map",
+    "visualStyle": "Original-book-inspired aged parchment, intricate ink corridors, handwritten names and animated tiny footprints; no modern location pins or avatar markers",
+    "opening": [
+      "Tap app icon to show blank parchment",
+      "Display 我庄严宣誓我不干好事 / I solemnly swear that I am up to no good",
+      "One tap anywhere on parchment substitutes for speaking the phrase; ink reveals castle map"
+    ],
+    "closing": [
+      "Display 恶作剧完毕 / Mischief managed",
+      "One tap dismisses ink and returns to phone home screen"
+    ],
+    "interaction": "No microphone, voice recognition, typing or spoken incantation required",
+    "locationTracking": {
+      "scope": "all seven leads, regardless of selected romance route",
+      "clock": "in-game time; live visual updates while map remains open",
+      "sourceOfTruth": "shared character timetable, weekly duties, event overrides, free-time movements and player travel time",
+      "markers": "handwritten names and moving footprints",
+      "dormitories": "show name stationary in relevant house dormitory area only; never show exact bed or private interior details",
+      "transitions": "animate footsteps along plausible corridors/stairs and grounds, no instant teleportation",
+      "consistency": "map position must match actual encounter and story scene at the same game time",
+      "privacy": "do not show exact bed, shower, or intimate/private activity details"
+    },
+    "hiddenEvents": "Map shows character locations but never event labels, affection opportunities, or trigger hints; player must reach correct place during event window",
+    "implementationNote": "Design JSON only; app icon, map screen, animations and clock integration require future frontend/runtime work"
+  },
+  "firstSnowEvent": {
+    "date": "2026-12-06",
+    "weekday": "Sunday",
+    "weather": "First snowfall across Hogwarts regardless of route",
+    "trigger": "Optional hidden encounter: player reaches the selected lead's correct location within its event window; Marauder's Map shows location but never event hint",
+    "flag": "firstSnowEncounterByLead",
+    "endingCallback": {
+      "date": "2026-12-31",
+      "conditional": true,
+      "requires": "firstSnowEncounterByLead[selectedMainLead] == true",
+      "relationshipRule": "Only romance score 100 yields couple ending; below 100 remains ambiguous",
+      "missedEvent": "No penalty, no blocked 100% romance; alternate ending dialogue without false shared memories",
+      "hyunjae": {
+        "motif": "Scarf lent during Dec 6 snowfall and his reminder to dress warmly",
+        "example": [
+          "12月6日：下次下雪，记得穿暖和一点。",
+          "12月31日：这次倒是记得穿暖和了。",
+          "那以后也让我继续念叨吧。"
+        ],
+        "note": "Illustrative draft; exact wording subject to story approval"
+      }
+    },
+    "status": "design only; first snow and callback scenes not yet implemented"
+  }
+}

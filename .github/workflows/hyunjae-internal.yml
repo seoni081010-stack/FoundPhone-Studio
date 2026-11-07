@@ -1,0 +1,28 @@
+name: Internal Hyunjae story checks
+on:
+  push:
+    branches: [feature/instagram-video-call-spotify-playlist]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      STORY_FILE: stories/hyunjae/story.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run story:validate
+      - run: npm run story:test
+      - run: npm run build
+      - name: Save private build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyunjae-internal-preview
+          path: dist/
+          retention-days: 7

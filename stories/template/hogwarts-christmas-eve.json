@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "eventId": "christmas_eve_feast_ball",
+  "date": "12-24",
+  "invitationOpens": "12-17",
+  "invitationDeadline": "12-23",
+  "setting": "Hogwarts AU special Christmas Eve feast and winter ball; not a claim that annual Yule Ball is canonical",
+  "attendance": {
+    "holidayStarts": "12-22",
+    "stayAtSchool": "eligible",
+    "wentHome": "can choose authorized return trip before event",
+    "leadAttendance": "all seven leads attend the December 24 feast and ball regardless of later holiday plans; departure home can occur after the event.",
+    "noTeleportation": true,
+    "playerGuaranteedAttendance": true,
+    "holidayTravel": "Students who choose home may stay until the ball or return for it; no absence caused by holiday destination.",
+    "allSevenLeadsAttend": true
+  },
+  "invitations": {
+    "initiators": [
+      "player",
+      "lead"
+    ],
+    "playerMayAcceptOrDecline": true,
+    "leadMayAcceptOrDecline": false,
+    "leadDecisionInputs": [
+      "relationship",
+      "availability",
+      "existingPartner",
+      "personalPreferences"
+    ],
+    "noForcedPartner": true,
+    "oneConfirmedPartnerAtATime": true,
+    "declineDoesNotEndRoute": true,
+    "inviteBeforeEvent": true,
+    "availability": "All leads physically present; acceptance may still depend on relationship and existing partner",
+    "playerInvitesLead": "always_accept_if_affection_at_least_40",
+    "leadInvitesPlayer": "only_if_affection_at_least_60_and_story_conditions; player_can_accept_or_decline",
+    "acceptanceIndependentOfAffection": false,
+    "playerDeclineHasNoRelationshipPenalty": false,
+    "playerCanReinviteBeforeBall": true,
+    "leadOtherRomanticPartners": false,
+    "leadOtherDancePartners": false,
+    "existingPartnerRestriction": "only the player's own confirmed dance partner; no competing NPC partners",
+    "noRomanticRivals": true
+  },
+  "schedule": [
+    {
+      "time": "17:30",
+      "event": "dress preparation"
+    },
+    {
+      "time": "18:30",
+      "event": "Great Hall arrivals"
+    },
+    {
+      "time": "19:00",
+      "event": "Christmas feast"
+    },
+    {
+      "time": "20:30",
+      "event": "winter ball"
+    },
+    {
+      "time": "22:00",
+      "event": "post-ball optional encounters"
+    },
+    {
+      "time": "23:00",
+      "event": "end and owl messages"
+    }
+  ],
+  "food": {
+    "source": "hogwarts-food.json",
+    "existingMains": [
+      "烤火鸡",
+      "烤牛肉",
+      "烤鸡",
+      "约克郡布丁"
+    ],
+    "existingSides": [
+      "烤土豆",
+      "胡萝卜",
+      "抱子甘蓝",
+      "烤南瓜"
+    ],
+    "existingHoliday": [
+      "小香肠（chipolatas）",
+      "蔓越莓酱",
+      "圣诞蛋糕",
+      "圣诞布丁",
+      "碎肉馅饼"
+    ],
+    "existingDesserts": [
+      "巧克力蛋糕",
+      "分层甜点（trifle）",
+      "各色冰淇淋"
+    ],
+    "drinks": [
+      "南瓜汁",
+      "热巧克力",
+      "黄油啤酒",
+      "茶"
+    ],
+    "schoolPaid": true,
+    "optionalExtraLuxuries": [
+      "蜜汁火腿",
+      "姜饼",
+      "冬季水果潘趣"
+    ],
+    "noAlcoholForUnderage": true
+  },
+  "interactions": [
+    "dress and accessories optional",
+    "partner or solo entry",
+    "food conversations",
+    "dance invitation and refusal",
+    "dance or watch",
+    "exchange gifts",
+    "snowy courtyard conversation",
+    "follow-up owl letters"
+  ],
+  "notes": [
+    "No forced shopping or daily food clicks",
+    "Invitation dialogue varies by lead personality and player relationship",
+    "Event logic must be wired to game clock and holiday locations",
+    "Dream-romance rule: all player invitations to a lead are accepted; lead invitations may be declined by player without penalty; no romantic rivals or other lead dance partners.",
+    "Affection thresholds and deltas are provisional balance values; user can tune them during character-by-character story review."
+  ],
+  "status": "design specification only; not yet playable",
+  "affection": {
+    "scale": {
+      "min": 0,
+      "max": 100
+    },
+    "proposedBalancing": true,
+    "playerInviteUnlockAt": 40,
+    "leadInitiatedInviteAt": 60,
+    "acceptLeadInvitationDelta": 5,
+    "declineLeadInvitationDelta": -8,
+    "belowThreshold": "player invitation unavailable",
+    "playerInviteAtThreshold": "lead always accepts",
+    "leadInvitation": "only if threshold and story conditions met",
+    "reinvite": "allowed if player currently meets invitation threshold and before ball",
+    "display": "optional hidden numeric value with relationship stages in heart profile"
+  },
+  "emotionalSystem": {
+    "status": "design only, not implemented",
+    "perLead": {
+      "affection": {
+        "min": 0,
+        "max": 100
+      },
+      "jealousy": {
+        "min": 0,
+        "max": 100
+      },
+      "emotionState": [
+        "neutral",
+        "happy",
+        "shy",
+        "excited",
+        "disappointed",
+        "jealous",
+        "comforted"
+      ]
+    },
+    "rules": [
+      "All meaningful interactions may change emotional state and affection/jealousy based on lead personality and context",
+      "Only leads who witness or plausibly learn of another invitation can become jealous",
+      "Jealousy response requires existing interest; never universal omniscience",
+      "Jealousy fades with time and reassuring interactions",
+      "Jealousy is not negative affection and must not cause coercive behavior",
+      "Player invitation still always accepted after affection threshold",
+      "Player rejection decreases affection with personality-specific small modifiers"
+    ],
+    "proposedBaseDeltas": {
+      "playerInvitesLead": {
+        "targetAffection": 5,
+        "observingInterestedLeadsJealousy": 8
+      },
+      "playerAcceptsLeadInvite": {
+        "targetAffection": 5
+      },
+      "playerRejectsLeadInvite": {
+        "targetAffection": -8
+      },
+      "danceWithPartner": {
+        "partnerAffection": 4
+      },
+      "comfortJealousLead": {
+        "targetAffection": 2,
+        "targetJealousy": -5
+      }
+    },
+    "personalityModifiers": "provisional +/-1 to 3 points; tune per character during story review"
+  },
+  "ballMovement": {
+    "status": "design only",
+    "priority": "confirmed dance partner stays together unless player explicitly agrees to split or transition",
+    "unpartnered": "each lead has independent plausible activities and movements",
+    "paired": "joint activities, request consent for breaks and excursions; no abandonment",
+    "freeTracks": {
+      "jacob": [
+        "help classmates",
+        "chat at food tables"
+      ],
+      "younghoon": [
+        "dessert table",
+        "watch dancing"
+      ],
+      "hyunjae": [
+        "prefect chat",
+        "courtyard break"
+      ],
+      "juyeon": [
+        "quidditch teammates",
+        "watch dance floor"
+      ],
+      "q": [
+        "friends",
+        "minor prefect duties"
+      ],
+      "sunwoo": [
+        "food table",
+        "teammates"
+      ],
+      "eric": [
+        "dance floor",
+        "lively conversations"
+      ]
+    },
+    "pairedTracks": {
+      "jacob": "offer dessert and gentle dancing",
+      "younghoon": "shy attentive dinner and dance",
+      "hyunjae": "attentive slow-burn dance and shared break",
+      "juyeon": "earnest slightly nervous dance",
+      "q": "teasing but attentive dance",
+      "sunwoo": "casual words, attentive actions",
+      "eric": "energetic dancing, invites player to rest together"
+    },
+    "noRomanticNPCInteraction": true,
+    "knowledgeBoundaries": true,
+    "allSevenAttend": true
+  }
+}

@@ -3,47 +3,48 @@ import { registry } from "./registry";
 import { catalogSkins } from "./skins/catalog";
 import { makeItem, validateWork } from "./schema";
 import { createWork } from "./demo";
-import { getFields } from "./fields";
-describe("independent app coverage and authored attributes", () => {
-  it("routes all 47 built-in app identities through dedicated screens", () => {
-    const previous = [
-      "wechat",
-      "whatsapp",
-      "instagram",
-      "calculator",
-      "settings", "appstore",
-    ];
-    expect(Object.keys(catalogSkins)).toHaveLength(44);
-    for (const app of registry)
-      expect(previous.includes(app.id) || app.id in catalogSkins).toBe(true);
+
+describe("Hogwarts module coverage and authored attributes", () => {
+  it("routes every registered magical module through a dedicated screen", () => {
+    expect(Object.keys(catalogSkins)).toHaveLength(6);
+    for (const app of registry) expect(app.id in catalogSkins).toBe(true);
   });
-  it("defaults new metadata safely when reading legacy item records", () => {
+
+  it("defaults item metadata safely when reading older magical records", () => {
     const w = JSON.parse(JSON.stringify(createWork()));
     for (const items of Object.values(w.data) as Record<string, unknown>[][])
-      for (const i of items) { delete i.meta; delete i.avatar; }
-    expect(validateWork(w).data.notes[0].meta).toEqual({});
-    expect(validateWork(w).data.wechat[0].avatar).toBe("");
+      for (const i of items) {
+        delete i.meta;
+        delete i.avatar;
+      }
+    const copy = validateWork(w);
+    expect(copy.data.wizardjournal[0].meta).toEqual({});
+    expect(copy.data.owlpost[0].avatar).toBe("");
   });
-  it("roundtrips authored amounts, status, server and position data", () => {
+
+  it("roundtrips magical record metadata", () => {
     const w = createWork();
-    w.data.alipay = [
+    w.data.schoolbook = [
       makeItem({
-        title: "书店收款",
-        meta: { amount: "-38.00", status: "交易成功", merchant: "城南旧书店" },
+        title: "魔药课",
+        meta: { classroom: "地下教室", status: "待完成" },
       }),
     ];
-    w.data.discord = [
-      makeItem({ meta: { server: "夜班", status: "离线" }, folder: "线索" }),
+    w.data.maraudersmap = [
+      makeItem({
+        title: "庭院",
+        meta: { location: "钟楼庭院", marker: "已标记" },
+      }),
     ];
     const copy = validateWork(JSON.parse(JSON.stringify(w)));
-    expect(copy.data.alipay[0].meta.amount).toBe("-38.00");
-    expect(copy.data.discord[0].meta.server).toBe("夜班");
-    expect(getFields("alipay").some((f) => f.key === "amount")).toBe(true);
+    expect(copy.data.schoolbook[0].meta.classroom).toBe("地下教室");
+    expect(copy.data.maraudersmap[0].meta.location).toBe("钟楼庭院");
   });
+
   it("rejects non-string or oversized authored attribute values", () => {
     expect(() =>
-      makeItem({ meta: { amount: 42 } as unknown as Record<string, string> }),
+      makeItem({ meta: { score: 42 } as unknown as Record<string, string> }),
     ).toThrow();
-    expect(() => makeItem({ meta: { url: "x".repeat(2001) } })).toThrow();
+    expect(() => makeItem({ meta: { note: "x".repeat(2001) } })).toThrow();
   });
 });

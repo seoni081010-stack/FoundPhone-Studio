@@ -1,6 +1,8 @@
 name: Validate and deploy Pages
 on:
   push:
+    branches: [main, feature/instagram-video-call-spotify-playlist]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 permissions:
@@ -8,7 +10,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: pages
+  group: pages-${{ github.event_name == 'pull_request' && 'validation' || 'deployment' }}
   cancel-in-progress: false
 jobs:
   build:
@@ -26,11 +28,16 @@ jobs:
       - run: npm run story:validate
       - run: npm run story:test
       - run: npm run build
+        env:
+          STORY_FILE: stories/hyunjae/story.json
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

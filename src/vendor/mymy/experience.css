@@ -1,0 +1,55 @@
+.ig-call {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #fff;
+  background: #101014;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+}
+.ig-call.incoming {
+  align-items: center;
+  justify-content: space-between;
+  padding: 64px 28px 54px;
+  background: radial-gradient(ellipse at 50% 35%, #4b3154 0%, #201b2c 46%, #09090d 100%);
+}
+.ig-call-top { display:flex; flex-direction:column; align-items:center; gap:8px; color:#ffffffb8; font-size:13px; }
+.ig-caller { display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; }
+.ig-caller .catalog-avatar { width:112px; height:112px; border:3px solid #ffffff55; font-size:42px; }
+.ig-caller h1 { font-size:25px; font-weight:650; }
+.ig-caller p { color:#ffffffb8; font-size:14px; }
+.ig-ringing { margin-top:10px; color:#ffffffa8; font-size:13px; animation:ig-call-breathe 1.8s ease-in-out infinite; }
+@keyframes ig-call-breathe { 50% { opacity:.45; transform:scale(.98); } }
+.ig-call-actions { width:100%; display:flex; justify-content:space-around; align-items:center; }
+.ig-call-actions button { display:flex; flex-direction:column; align-items:center; gap:10px; color:white; }
+.ig-call-actions button svg { width:62px; height:62px; padding:19px; border-radius:50%; }
+.ig-call-actions small { font-size:12px; }
+.ig-call-actions .ig-decline svg { background:#f04450; transform:rotate(135deg); }
+.ig-call-actions .ig-accept svg { background:#26bd68; }
+.ig-call-close { position:absolute; right:16px; top:42px; color:#fff; }
+.ig-call-video { position:absolute; inset:0; background:#19151e; }
+.ig-call-video video { width:100%; height:100%; object-fit:cover; }
+.ig-video-placeholder { width:100%; height:100%; display:grid; place-items:center; background:radial-gradient(circle,#69546e,#16131d 70%); }
+.ig-video-placeholder .catalog-avatar { width:140px; height:140px; font-size:52px; }
+.ig-call-header { z-index:2; display:flex; flex-direction:column; align-items:center; gap:5px; padding:20px 16px 12px; background:linear-gradient(#0008,transparent); text-shadow:0 1px 5px #000; }
+.ig-call-header strong { font-size:16px; }
+.ig-call-header span { font-size:12px; color:#ffffffc9; font-variant-numeric:tabular-nums; }
+.ig-call-pip { position:absolute; z-index:3; top:84px; right:14px; width:112px; height:160px; overflow:hidden; border:1px solid #ffffffaa; border-radius:14px; background:#25202b; box-shadow:0 5px 20px #0006; touch-action:none; }
+.ig-call-pip video { width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.ig-call-chat { position:relative; z-index:2; display:flex; flex-direction:column; gap:7px; align-items:flex-start; margin-top:auto; padding:12px 14px 8px; max-height:42%; overflow:auto; pointer-events:none; }
+.ig-call-bubble { display:flex; flex-direction:column; gap:3px; max-width:82%; padding:8px 11px; border-radius:13px 13px 13px 3px; color:#fff; background:#17171dcc; backdrop-filter:blur(12px); animation:ig-call-fade-in .2s ease-out; font-size:13px; }
+.ig-call-bubble b { font-size:10px; color:#ffffffa8; }
+.ig-call-bubble.mine { align-self:flex-end; border-radius:13px 13px 3px 13px; background:#a83fd0dc; }
+@keyframes ig-call-fade-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.ig-call-compose { z-index:3; display:flex; gap:8px; padding:8px 12px; background:linear-gradient(transparent,#0008); }
+.ig-call-compose input { min-width:0; border:1px solid #ffffff30; border-radius:22px; background:#16151bbd; color:#fff; padding:10px 14px; }
+.ig-call-compose input::placeholder { color:#ffffff9c; }
+.ig-call-compose button { flex:none; color:#e7a9ff; font-weight:650; }
+.ig-call-controls { z-index:3; display:flex; align-items:center; justify-content:space-around; gap:8px; padding:12px 10px max(24px, env(safe-area-inset-bottom)); background:linear-gradient(#0008,#111a); }
+.ig-call-controls button { min-width:54px; display:flex; flex-direction:column; align-items:center; gap:7px; color:#fff; }
+.ig-call-controls button svg { width:22px; height:22px; }
+.ig-call-controls small { font-size:10px; color:#ffffffc9; }
+.ig-call-controls .ig-hangup svg { width:48px; height:48px; padding:13px; border-radius:50%; background:#e94854; }
+.ig-call-video-label { position:absolute; z-index:2; top:58px; left:12px; display:flex; align-items:center; gap:5px; color:#ffffffa8; font-size:10px; }
