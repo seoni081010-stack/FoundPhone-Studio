@@ -73,7 +73,7 @@ const freeTimeScenes = [
 // Entries are the places named in the route, not an inferred daily timetable.
 const hyunjaeEncounterPlaces: Partial<Record<number, string>> = {
   1: "魔法史", 3: "城堡楼梯", 4: "图书馆", 6: "庭院与拱门", 7: "长廊", 8: "大礼堂",
-  9: "长廊", 11: "大礼堂", 16: "城堡楼梯", 18: "门厅",
+  9: "长廊", 10: "长廊", 11: "大礼堂", 16: "城堡楼梯", 18: "门厅",
   22: "大礼堂", 24: "大礼堂", 25: "大礼堂", 26: "城堡楼梯",
   27: "大礼堂", 28: "庭院与拱门", 31: "长廊",
 };
@@ -232,7 +232,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const owlDays = sharedRules.owlPostDays;
   const delivery = state.variables.story_delivery;
   const hyunjaeSnowDay = selectedLeadId === "hyunjae" && day === sharedRules.firstSnowDay;
-  const owlToday = isQ ? delivery === "mail" : hyunjaeSnowDay ? delivery !== "scene" : owlDays.includes(day);
+  const hyunjaeEveningMail = selectedLeadId === "hyunjae" && (day === 8 || day === 11);
+  const owlToday = isQ || hyunjaeEveningMail ? delivery === "mail" : hyunjaeSnowDay ? delivery !== "scene" : owlDays.includes(day);
+  const awaitingEveningMail = hyunjaeEveningMail && owlToday && !completedSceneDays.includes(day);
   const qToday = qDays.find(entry => entry.day === day);
   const sceneTime = isQ ? String(state.variables.scene_time ?? "17:00") : undefined;
   const qMailStage = qToday?.stages.find(stage => stage.channel === "mail");
@@ -279,7 +281,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const count = currentThread.filter(entry => !entry.outgoing && !entry.narration).length;
     setMailRead(previous => previous[recipient] === count ? previous : { ...previous, [recipient]: count });
   }, [active, recipient, currentThread.length]);
-  const scenes = conversation.filter(entry => entry.day === day && (isQ || !entry.body.startsWith("来信｜")) && (!owlToday || ((isQ || (!hyunjaeSnowDay && !isHyunjaeLetterDay(day))) && !isNote(entry.body))))
+  const scenes = conversation.filter(entry => entry.day === day && (isQ || !entry.body.startsWith("来信｜")) && (!owlToday || hyunjaeEveningMail || ((isQ || (!hyunjaeSnowDay && !isHyunjaeLetterDay(day))) && !isNote(entry.body))))
     .map((entry, index) => selectedLeadId === "hyunjae" && day === 18 && index === 0 ? { ...entry, body: state.variables.hyunjae_day17_choice === "a"
       ? "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。那今年城堡应该不会太无聊了。\n你：哦？我还有这本事？\n李贤在：因为你也在啊。"
       : "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？\n你：还没。怎么，你要排队啊？\n李贤在：那要不要一起？\n你：好啊，那你排第一个。\n李贤在：那天我在大礼堂门口等你。"
@@ -355,7 +357,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     if (hyunjaeSnowDay && delivery === "travel" && next.variables.story_delivery === "scene") {
       setActive("calendar");
       setSceneOpen(true);
-    } else if (!isQ && !hyunjaeSnowDay && !isHyunjaeLetterDay(day) && owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice((state.messages.owlpost ?? []).length).some(entry => !isNote(entry.body))) {
+    } else if (!isQ && !hyunjaeSnowDay && !hyunjaeEveningMail && !isHyunjaeLetterDay(day) && owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice((state.messages.owlpost ?? []).length).some(entry => !isNote(entry.body))) {
       setSceneOpen(true);
     }
   };
@@ -442,7 +444,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {(index === 0 || currentThread[index - 1].day !== message.day) && <small>12月{message.day}日</small>}
             {message.narration ? <p className="hogwarts-narration">{message.body}</p> : note(message.outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === recipient)?.name ?? "", message.body, message.outgoing)}
           </div>)}
-          {recipient === selectedLeadId && owlToday && mailArrived && <>{choices}{!sceneOpen && relationshipHint}</>}
+          {recipient === selectedLeadId && owlToday && mailArrived && !awaitingEveningMail && <>{choices}{!sceneOpen && relationshipHint}</>}
           {!finished && <form onSubmit={event => {
             event.preventDefault();
             if (!draft.trim()) return;
@@ -473,7 +475,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             }}
             onEnd={!previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
           {isQ && day === 1 && state.variables.q_mail_unlocked === true && <p><button onClick={() => { setActive("owlpost"); setRecipient("q"); }}>查看池昌民的来信</button></p>}
-          {owlToday && !nextDay && <button disabled={finished} onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}
+          {owlToday && !awaitingEveningMail && !nextDay && <button disabled={finished} onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}
           {isHoliday(day) && <section aria-label="假期自由活动">
             <h3>自由活动</h3>
             {freeTimeScenes.map(scene => <button className="hogwarts-activity" type="button" key={scene.place} disabled={finished}
@@ -685,7 +687,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           const line = part.match(/^([^：:]{1,30})[：:](.+)$/);
           const speaker = line?.[1];
           const player = speaker === "你" || speaker === "我" || speaker === identity?.name;
-          if (line && (player || contacts.some(contact => contact.name === speaker) || (isQ && qSceneSpeakers.has(speaker ?? "")))) return note(player ? identity?.name ?? "我" : line[1], line[2], player, index);
+          if (line && (player || contacts.some(contact => contact.name === speaker) || (isQ && qSceneSpeakers.has(speaker ?? "")) || (selectedLeadId === "hyunjae" && day === 10 && speaker === "骑士"))) return note(player ? identity?.name ?? "我" : line[1], line[2], player, index);
           return part && <p key={index} className="hogwarts-narration">{highlightMistletoe(part)}</p>;
         })}</div>)}
         {!owlToday && choices}
