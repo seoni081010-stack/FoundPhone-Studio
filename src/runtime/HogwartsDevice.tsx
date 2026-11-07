@@ -75,7 +75,7 @@ const hyunjaeEncounterPlaces: Partial<Record<number, string>> = {
   1: "魔法史", 3: "城堡楼梯", 4: "图书馆", 6: "庭院与拱门", 7: "长廊", 8: "大礼堂",
   9: "长廊", 10: "长廊", 11: "大礼堂", 14: "长廊", 16: "城堡楼梯", 17: "大礼堂", 18: "门厅",
   21: "门厅", 22: "大礼堂", 23: "大礼堂", 24: "大礼堂", 25: "大礼堂", 26: "城堡楼梯",
-  27: "大礼堂", 28: "庭院与拱门", 31: "长廊",
+  27: "大礼堂", 28: "庭院与拱门", 29: "门厅", 31: "长廊",
 };
 
 type Props = { previewDay?: number; onRestart: () => void; work: Work; contacts: readonly { id: string; name: string; house: string; year: number }[]; identity?: { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string } | null };
@@ -232,7 +232,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const owlDays = sharedRules.owlPostDays;
   const delivery = state.variables.story_delivery;
   const hyunjaeMailEncounter = selectedLeadId === "hyunjae" && (day === sharedRules.firstSnowDay || day === 17);
-  const hyunjaeImmediateMail = hyunjaeMailEncounter || (selectedLeadId === "hyunjae" && [13, 15, 19, 20].includes(day));
+  const hyunjaeImmediateMail = hyunjaeMailEncounter || (selectedLeadId === "hyunjae" && [13, 15, 19, 20, 30].includes(day));
   const hyunjaeEveningMail = selectedLeadId === "hyunjae" && (day === 8 || day === 11);
   const owlToday = isQ || hyunjaeEveningMail ? delivery === "mail" : hyunjaeMailEncounter ? delivery !== "scene" : owlDays.includes(day);
   const awaitingEveningMail = hyunjaeEveningMail && owlToday && !completedSceneDays.includes(day);
