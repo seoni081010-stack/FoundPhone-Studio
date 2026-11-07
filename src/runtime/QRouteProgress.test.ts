@@ -9,7 +9,7 @@ import { characterLocations } from "./characterLocations";
 const work = validateWork(gateRouteDays(qRouteWork(compileStory(hyunjaeStory).work)));
 afterEach(() => vi.unstubAllGlobals());
 
-describe("Q's reviewed sixteen-day route", () => {
+describe("Q's reviewed twenty-six-day route", () => {
   it.each([0, 1])("completes all days using branch %s without skipping a date boundary", branch => {
     expect(validateGraph(work.nodes)).toEqual([]);
     let state = dispatch(work, initialRuntime(work), "start");
@@ -20,13 +20,17 @@ describe("Q's reviewed sixteen-day route", () => {
       history.push(target);
       const previousDay = state.date;
       state = choose(work, state, target);
-      if (state.date !== previousDay) expect(target).toMatch(/^q-day(?:0[2-9]|1[0-6])-stage0$/);
+      if (state.date !== previousDay) expect(target).toMatch(/^q-day(?:0[2-9]|1[0-9]|2[0-6])-stage0$/);
       days.add(state.date);
     }
-    expect([...days]).toEqual(Array.from({ length: 16 }, (_, index) => `2026-12-${String(index + 1).padStart(2, "0")}`));
-    expect(state.variables.q_completed_day).toBe(16);
-    expect(state.variables.scene_place).toBe("城堡外的小路");
+    expect([...days]).toEqual(Array.from({ length: 26 }, (_, index) => `2026-12-${String(index + 1).padStart(2, "0")}`));
+    expect(state.variables.q_completed_day).toBe(26);
+    expect(state.variables.scene_place).toBe("城堡西侧长廊");
     expect(state.choices).toEqual([]);
+    expect(state.variables.q_affection).toBeLessThanOrEqual(100);
+    const scenes = (state.messages.scene ?? []).map(entry => entry.body).join("\n");
+    expect(scenes).toContain(branch === 0 ? "池昌民：我们现在过去？" : "池昌民：第一支舞，你现在想跳吗？");
+    expect(scenes).not.toContain(branch === 0 ? "池昌民：第一支舞，你现在想跳吗？" : "池昌民：我们现在过去？");
     expect(state.endings).toEqual([]);
     expect(qLetters(state.messages.owlpost ?? []).some(entry => entry.day === 2 && entry.outgoing)).toBe(true);
     expect(qLetters(state.messages.owlpost ?? []).some(entry => entry.day === 5)).toBe(true);
@@ -44,7 +48,7 @@ describe("Q's reviewed sixteen-day route", () => {
     expect(snow.stages[0].choices.map(choice => choice.label)).toEqual([
       "走啊，第一场雪当然要出去看。", "刚修好椅子，让我多坐一会儿嘛。",
     ]);
-    expect(qDays.filter(day => day.album).map(day => day.day)).toEqual([6, 14]);
+    expect(qDays.filter(day => day.album).map(day => day.day)).toEqual([6, 14, 26]);
     expect(snow.album?.body).toBe("槲寄生勾住你的帽沿。他说“别动”，靠近替你拨开叶片，肩上落着细雪。");
   });
   it("migrates the published first-day save into the extended route", () => {
@@ -96,7 +100,7 @@ describe("Q's reviewed additions", () => {
     expect(day16.stages[2].choices[0].lines.at(-1)).toBe("你：好，一起过。");
     expect(day16.stages[2].choices[1].lines.at(-1)).toBe("你：好，我确定下来就告诉你。");
     expect(day16.stages[0].tail.join("\n")).toContain("“圣诞假期”“留校”");
-    const additions = qDays.filter(day => day.day >= 7);
+    const additions = qDays.filter(day => day.day >= 7 && day.day <= 16);
     const prose = JSON.stringify(additions);
     expect(prose).not.toMatch(/宿管|自己先没绷住|撞疼了|那再点一杯|我不一定看得懂|这次没了/);
     expect(JSON.stringify(day16)).not.toContain("酒窝");
@@ -149,4 +153,34 @@ it("unlocks the approved silver-leaf album after day fourteen and uses the exist
   expect(nextAlbumNotice(unlocked([6, 14]), ["q-photo-snow"], true)).toBeUndefined();
   expect(nextAlbumNotice(unlocked([6, 14]), ["q-photo-snow"], false)?.id).toBe("q-photo-silver-leaf");
   expect(nextAlbumNotice(unlocked([6, 14]), ["q-photo-snow", "q-photo-silver-leaf"], false)).toBeUndefined();
+});
+
+it("resumes a completed day-16 save and announces the third clue after day 26", async () => {
+  const original = compileStory(hyunjaeStory).work;
+  const oldWork = validateWork(gateRouteDays({
+    ...qRouteWork(original),
+    nodes: qRouteWork(original).nodes
+      .filter(node => !/^q-day(?:1[7-9]|2[0-6])-/.test(node.id))
+      .map(node => node.id === "q-day16-stage2-tail" ? { ...node, next: [] } : node),
+  }));
+  const history: string[] = [];
+  let state = dispatch(oldWork, initialRuntime(oldWork), "start");
+  while (state.choices.length && history.length < 250) {
+    history.push(state.choices[0].target);
+    state = choose(oldWork, state, history.at(-1)!);
+  }
+  expect(state.variables.q_completed_day).toBe(16);
+  const resumed = history.reduce((previous, target) => choose(work, previous, target), dispatch(work, initialRuntime(work), "start"));
+  expect(resumed.choices[0]?.target).toBe("q-day17-stage0");
+  expect(choose(work, resumed, resumed.choices[0].target).date).toBe("2026-12-17");
+
+  const { nextAlbumNotice } = await import("./albumNotices");
+  const acknowledged = ["q-photo-snow", "q-photo-silver-leaf"];
+  const unlocked = (day: number) => qDays.flatMap(entry => entry.album && entry.day <= day
+    ? [{ ...entry.album, unlocked: true }] : []);
+  expect(nextAlbumNotice(unlocked(25), acknowledged, false)).toBeUndefined();
+  expect(nextAlbumNotice(unlocked(26), acknowledged, true)).toBeUndefined();
+  expect(nextAlbumNotice(unlocked(26), acknowledged, false)).toMatchObject({
+    id: "q-photo-paper-stars", title: "纸上的星星", body: expect.stringContaining("等放晴了，带她去看真的。"),
+  });
 });

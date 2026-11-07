@@ -314,7 +314,11 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   </div> : null;
   const select = (target: string) => {
     const next = choose(work, state, target);
-    if (isQ) setQChoiceHistory(previous => [...previous, target]);
+    if (isQ) {
+      setQChoiceHistory(previous => [...previous, target]);
+      if (sceneOpen && next.variables.scene_time !== state.variables.scene_time)
+        setLessonTime(String(next.variables.scene_time));
+    }
     if (target === "hy-day10-a" || target === "hy-day10-b") {
       next.variables.hyunjae_jealousy = Math.min(100, relationship("hyunjae", state).jealousy + (target.endsWith("-a") ? 3 : 1));
     }

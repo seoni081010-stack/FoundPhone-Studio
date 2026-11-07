@@ -3,13 +3,19 @@ import { people } from "./HogwartsCharacters";
 import story from "../../stories/q/day01.json";
 import earlyDays from "../../stories/q/days02-06.json";
 import laterDays from "../../stories/q/days07-16.json";
-const followingDays = [...earlyDays, ...laterDays];
+import middleDays from "../../stories/q/days17-22.json";
+import holidayDays from "../../stories/q/days23-26.json";
 import { initialRuntime, makeItem, nodeSchema, type Work } from "../schema";
+
+const followingDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string }; stages: {
+  channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[]; affinity?: number }[];
+  tail: string[]; openingVariant?: { key: string; value: number; accepted: string; otherwise: string }; endPlace?: string; endTime?: string;
+}[] }[] = [...earlyDays, ...laterDays, ...middleDays, ...holidayDays];
 
 // Reuse the normal phone and event engine; only the authored route data changes.
 export function qRouteWork(original: Work): Work {
-  const node = (id: string, label: string, type: string, actions: unknown[], next: string[]) => nodeSchema.parse({
-    id, label, type, actions, next, event: "", target: "", conditions: [], once: true, x: 0, y: 0,
+  const node = (id: string, label: string, type: string, actions: unknown[], next: string[], conditions: unknown[] = []) => nodeSchema.parse({
+    id, label, type, actions, next, event: "", target: "", conditions, once: true, x: 0, y: 0,
   });
   return {
     ...original,
@@ -44,6 +50,16 @@ export function qRouteWork(original: Work): Work {
           { type: "variable", key: "q_completed_day", value: day.day },
           { type: "variable", key: "story_delivery", value: "done" },
         ];
+        const choiceNode = `${prefix}-choice`;
+        const variant = stage.openingVariant;
+        const variantNodes = variant ? [
+          node(`${prefix}-accepted`, day.label, "action", [
+            { type: "message", key: channel, value: variant.accepted },
+          ], [choiceNode], [{ key: variant.key, op: "eq", value: variant.value }]),
+          node(`${prefix}-undecided`, day.label, "action", [
+            { type: "message", key: channel, value: variant.otherwise },
+          ], [choiceNode], [{ key: variant.key, op: "neq", value: variant.value }]),
+        ] : [];
         return [
           node(prefix, day.label, "action", [
             ...(stageIndex === 0 ? [{ type: "date", key: "", value: `2026-12-${String(day.day).padStart(2, "0")}` }] : []),
@@ -51,12 +67,13 @@ export function qRouteWork(original: Work): Work {
             { type: "variable", key: "scene_time", value: stage.time },
             { type: "variable", key: "scene_place", value: stage.place },
             ...(stage.opening.length ? [{ type: "message", key: channel, value: `12月${day.day}日｜` + stage.opening.join("\n") }] : []),
-          ], [`${prefix}-choice`]),
-          node(`${prefix}-choice`, "你的回答", "choice", [], stage.choices.map((_, index) => `${prefix}-${index}`)),
+          ], variant ? variantNodes.map(entry => entry.id) : [choiceNode]),
+          ...variantNodes,
+          node(choiceNode, "你的回答", "choice", [], stage.choices.map((_, index) => `${prefix}-${index}`)),
           ...stage.choices.map((choice, index) => node(`${prefix}-${index}`, choice.label, "action", [
             { type: "message", key: channel, value: choice.lines.join("\n") },
             { type: "variable", key: `${prefix}-selected`, value: index },
-            { type: "increment", key: "q_affection", value: 3 },
+            { type: "increment", key: "q_affection", value: choice.affinity ?? 3 },
           ], [`${prefix}-tail`])),
           node(`${prefix}-tail`, "继续", "action", [
             ...(stage.tail.length ? [{ type: "message", key: channel, value: stage.tail.join("\n") }] : []),
@@ -83,11 +100,8 @@ export function gateRouteDays(route: Work): Work {
   ] };
 }
 
-export const qDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string }; stages: {
-  channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[] }[];
-  tail: string[]; endPlace?: string; endTime?: string;
-}[] }[] = followingDays;
-export const qSceneSpeakers = new Set(["池昌民", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像"]);
+export const qDays = followingDays;
+export const qSceneSpeakers = new Set(["池昌民", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像", "国王", "黑国王", "同学", "室友"]);
 
 export function qLetters(messages: Work["data"][string]) {
   let day = 1;
