@@ -404,7 +404,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
         {active === "market" && relationshipHint}
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
-        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={state.date || "2026-12-01"}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>{finished ? "查看余额" : "魔法商店 · 猫头鹰送礼"}</button>}</h2>
+        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={state.date || "2026-12-01"}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
           {!recipient ? <>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
@@ -433,21 +433,15 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             <button disabled={!draft.trim()}>寄出纸条</button>
           </form>}
           </>}
-        </section> : active === "calendar" && finished ? <section aria-label="通关后的游戏大厅">
-          <p role="status">第31天已结束。可以回看这轮的地图、相册和余额。</p>
-          <button className="hogwarts-activity" type="button" onClick={() => setShowEnding(true)}>查看结局</button>
-          <button className="hogwarts-activity" type="button" onClick={() => setActive("market")}>查看余额</button>
-          <button className="hogwarts-activity" type="button" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
-          <button className="hogwarts-activity" type="button" onClick={() => setActive("magicphotos")}>打开魔法相册</button>
         </section> : active === "calendar" && identity ? <section>
           {isQ && owlToday && qMailStage && <button className="hogwarts-activity"
-            disabled={!mailArrived && dailyLessons(identity.year, identity.house, day).filter(lesson => lesson.time < qMailStage.time).some(lesson => !attended[[day, lesson.time, lesson.subject].join("-")])}
+            disabled={finished || (!mailArrived && dailyLessons(identity.year, identity.house, day).filter(lesson => lesson.time < qMailStage.time).some(lesson => !attended[[day, lesson.time, lesson.subject].join("-")]))}
             onClick={() => { if (!mailArrived) setLessonTime(qMailStage.time); setRecipient("q"); setActive("owlpost"); }}>
             {mailArrived ? "查看池昌民的来信" : `${qMailStage.time} 午餐 · 查看池昌民的来信`}
           </button>}
-          <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
+          <HogwartsSchedule readOnly={finished} year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
             sceneLabel={isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`}[day]}
-            onScene={!finalSceneRead && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
+            onScene={(!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
               openScene();
             } : undefined}
             attended={attended} onAttend={(id, time, last) => {
@@ -459,15 +453,16 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             }}
             onEnd={!previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
           {isQ && day === 1 && state.variables.q_mail_unlocked === true && <p><button onClick={() => { setActive("owlpost"); setRecipient("q"); }}>查看池昌民的来信</button></p>}
-          {owlToday && !nextDay && <button onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}
+          {owlToday && !nextDay && <button disabled={finished} onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}
           {isHoliday(day) && <section aria-label="假期自由活动">
             <h3>自由活动</h3>
-            {freeTimeScenes.map(scene => <button className="hogwarts-activity" type="button" key={scene.place}
+            {freeTimeScenes.map(scene => <button className="hogwarts-activity" type="button" key={scene.place} disabled={finished}
               onClick={() => { setFreeTimeResult(""); setDestination(scene); }}>{scene.place}</button>)}
           </section>}
-          {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
-          {day === sharedRules.quidditchDay && matchStep === "pub" && <button className="hogwarts-activity" onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和{lead?.name}去三把扫帚</button>}
+          {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={finished || attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
+          {day === sharedRules.quidditchDay && matchStep === "pub" && <button className="hogwarts-activity" disabled={finished} onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和{lead?.name}去三把扫帚</button>}
           {selectedLeadId !== "hyunjae" && !isQ && <p>这条路线的正文还在写作中。</p>}
+          {finished && <button className="hogwarts-activity" type="button" onClick={() => setShowEnding(true)}>查看结局</button>}
         </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
           <label>约谁见面 <select disabled={finished} value={dateContact} onChange={event => setDateContact(event.target.value)}>

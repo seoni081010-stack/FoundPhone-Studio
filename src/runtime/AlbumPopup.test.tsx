@@ -122,8 +122,8 @@ it.each([
 });
 
 it.each([
-  { kind: "together", title: "恋人结局 · 一起下楼", score: 100, gift: false },
-  { kind: "together", title: "恋人结局 · 一起下楼", score: 100, gift: true },
+  { kind: "together", title: "恋人结局 · 想见你", score: 100, gift: false },
+  { kind: "together", title: "恋人结局 · 想见你", score: 100, gift: true },
   { kind: "friends", title: "朋友结局 · 给我留一局", score: 66, gift: false },
   { kind: "unspoken", title: "暧昧结局 · 明早见", score: 93, gift: false },
 ] as const)("restores Q's $kind finale through the shared album and ending page (gift=$gift)", ({ kind, title, score, gift }) => {
@@ -166,12 +166,15 @@ it.each([
     const showsEnding = phase === "ending";
     expect(html.includes('aria-label="31天结算"')).toBe(showsEnding);
     if (phase === "lobby") {
-      expect(html).toContain('aria-label="通关后的游戏大厅"');
-      for (const label of ["查看结局", "查看余额", "打开活点地图", "打开魔法相册"]) {
-        expect(html).toContain(`>${label}</button>`);
+      expect(html).toContain('aria-label="当天日程"');
+      for (const label of ["07:30 早餐", "12:30 午餐", "18:30 晚餐", "自由活动"]) {
+        expect(html).toContain(label);
       }
-      expect(html).not.toContain("结束这一天");
-      expect(html).not.toContain("夜里 · 去西廊窗边");
+      expect(html).toContain('disabled="">结束这一天</button>');
+      expect(html).toContain('disabled="">夜里 · 去西廊窗边</button>');
+      expect(html).toContain('>查看结局</button>');
+      expect(html.indexOf('>查看结局</button>')).toBeGreaterThan(html.indexOf("18:30 晚餐"));
+      expect(html).not.toContain('>查看余额</button>');
     }
     if (phase === "memory") {
       expect(html).toContain(qEndingCopy(kind).memory);

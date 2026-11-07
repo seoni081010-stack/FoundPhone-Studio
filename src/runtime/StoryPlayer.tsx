@@ -90,12 +90,16 @@ function StoryPlayer() {
       })
       .then((x) => {
         const w = validateWork(x);
-        document.title = w.title + " · Hogwarts Unspoken";
         setWork(w);
       })
       .catch((e) => { if (e.name !== "AbortError") setError(String(e)); });
     return () => abort.abort();
   }, []);
+  useEffect(() => {
+    if (!work) return;
+    const lead = loveInterests.find(character => character.id === identity?.loveInterest);
+    document.title = (lead ? `霍格沃茨十二月 · ${lead.name}` : work.title) + " · Hogwarts Unspoken";
+  }, [work, identity?.loveInterest]);
   const isTest = new URLSearchParams(location.search).get("preview") === "test" || new URLSearchParams(location.search).get("template") === "blank";
   const chosen = houses.find(h => h.id === identity?.house);
   const selectedLead = loveInterests.find(m => m.id === loveInterest);

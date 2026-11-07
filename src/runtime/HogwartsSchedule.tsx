@@ -40,9 +40,9 @@ export function dailyLessons(year: number, house: string, day: number) {
    .sort((a, b) => a.time.localeCompare(b.time));
 }
 
-export function HogwartsSchedule({year, house, day, interaction, attended, onAttend, onEnd, onScene, sceneLabel}: {
+export function HogwartsSchedule({year, house, day, interaction, attended, onAttend, onEnd, onScene, sceneLabel, readOnly = false}: {
  year: number; house: string; day: number; interaction?: string; attended: Record<string, boolean>;
- onAttend: (id: string, time: string, last: boolean) => void; onEnd?: () => void; onScene?: () => void; sceneLabel?: string;
+ onAttend: (id: string, time: string, last: boolean) => void; onEnd?: () => void; onScene?: () => void; sceneLabel?: string; readOnly?: boolean;
 }) {
  const lessons = dailyLessons(year, house, day);
  const lessonId = (lesson: (typeof lessons)[number]) => [day, lesson.time, lesson.subject].join("-");
@@ -53,14 +53,14 @@ export function HogwartsSchedule({year, house, day, interaction, attended, onAtt
    {[
      {time: "07:30", row: <p key="breakfast" className="hogwarts-agenda-row">07:30 早餐 · {menu.breakfast.join("、")}</p>},
      ...lessons.map((lesson, index) => ({ time: lesson.time, row: <p className="hogwarts-agenda-row" key={lessonId(lesson)}>
-     {lesson.time} {lesson.subject} <button type="button" disabled={attended[lessonId(lesson)] || lessons.slice(0, index).some(previous => !attended[lessonId(previous)])}
+     {lesson.time} {lesson.subject} <button type="button" disabled={readOnly || attended[lessonId(lesson)] || lessons.slice(0, index).some(previous => !attended[lessonId(previous)])}
        onClick={() => onAttend(lessonId(lesson), lesson.time, index === lessons.length - 1)}>{attended[lessonId(lesson)] ? "已上课" : "去上课"}</button>
    </p> })),
      {time: "12:30", row: <p key="lunch" className="hogwarts-agenda-row">12:30 午餐 · {menu.lunch.join("、")}</p>},
      {time: "18:30", row: <p key="dinner" className="hogwarts-agenda-row">18:30 晚餐 · {menu.dinner.join("、")}</p>},
    ].sort((a, b) => a.time.localeCompare(b.time)).map(item => item.row)}
-   {allAttended && onScene && <button className={sceneLabel ? "hogwarts-activity" : "hogwarts-activity hogwarts-continue-day"} type="button" onClick={onScene}>{sceneLabel ?? "继续今天的行程"}</button>}
-   <button className="hogwarts-end-day" type="button" disabled={!onEnd || !allAttended} onClick={onEnd}>结束这一天</button>
+   {allAttended && onScene && <button className={sceneLabel ? "hogwarts-activity" : "hogwarts-activity hogwarts-continue-day"} type="button" disabled={readOnly} onClick={onScene}>{sceneLabel ?? "继续今天的行程"}</button>}
+   <button className="hogwarts-end-day" type="button" disabled={readOnly || !onEnd || !allAttended} onClick={onEnd}>结束这一天</button>
    {!allAttended ? <p>请先完成今天的课程。</p> : !onEnd && interaction && day < sharedRules.confessionDay ? <p>请先到「{interaction}」完成今天的互动。</p> : null}
  </section>;
 }
