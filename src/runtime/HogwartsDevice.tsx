@@ -74,7 +74,7 @@ const freeTimeScenes = [
 const hyunjaeEncounterPlaces: Partial<Record<number, string>> = {
   1: "魔法史", 3: "城堡楼梯", 4: "图书馆", 6: "庭院与拱门", 7: "长廊", 8: "大礼堂",
   9: "长廊", 10: "长廊", 11: "大礼堂", 14: "长廊", 16: "城堡楼梯", 17: "大礼堂", 18: "门厅",
-  22: "大礼堂", 24: "大礼堂", 25: "大礼堂", 26: "城堡楼梯",
+  21: "门厅", 22: "大礼堂", 23: "大礼堂", 24: "大礼堂", 25: "大礼堂", 26: "城堡楼梯",
   27: "大礼堂", 28: "庭院与拱门", 31: "长廊",
 };
 
@@ -232,7 +232,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const owlDays = sharedRules.owlPostDays;
   const delivery = state.variables.story_delivery;
   const hyunjaeMailEncounter = selectedLeadId === "hyunjae" && (day === sharedRules.firstSnowDay || day === 17);
-  const hyunjaeImmediateMail = hyunjaeMailEncounter || (selectedLeadId === "hyunjae" && (day === 13 || day === 15));
+  const hyunjaeImmediateMail = hyunjaeMailEncounter || (selectedLeadId === "hyunjae" && [13, 15, 19, 20].includes(day));
   const hyunjaeEveningMail = selectedLeadId === "hyunjae" && (day === 8 || day === 11);
   const owlToday = isQ || hyunjaeEveningMail ? delivery === "mail" : hyunjaeMailEncounter ? delivery !== "scene" : owlDays.includes(day);
   const awaitingEveningMail = hyunjaeEveningMail && owlToday && !completedSceneDays.includes(day);
@@ -297,6 +297,8 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     : attendedDates.includes(day) ? (acceptedVenues[day] === "diagon-alley-walk" ? "丽痕书店" : plans[day])
     : isQ ? storyPlace    : day === sharedRules.firstSnowDay && state.variables.hyunjae_first_snow_together === true ? "庭院与拱门"
     : day === 17 && ["a", "b"].includes(String(state.variables.hyunjae_day17_choice)) ? "大礼堂"
+    : selectedLeadId === "hyunjae" && day === 22 && state.variables.hyunjae_day22_choice === "a" ? "图书馆"
+    : selectedLeadId === "hyunjae" && day === 22 && state.variables.hyunjae_day22_choice === "b" ? "长廊"
     : day === sharedRules.ballDay && ["a", "b"].includes(String(state.variables.hyunjae_day24_choice)) ? "长廊"
     : day === 29 && ["a", "b"].includes(String(state.variables.hyunjae_day29_choice)) ? "冬季灯展"
     : storyPlace ?? (encounterReached && [14, 21].includes(day) ? "霍格沃茨城堡" : undefined);
@@ -316,6 +318,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       title: "庭院初雪",
       body: "初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。",
       unlocked: albumSceneRead(day, sharedRules.firstSnowDay, completedSceneDays) && state.variables.hyunjae_first_snow_together === true,
+    },
+    {
+      id: "photo-library-pie",
+      title: "图书馆的馅饼",
+      body: "你读完那一页，他还坐在旁边，替你压着纸包翘起来的一角。",
+      unlocked: albumSceneRead(day, 22, completedSceneDays) && state.completed.includes("hy-day22-library-b"),
     },
     {
       id: "photo-ball-mistletoe",
