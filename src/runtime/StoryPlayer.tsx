@@ -100,7 +100,7 @@ function StoryPlayer() {
   const chosen = houses.find(h => h.id === identity?.house);
   const selectedLead = loveInterests.find(m => m.id === loveInterest);
   const restart = () => {
-    if (previewDay) { location.href = "./"; return; }
+    if (previewDay) { location.reload(); return; }
     if (!window.confirm("重新开始？本轮进度会结束，你将返回开局登记。")) return;
     localStorage.removeItem(storageKey);
     setCoverOpened(false);

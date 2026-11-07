@@ -6,7 +6,7 @@ import { compileStory } from "../story-engine/compiler";
 import story from "../../stories/hyunjae/story.json";
 import { initialRuntime } from "../schema";
 import { choose, dispatch } from "../engine";
-import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues, qFinalMemories } from "./routeWork";
+import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues, qEndingCopy } from "./routeWork";
 import { albumNoticeKey } from "./albumNotices";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -122,10 +122,10 @@ it.each([
 });
 
 it.each([
-  { kind: "together", title: "恋人结局 · 雪停之前", score: 100, gift: false },
-  { kind: "together", title: "恋人结局 · 雪停之前", score: 100, gift: true },
-  { kind: "friends", title: "朋友结局 · 窗边那个位置", score: 66, gift: false },
-  { kind: "unspoken", title: "暧昧结局 · 明年第一个", score: 93, gift: false },
+  { kind: "together", title: "恋人结局 · 一起下楼", score: 100, gift: false },
+  { kind: "together", title: "恋人结局 · 一起下楼", score: 100, gift: true },
+  { kind: "friends", title: "朋友结局 · 给我留一局", score: 66, gift: false },
+  { kind: "unspoken", title: "暧昧结局 · 明早见", score: 93, gift: false },
 ] as const)("restores Q's $kind finale through the shared album and ending page (gift=$gift)", ({ kind, title, score, gift }) => {
   const original = compileStory(story).work;
   const work = gateRouteDays(qRouteWork(original, 4));
@@ -155,23 +155,38 @@ it.each([
   const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "q-finale" };
   const readDays = Array.from({ length: 31 }, (_, index) => index + 1);
   const earlierClues = ["q-photo-snow", "q-photo-silver-leaf", "q-photo-ball-arch", "q-photo-paper-stars"];
-  for (const phase of ["reading", "memory", "ending"] as const) {
+  for (const phase of ["reading", "memory", "ending", "lobby"] as const) {
     const saved = { version: 2, choices: history, readDays: phase === "reading" ? readDays.slice(0, -1) : readDays,
-      acknowledgedClues: phase === "ending" ? [...earlierClues, "photo-new-year"] : earlierClues, time: "23:55", jealousy: 3 };
+      acknowledgedClues: ["ending", "lobby"].includes(phase) ? [...earlierClues, "photo-new-year"] : earlierClues,
+      reviewingEnding: phase === "lobby", time: "23:55", jealousy: 3 };
     vi.stubGlobal("localStorage", { getItem: (key: string) => key === qProgressKey(identity) ? JSON.stringify(saved)
       : gift && key === "foundphone-hogwarts-shopping-v1-q-finale" ? JSON.stringify({ gifts: { "zonkos-1-q": 1 } }) : null });
     const html = renderToStaticMarkup(<HogwartsDevice work={original} identity={identity} contacts={people} onRestart={() => {}} />);
     expect(html.includes('aria-labelledby="final-memory-title"')).toBe(phase === "memory");
-    expect(html.includes('aria-label="31天结算"')).toBe(phase === "ending");
+    const showsEnding = phase === "ending";
+    expect(html.includes('aria-label="31天结算"')).toBe(showsEnding);
+    if (phase === "lobby") {
+      expect(html).toContain('aria-label="通关后的游戏大厅"');
+      for (const label of ["查看结局", "查看余额", "打开活点地图", "打开魔法相册"]) {
+        expect(html).toContain(`>${label}</button>`);
+      }
+      expect(html).not.toContain("结束这一天");
+      expect(html).not.toContain("夜里 · 去西廊窗边");
+    }
     if (phase === "memory") {
-      expect(html).toContain(qFinalMemories[kind]);
+      expect(html).toContain(qEndingCopy(kind).memory);
       expect(html).toContain(">查看结局</button>");
     }
-    if (phase === "ending") {
+    if (showsEnding) {
       expect(html).toContain(title);
+      expect(html).toContain(qEndingCopy(kind).text);
       expect(html).toContain('src="./portraits/q.webp" alt="池昌民"');
       expect(html).toContain(`好感度 ${score}% · 嫉妒值 3%`);
-      expect(html).toContain("重新开启故事");
+      expect(html).toContain('class="ending-back"');
+      expect(html).toContain('class="ending-restart"');
+      expect(html).toContain(">重新开始</button>");
+      expect(html).not.toContain("保存结局画面");
+      expect(html).not.toContain(">归档</button>");
     }
   }
 });

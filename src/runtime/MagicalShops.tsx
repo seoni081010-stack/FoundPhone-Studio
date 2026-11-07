@@ -7,7 +7,7 @@ type Item = (typeof catalog.items)[number];
 type Save = { wallet: number; vault: number; inventory: Record<string,number>; gifts: Record<string,number>; paid?: number[]; vaultUpgrade?: boolean };
 const storeKey = "foundphone-hogwarts-shopping-v1";
 const start = (): Save => ({wallet:economy.initial.wallet.galleons,vault:economy.initial.gringottsVault.galleons,inventory:{},gifts:{},vaultUpgrade:true});
-function load(key:string):Save { try { const saved=JSON.parse(localStorage.getItem(key)||"null"); return saved && typeof saved.wallet==="number" && typeof saved.vault==="number" && saved.inventory && saved.gifts ? migrateVault(key, saved) : start(); } catch { return start(); } }
+function load(key:string, readOnly = false):Save { try { const saved=JSON.parse(localStorage.getItem(key)||"null"); return saved && typeof saved.wallet==="number" && typeof saved.vault==="number" && saved.inventory && saved.gifts ? (readOnly ? saved : migrateVault(key, saved)) : start(); } catch { return start(); } }
 function migrateVault(key: string, save: Save): Save {
  if (save.vaultUpgrade) return save;
  const upgraded = { ...save, vault: Math.max(100000, save.vault), vaultUpgrade: true };
@@ -51,11 +51,11 @@ export function useWeeklyAllowance(identityKey: string, day: number) {
    if (identityKey) creditWeeklyAllowance(identityKey, day);
  }, [identityKey, day]);
 }
-export function MagicalShops({identityKey,leadId,contacts,onGift}:{identityKey:string;leadId:string;contacts:readonly {id:string;name:string}[];onGift:(recipient:string,item:string,liked:boolean)=>void}) {
+export function MagicalShops({identityKey,leadId,contacts,onGift,readOnly=false}:{readOnly?:boolean;identityKey:string;leadId:string;contacts:readonly {id:string;name:string}[];onGift:(recipient:string,item:string,liked:boolean)=>void}) {
  const key=storeKey+"-"+identityKey;
  const [recipient,setRecipient]=useState(leadId);
  const [section, setSection] = useState<"shop" | "bank">();
- const [save,setSave]=useState<Save>(()=>load(key));
+ const [save,setSave]=useState<Save>(()=>load(key, readOnly));
  const [place,setPlace]=useState<"对角巷"|"霍格莫德">("霍格莫德");
  const [shop,setShop]=useState("");
  const [amount,setAmount]=useState(100);
@@ -74,15 +74,15 @@ export function MagicalShops({identityKey,leadId,contacts,onGift}:{identityKey:s
     <button onClick={() => setSection("shop")}>魔法商店</button>
     <button onClick={() => setSection("bank")}>古灵阁</button>
   </div> : section === "bank" && <button onClick={() => { setSection(undefined); setMessage(""); }}>返回送礼服务</button>}
-  {section==="bank" && <div style={{padding:12,border:"1px solid #c4b18e",borderRadius:8,marginTop:16,marginBottom:12}}><h3>古灵阁巫师银行</h3><p>提取加隆到钱包</p><input aria-label="交易加隆数量" type="number" min={1} max={save.vault} step={1} value={amount} onChange={e=>setAmount(Number(e.target.value))} style={{maxWidth:110}}/> <button type="button" onClick={()=>transfer("withdraw")}>提款</button></div>}
+  {section==="bank" && <div style={{padding:12,border:"1px solid #c4b18e",borderRadius:8,marginTop:16,marginBottom:12}}><h3>古灵阁巫师银行</h3><p>提取加隆到钱包</p><input disabled={readOnly} aria-label="交易加隆数量" type="number" min={1} max={save.vault} step={1} value={amount} onChange={e=>setAmount(Number(e.target.value))} style={{maxWidth:110}}/> <button type="button" disabled={readOnly} onClick={()=>transfer("withdraw")}>提款</button></div>}
   {section === "shop" && <>
   <div className="hogwarts-shop-nav"><button onClick={() => { setSection(undefined); setMessage(""); }}>返回送礼服务</button>{(["霍格莫德","对角巷"] as const).map(p=><button type="button" key={p} onClick={()=>{setPlace(p);setShop("");}} aria-pressed={place===p}>{p}</button>)}</div>
   <h3>{place}</h3>
 
   <label className="hogwarts-shop-picker">选择店铺 <select value={activeShop} onChange={e=>setShop(e.target.value)}>{currentShops.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
-  <ul style={{listStyle:"none",padding:0}}>{items.map(item=><li key={item.id} style={{padding:"9px 0",borderBottom:"1px solid #dfd3bf",display:"flex",justifyContent:"space-between",alignItems:"center",gap:10}}><span>{item.name}<small style={{display:"block"}}>{fmt(item.displayPrice.galleons)}</small></span><button type="button" onClick={()=>buy(item)}>购买</button></li>)}</ul>
+  <ul style={{listStyle:"none",padding:0}}>{items.map(item=><li key={item.id} style={{padding:"9px 0",borderBottom:"1px solid #dfd3bf",display:"flex",justifyContent:"space-between",alignItems:"center",gap:10}}><span>{item.name}<small style={{display:"block"}}>{fmt(item.displayPrice.galleons)}</small></span><button type="button" disabled={readOnly} onClick={()=>buy(item)}>购买</button></li>)}</ul>
   <h3>待寄的礼物</h3><label className="hogwarts-gift-recipient">寄给谁 <select value={recipient} onChange={event=>setRecipient(event.target.value)}>{contacts.map(contact=><option key={contact.id} value={contact.id}>{contact.name}</option>)}</select></label>
-  {catalog.items.filter(x=>(save.inventory[x.id]||0)>0 && x.giftable).length===0?<p>这里还空着。挑好的礼物可以托猫头鹰送出去。</p>:<ul style={{listStyle:"none",padding:0}}>{catalog.items.filter(x=>(save.inventory[x.id]||0)>0 && x.giftable).map(item=><li key={item.id} style={{display:"flex",justifyContent:"space-between",padding:"6px 0"}}>{item.name} × {save.inventory[item.id]} <button type="button" onClick={()=>give(item)}>赠送</button></li>)}</ul>}
+  {catalog.items.filter(x=>(save.inventory[x.id]||0)>0 && x.giftable).length===0?<p>这里还空着。挑好的礼物可以托猫头鹰送出去。</p>:<ul style={{listStyle:"none",padding:0}}>{catalog.items.filter(x=>(save.inventory[x.id]||0)>0 && x.giftable).map(item=><li key={item.id} style={{display:"flex",justifyContent:"space-between",padding:"6px 0"}}>{item.name} × {save.inventory[item.id]} <button type="button" disabled={readOnly} onClick={()=>give(item)}>赠送</button></li>)}</ul>}
   </>}
   <p role="status" aria-live="polite">{message}</p>
  </section>;

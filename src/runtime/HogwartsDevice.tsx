@@ -3,7 +3,7 @@ import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nex
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
-import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qAlbumClues, qDays, qFinalMemories, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qAlbumClues, qDays, qEndingCopy, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
@@ -187,11 +187,13 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     return text ? note(outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === selectedLeadId)?.name ?? "", text, outgoing) : null;
   };
   const finalMemoryId = "photo-new-year";
-  const readQFinale = isQ && restoredQ.readDays.includes(sharedRules.confessionDay) && state.endings.length > 0;
-  const [finished, setFinished] = useState(readQFinale && acknowledgedClues.includes(finalMemoryId));
-  const [finalMemoryOpen, setFinalMemoryOpen] = useState(readQFinale && !acknowledgedClues.includes(finalMemoryId));
-  const [archiveStatus, setArchiveStatus] = useState("");
-  const ending = state.endings.includes(`${selectedLeadId}-together`) ? {
+  const finalSceneRead = day === sharedRules.confessionDay && state.endings.length > 0
+    && (isQ ? qReadDays : completedSceneDays).includes(day);
+  const finalMemoryAcknowledged = acknowledgedClues.includes(finalMemoryId);
+  const [finished, setFinished] = useState(isQ && finalSceneRead && finalMemoryAcknowledged);
+  const finalMemoryOpen = finalSceneRead && !sceneOpen && !finalMemoryAcknowledged;
+  const [showEnding, setShowEnding] = useState(!restoredQ.reviewingEnding);
+  const sharedEnding = state.endings.includes(`${selectedLeadId}-together`) ? {
     kind: "together" as const, title: "恋人结局 · 雪停之前", text: "他在石拱门下牵住了你的手。你们谁都没催着走。等窗外的雪停下来，你才发现，刚才还冻得发僵的那只手，已经暖了。",
     memory: "再经过那道石拱门时，他看见了槲寄生，这次什么也没说，只是牵住了你的手。",
   } : state.endings.includes(`${selectedLeadId}-friends`) ? {
@@ -201,11 +203,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     kind: "unspoken" as const, title: "暧昧结局 · 明年第一个", text: "走到长廊尽头，你们就该往不同的方向走了。他多站了一会儿，说：「明年我还是想第一个来找你。」你说：「那你得来早点。」",
     memory: "长廊里很安静，他说，明年还是想第一个来找你。",
   };
+  const ending = isQ ? { kind: sharedEnding.kind, ...qEndingCopy(sharedEnding.kind) } : sharedEnding;
   const finalMemory = {
     id: finalMemoryId,
     title: isQ ? "西廊窗边" : "跨年长廊",
-    body: isQ ? qFinalMemories[ending.kind] : ending.memory,
-    unlocked: finalMemoryOpen || finished,
+    body: ending.memory,
+    unlocked: finalSceneRead,
   };
   const [attended, setAttended] = useState<Record<string, boolean>>(() => isQ
     ? restoredQ.legacy && identity
@@ -219,7 +222,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       : "你常在公共休息室看见他。偶尔有人问壁炉旁还有没有空位，你们会搭上一两句话。"
     : sameYear ? "你知道他和你同年级。有时两院的课排在一起，你会在教室里见到他。"
       : "你见过他几次。大多是在门厅或楼梯上，擦肩就过去了。";
-  useWeeklyAllowance(identityKey, day);
+  useWeeklyAllowance(finished ? "" : identityKey, day);
   // The authored route stores both channels in owlpost. Keep the original text
   // and mark which opening scenes are delivered by owl.
   const owlDays = sharedRules.owlPostDays;
@@ -320,6 +323,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     {state.choices.filter((_, index) => !soloSnow || index === 1).map(choice => <button key={choice.target} onClick={() => select(choice.target)}>{choice.label}</button>)}
   </div> : null;
   const select = (target: string) => {
+    if (finished) return;
     const next = choose(work, state, target);
     if (isQ) {
       setQChoiceHistory(previous => [...previous, target]);
@@ -350,7 +354,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       const endTime = qToday?.stages.filter(stage => stage.channel === "scene").at(-1)?.endTime;
       if (endTime) setLessonTime(endTime);
     }
-    if (day === sharedRules.confessionDay && state.endings.length) { setActive("magicphotos"); setFinalMemoryOpen(true); }
+    if (day === sharedRules.confessionDay && state.endings.length) {
+      setActive("calendar");
+      if (finalMemoryAcknowledged) setFinished(true);
+    }
     if (day === sharedRules.quidditchDay) { setMatchStep("result"); setMatchDialog(true); }
   }
   useEffect(() => {
@@ -359,13 +366,14 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       localStorage.setItem(qStorageKey, JSON.stringify({
         version: 2, choices: qChoiceHistory, readDays: qReadDays, attended,
         time: lessonTime ?? startTime, extraMail, acknowledgedClues, mailUnlocked: state.variables.q_mail_unlocked === true,
-        jealousy: state.variables.q_jealousy,
+        jealousy: state.variables.q_jealousy, reviewingEnding: finished && !showEnding,
         match: { step: matchStep, team, stake, visitedPub: visitedMatchPub, conversation: matchConversation }, mailRead,
       }));
     } catch { setRelationshipNotice("这次进度没能保存在浏览器中，刷新后可能需要重新阅读。"); }
   }, [isQ, qStorageKey, qChoiceHistory, qReadDays, attended, lessonTime, startTime, extraMail, acknowledgedClues,
-    state.variables.q_mail_unlocked, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation, previewDay]);
+    state.variables.q_mail_unlocked, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation, finished, showEnding, previewDay]);
   function openScene() {
+    if (finished) return;
     if (day === sharedRules.quidditchDay) {
       setLessonTime("14:00");
       if (matchStep === "bet") { setMatchConversation("intro"); return; }
@@ -380,24 +388,11 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     else if (day === sharedRules.quidditchDay) setLessonTime("14:00");
     setSceneOpen(true);
   }
-  if (finished) {
-    const character = contacts.find(contact => contact.id === identity?.loveInterest) ?? { id: "hyunjae", name: "李贤在" };
+  if (finished && showEnding) {
+    const character = contacts.find(contact => contact.id === selectedLeadId) ?? { id: "hyunjae", name: "李贤在" };
     const stats = relationship(character.id, state);
-    const archive = () => {
-      try {
-        const key = "foundphone-hogwarts-endings-v1";
-        const records = JSON.parse(localStorage.getItem(key) ?? "{}");
-        localStorage.setItem(key, JSON.stringify({ ...records, [identityKey || "default"]: {
-          player: identity?.name, character: character.name, ...ending, memory: finalMemory.body, ...stats,
-        } }));
-        setArchiveStatus("已归档到此浏览器。");
-      } catch {
-        setArchiveStatus("这次没能保存归档，请再试一次。");
-      }
-    };
     return <HogwartsEnding kind={ending.kind} title={ending.title} text={ending.text} character={character}
-      affinity={stats.affinity} jealousy={stats.jealousy} onRestart={onRestart}
-      onArchive={archive} archiveStatus={archiveStatus} />;
+      affinity={stats.affinity} jealousy={stats.jealousy} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
   }
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
@@ -409,7 +404,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
         {active === "market" && relationshipHint}
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
-        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={state.date || "2026-12-01"}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
+        <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={state.date || "2026-12-01"}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>{finished ? "查看余额" : "魔法商店 · 猫头鹰送礼"}</button>}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
           {!recipient ? <>
             {contacts.map(contact => <button className="hogwarts-contact" key={contact.id} onClick={() => setRecipient(contact.id)}>
@@ -428,7 +423,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {message.narration ? <p className="hogwarts-narration">{message.body}</p> : note(message.outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === recipient)?.name ?? "", message.body, message.outgoing)}
           </div>)}
           {recipient === selectedLeadId && owlToday && mailArrived && <>{choices}{!sceneOpen && relationshipHint}</>}
-          <form onSubmit={event => {
+          {!finished && <form onSubmit={event => {
             event.preventDefault();
             if (!draft.trim()) return;
             addMail(recipient, draft.trim(), true);
@@ -436,8 +431,14 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           }}>
             <input aria-label="纸条内容" value={draft} onChange={event => setDraft(event.target.value)} maxLength={sharedRules.messageMaxLength} />
             <button disabled={!draft.trim()}>寄出纸条</button>
-          </form>
+          </form>}
           </>}
+        </section> : active === "calendar" && finished ? <section aria-label="通关后的游戏大厅">
+          <p role="status">第31天已结束。可以回看这轮的地图、相册和余额。</p>
+          <button className="hogwarts-activity" type="button" onClick={() => setShowEnding(true)}>查看结局</button>
+          <button className="hogwarts-activity" type="button" onClick={() => setActive("market")}>查看余额</button>
+          <button className="hogwarts-activity" type="button" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
+          <button className="hogwarts-activity" type="button" onClick={() => setActive("magicphotos")}>打开魔法相册</button>
         </section> : active === "calendar" && identity ? <section>
           {isQ && owlToday && qMailStage && <button className="hogwarts-activity"
             disabled={!mailArrived && dailyLessons(identity.year, identity.house, day).filter(lesson => lesson.time < qMailStage.time).some(lesson => !attended[[day, lesson.time, lesson.subject].join("-")])}
@@ -446,7 +447,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           </button>}
           <HogwartsSchedule year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
             sceneLabel={isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`}[day]}
-            onScene={!owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
+            onScene={!finalSceneRead && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
               openScene();
             } : undefined}
             attended={attended} onAttend={(id, time, last) => {
@@ -469,22 +470,22 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           {selectedLeadId !== "hyunjae" && !isQ && <p>这条路线的正文还在写作中。</p>}
         </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
-          <label>约谁见面 <select value={dateContact} onChange={event => setDateContact(event.target.value)}>
+          <label>约谁见面 <select disabled={finished} value={dateContact} onChange={event => setDateContact(event.target.value)}>
             <option value="">选择一位朋友</option>
             {contacts.filter(contact => contact.id === identity?.loveInterest).map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}
           </select></label>
-          <p><label>约会日期 <select value={availableDateDays.includes(dateDay) ? dateDay : 0} onChange={event => setDateDay(Number(event.target.value))}>
+          <p><label>约会日期 <select disabled={finished} value={availableDateDays.includes(dateDay) ? dateDay : 0} onChange={event => setDateDay(Number(event.target.value))}>
             <option value={0}>选择日期</option>
             {availableDateDays.map(value => <option key={value} value={value} disabled={Boolean(plans[value])}>12月{value}日</option>)}
           </select></label></p>
-          <p><label>去哪里 <select value={dateVenue} onChange={event => setDateVenue(event.target.value)}>
+          <p><label>去哪里 <select disabled={finished} value={dateVenue} onChange={event => setDateVenue(event.target.value)}>
             <option value="">选择地点</option>
             {dateOptions.venues.map(venue => <option key={venue.id} value={venue.id}
 >
               {venue.name}（{venue.region}）
             </option>)}
           </select></label></p>
-          <button className="hogwarts-send-invite" disabled={dateContact !== selectedLeadId || !dateScenes[dateVenue] || Boolean(plans[dateDay]) || !availableDateDays.includes(dateDay)}
+          <button className="hogwarts-send-invite" disabled={finished || dateContact !== selectedLeadId || !dateScenes[dateVenue] || Boolean(plans[dateDay]) || !availableDateDays.includes(dateDay)}
             onClick={() => {
               const accepted = dateContact === selectedLeadId && acceptsInvitation(relationship(selectedLeadId, state).affinity);
               const reply = accepted ? dateScenes[dateVenue].reply : dateRoute.declines[(day - 1) % dateRoute.declines.length];
@@ -500,7 +501,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           {dateContact && !dateRoute && <p>这位角色的邀约剧情还在准备中。</p>}
           <p className="hogwarts-date-hint">每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
           {Object.entries(plans).filter(([value]) => Number(value) >= day).map(([value, plan]) => <p key={value}>12月{value}日 · {plan}</p>)}
-        </section> : active === "market" && identity ? <MagicalShops identityKey={identityKey} leadId={identity.loveInterest} contacts={contacts} onGift={(recipient, item, liked) => {
+        </section> : active === "market" && identity ? <MagicalShops readOnly={finished} identityKey={identityKey} leadId={identity.loveInterest} contacts={contacts} onGift={(recipient, item, liked) => {
             const leadId = identity.loveInterest;
             const affection = relationship(leadId, state).affinity;
             const key = affinityKey(recipient);
@@ -539,7 +540,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime ?? startTime} selectedId={identity?.loveInterest}
               place={isQ ? mapPlace : identity?.loveInterest === "hyunjae" ? mapPlace ?? scheduledPlace : undefined}
               activity={identity?.loveInterest === "hyunjae" ? scheduledLesson?.subject : undefined}
-              onEncounter={isQ && identity && dailyLessons(identity.year, identity.house, day).every(lesson => attended[[day, lesson.time, lesson.subject].join("-")]) && (waitingToMeet || (sceneTime && (lessonTime ?? startTime) >= sceneTime)) ? openScene : undefined} />
+              onEncounter={!finished && isQ && identity && dailyLessons(identity.year, identity.house, day).every(lesson => attended[[day, lesson.time, lesson.subject].join("-")]) && (waitingToMeet || (sceneTime && (lessonTime ?? startTime) >= sceneTime)) ? openScene : undefined} />
           : active === "magicphotos" ? <section className="hogwarts-device-letters">
             {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
               <summary>{clue.title}</summary>
@@ -656,7 +657,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         <h2 id="final-memory-title">魔法相册解锁新内容</h2>
         <p>{finalMemory.title}</p>
         <p className="hogwarts-narration">{highlightMistletoe(finalMemory.body)}</p>
-        <button type="button" onClick={() => { acknowledgeClue(finalMemory.id); setFinalMemoryOpen(false); setFinished(true); }}>查看结局</button>
+        <button type="button" onClick={() => { acknowledgeClue(finalMemory.id); setFinished(true); setShowEnding(true); }}>查看结局</button>
       </dialog>}
       {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
         <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>

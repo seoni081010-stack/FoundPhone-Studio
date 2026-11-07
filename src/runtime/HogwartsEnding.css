@@ -3,6 +3,7 @@
   --ending-ink: #f5e4be;
   --ending-gold: #ecc68a;
   min-height: 100%;
+  position: relative;
   background: var(--ending-paper);
   color: var(--ending-ink);
   text-align: center;
@@ -15,12 +16,12 @@
 .ending-copy { padding: 20px clamp(20px, 6vw, 40px) 34px; line-height: 1.85; }
 .ending-copy h2 { font-size: clamp(.95rem, 4.5vw, 1.4rem); white-space: nowrap; margin: .45em 0; color: var(--ending-gold); text-shadow: 0 0 18px #eac38960; }
 .ending-date, .ending-stats { font-size: .92rem; }
-.hogwarts-ending .ending-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-top: 22px; }
+.hogwarts-ending .ending-back { position: absolute; z-index: 1; inset: 12px auto auto 12px; display: inline-flex; align-items: center; gap: 5px; background: var(--ending-paper); }
+.hogwarts-ending .ending-restart { position: absolute; z-index: 1; inset: 12px 12px auto auto; background: var(--ending-paper); }
 .hogwarts-ending button { color: var(--ending-ink); background: transparent; border: 1px solid var(--ending-gold); border-radius: 20px; padding: 7px 12px; }
 .hogwarts-ending .ending-seal { width: 52px; height: 52px; padding: 0; color: #432b23; background: radial-gradient(circle at 35% 25%,#fff0bd,#b47b40); border: 2px double #eaca8c; font-size: 1.55rem; box-shadow: 0 3px 12px #120d14a0; }
 .ending-seal[aria-pressed="true"] { animation: ending-stamp 1.2s ease both; }
 .ending-seal-caption { animation: ending-reveal 1.6s .65s both; }
-.ending-actions { animation: ending-reveal 1.9s .8s both; }
 .ending-particle { animation: ending-snow 17s linear infinite; }
 .ending-mistletoe, .ending-curtain { transform-box: fill-box; transform-origin: top center; animation: ending-sway 7s ease-in-out infinite alternate; }
 .ending-fire { transform-box: fill-box; transform-origin: bottom; animation: ending-fire 3.1s ease-in-out infinite alternate; }

@@ -14,11 +14,10 @@ const followingDays: { day: number; label: string; match?: { opening: string[]; 
   tail: string[]; openingVariant?: { key: string; value: number; accepted: string; otherwise: string; after?: string[] }; endPlace?: string; endTime?: string;
 }[] }[] = [...earlyDays, ...laterDays, ...middleDays, ...holidayDays, ...finale.days];
 
-export const qFinalMemories = {
-  together: finale.endings.together.memory,
-  friends: finale.endings.friends.memory,
-  unspoken: finale.endings.unspoken.memory,
-};
+export function qEndingCopy(kind: keyof typeof finale.endings) {
+  const { title, text, memory } = finale.endings[kind];
+  return { title, text, memory };
+}
 
 // Reuse the normal phone and event engine; only the authored route data changes.
 export function qRouteWork(original: Work, startingAffinity = 0, legacyFriends = false): Work {
@@ -171,7 +170,7 @@ export type QMatchProgress = { step: "bet" | "ready" | "result" | "pub" | "buy" 
 export type QProgress = {
   match?: QMatchProgress; mailRead?: Record<string, number>;
   choices: string[]; readDays: number[]; attended: Record<string, boolean>; time: string;
-  mailUnlocked: boolean; extraMail: QMail[]; acknowledgedClues: string[]; legacy: boolean; jealousy?: number;
+  mailUnlocked: boolean; extraMail: QMail[]; acknowledgedClues: string[]; legacy: boolean; jealousy?: number; reviewingEnding?: boolean;
 };
 
 export function readQProgress(key: string): QProgress {
@@ -194,6 +193,7 @@ export function readQProgress(key: string): QProgress {
           && saved.match.stake >= 1 && saved.match.stake <= 10
           ? { ...saved.match, visitedPub: saved.match.visitedPub === true, conversation: ["intro", "reaction"].includes(saved.match.conversation) ? saved.match.conversation : undefined } : undefined,
         jealousy: Number.isFinite(saved.jealousy) ? saved.jealousy : undefined,
+        reviewingEnding: saved.reviewingEnding === true,
       };
     }
     if (saved?.finished === true && [0, 1].includes(saved.choice)) return {

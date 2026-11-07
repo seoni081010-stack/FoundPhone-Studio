@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import "./HogwartsEnding.css";
 
 type EndingKind = "together" | "unspoken" | "friends";
 type Props = {
   kind: EndingKind; title: string; text: string; character: { id: string; name: string };
-  affinity: number; jealousy: number; onRestart: () => void; onArchive: () => void; archiveStatus: string;
+  affinity: number; jealousy: number; onBack: () => void; onRestart: () => void;
 };
 
 const seals: Record<EndingKind, string> = {
@@ -78,23 +79,14 @@ function EndingArt({kind}: {kind: EndingKind}) {
   </>;
 }
 
-export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onRestart,onArchive,archiveStatus}: Props) {
+export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onBack,onRestart}: Props) {
   const [sealed, setSealed] = useState(false);
   const [gift, setGift] = useState(false);
-  const art = useRef<SVGSVGElement>(null);
-  function savePicture() {
-    if (!art.current) return;
-    const blob = new Blob([new XMLSerializer().serializeToString(art.current)], {type:"image/svg+xml;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `霍格沃茨-${title}.svg`;
-    link.click();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
   return <div className="hogwarts-device-stage"><div className="hogwarts-device">
     <main className="hogwarts-ending" data-kind={kind} data-sealed={sealed} aria-label="31天结算">
-      <svg ref={art} xmlns="http://www.w3.org/2000/svg" className="ending-art" viewBox="0 0 600 360" role="img"
+      <button className="ending-back" type="button" onClick={onBack}><ArrowLeft size={16} aria-hidden="true" /> 返回</button>
+      <button className="ending-restart" type="button" onClick={onRestart}>重新开始</button>
+      <svg xmlns="http://www.w3.org/2000/svg" className="ending-art" viewBox="0 0 600 360" role="img"
         aria-label={kind === "together" ? "月光下的黑湖与霍格沃茨" : kind === "unspoken" ? "窗纱轻动的城堡长廊" : "壁炉旁的公共休息室"}>
         <EndingArt kind={kind} />
       </svg>
@@ -110,12 +102,6 @@ export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onRe
         </div>}
         <button className="ending-seal" type="button" aria-pressed={sealed} onClick={() => setSealed(true)} aria-label="盖上结局印章">♥</button>
         {sealed && <p className="ending-seal-caption" role="status">{seals[kind]}</p>}
-        <div className="ending-actions">
-          {kind === "together" && <button type="button" onClick={savePicture}>保存结局画面</button>}
-          <button type="button" onClick={onArchive}>归档</button>
-          <button type="button" onClick={onRestart}>重新开启故事</button>
-        </div>
-        {archiveStatus && <p role="status">{archiveStatus}</p>}
       </div>
     </main>
   </div></div>;
