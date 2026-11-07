@@ -36,7 +36,7 @@ export function qRouteWork(original: Work): Work {
         { type: "message", key: "scene", value: choice.lines.join("\n") },
         { type: "variable", key: "q_day1_choice", value: index },
         { type: "variable", key: "q_day1_complete", value: true },
-        { type: "increment", key: "q_affection", value: 3 },
+        { type: "increment", key: "q_affection", value: 1 },
       ], ["q-day02-stage0"])),
       ...followingDays.flatMap((day, dayIndex) => day.stages.flatMap((stage, stageIndex) => {
         const prefix = `q-day${String(day.day).padStart(2, "0")}-stage${stageIndex}`;
@@ -73,7 +73,7 @@ export function qRouteWork(original: Work): Work {
           ...stage.choices.map((choice, index) => node(`${prefix}-${index}`, choice.label, "action", [
             { type: "message", key: channel, value: choice.lines.join("\n") },
             { type: "variable", key: `${prefix}-selected`, value: index },
-            { type: "increment", key: "q_affection", value: choice.affinity ?? 3 },
+            { type: "increment", key: "q_affection", value: choice.affinity ?? (stage.choices.length > 1 ? 1 : 0) },
           ], [`${prefix}-tail`])),
           node(`${prefix}-tail`, "继续", "action", [
             ...(stage.tail.length ? [{ type: "message", key: channel, value: stage.tail.join("\n") }] : []),
@@ -129,7 +129,7 @@ export type QMatchProgress = { step: "bet" | "ready" | "result" | "pub" | "buy" 
 export type QProgress = {
   match?: QMatchProgress; mailRead?: Record<string, number>;
   choices: string[]; readDays: number[]; attended: Record<string, boolean>; time: string;
-  mailUnlocked: boolean; extraMail: QMail[]; acknowledgedClues: string[]; legacy: boolean; affinity?: number; jealousy?: number;
+  mailUnlocked: boolean; extraMail: QMail[]; acknowledgedClues: string[]; legacy: boolean; jealousy?: number;
 };
 
 export function readQProgress(key: string): QProgress {
@@ -151,7 +151,6 @@ export function readQProgress(key: string): QProgress {
           && ["", "格兰芬多", "斯莱特林"].includes(saved.match.team) && Number.isInteger(saved.match.stake)
           && saved.match.stake >= 1 && saved.match.stake <= 10
           ? { ...saved.match, visitedPub: saved.match.visitedPub === true, conversation: ["intro", "reaction"].includes(saved.match.conversation) ? saved.match.conversation : undefined } : undefined,
-        affinity: Number.isFinite(saved.affinity) ? saved.affinity : undefined,
         jealousy: Number.isFinite(saved.jealousy) ? saved.jealousy : undefined,
       };
     }

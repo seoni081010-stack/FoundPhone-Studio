@@ -33,11 +33,11 @@ function overlap(year:number,house:string,otherYear:number,otherHouse:string):nu
  return a.filter(x=>b.some(y=>x.day===y.day&&x.time===y.time&&x.subject===y.subject&&x.subject!=="自习与作业")).length;
 }
 export function initialAffinity(year:number,house:string,person:{year:number;house:string}):number {
- if(year===person.year&&house===person.house) return 8;
- if(house===person.house) return 5;
+ if(year===person.year&&house===person.house) return 4;
+ if(house===person.house) return 2;
  if(year!==person.year) return 0;
  const count=overlap(year,house,person.year,person.house);
- return count>=5?6:count>=1?3:0;
+ return count>=5?3:count>=1?1:0;
 }
 export function HogwartsCharacters({year,house,variables}:{year:number;house:string;variables:Record<string,unknown>}) {
  const [active,setActive]=useState<string|null>(null);

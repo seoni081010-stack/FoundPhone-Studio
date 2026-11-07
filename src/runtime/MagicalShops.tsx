@@ -15,6 +15,21 @@ function migrateVault(key: string, save: Save): Save {
  return upgraded;
 }
 const fmt=(v:number)=>v.toLocaleString("zh-CN")+" 加隆";
+export const giftAffinity = (liked: boolean) => liked ? 5 : 2;
+
+export function savedGiftAffinity(identityKey: string, recipient: string): number {
+ try {
+  const gifts = JSON.parse(localStorage.getItem(storeKey + "-" + identityKey) ?? "null")?.gifts;
+  const preferred = preferences.preferences.find(person => person.id === recipient)?.preferredStores;
+  return catalog.items.reduce((total, item) => {
+   const count = gifts?.[item.id + "-" + recipient];
+   return Number.isSafeInteger(count) && count > 0
+    ? total + count * giftAffinity(Boolean(preferred?.includes(item.storeId)))
+    : total;
+  }, 0);
+ } catch { return 0; }
+}
+
 export function spendGalleons(identityKey: string, amount: number) {
  const key = storeKey + "-" + identityKey;
  const save = load(key);

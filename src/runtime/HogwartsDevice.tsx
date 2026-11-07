@@ -10,7 +10,7 @@ import { MaraudersMap } from "./MaraudersMap";
 import dateOptions from "../../stories/template/hogwarts-dates.json";
 import { affinityKey, characterStatus, HogwartsCharacters, jealousyKey } from "./HogwartsCharacters";
 import { dailyLessons, HogwartsSchedule } from "./HogwartsSchedule";
-import { MagicalShops, useWeeklyAllowance, spendGalleons } from "./MagicalShops";
+import { MagicalShops, useWeeklyAllowance, spendGalleons, giftAffinity, savedGiftAffinity } from "./MagicalShops";
 import { useEffect, useMemo, useState } from "react";
 import { BookOpen, Feather, ScrollText, Map, Images, Heart, ArrowLeft } from "lucide-react";
 import { initialRuntime, type Runtime, type Work } from "../schema";
@@ -85,6 +85,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const dateScenes = dateRoute?.venues ?? {};
   const isQ = selectedLeadId === "q";
   const qStorageKey = qProgressKey(identity);
+  const identityKey = previewDay ? `review-q-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
   const [restoredQ] = useState(() => previewDay ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
@@ -98,7 +99,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     if (isQ) {
       for (const target of restoredQ.choices) runtime = choose(work, runtime, target);
       runtime.variables.q_mail_unlocked = restoredQ.mailUnlocked;
-      if (restoredQ.affinity !== undefined) runtime.variables.q_affection = restoredQ.affinity;
+      // Rebuild the score from choices and the gift ledger so old inflated totals
+      // can never overwrite the score calculated from the current route.
+      if (!previewDay) runtime.variables.q_affection = Math.min(100,
+        Number(runtime.variables.q_affection) + savedGiftAffinity(identityKey, "q"));
       if (restoredQ.jealousy !== undefined) runtime.variables.q_jealousy = restoredQ.jealousy;
     }
     return runtime;
@@ -206,7 +210,6 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       : "你常在公共休息室看见他。偶尔有人问壁炉旁还有没有空位，你们会搭上一两句话。"
     : sameYear ? "你知道他和你同年级。有时两院的课排在一起，你会在教室里见到他。"
       : "你见过他几次。大多是在门厅或楼梯上，擦肩就过去了。";
-  const identityKey = previewDay ? `review-q-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
   useWeeklyAllowance(identityKey, day);
   // The authored route stores both channels in owlpost. Keep the original text
   // and mark which opening scenes are delivered by owl.
@@ -352,12 +355,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       localStorage.setItem(qStorageKey, JSON.stringify({
         version: 2, choices: qChoiceHistory, readDays: qReadDays, attended,
         time: lessonTime ?? startTime, extraMail, acknowledgedClues, mailUnlocked: state.variables.q_mail_unlocked === true,
-        affinity: state.variables.q_affection, jealousy: state.variables.q_jealousy,
+        jealousy: state.variables.q_jealousy,
         match: { step: matchStep, team, stake, visitedPub: visitedMatchPub, conversation: matchConversation }, mailRead,
       }));
     } catch { setRelationshipNotice("这次进度没能保存在浏览器中，刷新后可能需要重新阅读。"); }
   }, [isQ, qStorageKey, qChoiceHistory, qReadDays, attended, lessonTime, startTime, extraMail, acknowledgedClues,
-    state.variables.q_mail_unlocked, state.variables.q_affection, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation, previewDay]);
+    state.variables.q_mail_unlocked, state.variables.q_jealousy, matchStep, team, stake, visitedMatchPub, mailRead, matchConversation, previewDay]);
   function openScene() {
     if (day === sharedRules.quidditchDay) {
       setLessonTime("14:00");
@@ -499,7 +502,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             const affection = relationship(leadId, state).affinity;
             const key = affinityKey(recipient);
             const variables = { ...state.variables,
-              [key]: Math.min(100, Number(state.variables[key] ?? state.variables["friendship_" + recipient] ?? 0) + (liked ? 5 : 2)),
+              [key]: Math.min(100, Number(state.variables[key] ?? state.variables["friendship_" + recipient] ?? 0) + giftAffinity(liked)),
             };
             const jealous = recipient !== leadId && affection > sharedRules.giftJealousyAffinity;
             if (jealous) variables[jealousyKey(leadId)] = Math.min(100, relationship(leadId, state).jealousy + (affection >= sharedRules.strongJealousyAffinity ? 5 : 3));

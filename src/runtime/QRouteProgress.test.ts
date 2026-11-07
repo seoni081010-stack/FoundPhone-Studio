@@ -5,6 +5,8 @@ import { initialRuntime, validateWork } from "../schema";
 import hyunjaeStory from "../../stories/hyunjae/story.json";
 import { qDayPreviewProgress, gateRouteDays, qDays, qLetters, qRouteWork, readQProgress } from "./routeWork";
 import { characterLocations } from "./characterLocations";
+import { characterStatus, initialAffinity, people } from "./HogwartsCharacters";
+import { savedGiftAffinity } from "./MagicalShops";
 
 const work = validateWork(gateRouteDays(qRouteWork(compileStory(hyunjaeStory).work)));
 afterEach(() => vi.unstubAllGlobals());
@@ -22,12 +24,15 @@ describe("Q's reviewed twenty-six-day route", () => {
       state = choose(work, state, target);
       if (state.date !== previousDay) expect(target).toMatch(/^q-day(?:0[2-9]|1[0-9]|2[0-6])-stage0$/);
       days.add(state.date);
+      if (state.variables.q_completed_day === 19 && state.date === "2026-12-19")
+        expect(characterStatus("q", 6, "ravenclaw", state.variables).affinity).toBeLessThanOrEqual(47);
     }
     expect([...days]).toEqual(Array.from({ length: 26 }, (_, index) => `2026-12-${String(index + 1).padStart(2, "0")}`));
     expect(state.variables.q_completed_day).toBe(26);
     expect(state.variables.scene_place).toBe("城堡西侧长廊");
     expect(state.choices).toEqual([]);
-    expect(state.variables.q_affection).toBeLessThanOrEqual(100);
+    expect(state.variables.q_affection).toBeLessThanOrEqual(85);
+    expect(characterStatus("q", 6, "ravenclaw", state.variables).affinity).toBeLessThanOrEqual(89);
     const scenes = (state.messages.scene ?? []).map(entry => entry.body).join("\n");
     expect(scenes).toContain(branch === 0 ? "池昌民：我们现在过去？" : "池昌民：第一支舞，你现在想跳吗？");
     expect(scenes).not.toContain(branch === 0 ? "池昌民：第一支舞，你现在想跳吗？" : "池昌民：我们现在过去？");
@@ -183,4 +188,29 @@ it("resumes a completed day-16 save and announces the third clue after day 26", 
   expect(nextAlbumNotice(unlocked(26), acknowledged, false)).toMatchObject({
     id: "q-photo-paper-stars", title: "纸上的星星", body: expect.stringContaining("等放晴了，带她去看真的。"),
   });
+});
+
+it("caps every character's starting affinity at four", () => {
+  for (const person of people) {
+    expect(initialAffinity(person.year, person.house, person)).toBe(4);
+    for (const year of [5, 6, 7]) {
+      for (const house of ["gryffindor", "slytherin", "ravenclaw", "hufflepuff"])
+        expect(initialAffinity(year, house, person)).toBeLessThanOrEqual(4);
+    }
+  }
+});
+
+it("ignores an old inflated affinity while retaining recorded gift points", () => {
+  vi.stubGlobal("localStorage", { getItem: (key: string) => key === "q-save"
+    ? JSON.stringify({ version: 2, choices: ["q-day01-0"], readDays: [1], affinity: 100, jealousy: 3 })
+    : key === "foundphone-hogwarts-shopping-v1-run"
+      ? JSON.stringify({ gifts: { "malkins-1-q": 1, "malkins-1-hyunjae": 5, "zonkos-1-q": 2 } })
+      : null });
+  const saved = readQProgress("q-save");
+  const restored = saved.choices.reduce((previous, target) => choose(work, previous, target),
+    dispatch(work, initialRuntime(work), "start"));
+  expect(restored.variables.q_affection).toBe(1);
+  expect(saved).not.toHaveProperty("affinity");
+  expect(saved.jealousy).toBe(3);
+  expect(savedGiftAffinity("run", "q")).toBe(12);
 });
