@@ -193,3 +193,36 @@ it.each([
     }
   }
 });
+
+it.each([
+  ["hy-ending-high", 100, "再经过那道石拱门时"],
+  ["hy-ending-low", 0, "明年还是想第一个来找你"],
+  ["hy-ending-friends", 0, "还是坐窗边"],
+] as const)("opens the shared final-album entry for Hyunjae's %s after the story is read", (target, affinity, memory) => {
+  const original = compileStory(story).work;
+  const opening = original.nodes.find(node => node.id === "hy-day31-scene")!;
+  const work = {
+    ...original,
+    variables: { ...original.variables, hyunjae_affection: affinity },
+    nodes: original.nodes.map(node => node.type === "start"
+      ? { ...node, actions: opening.actions, next: [target] }
+      : node),
+  };
+  const identity = { name: "试玩", house: "gryffindor", year: 7, loveInterest: "hyunjae", runId: "hyunjae-finale" };
+  for (const read of [false, true]) {
+    vi.stubGlobal("localStorage", { getItem: (key: string) => key === albumNoticeKey(identity)
+      ? JSON.stringify({ acknowledged: ["photo-snow", "photo-ball-mistletoe"], completedDays: read ? [31] : [] })
+      : null });
+    const html = renderToStaticMarkup(<HogwartsDevice work={work} identity={identity} contacts={people} onRestart={() => {}} />);
+    expect(html).toContain("D31/31");
+    expect(html.includes('aria-labelledby="final-memory-title"')).toBe(read);
+    expect(html).not.toContain('aria-label="31天结算"');
+    if (read) {
+      expect(html).toContain("<p>跨年长廊</p>");
+      expect(html).toContain(memory);
+      expect(html).toContain(">查看结局</button>");
+    } else {
+      expect(html).toContain(">夜里 · 去长廊</button>");
+    }
+  }
+});
