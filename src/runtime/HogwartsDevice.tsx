@@ -3,7 +3,7 @@ import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nex
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
-import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qDays, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qAlbumClues, qDays, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
@@ -300,7 +300,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       body: ending.memory,
       unlocked: finalMemoryOpen || finished,
     },
-  ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked).concat(isQ ? qDays.flatMap(entry => entry.album && qReadDays.includes(entry.day) ? [{ ...entry.album, unlocked: true }] : []) : []);
+  ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked).concat(isQ ? qAlbumClues(qReadDays, state.completed) : []);
   // Let story dialogs finish first, then announce each new entry in album order.
   const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== "photo-new-year"), acknowledgedClues,
     Boolean(sceneOpen || matchDialog || matchConversation || dateReply || outing || destination || finalMemoryOpen || finished));

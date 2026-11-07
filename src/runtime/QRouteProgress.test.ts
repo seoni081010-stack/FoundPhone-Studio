@@ -3,7 +3,7 @@ import { compileStory } from "../story-engine/compiler";
 import { choose, dispatch, validateGraph } from "../engine";
 import { initialRuntime, validateWork } from "../schema";
 import hyunjaeStory from "../../stories/hyunjae/story.json";
-import { qDayPreviewProgress, gateRouteDays, qDays, qLetters, qRouteWork, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, gateRouteDays, qAlbumClues, qDays, qLetters, qRouteWork, readQProgress } from "./routeWork";
 import { characterLocations } from "./characterLocations";
 import { characterStatus, initialAffinity, people } from "./HogwartsCharacters";
 import { savedGiftAffinity } from "./MagicalShops";
@@ -53,7 +53,7 @@ describe("Q's reviewed twenty-six-day route", () => {
     expect(snow.stages[0].choices.map(choice => choice.label)).toEqual([
       "走啊，第一场雪当然要出去看。", "刚修好椅子，让我多坐一会儿嘛。",
     ]);
-    expect(qDays.filter(day => day.album).map(day => day.day)).toEqual([6, 14, 26]);
+    expect(qDays.filter(day => day.album).map(day => day.day)).toEqual([6, 14, 24, 26]);
     expect(snow.album?.body).toBe("槲寄生勾住你的帽沿。他说“别动”，靠近替你拨开叶片，肩上落着细雪。");
   });
   it("migrates the published first-day save into the extended route", () => {
@@ -181,8 +181,7 @@ it("resumes a completed day-16 save and announces the third clue after day 26", 
 
   const { nextAlbumNotice } = await import("./albumNotices");
   const acknowledged = ["q-photo-snow", "q-photo-silver-leaf"];
-  const unlocked = (day: number) => qDays.flatMap(entry => entry.album && entry.day <= day
-    ? [{ ...entry.album, unlocked: true }] : []);
+  const unlocked = (day: number) => qAlbumClues(Array.from({ length: day }, (_, index) => index + 1), []);
   expect(nextAlbumNotice(unlocked(25), acknowledged, false)).toBeUndefined();
   expect(nextAlbumNotice(unlocked(26), acknowledged, true)).toBeUndefined();
   expect(nextAlbumNotice(unlocked(26), acknowledged, false)).toMatchObject({

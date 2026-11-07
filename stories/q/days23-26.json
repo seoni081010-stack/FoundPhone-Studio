@@ -111,6 +111,12 @@
   {
     "day": 24,
     "label": "傍晚 · 去圣诞舞会",
+    "album": {
+      "id": "q-photo-ball-arch",
+      "title": "石拱门下",
+      "body": "礼堂里还在奏乐。槲寄生底下，他的小指轻轻勾住你的。你低着头，手指也弯了一下。",
+      "requiresChoice": "q-day24-stage2-0"
+    },
     "stages": [
       {
         "channel": "scene",

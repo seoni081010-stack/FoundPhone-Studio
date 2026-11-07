@@ -6,7 +6,7 @@ import { compileStory } from "../story-engine/compiler";
 import story from "../../stories/hyunjae/story.json";
 import { initialRuntime } from "../schema";
 import { choose, dispatch } from "../engine";
-import { gateRouteDays, qRouteWork, qProgressKey } from "./routeWork";
+import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues } from "./routeWork";
 import { albumNoticeKey } from "./albumNotices";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -91,4 +91,32 @@ it("announces the newly added day-fourteen clue to an existing day-sixteen save"
   expect(html).toContain("D16/31");
   expect(html).toContain('aria-labelledby="album-clue-title"');
   expect(html).toContain("在魔法相册中查看「银叶别针」。");
+});
+
+it.each([
+  { branch: 0, read: false, acknowledged: false, unlocked: false, popup: false },
+  { branch: 0, read: true, acknowledged: false, unlocked: true, popup: true },
+  { branch: 0, read: true, acknowledged: true, unlocked: true, popup: false },
+  { branch: 1, read: true, acknowledged: false, unlocked: false, popup: false },
+])("restores the ball clue from the final choice ($branch, read=$read, acknowledged=$acknowledged)", ({
+  branch, read, acknowledged, unlocked, popup,
+}) => {
+  const original = compileStory(story).work;
+  const work = gateRouteDays(qRouteWork(original));
+  let state = dispatch(work, initialRuntime(work), "start");
+  const history: string[] = [];
+  for (let step = 0; state.variables.q_completed_day !== 24 && step < 250; step++) {
+    const choice = state.choices.find(entry => entry.target === `q-day24-stage2-${branch}`) ?? state.choices[0];
+    history.push(choice.target);
+    state = choose(work, state, choice.target);
+  }
+  expect(state.variables.q_completed_day).toBe(24);
+  const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "existing-day24" };
+  const readDays = Array.from({ length: read ? 24 : 23 }, (_, index) => index + 1);
+  const saved = { version: 2, choices: history, readDays, time: "20:00",
+    acknowledgedClues: ["q-photo-snow", "q-photo-silver-leaf", ...(acknowledged ? ["q-photo-ball-arch"] : [])] };
+  vi.stubGlobal("localStorage", { getItem: (key: string) => key === qProgressKey(identity) ? JSON.stringify(saved) : null });
+  const html = renderToStaticMarkup(<HogwartsDevice work={original} identity={identity} contacts={people} onRestart={() => {}} />);
+  expect(html.includes("在魔法相册中查看「石拱门下」。")).toBe(popup);
+  expect(qAlbumClues(readDays, state.completed).some(clue => clue.id === "q-photo-ball-arch")).toBe(unlocked);
 });

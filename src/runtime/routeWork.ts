@@ -7,7 +7,7 @@ import middleDays from "../../stories/q/days17-22.json";
 import holidayDays from "../../stories/q/days23-26.json";
 import { initialRuntime, makeItem, nodeSchema, type Work } from "../schema";
 
-const followingDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string }; stages: {
+const followingDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string; requiresChoice?: string }; stages: {
   channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[]; affinity?: number }[];
   tail: string[]; openingVariant?: { key: string; value: number; accepted: string; otherwise: string }; endPlace?: string; endTime?: string;
 }[] }[] = [...earlyDays, ...laterDays, ...middleDays, ...holidayDays];
@@ -101,6 +101,14 @@ export function gateRouteDays(route: Work): Work {
 }
 
 export const qDays = followingDays;
+
+export function qAlbumClues(readDays: readonly number[], completed: readonly string[]) {
+  return qDays.flatMap(({ day, album }) =>
+    album && readDays.includes(day) && (!album.requiresChoice || completed.includes(album.requiresChoice))
+      ? [{ id: album.id, title: album.title, body: album.body, unlocked: true }]
+      : []);
+}
+
 export const qSceneSpeakers = new Set(["池昌民", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像", "国王", "黑国王", "同学", "室友"]);
 
 export function qLetters(messages: Work["data"][string]) {
@@ -191,7 +199,8 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
     state = choose(work, state, target);
   }
   if (state.date !== date) throw new Error("该日期尚未开放预览。");
-  return { choices: history, readDays: Array.from({ length: day - 1 }, (_, index) => index + 1),
+  const readDays = Array.from({ length: day - 1 }, (_, index) => index + 1);
+  return { choices: history, readDays,
     attended: {}, time: day === 12 ? "14:00" : "16:00", mailUnlocked: true, extraMail: [],
-    acknowledgedClues: qDays.flatMap(entry => entry.day < day && entry.album ? [entry.album.id] : []), legacy: false };
+    acknowledgedClues: qAlbumClues(readDays, state.completed).map(clue => clue.id), legacy: false };
 }
