@@ -6,7 +6,7 @@ import { compileStory } from "../story-engine/compiler";
 import story from "../../stories/hyunjae/story.json";
 import { initialRuntime } from "../schema";
 import { choose, dispatch } from "../engine";
-import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues, qEndingCopy } from "./routeWork";
+import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues, qEndingCopy, hyunjaeDay31Preview } from "./routeWork";
 import { albumNoticeKey } from "./albumNotices";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -225,4 +225,27 @@ it.each([
       expect(html).toContain(">夜里 · 去长廊</button>");
     }
   }
+});
+
+it("opens Hyunjae's independent preview at the start of day 31 with the confession available", () => {
+  const original = compileStory(story).work;
+  const work = gateRouteDays(original);
+  const initial = initialRuntime(work);
+  initial.variables.hyunjae_player_house = "gryffindor";
+  initial.variables.hyunjae_player_year = 7;
+  const state = hyunjaeDay31Preview(work, initial);
+  expect(state.date).toBe("2026-12-31");
+  expect(state.endings).toEqual([]);
+  expect(choose(work, state, "hy-day31-a").endings).toEqual(["hyunjae-together"]);
+
+  const identity = { name: "试玩", house: "gryffindor", year: 7, loveInterest: "hyunjae", runId: "review-hyunjae-day31" };
+  const setItem = vi.fn();
+  vi.stubGlobal("localStorage", { getItem: () => null, setItem });
+  const html = renderToStaticMarkup(<HogwartsDevice previewDay={31} work={original} identity={identity} contacts={people} onRestart={() => {}} />);
+  expect(html).toContain("D31/31");
+  expect(html).toContain('aria-labelledby="scene-title"');
+  expect(html).toContain("李贤在");
+  expect(html).not.toContain('aria-labelledby="final-memory-title"');
+  expect(html).not.toContain('aria-labelledby="album-clue-title"');
+  expect(setItem).not.toHaveBeenCalled();
 });

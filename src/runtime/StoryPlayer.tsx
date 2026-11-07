@@ -54,13 +54,14 @@ async function prepareAvatar(file: File) {
 
 function StoryPlayer() {
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewDay = previewMode === "q-day6" ? 6 : previewMode === "q-day12" ? 12 : previewMode === "q-day31" ? 31 : undefined;
+  const previewDay = previewMode === "q-day6" ? 6 : previewMode === "q-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined;
+  const previewLead = previewMode === "hyunjae-day31" ? "hyunjae" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
   const [identity, setIdentity] = useState<Identity | null>(() => previewDay ? {
-    name: savedIdentity()?.name ?? "你", house: savedIdentity()?.house ?? "ravenclaw",
-    year: savedIdentity()?.year ?? 6, loveInterest: "q", runId: `review-q-day${previewDay}`,
+    name: savedIdentity()?.name ?? "你", house: savedIdentity()?.house ?? (previewLead === "hyunjae" ? "gryffindor" : "ravenclaw"),
+    year: savedIdentity()?.year ?? (previewLead === "hyunjae" ? 7 : 6), loveInterest: previewLead, runId: `review-${previewLead}-day${previewDay}`,
   } : savedIdentity());
   const [avatar, setAvatar] = useState(identity?.avatar);
   const [avatarBusy, setAvatarBusy] = useState(false);
@@ -199,7 +200,7 @@ function StoryPlayer() {
           </section>
         ) : (
           <>
-            {previewDay && <p role="status">池昌民 · 第{previewDay}天单独预览 · 不影响正式进度 · <a href="./">返回正式游戏</a></p>}
+            {previewDay && <p role="status">{selectedLead?.name} · 第{previewDay}天单独预览 · 不影响正式进度 · <a href="./">返回正式游戏</a></p>}
             {!previewDay && !isTest && chosen && identity && <details className="hogwarts-reset hogwarts-player-menu">
               <summary>{chosen.name} {identity.year}年级 {identity.name}</summary>
               <button type="button" onClick={restart}>重新开始</button>

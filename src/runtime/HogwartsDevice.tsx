@@ -3,7 +3,7 @@ import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nex
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
-import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qAlbumClues, qDays, qEndingCopy, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, hyunjaeDay31Preview, qAlbumClues, qDays, qEndingCopy, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
@@ -84,9 +84,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const dateRoute = routeDateContent[selectedLeadId];
   const dateScenes = dateRoute?.venues ?? {};
   const isQ = selectedLeadId === "q";
+  const hyunjaePreview = selectedLeadId === "hyunjae" && previewDay === sharedRules.confessionDay;
   const qStorageKey = qProgressKey(identity);
-  const identityKey = previewDay ? `review-q-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
-  const [restoredQ] = useState(() => previewDay ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
+  const identityKey = previewDay ? `review-${selectedLeadId}-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
+  const [restoredQ] = useState(() => previewDay && isQ ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
   const startingAffinity = characterStatus(selectedLeadId, identity?.year ?? 5, identity?.house ?? "", {}).affinity;
@@ -100,6 +101,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     initial.variables.hyunjae_player_year = identity?.year ?? 5;
     // Gifts must be in the score before replay reaches the ending gate.
     if (isQ && !previewDay) initial.variables.q_affection = Math.min(100, savedGiftAffinity(identityKey, "q"));
+    if (hyunjaePreview) return hyunjaeDay31Preview(work, initial);
     let runtime = dispatch(work, initial, "start");
     if (isQ) {
       for (const target of restoredQ.choices) runtime = choose(work, runtime, target);
@@ -128,7 +130,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const relationshipHint = relationshipNotice && <p className="hogwarts-narration" role="status" style={{ fontSize: ".9rem" }}>{relationshipNotice}</p>;
   const [active, setActive] = useState("calendar");
   const albumStorageKey = albumNoticeKey(identity);
-  const [restoredAlbum] = useState(() => readAlbumNotices(albumStorageKey));
+  const [restoredAlbum] = useState(() => hyunjaePreview
+    ? { acknowledged: ["photo-snow", "photo-ball-mistletoe"], completedDays: [] }
+    : readAlbumNotices(albumStorageKey));
   const [completedSceneDays, setCompletedSceneDays] = useState<number[]>(() => [...new Set([
     ...restoredAlbum.completedDays, ...(isQ ? restoredQ.readDays : []),
   ])]);
@@ -156,7 +160,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     work.nodes.find(node => node.id === choice.target)?.actions.some(action =>
       action.type === "date" && String(action.value) > (state.date || "")));
   const startTime = sharedRules.dayStartTime;
-  const [lessonTime, setLessonTime] = useState<string | undefined>(() => isQ ? restoredQ.time : undefined);
+  const [lessonTime, setLessonTime] = useState<string | undefined>(() => isQ ? restoredQ.time : hyunjaePreview ? "23:45" : undefined);
   const [recipient, setRecipient] = useState("");
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);

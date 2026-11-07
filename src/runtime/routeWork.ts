@@ -7,7 +7,7 @@ import middleDays from "../../stories/q/days17-22.json";
 import holidayDays from "../../stories/q/days23-26.json";
 import finale from "../../stories/q/days27-31.json";
 import { sharedRules } from "./sharedRules";
-import { initialRuntime, makeItem, nodeSchema, type Work } from "../schema";
+import { initialRuntime, makeItem, nodeSchema, type Runtime, type Work } from "../schema";
 
 const followingDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string; requiresChoice?: string }; stages: {
   channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[]; affinity?: number }[];
@@ -242,4 +242,15 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
   return { choices: history, readDays,
     attended: {}, time: day === 12 ? "14:00" : day === sharedRules.confessionDay ? String(state.variables.scene_time) : "16:00", mailUnlocked: true, extraMail: [],
     acknowledgedClues: qAlbumClues(readDays, state.completed).map(clue => clue.id), legacy: false };
+}
+
+// The finale review uses the first authored response on each earlier day.
+export function hyunjaeDay31Preview(work: Work, initial: Runtime): Runtime {
+  let state = dispatch(work, initial, "start");
+  const date = `2026-12-${sharedRules.confessionDay}`;
+  for (let step = 0; state.date !== date && state.choices.length && step < 500; step++) {
+    state = choose(work, state, state.choices[0].target);
+  }
+  if (state.date !== date) throw new Error("该日期尚未开放预览。");
+  return state;
 }
