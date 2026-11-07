@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 27,
+  "revision": 28,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -2147,7 +2147,7 @@
     },
     {
       "id": "hy-day12-scene",
-      "label": "格兰芬多输了",
+      "label": "看台上",
       "type": "action",
       "actions": [
         {
@@ -2158,7 +2158,102 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月12日｜比赛日。早餐的大礼堂比平时吵得多。后来李贤在处理完级长的事情，在拥挤的看台里找到\n你：你来得还挺早。\n比赛开始后，你们都认真看球。善旴几次漂亮进攻，英宰寻找金色飞贼，柱延的游走球给格兰芬多制造了不少麻烦。最后斯莱特林获胜。\n回城堡的人群里，李贤在叹了口气。\n李贤在：输了。不过他们今天确实打得好。"
+          "value": "12月12日｜赛前｜看台上的人陆续站了起来。你听见有人沿着过道挤上来，回头一看，李贤在已经走到你这排了。他刚忙完级长的事，手里还拿着没来得及收起来的巡查记录。\n李贤在：我还以为赶不上他们入场。"
+        }
+      ],
+      "next": [
+        "hy-day12-pre-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day12-pre-choice",
+      "label": "12月12日：赛前",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day12-pre-a",
+        "hy-day12-pre-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day12-pre-a",
+      "label": "刚好。你再晚一点，我就要站起来找你了。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "赛前｜你：刚好。你再晚一点，我就要站起来找你了。\n李贤在：我从下面往上看，一眼就看见你了。\n他在你旁边坐下，这才低头把巡查记录卷好。\n李贤在：刚才你一直往过道这边看。"
+        }
+      ],
+      "next": [
+        "hy-day12-paper"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day12-pre-b",
+      "label": "来得正好。你坐过来一点，这边看得清。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "赛前｜你：来得正好。你坐过来一点，这边看得清。\n他照你说的挪了挪。前面的人把旗子举起来，又很快放下，球场一下露了出来。\n李贤在：还真是。刚才在下面，我只能看见半面旗。"
+        }
+      ],
+      "next": [
+        "hy-day12-paper"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day12-paper",
+      "label": "hy-day12-paper",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "赛前｜一张折好的羊皮纸从前排传过来，落在你手边。纸角写着弗雷德和乔治的名字。"
+        }
+      ],
+      "next": [
+        "hy-day12-paper-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day12-paper-choice",
+      "label": "魁地奇竞猜",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day12-match"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day12-match",
+      "label": "继续看比赛",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "比赛开场后，善旴接连进了几球。柱延打来的游走球擦过格兰芬多球员的扫帚，看台上齐齐吸了一口气。最后，英宰朝低处俯冲，斯莱特林的找球手先一步抓住了金色飞贼。\n回城堡的路上，李贤在还在回头看球场。\n李贤在：输了。不过他们今天确实打得好。"
         }
       ],
       "next": [
@@ -2179,7 +2274,7 @@
     },
     {
       "id": "hy-day12-a",
-      "label": "最后那一下，我差点从座位上弹起来。",
+      "label": "英宰俯冲的时候，我还以为他抓到了。",
       "type": "action",
       "actions": [
         {
@@ -2190,12 +2285,12 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：最后那一下，我差点从座位上弹起来。\n李贤在：对吧？我还以为英宰已经看到飞贼了。\n你们一路复盘比赛，他越说越不甘心。\n李贤在：下次肯定不会这样。\n你：你又没上场。\n李贤在：我是格兰芬多啊ㅋㅋ"
+          "value": "你：英宰俯冲的时候，我还以为他抓到了。\n李贤在：我也是。我都站起来了。\n你：我知道。我差点没看见飞贼，光看见你站起来了。\n他转头看你，终于笑了一下。\n李贤在：那你下次坐我前面。我争取站得晚一点。"
         }
       ],
       "next": [
@@ -2205,7 +2300,7 @@
     },
     {
       "id": "hy-day12-b",
-      "label": "柱延今天打得真好。你先别瞪我。",
+      "label": "柱延那一球打得真准。你看到没？善旴差一点就过去了。",
       "type": "action",
       "actions": [
         {
@@ -2216,12 +2311,12 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：柱延今天打得真好。你先别瞪我。\n李贤在：嗯，那个游走球打得很准。\n他看你一眼。\n李贤在：你是不是早就觉得斯莱特林今天状态很好？\n你：有一点点。真的就一点点。\n李贤在：早知道不问你了ㅋㅋ\n但他自己也笑了。"
+          "value": "你：柱延那一球打得真准。你看到没？善旴差一点就过去了。\n李贤在：看到了。再早一点传出去，善旴就能接着往前冲。\n他说着抬手比了一下两把扫帚的位置。你顺着他的手看过去，他才发现自己已经在路上停了下来。\n李贤在：走吧。再站一会儿，我就要从头讲了。"
         }
       ],
       "next": [
@@ -2231,7 +2326,7 @@
     },
     {
       "id": "hy-day13-scene",
-      "label": "皱巴巴的苦糖脸",
+      "label": "蜂蜜公爵的新糖",
       "type": "action",
       "actions": [
         {
@@ -2242,7 +2337,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月13日｜李贤在：蜂蜜公爵的新糖，看我试试"
+          "value": "12月13日｜来信｜一张纸条和一小包糖一起送到。糖纸上印着两颗黑莓，翻过来，背面还有一行很小的字。\n李贤在：蜂蜜公爵出的新糖。我留了一颗给你。你看得清背面那行字吗？"
         }
       ],
       "next": [
@@ -2263,7 +2358,7 @@
     },
     {
       "id": "hy-day13-a",
-      "label": "你先，我负责看你表情。",
+      "label": "写的是『酸味过后还有惊喜』。你先试，我想知道是什么惊喜。",
       "type": "action",
       "actions": [
         {
@@ -2272,29 +2367,29 @@
           "value": "a"
         },
         {
+          "type": "variable",
+          "key": "hyunjae_candy_face_memory",
+          "value": true
+        },
+        {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：你先，我负责看你表情。\n李贤在：脸苦得皱巴巴的！你不许笑ㅋㅋ"
-        },
-        {
-          "type": "variable",
-          "key": "hyunjae_candy_face_memory",
-          "value": true
+          "value": "来信｜你：写的是『酸味过后还有惊喜』。你先试，我想知道是什么惊喜。\n回信来得很快，字写得比平时大。\n李贤在：惊喜是酸完以后更苦。\n李贤在：我刚才脸都皱起来了。幸好你没在这儿。"
         }
       ],
       "next": [
-        "hy-day14-scene"
+        "hy-day13-followup-choice"
       ],
       "conditions": []
     },
     {
       "id": "hy-day13-b",
-      "label": "别硬撑啊，苦就吐出来。",
+      "label": "看得清。要不我们先掰半颗？我怕一颗吃不完。",
       "type": "action",
       "actions": [
         {
@@ -2305,12 +2400,65 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：别硬撑啊，苦就吐出来。\n李贤在：呜，好苦ㅋㅋ"
+          "value": "来信｜你：看得清。要不我们先掰半颗？我怕一颗吃不完。\n李贤在：你这张来晚了一点。我已经吃了一整颗。\n隔了一会儿，他又寄来一张。\n李贤在：半颗也够了。我现在喝水都觉得水是苦的。"
+        }
+      ],
+      "next": [
+        "hy-day13-followup-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day13-followup-choice",
+      "label": "12月13日：第二次回复",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day13-followup-a",
+        "hy-day13-followup-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day13-followup-a",
+      "label": "我也试了一小口。现在我知道你刚才是什么表情了。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：我也试了一小口。现在我知道你刚才是什么表情了。\n李贤在：你是不是也先眯了一只眼？\n李贤在：我还以为就我这样。"
+        }
+      ],
+      "next": [
+        "hy-day14-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day13-followup-b",
+      "label": "我把它包回去了。你下次挑的时候，我陪你一起看糖纸。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：我把它包回去了。你下次挑的时候，我陪你一起看糖纸。\n李贤在：好。我刚才买的时候只看了正面。\n纸条角落画着两颗挨在一起的黑莓，底下还有一行字。\n李贤在：它看起来真的挺甜的。"
         }
       ],
       "next": [
@@ -2320,7 +2468,7 @@
     },
     {
       "id": "hy-day14-scene",
-      "label": "今天没怎么见到你",
+      "label": "巡查路上",
       "type": "action",
       "actions": [
         {
@@ -2331,7 +2479,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月14日｜傍晚你在城堡里碰见李贤在，他手里还拿着巡查记录。\n李贤在：今天怎么感觉一直没碰见你。\n你：你不是一直在忙吗？\n李贤在：也是。上午有课，下午又被叫过去帮忙。\n他看向你。\n李贤在：你今天都干什么了？"
+          "value": "12月14日｜傍晚，你在走廊碰见李贤在。他手里还拿着巡查记录，走到窗边时停下来，靠着墙把刚写完的那一栏看了一遍。\n他听见脚步声，抬起头。\n李贤在：今天怎么一直没碰见你？\n你：我中午看见你了。你刚进门就被人叫走了。\n李贤在：原来你在。\n他把巡查记录卷起来，视线还停在你脸上。\n李贤在：那你今天都干什么了？"
         }
       ],
       "next": [
@@ -2352,7 +2500,7 @@
     },
     {
       "id": "hy-day14-a",
-      "label": "你边走边听，我今天也攒了点事要讲。",
+      "label": "我正想跟你说呢。你往哪边走？我陪你走一段。",
       "type": "action",
       "actions": [
         {
@@ -2363,22 +2511,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 3
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：你边走边听，我今天也攒了点事要讲。\n你讲起今天的一件小事，李贤在一边走一边听，还会追问。本来只打算站在走廊说两句，最后不知不觉走了很远。\n到楼梯口他才反应过来。\n李贤在：我本来是不是要往另一边走？\n你：……对啊。\n李贤在笑了。\n李贤在：算了，都走到这里了。"
+          "value": "你：我正想跟你说呢。你往哪边走？我陪你走一段。\n你讲起下午的魔咒课。隔壁桌的人把自己的羽毛悬起来以后，忘了让它落下去。等大家收东西，那根羽毛还跟着他，一路飘到门口。\n李贤在：后来谁给他拿下来的？\n你：他自己。有人提醒他，他抬手一抓，还问我们怎么都知道。\n李贤在听完笑起来。走到楼梯口，他朝楼下看了一眼。\n李贤在：我原来是要往另一头走的。\n你：那我陪你走回去？\n他看了你一眼，把刚迈出去的那一步收回来。\n李贤在：好。你刚才是不是还有一件事没讲？"
         }
       ],
       "next": [
-        "hy-day15-memory-gate"
+        "hy-day15-scene"
       ],
       "conditions": []
     },
     {
       "id": "hy-day14-b",
-      "label": "你看起来快站着睡着了。",
+      "label": "我陪你在这儿站一会儿吧。我今天也有点走累了。",
       "type": "action",
       "actions": [
         {
@@ -2389,39 +2537,79 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：你看起来快站着睡着了。\n李贤在：有一点。\n你：那还问我今天干什么。\n他顿了一下。\n李贤在：累又不影响我想知道。\n说完先往前走。\n李贤在：走吧。"
+          "value": "你：我陪你在这儿站一会儿吧。我今天也有点走累了。\n李贤在：好。我也正想歇一会儿。\n你们让开窗边的一点位置，等两个抱着书的学生过去。走廊安静下来以后，你跟他讲起那根一直飘到教室门口的羽毛。\n李贤在：那你自己的呢？\n你：早落下来了。教授一走到我旁边，它就掉了。\n他侧过脸笑。窗外天已经暗了，他低头把卷好的羊皮纸又松开一点。\n李贤在：我还有最后一处没走。你要是也下楼，我们走到楼梯口再分开。"
         }
       ],
       "next": [
-        "hy-day15-memory-gate"
+        "hy-day15-scene"
       ],
       "conditions": []
     },
     {
       "id": "hy-day15-scene",
-      "label": "我记得你说过",
+      "label": "他还记得",
       "type": "action",
       "actions": [
         {
           "type": "date",
           "key": "",
           "value": "2026-12-15"
-        },
+        }
+      ],
+      "next": [
+        "hy-day15-memory-gate-yes",
+        "hy-day15-memory-gate-no"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day15-memory-gate-yes",
+      "label": "上次的烤鸡",
+      "type": "action",
+      "actions": [
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月15日｜李贤在：今天餐桌上有没有你喜欢的？"
+          "value": "12月15日｜来信｜李贤在：今天又有烤鸡。我刚看了一眼，上次那个酱也在。"
         }
       ],
       "next": [
         "hy-day15-choice"
       ],
-      "conditions": []
+      "conditions": [
+        {
+          "key": "hyunjae_food_preference",
+          "op": "eq",
+          "value": "roast_chicken"
+        }
+      ]
+    },
+    {
+      "id": "hy-day15-memory-gate-no",
+      "label": "上次的汤",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "12月15日｜来信｜李贤在：今天有上次那个汤。我刚尝过，这回还没往里加胡椒。"
+        }
+      ],
+      "next": [
+        "hy-day15-choice"
+      ],
+      "conditions": [
+        {
+          "key": "hyunjae_food_preference",
+          "op": "neq",
+          "value": "roast_chicken"
+        }
+      ]
     },
     {
       "id": "hy-day15-choice",
@@ -2436,7 +2624,7 @@
     },
     {
       "id": "hy-day15-a",
-      "label": "你上次推荐的那个，我还惦记着呢。",
+      "label": "我刚才还在想晚饭吃什么。你一说，我就有点想吃了。",
       "type": "action",
       "actions": [
         {
@@ -2447,22 +2635,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：你上次推荐的那个，我还惦记着呢。\n李贤在：你记得啊ㅋㅋ"
+          "value": "来信｜你：我刚才还在想晚饭吃什么。你一说，我就有点想吃了。\n李贤在：那你来得正好，刚端上来一盘新的。\n过了一会儿，他又补了一张。\n李贤在：我已经坐下了。在上次那边。"
         }
       ],
       "next": [
-        "hy-day16-scene"
+        "hy-day15-followup-choice"
       ],
       "conditions": []
     },
     {
       "id": "hy-day15-b",
-      "label": "今天想换个口味，你有新推荐吗？",
+      "label": "上次那个好吃。今天还有什么你想试的？",
       "type": "action",
       "actions": [
         {
@@ -2473,12 +2661,65 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：今天想换个口味，你有新推荐吗？\n李贤在：那我们一起看看"
+          "value": "来信｜你：上次那个好吃。今天还有什么你想试的？\n李贤在：有个苹果馅饼。我看了半天，还没人切第一块。\n李贤在：你要是也想吃，等你来了我们分一块。"
+        }
+      ],
+      "next": [
+        "hy-day15-followup-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day15-followup-choice",
+      "label": "12月15日：第二次回复",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day15-followup-a",
+        "hy-day15-followup-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day15-followup-a",
+      "label": "那你等我一下。我把书放回去就下来。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：那你等我一下。我把书放回去就下来。\n李贤在：好。我旁边有空位。\n李贤在：你上次从靠门那头进来的？我今天坐得近一点。"
+        }
+      ],
+      "next": [
+        "hy-day16-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day15-followup-b",
+      "label": "我还要晚一点。你吃完了就告诉我，哪个最好吃。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：我还要晚一点。你吃完了就告诉我，哪个最好吃。\n等你收好书，猫头鹰已经站在窗边了。\n李贤在：苹果馅饼。里面有几片还是脆的。\n纸条下边沾了一点糖粉。\n李贤在：我问过了，晚一点还会上新的。"
         }
       ],
       "next": [
@@ -2488,7 +2729,7 @@
     },
     {
       "id": "hy-day16-scene",
-      "label": "你刚才笑什么",
+      "label": "楼梯还没转回来",
       "type": "action",
       "actions": [
         {
@@ -2499,7 +2740,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月16日｜你准备从一条近路穿过去，发现前面的楼梯正在移动。\n李贤在正好从另一边下来。\n李贤在：别走那边，刚才已经有三个人被它送到另一层了。\n你：那我怎么走？\n他走回来。\n李贤在：跟我走。"
+          "value": "12月16日｜你走到楼梯口，正好看见对面那段楼梯移开。刚踏上去的几个学生扶着栏杆，被送到了上一层。\n李贤在从旁边的台阶下来，也抬头看了一眼。\n李贤在：它今天已经往那边转了三次。你去楼下？\n他朝另一侧让了一步。\n李贤在：走这边也能到。我带你过去。"
         }
       ],
       "next": [
@@ -2520,7 +2761,7 @@
     },
     {
       "id": "hy-day16-a",
-      "label": "哇，级长大人今天还管带路？",
+      "label": "好啊。我正想找个人跟我一起绕。",
       "type": "action",
       "actions": [
         {
@@ -2531,22 +2772,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：哇，级长大人今天还管带路？\n李贤在：仅限今天ㅋㅋ\n走了两步，他又补了一句。\n李贤在：……也可能明天还有。"
+          "value": "你：好啊。我正想找个人跟我一起绕。\n李贤在：那我来得还挺巧。\n他走在前面，到了拐角却停下来，等你走到身侧才接着往前。"
         }
       ],
       "next": [
-        "hy-day17-scene"
+        "hy-day16-followup"
       ],
       "conditions": []
     },
     {
       "id": "hy-day16-b",
-      "label": "还真要送我过去啊？",
+      "label": "我上次也从这边绕，走到一半就拐错了。",
       "type": "action",
       "actions": [
         {
@@ -2557,12 +2798,81 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：还真要送我过去啊？\n李贤在：反正也没多远。\n明明已经到了，他还是陪你多走了一截。"
+          "value": "你：我上次也从这边绕，走到一半就拐错了。\n李贤在：是不是那幅蓝袍画像后面？那里有两扇一模一样的门。\n你点头。他走到画像边，替你推开靠里的那扇。\n李贤在：这扇。我头一回也开的另一扇。"
+        }
+      ],
+      "next": [
+        "hy-day16-followup"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day16-followup",
+      "label": "hy-day16-followup",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "到了楼下，他还跟着你往前走了一段。你们经过第一扇窗，又经过第二扇。你回头看了看已经走过的楼梯口。\n你：你原来要去哪儿？\n李贤在：楼上。\n他跟着你回头看了一眼。\n李贤在：刚才下来是为了叫你。"
+        }
+      ],
+      "next": [
+        "hy-day16-followup-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day16-followup-choice",
+      "label": "12月16日：第二次回复",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day16-followup-a",
+        "hy-day16-followup-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day16-followup-a",
+      "label": "那明天那段楼梯又跑了，我还能在那儿碰见你吗？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：那明天那段楼梯又跑了，我还能在那儿碰见你吗？\n李贤在：你明天也走那边？\n你：差不多这个时候。\n他点点头，朝楼梯口望了一眼。\n李贤在：那我明天从那儿下去。"
+        }
+      ],
+      "next": [
+        "hy-day17-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day16-followup-b",
+      "label": "前面就是了。下次换我陪你走一段。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：前面就是了。下次换我陪你走一段。\n李贤在：好。你平时从哪条路上去？\n你指了指另一头。他顺着看过去，那边比你们刚才走的路还要远一些。\n李贤在：行。那下次走你的。"
         }
       ],
       "next": [
@@ -2572,7 +2882,7 @@
     },
     {
       "id": "hy-day17-scene",
-      "label": "一起看看圣诞树",
+      "label": "圣诞树",
       "type": "action",
       "actions": [
         {
@@ -2583,7 +2893,12 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月17日｜李贤在：大礼堂那边的圣诞树装饰好了。要不要一起去看看？"
+          "value": "12月17日｜来信｜李贤在：大礼堂的圣诞树装好了。我刚从门口经过，最上面的星星还在转。\n李贤在：你有空一起去看看吗？"
+        },
+        {
+          "type": "variable",
+          "key": "story_delivery",
+          "value": "mail"
         }
       ],
       "next": [
@@ -2604,7 +2919,7 @@
     },
     {
       "id": "hy-day17-a",
-      "label": "走啊，我要看看它有多夸张。",
+      "label": "有啊。我收一下东西，你在门口等我？",
       "type": "action",
       "actions": [
         {
@@ -2613,29 +2928,29 @@
           "value": "a"
         },
         {
+          "type": "variable",
+          "key": "story_delivery",
+          "value": "travel"
+        },
+        {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：走啊，我要看看它有多夸张。\n你们一起去了大礼堂。会自己发光的装饰挂满圣诞树。\n李贤在：每年看都觉得挺夸张的。\n你：那你还来看。\n李贤在：因为好看啊。\n安静了一会儿，他忽然说。\n李贤在：对了，24号舞会……要不要一起？\n你答应后，他笑了一下。\n李贤在：好，那说定了。"
-        },
-        {
-          "type": "variable",
-          "key": "hyunjae_ball_invited",
-          "value": true
+          "value": "来信｜你：有啊。我收一下东西，你在门口等我？\n李贤在：好。我就在大礼堂外面。"
         }
       ],
       "next": [
-        "hy-day18-scene"
+        "hy-day17-travel-choice"
       ],
       "conditions": []
     },
     {
       "id": "hy-day17-b",
-      "label": "今天电量见底了，我想先回去躺会儿。",
+      "label": "我今天有点累，想先回去歇会儿。你看完跟我说说？",
       "type": "action",
       "actions": [
         {
@@ -2646,12 +2961,159 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：今天电量见底了，我想先回去躺会儿。\n李贤在先问。\n李贤在：怎么了？今天发生什么了吗？\n听你说只是累，他没有勉强。\n李贤在：那早点回去休息。\n后来他自己去看了圣诞树，在魔法相册里给你留下一张会动的照片。\n李贤在：确实挺漂亮的。你今天没看到有点可惜。等你不累的时候再一起去。"
+          "value": "来信｜你：我今天有点累，想先回去歇会儿。你看完跟我说说？\n李贤在：好。你今天是一直没歇着吗？\n你回了张纸条，说下午连着上了几节课，想回去坐一会儿。他回了句「那改天一起去」，又过了一阵，猫头鹰带回来一张照片。\n照片｜圣诞树\n照片里的星星一直在转。有个人从画面边缘经过，抬手扶住一颗快滑下来的银铃。你只看见半截袖子。\n李贤在：拍的时候有人从旁边经过。等我想重拍，星星已经转过去了。"
+        }
+      ],
+      "next": [
+        "hy-day17-mail-followup-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-travel-choice",
+      "label": "前往大礼堂",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day17-hall"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-hall",
+      "label": "去大礼堂",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "story_delivery",
+          "value": "scene"
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你到的时候，他站在门边，正抬头看树顶。那颗星星转到背面时，落下一点很淡的光，刚好照亮旁边一圈枝叶。\n你：你在这儿已经能看见了，怎么没进去？\n李贤在：想等你来了一起看。\n你们走到树下。近了才发现，有颗挂歪的银铃每响一下，旁边几颗就跟着响。他也听见了，侧头看了你一眼。\n过了一会儿，他开口。\n李贤在：对了，二十四号的舞会。你愿意跟我一起去吗？"
+        }
+      ],
+      "next": [
+        "hy-day17-hall-followup-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-hall-followup-choice",
+      "label": "12月17日：大礼堂",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day17-hall-followup-a",
+        "hy-day17-hall-followup-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-hall-followup-a",
+      "label": "好啊。我还在想你什么时候会问我。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_ball_invited",
+          "value": true
+        },
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：好啊。我还在想你什么时候会问我。\n他看着你，过了一会儿才笑。\n李贤在：我刚才在门口就想问了。\n你：那怎么等到现在？\n他抬眼看了看那几颗还在响的银铃。\n李贤在：进来以后，你一直在听这个。我也想听一会儿。"
+        }
+      ],
+      "next": [
+        "hy-day18-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-hall-followup-b",
+      "label": "好啊。那第一支舞也一起？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_ball_invited",
+          "value": true
+        },
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：好啊。那第一支舞也一起？\n李贤在：一起。我本来也是想问第一支。\n他说完，把刚抬起来拨银铃的手放了下去。\n李贤在：那我到时候在门口等你。就在刚才那个位置。"
+        }
+      ],
+      "next": [
+        "hy-day18-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-mail-followup-choice",
+      "label": "12月17日：猫头鹰信箱",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day17-mail-followup-a",
+        "hy-day17-mail-followup-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-mail-followup-a",
+      "label": "这张就很好。等我有精神了，你带我去认一下那颗铃？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：这张就很好。等我有精神了，你带我去认一下那颗铃？\n李贤在：好。那颗好认，挂得有点歪。\n隔了一会儿，他又寄来一句。\n李贤在：我刚才扶过一次，后来它又歪回去了。"
+        }
+      ],
+      "next": [
+        "hy-day18-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day17-mail-followup-b",
+      "label": "我看了好几遍。扶铃铛的那只手是不是你的？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：我看了好几遍。扶铃铛的那只手是不是你的？\n李贤在：是。它都快掉到下面那根枝上了。\n李贤在：你一眼就看出来了？我还以为只拍到一点袖子。"
         }
       ],
       "next": [
@@ -2661,7 +3123,7 @@
     },
     {
       "id": "hy-day18-scene",
-      "label": "假期有什么安排",
+      "label": "放假以后",
       "type": "action",
       "actions": [
         {
@@ -2672,7 +3134,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月18日｜门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？"
+          "value": "12月18日｜门厅里，几个人围着留校名单说话。李贤在从人群里出来，手里捏着一张折好的羊皮纸。看见你，他停在台阶旁边。\n李贤在：你圣诞假期回家吗？"
         }
       ],
       "next": [
@@ -2693,7 +3155,7 @@
     },
     {
       "id": "hy-day18-a",
-      "label": "我留校啊，城堡想赶我也来不及了。",
+      "label": "我留校。你也在的话，放假就有人陪我到处走了。",
       "type": "action",
       "actions": [
         {
@@ -2704,27 +3166,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：我留校啊，城堡想赶我也来不及了。\n李贤在：那今年城堡应该不会太无聊了。\n你：哦？我还有这本事？\n他看你一眼。\n李贤在：因为你也在啊。"
-        },
-        {
-          "type": "variable",
-          "key": "hyunjae_ball_invited",
-          "value": true
+          "value": "你：我留校。你也在的话，放假就有人陪我到处走了。\n李贤在：我也留。\n他低头把手里的羊皮纸对折了一下，折完才发现那上面本来就有一道折痕。\n李贤在：刚才看名单的时候，我还想找找你的名字。"
         }
       ],
       "next": [
-        "hy-day19-scene"
+        "hy-day18-ball"
       ],
       "conditions": []
     },
     {
       "id": "hy-day18-b",
-      "label": "放假一起乱逛？迷路算你的。",
+      "label": "我留校。你呢？我刚才在名单边上看见你了。",
       "type": "action",
       "actions": [
         {
@@ -2735,17 +3192,252 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 0
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：放假一起乱逛？迷路算你的。\n李贤在笑了。\n李贤在：好啊ㅋㅋ 反正人少，想去哪都行。"
+          "value": "你：我留校。你呢？我刚才在名单边上看见你了。\n李贤在：我也是去写名字的。\n他说完看向门厅另一侧。那边还围着人。\n李贤在：我刚才差点想等他们散了再去。还好站了一会儿，碰见你了。"
+        }
+      ],
+      "next": [
+        "hy-day18-ball"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-ball",
+      "label": "舞会",
+      "type": "action",
+      "actions": [],
+      "next": [
+        "hy-day18-ball-agreed",
+        "hy-day18-ball-ask"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-ball-agreed",
+      "label": "已经约好舞会",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在朝大礼堂门口看了一眼。\n李贤在：对了，二十四号还在那儿等你。你到的时候，要是门口人多，就往树那边看。"
+        }
+      ],
+      "next": [
+        "hy-day18-agreed-choice"
+      ],
+      "conditions": [
+        {
+          "key": "hyunjae_ball_invited",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "hy-day18-ball-ask",
+      "label": "邀请舞会",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "他朝大礼堂门口望了一眼，又看回来。\n李贤在：昨天还想当面问你一件事。二十四号舞会，你愿意跟我一起去吗？"
+        }
+      ],
+      "next": [
+        "hy-day18-ask-choice"
+      ],
+      "conditions": [
+        {
+          "key": "hyunjae_ball_invited",
+          "op": "neq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "hy-day18-agreed-choice",
+      "label": "12月18日：舞会",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day18-agreed-a",
+        "hy-day18-agreed-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-agreed-a",
+      "label": "好。要是我先看见你，我就过去找你。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
         },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：好。要是我先看见你，我就过去找你。\n李贤在：行。那我尽量站在你一进门就能看见的地方。"
+        }
+      ],
+      "next": [
+        "hy-day18-holiday"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-agreed-b",
+      "label": "好，我记得你昨天站在哪儿。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：好，我记得你昨天站在哪儿。\n李贤在：你昨天在外面就看见我了？\n你：嗯。你一直在看树顶。\n他笑了一下。\n李贤在：那天我会看门口。"
+        }
+      ],
+      "next": [
+        "hy-day18-holiday"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-ask-choice",
+      "label": "12月18日：舞会",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day18-ask-a",
+        "hy-day18-ask-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-ask-a",
+      "label": "好啊。我还没跟别人约。第一支也跟你跳？",
+      "type": "action",
+      "actions": [
         {
           "type": "variable",
           "key": "hyunjae_ball_invited",
           "value": true
+        },
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：好啊。我还没跟别人约。第一支也跟你跳？\n李贤在：好。我本来就想问你第一支。\n他朝大礼堂门边抬了一下手。\n李贤在：那我在这儿等你。"
+        }
+      ],
+      "next": [
+        "hy-day18-holiday"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-ask-b",
+      "label": "好啊。那天我们一起进去吧。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_ball_invited",
+          "value": true
+        },
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：好啊。那天我们一起进去吧。\n李贤在：好。我在门口等你。你来了就叫我一声。"
+        }
+      ],
+      "next": [
+        "hy-day18-holiday"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-holiday",
+      "label": "hy-day18-holiday",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "有人从你们身后经过，问留校的名单是不是今天就要交。李贤在往旁边让开一点，等人过去，才接着跟你说话。\n李贤在：那放假第一天呢？你早上有事吗？"
+        }
+      ],
+      "next": [
+        "hy-day18-holiday-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-holiday-choice",
+      "label": "12月18日：假期第一天",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day18-holiday-a",
+        "hy-day18-holiday-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-holiday-a",
+      "label": "没有。早饭后一起出去走走？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：没有。早饭后一起出去走走？\n李贤在：好。我吃完就在门厅等你。\n你们往楼梯走了几步，他又侧头问你。\n李贤在：要是下雪，还出去吗？\n你：下小一点就去。\n李贤在：好。到时候我们在门口看一眼。"
+        }
+      ],
+      "next": [
+        "hy-day19-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day18-holiday-b",
+      "label": "早上我想多睡一会儿。午饭见好不好？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 0
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：早上我想多睡一会儿。午饭见好不好？\n李贤在：好。那午饭见。\n走到楼梯口，他本来已经要往上了，又转过身。\n李贤在：你要是下来早了，也可以来找我。我那天应该哪儿都没去。"
         }
       ],
       "next": [
@@ -3982,59 +4674,6 @@
       "conditions": []
     },
     {
-      "id": "hy-day15-memory-gate",
-      "label": "记忆回调判定",
-      "type": "action",
-      "next": [
-        "hy-day15-memory-gate-yes",
-        "hy-day15-memory-gate-no"
-      ]
-    },
-    {
-      "id": "hy-day15-memory-gate-yes",
-      "label": "已经历回忆",
-      "type": "action",
-      "conditions": [
-        {
-          "key": "hyunjae_food_preference",
-          "op": "eq",
-          "value": "roast_chicken"
-        }
-      ],
-      "actions": [
-        {
-          "type": "message",
-          "key": "owlpost",
-          "value": "李贤在：我记得你说喜欢烤鸡，今天还有。"
-        }
-      ],
-      "next": [
-        "hy-day15-scene"
-      ]
-    },
-    {
-      "id": "hy-day15-memory-gate-no",
-      "label": "未经历回忆",
-      "type": "action",
-      "conditions": [
-        {
-          "key": "hyunjae_food_preference",
-          "op": "neq",
-          "value": "roast_chicken"
-        }
-      ],
-      "actions": [
-        {
-          "type": "message",
-          "key": "owlpost",
-          "value": "李贤在：今天有什么想吃的吗？"
-        }
-      ],
-      "next": [
-        "hy-day15-scene"
-      ]
-    },
-    {
       "id": "hy-day20-memory-gate",
       "label": "记忆回调判定",
       "type": "action",
@@ -4486,10 +5125,19 @@
           "choose": "hy-day11-followup-a"
         },
         {
+          "choose": "hy-day12-pre-a"
+        },
+        {
+          "choose": "hy-day12-match"
+        },
+        {
           "choose": "hy-day12-a"
         },
         {
           "choose": "hy-day13-a"
+        },
+        {
+          "choose": "hy-day13-followup-a"
         },
         {
           "choose": "hy-day14-a"
@@ -4498,13 +5146,31 @@
           "choose": "hy-day15-a"
         },
         {
+          "choose": "hy-day15-followup-a"
+        },
+        {
           "choose": "hy-day16-a"
+        },
+        {
+          "choose": "hy-day16-followup-a"
         },
         {
           "choose": "hy-day17-a"
         },
         {
+          "choose": "hy-day17-hall"
+        },
+        {
+          "choose": "hy-day17-hall-followup-a"
+        },
+        {
           "choose": "hy-day18-a"
+        },
+        {
+          "choose": "hy-day18-agreed-a"
+        },
+        {
+          "choose": "hy-day18-holiday-a"
         },
         {
           "choose": "hy-day19-a"
@@ -4618,10 +5284,19 @@
           "choose": "hy-day11-followup-b"
         },
         {
+          "choose": "hy-day12-pre-b"
+        },
+        {
+          "choose": "hy-day12-match"
+        },
+        {
           "choose": "hy-day12-b"
         },
         {
           "choose": "hy-day13-b"
+        },
+        {
+          "choose": "hy-day13-followup-b"
         },
         {
           "choose": "hy-day14-b"
@@ -4630,13 +5305,28 @@
           "choose": "hy-day15-b"
         },
         {
+          "choose": "hy-day15-followup-b"
+        },
+        {
           "choose": "hy-day16-b"
+        },
+        {
+          "choose": "hy-day16-followup-b"
         },
         {
           "choose": "hy-day17-b"
         },
         {
+          "choose": "hy-day17-mail-followup-b"
+        },
+        {
           "choose": "hy-day18-b"
+        },
+        {
+          "choose": "hy-day18-ask-b"
+        },
+        {
+          "choose": "hy-day18-holiday-b"
         },
         {
           "choose": "hy-day19-b"
@@ -4750,10 +5440,19 @@
           "choose": "hy-day11-followup-a"
         },
         {
+          "choose": "hy-day12-pre-a"
+        },
+        {
+          "choose": "hy-day12-match"
+        },
+        {
           "choose": "hy-day12-a"
         },
         {
           "choose": "hy-day13-b"
+        },
+        {
+          "choose": "hy-day13-followup-b"
         },
         {
           "choose": "hy-day14-a"
@@ -4762,13 +5461,31 @@
           "choose": "hy-day15-a"
         },
         {
+          "choose": "hy-day15-followup-a"
+        },
+        {
           "choose": "hy-day16-a"
+        },
+        {
+          "choose": "hy-day16-followup-a"
         },
         {
           "choose": "hy-day17-a"
         },
         {
+          "choose": "hy-day17-hall"
+        },
+        {
+          "choose": "hy-day17-hall-followup-a"
+        },
+        {
           "choose": "hy-day18-a"
+        },
+        {
+          "choose": "hy-day18-agreed-a"
+        },
+        {
+          "choose": "hy-day18-holiday-a"
         },
         {
           "choose": "hy-day19-b"
@@ -4885,10 +5602,19 @@
           "choose": "hy-day11-followup-a"
         },
         {
+          "choose": "hy-day12-pre-a"
+        },
+        {
+          "choose": "hy-day12-match"
+        },
+        {
           "choose": "hy-day12-a"
         },
         {
           "choose": "hy-day13-a"
+        },
+        {
+          "choose": "hy-day13-followup-a"
         },
         {
           "choose": "hy-day14-a"
@@ -4897,13 +5623,31 @@
           "choose": "hy-day15-a"
         },
         {
+          "choose": "hy-day15-followup-a"
+        },
+        {
           "choose": "hy-day16-a"
+        },
+        {
+          "choose": "hy-day16-followup-a"
         },
         {
           "choose": "hy-day17-a"
         },
         {
+          "choose": "hy-day17-hall"
+        },
+        {
+          "choose": "hy-day17-hall-followup-a"
+        },
+        {
           "choose": "hy-day18-a"
+        },
+        {
+          "choose": "hy-day18-agreed-a"
+        },
+        {
+          "choose": "hy-day18-holiday-a"
         },
         {
           "choose": "hy-day19-a"
