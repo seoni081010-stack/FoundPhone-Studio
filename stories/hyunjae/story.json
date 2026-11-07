@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 24,
+  "revision": 25,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -757,22 +757,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你把对面的书挪开一点。\n你：这儿有空位，你坐吧。\n李贤在：那我坐一会儿。\n他安静地翻自己的书。过了一阵你抬头，正好和他对视一秒。\n他先移开视线，低声笑了一下。\n李贤在：看你的书。"
+          "value": "你：这儿有空位，你坐吧。\n你把对面的书挪开一点。李贤在坐下来翻了几页，抬头时看见你划掉了刚写好的一行。\n他把手边的书翻开。\n李贤在：这本好像有个差不多的例子。你要看吗？"
         }
       ],
       "next": [
-        "hy-day05-scene"
+        "hy-day04-followup-choice"
       ],
       "conditions": []
     },
     {
       "id": "hy-day04-b",
-      "label": "嘘，我跟最后这题还没分出胜负。",
+      "label": "等一下。我刚算到这儿。",
       "type": "action",
       "actions": [
         {
@@ -783,18 +783,81 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：嘘，我跟最后这题还没分出胜负。\n李贤在立刻压低声音。\n李贤在：知道了。\n他没有继续打扰你。\n离开时从桌边经过，轻轻敲了一下桌角。\n李贤在：我先走了，别学太晚。"
+          "value": "你：等一下。我刚算到这儿。\n李贤在点点头，拉开椅子坐下。他翻了两页书，你的笔还停在原地。\n李贤在：你刚才不是写得挺快的吗？\n你把羊皮纸转过去。他低头看见那一整行都被你划掉了，笑了一声，把手边的书翻开。\n李贤在：这本好像有个差不多的例子。你要看吗？"
         }
       ],
       "next": [
-        "hy-day05-scene"
+        "hy-day04-followup-choice"
       ],
       "conditions": []
+    },
+    {
+      "id": "hy-day04-followup-choice",
+      "label": "12月4日：第二次回复",
+      "type": "choice",
+      "actions": [],
+      "conditions": [],
+      "next": [
+        "hy-day04-followup-a",
+        "hy-day04-followup-b"
+      ]
+    },
+    {
+      "id": "hy-day04-followup-a",
+      "label": "你再坐一会儿？我想自己先试一遍。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：你再坐一会儿？我想自己先试一遍。\n李贤在：好。\n他把书留在翻开的那一页。等你算完抬头，他正好也看过来。\n李贤在：算出来了？\n你把羊皮纸转过去，指给他看。"
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "12月4日｜来信｜李贤在：刚才那本书我还回去了。例子在第六章，页码我写在背面了。\n李贤在：第二行我后来又算了一遍。你写的对。"
+        }
+      ],
+      "conditions": [],
+      "next": [
+        "hy-day05-scene"
+      ]
+    },
+    {
+      "id": "hy-day04-followup-b",
+      "label": "给我看一眼吧。我就卡在第二行。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：给我看一眼吧。我就卡在第二行。\n李贤在把书推到你面前。你对着例题看了两行，把刚拿起来的羽毛笔又放下。\n你：原来从这儿就得换个顺序。\n李贤在：嗯。我刚才也把第二行划了。\n你抬头看他。他把自己那张羊皮纸翻过来给你看。划掉的地方比你的还多一行。"
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "12月4日｜来信｜李贤在：刚才那本书我还回去了。例子在第六章，页码我写在背面了。\n李贤在：第二行我后来又算了一遍。你写的对。"
+        }
+      ],
+      "conditions": [],
+      "next": [
+        "hy-day05-scene"
+      ]
     },
     {
       "id": "hy-day05-scene",
@@ -841,22 +904,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：希望能下雪吧。\n李贤在：应该很漂亮。"
+          "value": "你：希望能下雪吧。\n李贤在：我也想看。最好早一点，庭院里还没踩出脚印的时候。\n李贤在：要是真下了，你会去哪儿看？"
         }
       ],
       "next": [
-        "hy-day06-scene"
+        "hy-day05-followup-choice"
       ],
       "conditions": []
     },
     {
       "id": "hy-day05-b",
-      "label": "记得戴围巾，别光顾着等雪。",
+      "label": "你是不是已经去窗边看过了？",
       "type": "action",
       "actions": [
         {
@@ -867,18 +930,71 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：记得戴围巾，别光顾着等雪。\n李贤在：知道啦，你也是"
+          "value": "你：你是不是已经去窗边看过了？\n猫头鹰过了一会儿才回来，脚上系着一张折得有点歪的纸条。\n李贤在：看了两次。刚才写到一半，又去看了一眼。\n李贤在：还是没下。\n纸条背面还有一行。\n李贤在：要是真下了，你会去哪儿看？"
         }
       ],
       "next": [
-        "hy-day06-scene"
+        "hy-day05-followup-choice"
       ],
       "conditions": []
+    },
+    {
+      "id": "hy-day05-followup-choice",
+      "label": "12月5日：第二次回复",
+      "type": "choice",
+      "actions": [],
+      "conditions": [],
+      "next": [
+        "hy-day05-followup-a",
+        "hy-day05-followup-b"
+      ]
+    },
+    {
+      "id": "hy-day05-followup-a",
+      "label": "还没想好。你要是先看见，给我送张纸条吧。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：还没想好。你要是先看见，给我送张纸条吧。\n李贤在：好。明天要是又有猫头鹰敲窗，你先看看是不是我的。"
+        }
+      ],
+      "conditions": [],
+      "next": [
+        "hy-day06-scene"
+      ]
+    },
+    {
+      "id": "hy-day05-followup-b",
+      "label": "楼梯拐角那扇窗吧。那儿能看见整个庭院。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：楼梯拐角那扇窗吧。那儿能看见整个庭院。\n李贤在：我知道是哪扇。你站在最上面一级，正好能看过窗台。"
+        }
+      ],
+      "conditions": [],
+      "next": [
+        "hy-day06-scene"
+      ]
     },
     {
       "id": "hy-day06-scene",
@@ -3750,7 +3866,13 @@
           "choose": "hy-day04-a"
         },
         {
+          "choose": "hy-day04-followup-a"
+        },
+        {
           "choose": "hy-day05-a"
+        },
+        {
+          "choose": "hy-day05-followup-a"
         },
         {
           "choose": "hy-day06-a"
@@ -3858,7 +3980,13 @@
           "choose": "hy-day04-b"
         },
         {
+          "choose": "hy-day04-followup-b"
+        },
+        {
           "choose": "hy-day05-b"
+        },
+        {
+          "choose": "hy-day05-followup-b"
         },
         {
           "choose": "hy-day06-b"
@@ -3966,7 +4094,13 @@
           "choose": "hy-day04-a"
         },
         {
+          "choose": "hy-day04-followup-a"
+        },
+        {
           "choose": "hy-day05-a"
+        },
+        {
+          "choose": "hy-day05-followup-a"
         },
         {
           "choose": "hy-day06-b"
@@ -4074,7 +4208,13 @@
           "choose": "hy-day04-a"
         },
         {
+          "choose": "hy-day04-followup-a"
+        },
+        {
           "choose": "hy-day05-a"
+        },
+        {
+          "choose": "hy-day05-followup-a"
         },
         {
           "choose": "hy-day06-a"
