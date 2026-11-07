@@ -3,7 +3,7 @@
   "id": "hogwarts-hyunjae-december",
   "title": "霍格沃茨十二月 · 李贤在",
   "description": "霍格沃茨魔法世界31天路线：仅安装剧情需要的六种魔法物品入口；仍需完整互动验收。",
-  "revision": 25,
+  "revision": 26,
   "phone": {
     "owner": "你",
     "date": "2026-12-01",
@@ -1009,7 +1009,7 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月6日｜李贤在：初雪了。要不要去庭院？"
+          "value": "12月6日｜来信｜李贤在：下雪了。刚才从楼梯旁边那扇窗看出去，台阶都白了。\n李贤在：我一会儿去庭院。你要一起吗？"
         }
       ],
       "next": [
@@ -1030,7 +1030,7 @@
     },
     {
       "id": "hy-day06-a",
-      "label": "走啊，先说好，别拿雪砸我。",
+      "label": "走啊。先说好，别拿雪砸我。",
       "type": "action",
       "actions": [
         {
@@ -1039,14 +1039,45 @@
           "value": "a"
         },
         {
+          "type": "variable",
+          "key": "story_delivery",
+          "value": "travel"
+        },
+        {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：走啊，先说好，别拿雪砸我。\n庭院｜你们一起站在初雪里。李贤在伸手接了两片雪，忽然抬头看见石拱门边的槲寄生。\n李贤在：……差一点ㅋㅋ 你手冷吗？"
+          "value": "来信｜你：走啊。先说好，别拿雪砸我。\n李贤在：行。那你也别先动手。"
+        }
+      ],
+      "next": [
+        "hy-day06-travel"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-travel",
+      "label": "前往庭院",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day06-courtyard"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-courtyard",
+      "label": "去庭院",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "story_delivery",
+          "value": "scene"
         },
         {
           "type": "variable",
@@ -1057,10 +1088,68 @@
           "type": "variable",
           "key": "hyunjae_mistletoe_encountered",
           "value": true
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你到庭院时，他正站在台阶下面，抬手接住两片雪。雪在掌心化得很快，他低头看了一眼，抬头时目光越过你，落在石拱门上。\n李贤在：……差一点。\n你停住脚，顺着他看的方向抬头。拱门边挂着一枝槲寄生，叶子上积了一点雪。\n李贤在：你再往前一步，枝条就碰到你头发了。"
         }
       ],
       "next": [
-        "hy-day07-memory-gate"
+        "hy-day06-together-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-together-choice",
+      "label": "12月6日：一起看雪",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day06-together-a",
+        "hy-day06-together-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-together-a",
+      "label": "那你帮我看着点。我想从这边走过去。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：那你帮我看着点。我想从这边走过去。\n他抬手把垂下来的枝条拨开，让你先过。你刚走到另一边，他一松手，枝叶上的雪就掉下来一点，正好落在他袖子上。\n你：你自己倒是没躲开。\n李贤在：我在给谁让路啊？\n他边说边把雪拍掉。走到你身边时，袖子上还剩下一小片没拍干净。"
+        }
+      ],
+      "next": [
+        "hy-day07-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-together-b",
+      "label": "那我就站这儿。你也别急着回去。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：那我就站这儿。你也别急着回去。\n他本来已经往拱门那边迈了一步，听见这句，又把脚收了回来。\n李贤在：好。刚才在楼上看，雪都没这么大。\n你们站在原地看了一会儿。往回走时，他踩上靠门那一级台阶，鞋底滑了一下，赶紧扶住了门框。\n李贤在：等一下。这个你刚才应该没看见吧？"
+        }
+      ],
+      "next": [
+        "hy-day07-scene"
       ],
       "conditions": []
     },
@@ -1077,16 +1166,69 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：我想自己转转，鞋里进雪了再回来。\n李贤在：好，记得暖暖手"
+          "value": "来信｜你：我想自己转转，鞋里进雪了再回来。\n李贤在：好。那你别从中间那条路走，下面有块松动的石板。\n李贤在：昨天还看不出来。今天盖了雪，更看不出来了。\n你自己沿着回廊走了一段。回去时，窗台上又停着一只猫头鹰，脚上拴着张折得很随意的纸。\n李贤在：你回去了吗？我刚从庭院回来，鞋里全是雪。\n李贤在：石板我躲开了。别的地方没躲开。"
         }
       ],
       "next": [
-        "hy-day07-memory-gate"
+        "hy-day06-solo-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-solo-choice",
+      "label": "12月6日：自己看雪",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day06-solo-a",
+        "hy-day06-solo-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-solo-a",
+      "label": "回来了。你特地提醒我，结果还是自己踩进去了？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：回来了。你特地提醒我，结果还是自己踩进去了？\n你在纸条末尾也提了一句，自己是沿回廊走的。\n李贤在：我绕开的时候，看见旁边那块雪还没人踩过。\n李贤在：就踩了一脚。没想到那么深。"
+        }
+      ],
+      "next": [
+        "hy-day07-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day06-solo-b",
+      "label": "我从回廊走的。下次你也可以走那边。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "来信｜你：我从回廊走的。下次你也可以走那边。\n李贤在：好，我记一下。你那边看得到雪吗？\n李贤在：我明天巡查刚好要路过，也过去看看。"
+        }
+      ],
+      "next": [
+        "hy-day07-scene"
       ],
       "conditions": []
     },
@@ -1103,13 +1245,58 @@
         {
           "type": "message",
           "key": "owlpost",
-          "value": "12月7日｜走廊里。\n李贤在：昨天回去以后，我鞋里都是雪。\n你：谁让你踩那么深。\n李贤在：还不是你往前走那么快。"
+          "value": "12月7日｜李贤在站在通往庭院的门边。门槛外的雪已经被踩实了，他正低头看哪一级台阶还能下脚。"
+        }
+      ],
+      "next": [
+        "hy-day07-memory-gate-yes",
+        "hy-day07-memory-gate-no"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-memory-gate-yes",
+      "label": "昨天一起看雪",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在：昨天回去以后，我才发现鞋里都是雪。你走得那么快，怎么一点事都没有？"
         }
       ],
       "next": [
         "hy-day07-choice"
       ],
-      "conditions": []
+      "conditions": [
+        {
+          "key": "hyunjae_first_snow_together",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "hy-day07-memory-gate-no",
+      "label": "昨天各自看雪",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "李贤在：我刚才试了你昨天走的那边，鞋还真是干的。你平时都从回廊走？"
+        }
+      ],
+      "next": [
+        "hy-day07-solo-choice"
+      ],
+      "conditions": [
+        {
+          "key": "hyunjae_first_snow_together",
+          "op": "neq",
+          "value": true
+        }
+      ]
     },
     {
       "id": "hy-day07-choice",
@@ -1124,7 +1311,7 @@
     },
     {
       "id": "hy-day07-a",
-      "label": "你差点滑那一下，我可看见了。",
+      "label": "我也进雪了。我就是走得比你快一点。",
       "type": "action",
       "actions": [
         {
@@ -1135,22 +1322,22 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 4
+          "value": 2
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：你差点滑那一下，我可看见了。\n李贤在：你看见了？\n你：那当然，我眼睛又没进雪。\n他笑了。\n李贤在：这种事情你倒是看得很清楚ㅋㅋ"
+          "value": "你：我也进雪了。我就是走得比你快一点。\n李贤在：难怪。我还以为你知道哪里能踩。\n他看看门外，又转头看你。\n李贤在：所以你昨天也在硬撑啊。"
         }
       ],
       "next": [
-        "hy-day08-scene"
+        "hy-day07-followup"
       ],
       "conditions": []
     },
     {
       "id": "hy-day07-b",
-      "label": "昨天那雪，走两步鞋里就有了。",
+      "label": "你光顾着看我走哪儿了吧？自己脚下都没看。",
       "type": "action",
       "actions": [
         {
@@ -1161,12 +1348,144 @@
         {
           "type": "increment",
           "key": "hyunjae_affection",
-          "value": 3
+          "value": 1
         },
         {
           "type": "message",
           "key": "owlpost",
-          "value": "你：昨天那雪，走两步鞋里就有了。\n李贤在：嗯，庭院都快认不出来了。\n你们顺着走廊又聊了一会儿昨天的雪。"
+          "value": "你：你光顾着看我走哪儿了吧？自己脚下都没看。\n他愣了一下，低头看向自己的鞋。\n李贤在：前面有人带路，我当然看前面。\n说完，他又抬眼看你。\n李贤在：那下次你走慢一点。"
+        }
+      ],
+      "next": [
+        "hy-day07-followup"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-solo-choice",
+      "label": "12月7日：接着聊",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day07-solo-a",
+        "hy-day07-solo-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-solo-a",
+      "label": "那条路平时也好走。我可以带你认一下。",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_day7_choice",
+          "value": "a"
+        },
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：那条路平时也好走。我可以带你认一下。\n李贤在：好啊。我刚才只走到第一扇窗，后面就不知道该往哪儿拐了。"
+        }
+      ],
+      "next": [
+        "hy-day07-followup"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-solo-b",
+      "label": "偶尔走。你今天是专门去试路的？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "hyunjae_day7_choice",
+          "value": "b"
+        },
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：偶尔走。你今天是专门去试路的？\n李贤在：巡查顺路。我走过第一扇窗才想起来，你昨天说的就是这儿。\n他往回廊那头望了一眼。\n李贤在：从那边看，雪还挺好看的。"
+        }
+      ],
+      "next": [
+        "hy-day07-followup"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-followup",
+      "label": "门边",
+      "type": "action",
+      "actions": [
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "他把通往庭院的门轻轻带上。冷风一下小了许多，你听见楼下有人在收午餐的盘子。\n李贤在：我得下去一趟。你往哪边走？"
+        }
+      ],
+      "next": [
+        "hy-day07-followup-choice"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-followup-choice",
+      "label": "12月7日：第二次回复",
+      "type": "choice",
+      "actions": [],
+      "next": [
+        "hy-day07-followup-a",
+        "hy-day07-followup-b"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-followup-a",
+      "label": "陪你走到楼下吧。你刚才还没说，要下去做什么？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 2
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：陪你走到楼下吧。你刚才还没说，要下去做什么？\n李贤在：还巡查记录。交上去就没事了。\n他把卷起来的羊皮纸换到另一只手上，和你一起往楼梯走。\n李贤在：交完以后你要是还在，我去找你。"
+        }
+      ],
+      "next": [
+        "hy-day08-scene"
+      ],
+      "conditions": []
+    },
+    {
+      "id": "hy-day07-followup-b",
+      "label": "我先去图书馆。你忙完再来找我？",
+      "type": "action",
+      "actions": [
+        {
+          "type": "increment",
+          "key": "hyunjae_affection",
+          "value": 1
+        },
+        {
+          "type": "message",
+          "key": "owlpost",
+          "value": "你：我先去图书馆。你忙完再来找我？\n李贤在：行。你还坐上次那个位置吗？\n你：有空位就坐那儿。\n李贤在：那我先去那张桌。看不见你，再去别处找。"
         }
       ],
       "next": [
@@ -3357,59 +3676,6 @@
       "conditions": []
     },
     {
-      "id": "hy-day07-memory-gate",
-      "label": "记忆回调判定",
-      "type": "action",
-      "next": [
-        "hy-day07-memory-gate-yes",
-        "hy-day07-memory-gate-no"
-      ]
-    },
-    {
-      "id": "hy-day07-memory-gate-yes",
-      "label": "已经历回忆",
-      "type": "action",
-      "conditions": [
-        {
-          "key": "hyunjae_first_snow_together",
-          "op": "eq",
-          "value": true
-        }
-      ],
-      "actions": [
-        {
-          "type": "message",
-          "key": "owlpost",
-          "value": "李贤在：昨天你围巾上落了雪，我差点没忍住笑。"
-        }
-      ],
-      "next": [
-        "hy-day07-scene"
-      ]
-    },
-    {
-      "id": "hy-day07-memory-gate-no",
-      "label": "未经历回忆",
-      "type": "action",
-      "conditions": [
-        {
-          "key": "hyunjae_first_snow_together",
-          "op": "neq",
-          "value": true
-        }
-      ],
-      "actions": [
-        {
-          "type": "message",
-          "key": "owlpost",
-          "value": "李贤在：今天楼梯又变了，差点走错路。"
-        }
-      ],
-      "next": [
-        "hy-day07-scene"
-      ]
-    },
-    {
       "id": "hy-day15-memory-gate",
       "label": "记忆回调判定",
       "type": "action",
@@ -3878,7 +4144,16 @@
           "choose": "hy-day06-a"
         },
         {
+          "choose": "hy-day06-courtyard"
+        },
+        {
+          "choose": "hy-day06-together-a"
+        },
+        {
           "choose": "hy-day07-a"
+        },
+        {
+          "choose": "hy-day07-followup-a"
         },
         {
           "choose": "hy-day08-a"
@@ -3992,7 +4267,13 @@
           "choose": "hy-day06-b"
         },
         {
-          "choose": "hy-day07-b"
+          "choose": "hy-day06-solo-b"
+        },
+        {
+          "choose": "hy-day07-solo-b"
+        },
+        {
+          "choose": "hy-day07-followup-b"
         },
         {
           "choose": "hy-day08-b"
@@ -4106,7 +4387,13 @@
           "choose": "hy-day06-b"
         },
         {
-          "choose": "hy-day07-a"
+          "choose": "hy-day06-solo-a"
+        },
+        {
+          "choose": "hy-day07-solo-a"
+        },
+        {
+          "choose": "hy-day07-followup-a"
         },
         {
           "choose": "hy-day08-a"
@@ -4220,7 +4507,16 @@
           "choose": "hy-day06-a"
         },
         {
-          "choose": "hy-day07-a"
+          "choose": "hy-day06-courtyard"
+        },
+        {
+          "choose": "hy-day06-together-b"
+        },
+        {
+          "choose": "hy-day07-b"
+        },
+        {
+          "choose": "hy-day07-followup-b"
         },
         {
           "choose": "hy-day08-a"
