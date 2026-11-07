@@ -656,7 +656,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         <h2 id="final-memory-title">魔法相册解锁新内容</h2>
         <p>{finalMemory.title}</p>
         <p className="hogwarts-narration">{highlightMistletoe(finalMemory.body)}</p>
-        <button type="button" onClick={() => { acknowledgeClue(finalMemory.id); setFinalMemoryOpen(false); setFinished(true); }}>读完了 · 查看结局</button>
+        <button type="button" onClick={() => { acknowledgeClue(finalMemory.id); setFinalMemoryOpen(false); setFinished(true); }}>查看结局</button>
       </dialog>}
       {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
         <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>

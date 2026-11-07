@@ -165,7 +165,7 @@ it.each([
     expect(html.includes('aria-label="31天结算"')).toBe(phase === "ending");
     if (phase === "memory") {
       expect(html).toContain(qFinalMemories[kind]);
-      expect(html).toContain("读完了 · 查看结局");
+      expect(html).toContain(">查看结局</button>");
     }
     if (phase === "ending") {
       expect(html).toContain(title);
