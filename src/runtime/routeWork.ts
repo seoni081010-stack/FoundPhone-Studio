@@ -5,18 +5,31 @@ import earlyDays from "../../stories/q/days02-06.json";
 import laterDays from "../../stories/q/days07-16.json";
 import middleDays from "../../stories/q/days17-22.json";
 import holidayDays from "../../stories/q/days23-26.json";
+import finale from "../../stories/q/days27-31.json";
+import { sharedRules } from "./sharedRules";
 import { initialRuntime, makeItem, nodeSchema, type Work } from "../schema";
 
 const followingDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string; requiresChoice?: string }; stages: {
   channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[]; affinity?: number }[];
-  tail: string[]; openingVariant?: { key: string; value: number; accepted: string; otherwise: string }; endPlace?: string; endTime?: string;
-}[] }[] = [...earlyDays, ...laterDays, ...middleDays, ...holidayDays];
+  tail: string[]; openingVariant?: { key: string; value: number; accepted: string; otherwise: string; after?: string[] }; endPlace?: string; endTime?: string;
+}[] }[] = [...earlyDays, ...laterDays, ...middleDays, ...holidayDays, ...finale.days];
+
+export const qFinalMemories = {
+  together: finale.endings.together.memory,
+  friends: finale.endings.friends.memory,
+  unspoken: finale.endings.unspoken.memory,
+};
 
 // Reuse the normal phone and event engine; only the authored route data changes.
 export function qRouteWork(original: Work): Work {
   const node = (id: string, label: string, type: string, actions: unknown[], next: string[], conditions: unknown[] = []) => nodeSchema.parse({
     id, label, type, actions, next, event: "", target: "", conditions, once: true, x: 0, y: 0,
   });
+  const finishRoute = [
+    { type: "variable", key: "q_completed_day", value: sharedRules.confessionDay },
+    { type: "variable", key: "story_delivery", value: "done" },
+  ];
+  const friendChoice = finale.endings.friends.lines[0].slice("你：".length);
   return {
     ...original,
     id: "hogwarts-q-december", title: "霍格沃茨十二月 · 池昌民",
@@ -44,7 +57,9 @@ export function qRouteWork(original: Work): Work {
         const travel = hasNextStage && stage.channel === "mail";
         const nextStage = hasNextStage ? travel ? `${prefix}-travel` : `q-day${String(day.day).padStart(2, "0")}-stage${stageIndex + 1}` : undefined;
         const nextDay = followingDays[dayIndex + 1];
-        const next = nextStage ? [nextStage] : nextDay ? [`q-day${String(nextDay.day).padStart(2, "0")}-stage0`] : [];
+        const resolvesRoute = day.day === sharedRules.confessionDay && !nextStage;
+        const next = nextStage ? [nextStage] : nextDay ? [`q-day${String(nextDay.day).padStart(2, "0")}-stage0`]
+          : resolvesRoute ? ["q-ending-together", "q-ending-unspoken"] : [];
         const channel = stage.channel === "mail" ? "owlpost" : "scene";
         const completedActions = nextStage ? [] : [
           { type: "variable", key: "q_completed_day", value: day.day },
@@ -54,10 +69,10 @@ export function qRouteWork(original: Work): Work {
         const variant = stage.openingVariant;
         const variantNodes = variant ? [
           node(`${prefix}-accepted`, day.label, "action", [
-            { type: "message", key: channel, value: variant.accepted },
+            { type: "message", key: channel, value: [variant.accepted, ...(variant.after ?? [])].join("\n") },
           ], [choiceNode], [{ key: variant.key, op: "eq", value: variant.value }]),
           node(`${prefix}-undecided`, day.label, "action", [
-            { type: "message", key: channel, value: variant.otherwise },
+            { type: "message", key: channel, value: [variant.otherwise, ...(variant.after ?? [])].join("\n") },
           ], [choiceNode], [{ key: variant.key, op: "neq", value: variant.value }]),
         ] : [];
         return [
@@ -69,7 +84,10 @@ export function qRouteWork(original: Work): Work {
             ...(stage.opening.length ? [{ type: "message", key: channel, value: `12月${day.day}日｜` + stage.opening.join("\n") }] : []),
           ], variant ? variantNodes.map(entry => entry.id) : [choiceNode]),
           ...variantNodes,
-          node(choiceNode, "你的回答", "choice", [], stage.choices.map((_, index) => `${prefix}-${index}`)),
+          node(choiceNode, "你的回答", "choice", [], [
+            ...stage.choices.map((_, index) => `${prefix}-${index}`),
+            ...(resolvesRoute ? ["q-ending-friends"] : []),
+          ]),
           ...stage.choices.map((choice, index) => node(`${prefix}-${index}`, choice.label, "action", [
             { type: "message", key: channel, value: choice.lines.join("\n") },
             { type: "variable", key: `${prefix}-selected`, value: index },
@@ -85,6 +103,15 @@ export function qRouteWork(original: Work): Work {
           ], [`q-day${String(day.day).padStart(2, "0")}-stage${stageIndex + 1}`])] : []),
         ];
       })),
+      ...(["together", "unspoken", "friends"] as const).map(kind => node(
+        `q-ending-${kind}`, kind === "friends" ? friendChoice : "跨年结局", "ending", [
+          { type: "message", key: "scene", value: finale.endings[kind].lines.join("\n") },
+          { type: "ending", key: "", value: `q-${kind}` },
+          ...finishRoute,
+        ], [], kind === "friends" ? [] : [{
+          key: "q_affection", op: kind === "together" ? "eq" : "lt", value: 100,
+        }],
+      )),
     ],
   };
 }

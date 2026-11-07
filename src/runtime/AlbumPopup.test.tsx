@@ -6,7 +6,7 @@ import { compileStory } from "../story-engine/compiler";
 import story from "../../stories/hyunjae/story.json";
 import { initialRuntime } from "../schema";
 import { choose, dispatch } from "../engine";
-import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues } from "./routeWork";
+import { gateRouteDays, qRouteWork, qProgressKey, qAlbumClues, qFinalMemories } from "./routeWork";
 import { albumNoticeKey } from "./albumNotices";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -119,4 +119,58 @@ it.each([
   const html = renderToStaticMarkup(<HogwartsDevice work={original} identity={identity} contacts={people} onRestart={() => {}} />);
   expect(html.includes("在魔法相册中查看「石拱门下」。")).toBe(popup);
   expect(qAlbumClues(readDays, state.completed).some(clue => clue.id === "q-photo-ball-arch")).toBe(unlocked);
+});
+
+it.each([
+  { kind: "together", title: "恋人结局 · 雪停之前", score: 100, gift: false },
+  { kind: "together", title: "恋人结局 · 雪停之前", score: 100, gift: true },
+  { kind: "friends", title: "朋友结局 · 窗边那个位置", score: 100, gift: false },
+  { kind: "unspoken", title: "暧昧结局 · 明年第一个", score: 93, gift: false },
+] as const)("restores Q's $kind finale through the shared album and ending page (gift=$gift)", ({ kind, title, score, gift }) => {
+  const original = compileStory(story).work;
+  const work = gateRouteDays(qRouteWork(original));
+  const initial = initialRuntime(work);
+  if (gift) initial.variables.q_affection = 5;
+  let state = dispatch(work, initial, "start");
+  const history: string[] = [];
+  for (let step = 0; state.choices.length && step < 250; step++) {
+    const gain = (target: string) => Number(work.nodes.find(node => node.id === target)?.actions
+      .find(action => action.type === "increment" && action.key === "q_affection")?.value ?? 0);
+    const first = state.choices[0];
+    const choice = state.choices.find(entry => kind === "friends" && entry.target === "q-ending-friends")
+      ?? state.choices.find(entry => (kind === "unspoken" && (entry.target === "q-day24-stage2-1"
+        || /^q-day(?:2[7-9]|3[01])-stage[01]-1$/.test(entry.target)))
+        || (gift && /^q-day31-stage[01]-1$/.test(entry.target)))
+      ?? state.choices.reduce((best, entry) => gain(entry.target) > gain(best.target) ? entry : best, first);
+    history.push(choice.target);
+    state = choose(work, state, choice.target);
+  }
+  expect(state.variables.q_completed_day).toBe(31);
+  expect(state.endings).toEqual([`q-${kind}`]);
+  const finale = (state.messages.scene ?? []).map(entry => entry.body).join("\n").split("12月31日｜").slice(1).join("\n");
+  expect(finale).toContain(kind === "unspoken" ? "到窗边才叫出来" : "你手指动了一下");
+  expect(finale).toContain("一簇烟花从湖对岸升起来");
+  expect(finale.indexOf("一簇烟花从湖对岸升起来")).toBeLessThan(finale.lastIndexOf("池昌民："));
+  const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "q-finale" };
+  const readDays = Array.from({ length: 31 }, (_, index) => index + 1);
+  const earlierClues = ["q-photo-snow", "q-photo-silver-leaf", "q-photo-ball-arch", "q-photo-paper-stars"];
+  for (const phase of ["reading", "memory", "ending"] as const) {
+    const saved = { version: 2, choices: history, readDays: phase === "reading" ? readDays.slice(0, -1) : readDays,
+      acknowledgedClues: phase === "ending" ? [...earlierClues, "photo-new-year"] : earlierClues, time: "23:55", jealousy: 3 };
+    vi.stubGlobal("localStorage", { getItem: (key: string) => key === qProgressKey(identity) ? JSON.stringify(saved)
+      : gift && key === "foundphone-hogwarts-shopping-v1-q-finale" ? JSON.stringify({ gifts: { "zonkos-1-q": 1 } }) : null });
+    const html = renderToStaticMarkup(<HogwartsDevice work={original} identity={identity} contacts={people} onRestart={() => {}} />);
+    expect(html.includes('aria-labelledby="final-memory-title"')).toBe(phase === "memory");
+    expect(html.includes('aria-label="31天结算"')).toBe(phase === "ending");
+    if (phase === "memory") {
+      expect(html).toContain(qFinalMemories[kind]);
+      expect(html).toContain("读完了 · 查看结局");
+    }
+    if (phase === "ending") {
+      expect(html).toContain(title);
+      expect(html).toContain('src="./portraits/q.webp" alt="池昌民"');
+      expect(html).toContain(`好感度 ${score}% · 嫉妒值 3%`);
+      expect(html).toContain("重新开启故事");
+    }
+  }
 });

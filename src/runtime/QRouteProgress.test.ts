@@ -17,7 +17,7 @@ describe("Q's reviewed twenty-six-day route", () => {
     let state = dispatch(work, initialRuntime(work), "start");
     const days = new Set([state.date]);
     const history: string[] = [];
-    for (let step = 0; state.choices.length && step < 250; step++) {
+    for (let step = 0; state.choices.length && state.variables.q_completed_day !== 26 && step < 250; step++) {
       const target = state.choices[state.choices.length === 2 ? branch : 0].target;
       history.push(target);
       const previousDay = state.date;
@@ -30,7 +30,7 @@ describe("Q's reviewed twenty-six-day route", () => {
     expect([...days]).toEqual(Array.from({ length: 26 }, (_, index) => `2026-12-${String(index + 1).padStart(2, "0")}`));
     expect(state.variables.q_completed_day).toBe(26);
     expect(state.variables.scene_place).toBe("城堡西侧长廊");
-    expect(state.choices).toEqual([]);
+    expect(state.choices[0]?.target).toBe("q-day27-stage0");
     expect(state.variables.q_affection).toBeLessThanOrEqual(85);
     expect(characterStatus("q", 6, "ravenclaw", state.variables).affinity).toBeLessThanOrEqual(89);
     const scenes = (state.messages.scene ?? []).map(entry => entry.body).join("\n");
@@ -165,7 +165,7 @@ it("resumes a completed day-16 save and announces the third clue after day 26", 
   const oldWork = validateWork(gateRouteDays({
     ...qRouteWork(original),
     nodes: qRouteWork(original).nodes
-      .filter(node => !/^q-day(?:1[7-9]|2[0-6])-/.test(node.id))
+      .filter(node => !/^q-(?:day(?:1[7-9]|2[0-9]|3[01])-|ending-)/.test(node.id))
       .map(node => node.id === "q-day16-stage2-tail" ? { ...node, next: [] } : node),
   }));
   const history: string[] = [];

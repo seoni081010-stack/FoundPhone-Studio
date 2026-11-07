@@ -3,7 +3,7 @@ import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nex
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
-import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qAlbumClues, qDays, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
+import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, qAlbumClues, qDays, qFinalMemories, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
@@ -95,14 +95,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const initial = initialRuntime(work);
     initial.variables.hyunjae_player_house = identity?.house ?? "unspecified";
     initial.variables.hyunjae_player_year = identity?.year ?? 5;
+    // Gifts must be in the score before replay reaches the ending gate.
+    if (isQ && !previewDay) initial.variables.q_affection = Math.min(100, savedGiftAffinity(identityKey, "q"));
     let runtime = dispatch(work, initial, "start");
     if (isQ) {
       for (const target of restoredQ.choices) runtime = choose(work, runtime, target);
       runtime.variables.q_mail_unlocked = restoredQ.mailUnlocked;
-      // Rebuild the score from choices and the gift ledger so old inflated totals
-      // can never overwrite the score calculated from the current route.
-      if (!previewDay) runtime.variables.q_affection = Math.min(100,
-        Number(runtime.variables.q_affection) + savedGiftAffinity(identityKey, "q"));
       if (restoredQ.jealousy !== undefined) runtime.variables.q_jealousy = restoredQ.jealousy;
     }
     return runtime;
@@ -185,18 +183,26 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const text = routeMatchContent[selectedLeadId]?.[key];
     return text ? note(outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === selectedLeadId)?.name ?? "", text, outgoing) : null;
   };
-  const [finished, setFinished] = useState(false);
-  const [finalMemoryOpen, setFinalMemoryOpen] = useState(false);
+  const finalMemoryId = "photo-new-year";
+  const readQFinale = isQ && restoredQ.readDays.includes(sharedRules.confessionDay) && state.endings.length > 0;
+  const [finished, setFinished] = useState(readQFinale && acknowledgedClues.includes(finalMemoryId));
+  const [finalMemoryOpen, setFinalMemoryOpen] = useState(readQFinale && !acknowledgedClues.includes(finalMemoryId));
   const [archiveStatus, setArchiveStatus] = useState("");
-  const ending = state.endings.includes("hyunjae-together") ? {
+  const ending = state.endings.includes(`${selectedLeadId}-together`) ? {
     kind: "together" as const, title: "恋人结局 · 雪停之前", text: "他在石拱门下牵住了你的手。你们谁都没催着走。等窗外的雪停下来，你才发现，刚才还冻得发僵的那只手，已经暖了。",
     memory: "再经过那道石拱门时，他看见了槲寄生，这次什么也没说，只是牵住了你的手。",
-  } : state.endings.includes("hyunjae-friends") ? {
+  } : state.endings.includes(`${selectedLeadId}-friends`) ? {
     kind: "friends" as const, title: "朋友结局 · 窗边那个位置", text: "把话说开以后，你们还是并肩走了回去。快到楼梯口，他问下次去三把扫帚还给不给他留位置。你说：「留啊。但窗边那个归我。」他笑了：「我就知道。」",
     memory: "雪落在长廊外，你们说好下次去三把扫帚，还是坐窗边。",
   } : {
     kind: "unspoken" as const, title: "暧昧结局 · 明年第一个", text: "走到长廊尽头，你们就该往不同的方向走了。他多站了一会儿，说：「明年我还是想第一个来找你。」你说：「那你得来早点。」",
     memory: "长廊里很安静，他说，明年还是想第一个来找你。",
+  };
+  const finalMemory = {
+    id: finalMemoryId,
+    title: isQ ? "西廊窗边" : "跨年长廊",
+    body: isQ ? qFinalMemories[ending.kind] : ending.memory,
+    unlocked: finalMemoryOpen || finished,
   };
   const [attended, setAttended] = useState<Record<string, boolean>>(() => isQ
     ? restoredQ.legacy && identity
@@ -294,15 +300,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       body: "舞会散场后，他在石拱门下放慢脚步，抬头看了一眼槲寄生，又看向你。",
       unlocked: albumSceneRead(day, sharedRules.ballDay, completedSceneDays) && state.variables.hyunjae_day24_choice === "a",
     },
-    {
-      id: "photo-new-year",
-      title: "跨年长廊",
-      body: ending.memory,
-      unlocked: finalMemoryOpen || finished,
-    },
-  ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked).concat(isQ ? qAlbumClues(qReadDays, state.completed) : []);
+  ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked)
+    .concat(isQ ? qAlbumClues(qReadDays, state.completed) : [], finalMemory.unlocked ? [finalMemory] : []);
   // Let story dialogs finish first, then announce each new entry in album order.
-  const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== "photo-new-year"), acknowledgedClues,
+  const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== finalMemory.id), acknowledgedClues,
     Boolean(sceneOpen || matchDialog || matchConversation || dateReply || outing || destination || finalMemoryOpen || finished));
   useEffect(() => {
     if (previewDay) return;
@@ -384,7 +385,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         const key = "foundphone-hogwarts-endings-v1";
         const records = JSON.parse(localStorage.getItem(key) ?? "{}");
         localStorage.setItem(key, JSON.stringify({ ...records, [identityKey || "default"]: {
-          player: identity?.name, character: character.name, ...ending, ...stats,
+          player: identity?.name, character: character.name, ...ending, memory: finalMemory.body, ...stats,
         } }));
         setArchiveStatus("已归档到此浏览器。");
       } catch {
@@ -453,7 +454,6 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
               }
             }}
             onEnd={!previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
-          {isQ && day === qDays.at(-1)?.day && qReadDays.includes(day) && <p role="status">已完成第{day}天，后续剧情待续。</p>}
           {isQ && day === 1 && state.variables.q_mail_unlocked === true && <p><button onClick={() => { setActive("owlpost"); setRecipient("q"); }}>查看池昌民的来信</button></p>}
           {owlToday && !nextDay && <button onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}
           {isHoliday(day) && <section aria-label="假期自由活动">
@@ -651,9 +651,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       {finalMemoryOpen && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="final-memory-title">
         <h2 id="final-memory-title">魔法相册解锁新内容</h2>
-        <p>跨年长廊</p>
-        <p className="hogwarts-narration">{highlightMistletoe(ending.memory)}</p>
-        <button type="button" onClick={() => { acknowledgeClue("photo-new-year"); setFinalMemoryOpen(false); setFinished(true); }}>读完了 · 查看结局</button>
+        <p>{finalMemory.title}</p>
+        <p className="hogwarts-narration">{highlightMistletoe(finalMemory.body)}</p>
+        <button type="button" onClick={() => { acknowledgeClue(finalMemory.id); setFinalMemoryOpen(false); setFinished(true); }}>读完了 · 查看结局</button>
       </dialog>}
       {pendingClue && <dialog key={pendingClue.id} ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene hogwarts-clue" aria-labelledby="album-clue-title">
         <h2 id="album-clue-title">魔法相册解锁新内容</h2><p>在魔法相册中查看「{pendingClue.title}」。</p>

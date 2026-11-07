@@ -20,6 +20,9 @@ type MapStage = "closed" | "oath" | "map" | "erasing";
 const landmarks: Partial<Record<string, readonly [number, number]>> = {
   "长廊": [180, 280],
   "城堡西侧长廊": [180, 260],
+  "西廊窗边": [180, 260],
+  "空教室": [229, 208],
+  "霍格莫德文具店": [70, 548],
   "猫头鹰棚屋": [70, 42],
   "城堡外的小路": [180, 548],
   "黑湖湖畔": [320, 548],
