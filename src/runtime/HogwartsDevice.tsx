@@ -244,6 +244,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     if (heading) entryDay = Number(heading[1]);
     return { ...entry, day: entryDay, body: entry.body.replace(/^12月\d+日｜/, "") };
   });
+  const candyLetterDay = 2;
   const isNote = (body: string) =>
     body.split("\n").every(line => /^(李贤在|你)[：:]/.test(line));
   const [extraMail, setExtraMail] = useState<{ recipient: string; body: string; outgoing: boolean; day: number; order: number }[]>(() => isQ ? restoredQ.extraMail : []);
@@ -251,11 +252,20 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     setExtraMail(previous => [...previous, { recipient, body, outgoing, day, order: entries.length + thread(recipient).length }]);
   const thread = (contact: string): { body: string; outgoing: boolean; narration?: boolean; day: number; order: number }[] => [
     ...(isQ && contact === selectedLeadId ? qLetters(state.messages.owlpost ?? []).filter(entry => entry.day !== day || mailArrived) : []),
-    ...conversation.flatMap((entry, order) => !isQ && contact === "hyunjae" && owlDays.includes(entry.day) && isNote(entry.body)
-      ? entry.body.split(/(?<=[；;。！？?！]|\s)(?=(?:李贤在|你)[：:])/).map(line => ({
-        body: line.replace(/^(李贤在|你)[：:]/, "").replace(/[；;]$/, ""),
-        outgoing: /^你[：:]/.test(line), day: entry.day, order: order + .5,
-      })) : []),
+    ...conversation.flatMap((entry, order) => {
+      if (isQ || contact !== "hyunjae" || !owlDays.includes(entry.day)) return [];
+      if (entry.day === candyLetterDay) return entry.body.split("\n").map((line, index) => ({
+        body: line.replace(/^(李贤在|你)[：:]/, ""),
+        outgoing: /^你[：:]/.test(line),
+        narration: !/^(李贤在|你)[：:]/.test(line),
+        day: entry.day, order: order + index / (entry.body.length + 1),
+      }));
+      return isNote(entry.body)
+        ? entry.body.split(/(?<=[；;。！？?！]|\s)(?=(?:李贤在|你)[：:])/).map(line => ({
+          body: line.replace(/^(李贤在|你)[：:]/, "").replace(/[；;]$/, ""),
+          outgoing: /^你[：:]/.test(line), day: entry.day, order: order + .5,
+        })) : [];
+    }),
     ...extraMail.filter(entry => entry.recipient === contact),
   ].sort((a, b) => a.day - b.day || a.order - b.order);
   const currentThread = thread(recipient);
@@ -266,7 +276,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     setMailRead(previous => previous[recipient] === count ? previous : { ...previous, [recipient]: count });
   }, [active, recipient, currentThread.length]);
   const soloSnow = selectedLeadId === "hyunjae" && day === 7 && !state.variables.hyunjae_first_snow_together;
-  const scenes = conversation.filter(entry => entry.day === day && (!owlToday || !isNote(entry.body)))
+  const scenes = conversation.filter(entry => entry.day === day && (!owlToday || ((isQ || day !== candyLetterDay) && !isNote(entry.body))))
     .map((entry, index) => selectedLeadId === "hyunjae" && day === 18 && index === 0 ? { ...entry, body: state.variables.hyunjae_day17_choice === "a"
       ? "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。那今年城堡应该不会太无聊了。\n你：哦？我还有这本事？\n李贤在：因为你也在啊。"
       : "门厅里，李贤在手里捏着一张折好的羊皮纸。\n李贤在：你圣诞假期回家吗？\n你：不回啊，我还没逛够呢。你呢？\n李贤在：我也留。对了，昨天忘了问你。二十四号舞会，你有约了吗？\n你：还没。怎么，你要排队啊？\n李贤在：那要不要一起？\n你：好啊，那你排第一个。\n李贤在：那天我在大礼堂门口等你。"
@@ -339,7 +349,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     }
     showRelationshipChange(identity?.loveInterest ?? "hyunjae", state, next);
     setState(next);
-    if (!isQ && owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice((state.messages.owlpost ?? []).length).some(entry => !isNote(entry.body))) {
+    if (!isQ && day !== candyLetterDay && owlToday && next.date === state.date && (next.messages.owlpost ?? []).slice((state.messages.owlpost ?? []).length).some(entry => !isNote(entry.body))) {
       setSceneOpen(true);
     }
   };
