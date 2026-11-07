@@ -21,7 +21,9 @@ export const qFinalMemories = {
 };
 
 // Reuse the normal phone and event engine; only the authored route data changes.
-export function qRouteWork(original: Work): Work {
+export function qRouteWork(original: Work, startingAffinity = 0, legacyFriends = false): Work {
+  const confessionScore = sharedRules.confessionAffinity - startingAffinity;
+  const friendsScore = sharedRules.friendsBelowAffinity - startingAffinity;
   const node = (id: string, label: string, type: string, actions: unknown[], next: string[], conditions: unknown[] = []) => nodeSchema.parse({
     id, label, type, actions, next, event: "", target: "", conditions, once: true, x: 0, y: 0,
   });
@@ -29,7 +31,14 @@ export function qRouteWork(original: Work): Work {
     { type: "variable", key: "q_completed_day", value: sharedRules.confessionDay },
     { type: "variable", key: "story_delivery", value: "done" },
   ];
-  const friendChoice = finale.endings.friends.lines[0].slice("你：".length);
+  const endingConditions = {
+    together: [{ key: "q_affection", op: "gt", value: confessionScore - 1 }],
+    unspoken: [
+      { key: "q_affection", op: "lt", value: confessionScore },
+      ...(!legacyFriends ? [{ key: "q_affection", op: "gt", value: friendsScore - 1 }] : []),
+    ],
+    friends: legacyFriends ? [] : [{ key: "q_affection", op: "lt", value: friendsScore }],
+  };
   return {
     ...original,
     id: "hogwarts-q-december", title: "霍格沃茨十二月 · 池昌民",
@@ -59,7 +68,7 @@ export function qRouteWork(original: Work): Work {
         const nextDay = followingDays[dayIndex + 1];
         const resolvesRoute = day.day === sharedRules.confessionDay && !nextStage;
         const next = nextStage ? [nextStage] : nextDay ? [`q-day${String(nextDay.day).padStart(2, "0")}-stage0`]
-          : resolvesRoute ? ["q-ending-together", "q-ending-unspoken"] : [];
+          : resolvesRoute ? ["q-ending-together", "q-ending-unspoken", ...(!legacyFriends ? ["q-ending-friends"] : [])] : [];
         const channel = stage.channel === "mail" ? "owlpost" : "scene";
         const completedActions = nextStage ? [] : [
           { type: "variable", key: "q_completed_day", value: day.day },
@@ -86,7 +95,7 @@ export function qRouteWork(original: Work): Work {
           ...variantNodes,
           node(choiceNode, "你的回答", "choice", [], [
             ...stage.choices.map((_, index) => `${prefix}-${index}`),
-            ...(resolvesRoute ? ["q-ending-friends"] : []),
+            ...(resolvesRoute && legacyFriends ? ["q-ending-friends"] : []),
           ]),
           ...stage.choices.map((choice, index) => node(`${prefix}-${index}`, choice.label, "action", [
             { type: "message", key: channel, value: choice.lines.join("\n") },
@@ -104,13 +113,11 @@ export function qRouteWork(original: Work): Work {
         ];
       })),
       ...(["together", "unspoken", "friends"] as const).map(kind => node(
-        `q-ending-${kind}`, kind === "friends" ? friendChoice : "跨年结局", "ending", [
+        `q-ending-${kind}`, kind === "friends" ? "我还是想和你做朋友" : "跨年结局", "ending", [
           { type: "message", key: "scene", value: finale.endings[kind].lines.join("\n") },
           { type: "ending", key: "", value: `q-${kind}` },
           ...finishRoute,
-        ], [], kind === "friends" ? [] : [{
-          key: "q_affection", op: kind === "together" ? "eq" : "lt", value: 100,
-        }],
+        ], [], endingConditions[kind],
       )),
     ],
   };
@@ -197,9 +204,9 @@ export function readQProgress(key: string): QProgress {
   return empty;
 }
 
-export function characterRouteWork(original: Work, characterId: string): Work {
+export function characterRouteWork(original: Work, characterId: string, startingAffinity = 0, legacyFriends = false): Work {
   if (characterId === "hyunjae") return original;
-  if (characterId === "q") return qRouteWork(original);
+  if (characterId === "q") return qRouteWork(original, startingAffinity, legacyFriends);
   const person = people.find(character => character.id === characterId);
   return {
     ...original,
@@ -217,17 +224,22 @@ export function characterRouteWork(original: Work, characterId: string): Work {
 // Read-only review starts on the requested authored day, never by changing the real save.
 export function qDayPreviewProgress(original: Work, day: number): QProgress {
   const work = gateRouteDays(qRouteWork(original));
+  const affinityGains = day === sharedRules.confessionDay
+    ? new Map(work.nodes.map(node => [node.id, Number(node.actions.find(action =>
+      action.type === "increment" && action.key === "q_affection")?.value ?? 0)]))
+    : new Map<string, number>();
   let state = dispatch(work, initialRuntime(work), "start");
   const history: string[] = [];
   const date = `2026-12-${String(day).padStart(2, "0")}`;
   for (let step = 0; state.date !== date && state.choices.length && step < 500; step++) {
-    const target = state.choices[0].target;
+    const target = state.choices.reduce((best, choice) =>
+      (affinityGains.get(choice.target) ?? 0) > (affinityGains.get(best.target) ?? 0) ? choice : best).target;
     history.push(target);
     state = choose(work, state, target);
   }
   if (state.date !== date) throw new Error("该日期尚未开放预览。");
   const readDays = Array.from({ length: day - 1 }, (_, index) => index + 1);
   return { choices: history, readDays,
-    attended: {}, time: day === 12 ? "14:00" : "16:00", mailUnlocked: true, extraMail: [],
+    attended: {}, time: day === 12 ? "14:00" : day === sharedRules.confessionDay ? String(state.variables.scene_time) : "16:00", mailUnlocked: true, extraMail: [],
     acknowledgedClues: qAlbumClues(readDays, state.completed).map(clue => clue.id), legacy: false };
 }

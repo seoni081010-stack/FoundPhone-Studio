@@ -89,7 +89,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [restoredQ] = useState(() => previewDay ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
-  const route = useMemo(() => characterRouteWork(original, selectedLeadId), [original, selectedLeadId]);
+  const startingAffinity = characterStatus(selectedLeadId, identity?.year ?? 5, identity?.house ?? "", {}).affinity;
+  const legacyFriends = isQ && restoredQ.choices.includes("q-ending-friends");
+  const route = useMemo(() => characterRouteWork(original, selectedLeadId, startingAffinity, legacyFriends),
+    [original, selectedLeadId, startingAffinity, legacyFriends]);
   const work = useMemo(() => gateRouteDays(route), [route]);
   const [state, setState] = useState<Runtime>(() => {
     const initial = initialRuntime(work);

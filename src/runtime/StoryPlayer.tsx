@@ -54,7 +54,7 @@ async function prepareAvatar(file: File) {
 
 function StoryPlayer() {
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewDay = previewMode === "q-day6" ? 6 : previewMode === "q-day12" ? 12 : undefined;
+  const previewDay = previewMode === "q-day6" ? 6 : previewMode === "q-day12" ? 12 : previewMode === "q-day31" ? 31 : undefined;
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");

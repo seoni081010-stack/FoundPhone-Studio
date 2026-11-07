@@ -8,6 +8,8 @@ export const sharedRules = {
   holidayStartDay: 22,
   ballDay: 24,
   confessionDay: 31,
+  confessionAffinity: 100,
+  friendsBelowAffinity: 80,
   dayStartTime: "09:00",
   owlPostDays: [2, 5, 6, 13, 15, 17, 19, 20, 30] as readonly number[],
   manualSceneDays: [3, 4] as readonly number[],

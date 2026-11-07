@@ -124,11 +124,11 @@ it.each([
 it.each([
   { kind: "together", title: "恋人结局 · 雪停之前", score: 100, gift: false },
   { kind: "together", title: "恋人结局 · 雪停之前", score: 100, gift: true },
-  { kind: "friends", title: "朋友结局 · 窗边那个位置", score: 100, gift: false },
+  { kind: "friends", title: "朋友结局 · 窗边那个位置", score: 66, gift: false },
   { kind: "unspoken", title: "暧昧结局 · 明年第一个", score: 93, gift: false },
 ] as const)("restores Q's $kind finale through the shared album and ending page (gift=$gift)", ({ kind, title, score, gift }) => {
   const original = compileStory(story).work;
-  const work = gateRouteDays(qRouteWork(original));
+  const work = gateRouteDays(qRouteWork(original, 4));
   const initial = initialRuntime(work);
   if (gift) initial.variables.q_affection = 5;
   let state = dispatch(work, initial, "start");
@@ -137,18 +137,19 @@ it.each([
     const gain = (target: string) => Number(work.nodes.find(node => node.id === target)?.actions
       .find(action => action.type === "increment" && action.key === "q_affection")?.value ?? 0);
     const first = state.choices[0];
-    const choice = state.choices.find(entry => kind === "friends" && entry.target === "q-ending-friends")
-      ?? state.choices.find(entry => (kind === "unspoken" && (entry.target === "q-day24-stage2-1"
+    expect(state.choices.some(entry => entry.target === "q-ending-friends")).toBe(false);
+    const choice = state.choices.find(entry => (kind === "unspoken" && (entry.target === "q-day24-stage2-1"
         || /^q-day(?:2[7-9]|3[01])-stage[01]-1$/.test(entry.target)))
-        || (gift && /^q-day31-stage[01]-1$/.test(entry.target)))
-      ?? state.choices.reduce((best, entry) => gain(entry.target) > gain(best.target) ? entry : best, first);
+        || (kind === "together" && /^q-day31-stage[01]-1$/.test(entry.target))
+        || (gift && /^q-day27-stage[01]-1$/.test(entry.target)))
+      ?? state.choices.reduce((best, entry) => (kind === "friends" ? gain(entry.target) < gain(best.target) : gain(entry.target) > gain(best.target)) ? entry : best, first);
     history.push(choice.target);
     state = choose(work, state, choice.target);
   }
   expect(state.variables.q_completed_day).toBe(31);
   expect(state.endings).toEqual([`q-${kind}`]);
   const finale = (state.messages.scene ?? []).map(entry => entry.body).join("\n").split("12月31日｜").slice(1).join("\n");
-  expect(finale).toContain(kind === "unspoken" ? "到窗边才叫出来" : "你手指动了一下");
+  expect(finale).toContain(kind !== "together" ? "到窗边才叫出来" : "你手指动了一下");
   expect(finale).toContain("一簇烟花从湖对岸升起来");
   expect(finale.indexOf("一簇烟花从湖对岸升起来")).toBeLessThan(finale.lastIndexOf("池昌民："));
   const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "q-finale" };

@@ -213,3 +213,39 @@ it("ignores an old inflated affinity while retaining recorded gift points", () =
   expect(saved.jealousy).toBe(3);
   expect(savedGiftAffinity("run", "q")).toBe(12);
 });
+
+it("previews the complete last day from a separate run with enough affinity for the confession", () => {
+  const getItem = vi.fn();
+  const setItem = vi.fn();
+  vi.stubGlobal("localStorage", { getItem, setItem });
+  const preview = qDayPreviewProgress(compileStory(hyunjaeStory).work, 31);
+  let state = preview.choices.reduce((previous, target) => choose(work, previous, target),
+    dispatch(work, initialRuntime(work), "start"));
+  expect(state.date).toBe("2026-12-31");
+  expect(state.variables.q_affection).toBe(95);
+  expect(preview.time).toBe("23:45");
+  expect(preview.readDays).toHaveLength(30);
+  expect(preview.acknowledgedClues).toContain("q-photo-ball-arch");
+  expect(preview.acknowledgedClues).not.toContain("photo-new-year");
+  state = choose(work, state, "q-day31-stage0-0");
+  expect(state.choices.map(choice => choice.target)).toEqual(["q-day31-stage1-0", "q-day31-stage1-1"]);
+  state = choose(work, state, "q-day31-stage1-0");
+  expect(state.endings).toEqual(["q-together"]);
+  expect(getItem).not.toHaveBeenCalled();
+  expect(setItem).not.toHaveBeenCalled();
+});
+
+it.each([[79, "friends"], [80, "unspoken"], [99, "unspoken"], [100, "together"]] as const)(
+  "automatically resolves displayed affinity %s to %s", (score, kind) => {
+    const original = compileStory(hyunjaeStory).work;
+    const route = gateRouteDays(qRouteWork(original, 4));
+    const preview = qDayPreviewProgress(original, 31);
+    let state = preview.choices.reduce((previous, target) => choose(route, previous, target),
+      dispatch(route, initialRuntime(route), "start"));
+    state = choose(route, state, "q-day31-stage0-0");
+    state.variables.q_affection = score - 4 - 2;
+    state = choose(route, state, "q-day31-stage1-1");
+    expect(characterStatus("q", 6, "ravenclaw", state.variables).affinity).toBe(score);
+    expect(state.endings).toEqual([`q-${kind}`]);
+  },
+);
