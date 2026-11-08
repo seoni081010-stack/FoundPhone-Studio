@@ -391,3 +391,230 @@
   .marauder-stage .marauder-oath-letters::before,
   .marauder-stage .marauder-oath-letters::after { animation: none; }
 }
+
+
+/* Ink, vellum, and starlight. This layer changes paint without changing control geometry. */
+.story-runtime:has(.hogwarts-device),
+.hogwarts-device-stage {
+  --folio-ink: #efe9e2;
+  --folio-muted: #c9c3d5;
+  --folio-gold: #c6a875;
+  --folio-brass: #8f795c;
+  --folio-rule: #60536a;
+  --folio-button: linear-gradient(145deg, #66537838, #1b1e33 75%);
+  --folio-paper: #f0e3ca;
+  --folio-paper-ink: #382b25;
+  --folio-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.28 .66' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.09'/%3E%3C/svg%3E");
+}
+
+.hogwarts-device-stage:has(.hogwarts-device) {
+  background:
+    radial-gradient(ellipse at 50% 18%, #40456a77, transparent 53%),
+    radial-gradient(ellipse at 78% 88%, #48334d59, transparent 42%),
+    radial-gradient(ellipse at 18% 60%, #20375180, transparent 56%),
+    linear-gradient(150deg, #101524, #0b0e19 65%, #171222);
+}
+.story-runtime:has(.hogwarts-device) .hogwarts-player-menu,
+.story-runtime:has(.hogwarts-device) .hogwarts-player-menu button {
+  color: var(--folio-ink);
+  border-color: var(--folio-brass);
+  background: var(--folio-button), #202239;
+}
+
+.hogwarts-device[aria-label="Hogwarts Unspoken"] {
+  color: var(--folio-ink);
+  border-color: #a18a64;
+  background:
+    radial-gradient(ellipse at -12% 10%, #6976aa39, transparent 37%),
+    radial-gradient(ellipse at 111% 76%, #8c639a30, transparent 42%),
+    var(--folio-fiber),
+    linear-gradient(145deg, #26283f, #181b2e 55%, #201a30);
+  box-shadow:
+    0 0 1px #e4c591,
+    0 0 30px #7b86bf50,
+    0 18px 50px #030512a6,
+    inset 0 0 28px #7680ba32;
+}
+
+.hogwarts-device .hogwarts-device-top,
+.hogwarts-device .hogwarts-device-header {
+  color: var(--folio-ink);
+  border-color: var(--folio-brass);
+  background:
+    radial-gradient(ellipse at 85% -20%, #8275b44d, transparent 58%),
+    linear-gradient(110deg, #21273d, #29243a);
+}
+.hogwarts-device .hogwarts-device-top { color: #d8c49c; }
+.hogwarts-device .hogwarts-device-header { position: relative; }
+.hogwarts-device-header::after {
+  content: "";
+  position: absolute;
+  inset: 0 3px 0 auto;
+  width: 114px;
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 114 118'%3E%3Cg fill='none' stroke='%23c7b8eb' stroke-width='.6' opacity='.52'%3E%3Ccircle cx='85' cy='47' r='29' stroke-dasharray='1 3'/%3E%3Ccircle cx='85' cy='47' r='23'/%3E%3Cpath d='M52 67 67 45 87 53 104 31M63 76Q96 70 108 47M85 16V26M85 68V78M54 47H64M106 47H114'/%3E%3C/g%3E%3Cg fill='%23efe1b9'%3E%3Ccircle cx='52' cy='67' r='1.1'/%3E%3Ccircle cx='67' cy='45' r='1.3'/%3E%3Ccircle cx='87' cy='53' r='1.2'/%3E%3Cpath d='M104 25l1 5 5 1-5 1-1 5-1-5-5-1 5-1z'/%3E%3C/g%3E%3C/svg%3E") right center / contain no-repeat,
+    radial-gradient(circle at 83% 30%, #c5b4f54d, transparent 32%);
+  opacity: .72;
+  animation: folio-drift 12s ease-in-out infinite alternate;
+}
+.hogwarts-device .hogwarts-device-header > div { position: relative; z-index: 1; }
+.hogwarts-device .hogwarts-device-header small,
+.hogwarts-device .hogwarts-device-header p { color: var(--folio-muted); }
+.hogwarts-device-header h1 {
+  color: #f6e6c9;
+  font-style: italic;
+  text-shadow: 0 0 12px #b6a4e73b;
+}
+.hogwarts-device-seal {
+  border-color: #a68b63;
+  color: #f2d6a2;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='24' fill='none' stroke='%23c7a978' stroke-width='.7' stroke-dasharray='1 2'/%3E%3Ccircle cx='30' cy='30' r='21' fill='none' stroke='%23bc9d6a' stroke-width='.6'/%3E%3Cpath d='M30 4l2 2-2 2-2-2zM30 52l2 2-2 2-2-2zM4 30l2-2 2 2-2 2zM52 30l2-2 2 2-2 2z' fill='%23dfbd80'/%3E%3C/svg%3E") center / 100% 100% no-repeat,
+    radial-gradient(circle at 35% 22%, #4c4260, #1b1c32 78%);
+  box-shadow: inset 0 0 10px #c2a5f32b, 0 0 15px #a291d944;
+  text-shadow: 0 0 8px #cfab7880;
+}
+
+.hogwarts-device .hogwarts-today {
+  background:
+    radial-gradient(ellipse at 8% 1%, #544a723b, transparent 56%),
+    linear-gradient(150deg, #25273bd9, #1b1e31e6);
+  border-color: var(--folio-rule);
+  box-shadow: inset 0 1px #b3a4d226, 0 3px 14px #090c1b30;
+}
+.hogwarts-device .hogwarts-today h2 small,
+.hogwarts-device .hogwarts-device-page h2 small { color: #d8bd91; }
+.hogwarts-device-page h2,
+.hogwarts-agenda-row,
+.hogwarts-device-choices { border-color: var(--folio-rule); }
+.hogwarts-device .hogwarts-device-letter {
+  color: var(--folio-paper-ink);
+  border-color: #a68c62;
+  background: var(--folio-fiber), linear-gradient(130deg, #f6ecd8, var(--folio-paper));
+}
+
+.hogwarts-device :is(button, select, input, summary):not(
+  .hogwarts-contact, .marauder-oath, .marauder-unroll, .marauder-close
+),
+.hogwarts-scene button {
+  color: var(--folio-ink);
+  border-color: var(--folio-brass);
+  background: var(--folio-button), #25273e;
+  box-shadow: inset 0 1px #d5c3f31f;
+}
+.hogwarts-device :is(button, select, input):disabled {
+  color: #b5aec2;
+  border-color: #6c6277;
+  background: #28283c;
+}
+.hogwarts-device select option { color: var(--folio-ink); background: #25273e; }
+.hogwarts-device .hogwarts-contact { color: var(--folio-ink); border-color: var(--folio-rule); }
+.hogwarts-device .hogwarts-contact small { color: var(--folio-muted); }
+.hogwarts-device .hogwarts-contact:is(:hover, :focus-visible) { background: #71619237; }
+.hogwarts-device :is(button, select, input, summary, a[href]):focus-visible,
+.hogwarts-scene button:focus-visible { outline-color: #c8b9f2; }
+
+.hogwarts-device :is(.hogwarts-device-letter, .hogwarts-market) summary {
+  color: var(--folio-paper-ink);
+  background: #fffcf163;
+}
+
+.hogwarts-device .hogwarts-dock {
+  border-color: var(--folio-brass);
+  background: linear-gradient(108deg, #212539, #29223a 72%, #33304c);
+  box-shadow: 0 -4px 17px #9686c329, inset 0 1px #d4c3f026;
+}
+.hogwarts-device .hogwarts-dock button {
+  color: var(--folio-ink);
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+.hogwarts-device .hogwarts-dock button[aria-pressed="true"] {
+  border-color: #8f795c;
+  background: #8170ad38;
+}
+.hogwarts-device .hogwarts-dock button span {
+  color: #e0c295;
+  background: radial-gradient(circle at 35% 23%, #615279, #28283f 72%);
+  box-shadow: inset 0 0 0 1px #b69c7280, 0 0 9px #a89bdf35;
+}
+.hogwarts-device .hogwarts-dock button[aria-pressed="true"] span {
+  box-shadow: inset 0 0 0 1px #d7bb91, 0 0 11px #b6a0ef73;
+}
+
+.hogwarts-device .hogwarts-message p,
+.hogwarts-scene .hogwarts-message:not(.outgoing) p {
+  color: var(--folio-paper-ink);
+  background: linear-gradient(120deg, #f7edd9, #e9dbbf);
+}
+.hogwarts-device .hogwarts-message.outgoing p,
+.hogwarts-scene .hogwarts-message.outgoing p {
+  color: var(--folio-ink);
+  background: linear-gradient(135deg, #4c4265, #38324f);
+}
+.hogwarts-device .hogwarts-narration { color: var(--folio-muted); }
+.hogwarts-device .hogwarts-narration strong { color: #f2d9a8; }
+
+.hogwarts-scene {
+  color: var(--folio-ink);
+  border-color: var(--folio-brass);
+  background:
+    radial-gradient(ellipse at 98% 0%, #6c548b60, transparent 52%),
+    var(--folio-fiber),
+    linear-gradient(125deg, #27283f, #201f34 65%, #282137);
+  box-shadow: 0 0 25px #9f8ad259, 0 0 0 100vmax #0c0f1b96;
+}
+.hogwarts-scene::backdrop { background: #0a0d1b99; }
+.hogwarts-wager .wager-stamp { color: #f0ce9d; }
+.hogwarts-wager .wager-teams button { color: #f7d9df; background: #593445; }
+.hogwarts-wager .wager-teams [data-team="斯莱特林"] { color: #d8efdf; background: #31483e; }
+.hogwarts-scene.hogwarts-wager .wager-primary { color: var(--folio-paper-ink); background: #e0c298; }
+.hogwarts-scene.hogwarts-wager .wager-secondary { color: var(--folio-ink); background: #37324d; }
+
+@media (hover: hover) and (pointer: fine) {
+  .hogwarts-device button:not(.hogwarts-contact, .marauder-oath, .marauder-unroll, .marauder-close):enabled:hover {
+    border-color: var(--folio-gold);
+    box-shadow: inset 0 1px #e1d2fa44, 0 0 9px #ab96e24d;
+  }
+}
+@keyframes folio-drift {
+  from { transform: translate(0, 0); opacity: .64; }
+  to { transform: translate(-3px, 2px); opacity: .85; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hogwarts-device-header::after { animation: none; }
+}
+
+/* The open owl correspondence is a parchment sheet inside the dark folio. */
+.hogwarts-device .hogwarts-device-page:has(> .hogwarts-device-letters > h3) {
+  --folio-ink: #382b25;
+  --folio-muted: #63503f;
+  --folio-rule: #c4ab82;
+  --folio-brass: #94744d;
+  --folio-button: linear-gradient(145deg, #fff8e8, #ead7b5);
+  color: var(--folio-ink);
+  background:
+    linear-gradient(90deg, #98713c26, transparent 6%, transparent 94%, #98713c24),
+    radial-gradient(ellipse at 100% 6%, #a7754126, transparent 36%),
+    var(--folio-fiber),
+    linear-gradient(125deg, #f7ecd5, #f2e2c2 63%, #e9d3ab);
+  box-shadow: inset 0 3px #b7946652, inset 0 -3px #b7946652, inset 0 0 18px #a6783429;
+}
+.hogwarts-device-page:has(> .hogwarts-device-letters > h3) :is(h3, .hogwarts-note-thread > small) {
+  color: #60452f;
+}
+.hogwarts-device .hogwarts-device-page:has(> .hogwarts-device-letters > h3) .hogwarts-message p {
+  color: var(--folio-ink);
+  background: linear-gradient(120deg, #fff7e6, #f5e5c8);
+  box-shadow: inset 0 0 0 1px #9e7c4d55;
+}
+.hogwarts-device .hogwarts-device-page:has(> .hogwarts-device-letters > h3) .hogwarts-message.outgoing p {
+  color: #37412f;
+  background: linear-gradient(130deg, #e9e7cf, #dddcc0);
+  box-shadow: inset 0 0 0 1px #74795262;
+}
+.hogwarts-device-page:has(> .hogwarts-device-letters > h3) :is(button, input):focus-visible {
+  outline-color: #795633;
+}
