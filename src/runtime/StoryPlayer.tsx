@@ -54,8 +54,8 @@ async function prepareAvatar(file: File) {
 
 function StoryPlayer() {
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewDay = previewMode === "q-day6" ? 6 : previewMode === "q-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined;
-  const previewLead = previewMode === "hyunjae-day31" ? "hyunjae" : "q";
+  const previewDay = previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined;
+  const previewLead = previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");

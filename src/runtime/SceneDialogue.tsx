@@ -82,12 +82,12 @@ export function narrationBody(node: ReactElement<NodeProps>, visible: number): R
   }));
 }
 
-function DialogueStep({ step, advance, selectedReply }: { step: Step; advance: () => void; selectedReply: string }) {
-  const [accepted, setAccepted] = useState(!step.outgoing || step.text === selectedReply);
+function DialogueStep({ step, advance, selectedReply, instantNarration, fixedAccepted, onAccept }: { step: Step; advance: () => void; selectedReply: string; instantNarration?: boolean; fixedAccepted?: boolean; onAccept?: () => void }) {
+  const [accepted, setAccepted] = useState(!step.outgoing || step.text === selectedReply || fixedAccepted === true);
   const [visible, setVisible] = useState(0);
   const current = useRef<HTMLDivElement>(null);
   const letters = Array.from(step.text);
-  const complete = visible >= letters.length;
+  const complete = (!step.speech && instantNarration) || visible >= letters.length;
   useEffect(() => {
     current.current?.scrollIntoView({ block: "nearest" });
   }, [accepted]);
@@ -98,12 +98,12 @@ function DialogueStep({ step, advance, selectedReply }: { step: Step; advance: (
   }, [accepted, complete, letters.length]);
 
   if (!accepted) return <div ref={current} className="hogwarts-device-choices scene-fixed-reply">
-    <button type="button" onClick={() => setAccepted(true)}>{step.text}</button>
+    <button type="button" onClick={() => { setAccepted(true); onAccept?.(); }}>{step.text}</button>
   </div>;
 
   return <div ref={current} className="scene-current-step">
     <div aria-live={complete ? "polite" : "off"} aria-atomic="true">
-      {step.speech ? speechBody(step.node, letters.slice(0, visible).join("")) : narrationBody(step.node, visible)}
+      {step.speech ? speechBody(step.node, letters.slice(0, visible).join("")) : narrationBody(step.node, complete ? letters.length : visible)}
     </div>
     <button className="scene-advance" type="button" onClick={() => complete ? advance() : setVisible(letters.length)}>
       {complete ? "继续" : step.speech ? "显示完整台词" : "显示完整旁白"}
@@ -111,9 +111,10 @@ function DialogueStep({ step, advance, selectedReply }: { step: Step; advance: (
   </div>;
 }
 
-export function SceneDialogue({ children }: { children: ReactNode }) {
+export function SceneDialogue({ children, instantNarration, checkpoint, onCheckpoint, onComplete }: { children: ReactNode; instantNarration?: boolean; checkpoint?: { position: number; accepted?: boolean }; onCheckpoint?: (checkpoint: { position: number; accepted?: boolean }) => void; onComplete?: () => void }) {
   const { steps, controls } = sceneParts(children);
-  const [position, setPosition] = useState(0);
+  const [localPosition, setPosition] = useState(0);
+  const position = checkpoint?.position ?? localPosition;
   const [selectedReply, setSelectedReply] = useState("");
   const active = steps[position];
   function choiceHandlers(nodes: ReactNode): ReactNode {
@@ -131,6 +132,6 @@ export function SceneDialogue({ children }: { children: ReactNode }) {
   }
   return <div className="scene-dialogue">
     {steps.slice(0, position).map((step, index) => <Fragment key={index}>{step.node}</Fragment>)}
-    {active ? <DialogueStep key={`${position}-${active.text}`} step={active} selectedReply={selectedReply} advance={() => setPosition(index => index + 1)} /> : choiceHandlers(controls)}
+    {active ? <DialogueStep key={`${position}-${active.text}`} step={active} selectedReply={selectedReply} instantNarration={instantNarration} fixedAccepted={checkpoint?.accepted} onAccept={() => onCheckpoint?.({ position, accepted: true })} advance={() => { if (onComplete && position + 1 === steps.length) { onComplete(); return; } setPosition(position + 1); onCheckpoint?.({ position: position + 1 }); }} /> : choiceHandlers(controls)}
   </div>;
 }
