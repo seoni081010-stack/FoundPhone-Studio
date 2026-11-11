@@ -618,3 +618,21 @@
 .hogwarts-device-page:has(> .hogwarts-device-letters > h3) :is(button, input):focus-visible {
   outline-color: #795633;
 }
+
+.hogwarts-gift-toast {
+  position: fixed;
+  z-index: 210;
+  top: max(1rem, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+  padding: .65rem 1rem;
+  border: 1px solid #b99e67;
+  border-radius: .75rem;
+  background: #24203c;
+  color: #fff3df;
+  box-shadow: 0 4px 16px #0005;
+  pointer-events: none;
+}

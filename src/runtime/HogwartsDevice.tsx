@@ -105,7 +105,11 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     initial.variables.hyunjae_player_house = identity?.house ?? "unspecified";
     initial.variables.hyunjae_player_year = identity?.year ?? 5;
     // Gifts must be in the score before replay reaches the ending gate.
-    if (isQ && !previewDay) initial.variables.q_affection = Math.min(100, savedGiftAffinity(identityKey, "q"));
+    if (!previewDay) for (const contact of contacts) {
+      const key = affinityKey(contact.id);
+      const points = savedGiftAffinity(identityKey, contact.id);
+      if (points) initial.variables[key] = Math.min(100, Number(initial.variables[key] ?? initial.variables["friendship_" + contact.id] ?? 0) + points);
+    }
     if (hyunjaePreview) return hyunjaeDay31Preview(work, initial);
     let runtime = dispatch(work, initial, "start");
     if (isQ) {
@@ -121,9 +125,24 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const timer = window.setTimeout(() => setRelationshipNotice(""), sharedRules.relationshipNoticeMs);
     return () => window.clearTimeout(timer);
   }, [relationshipNotice]);
+  const giftJealousyKey = `hogwarts-gift-jealousy:${identityKey}:${selectedLeadId}`;
+  const [giftJealousy, setGiftJealousy] = useState(() => {
+    try { return Math.max(0, Math.min(100, Number(localStorage.getItem(giftJealousyKey)) || 0)); }
+    catch { return 0; }
+  });
+  const [giftNotice, setGiftNotice] = useState<{ text: string }>();
+  useEffect(() => {
+    if (!giftNotice) return;
+    const timer = window.setTimeout(() => setGiftNotice(undefined), sharedRules.relationshipNoticeMs);
+    return () => window.clearTimeout(timer);
+  }, [giftNotice]);
   const relationship = (id: string, runtime: Runtime) =>
-    characterStatus(id, identity?.year ?? 5, identity?.house ?? "", withJcodeAffinity(runtime.variables));
-  const withJcodeAffinity = (variables: Runtime["variables"]) => isJcode ? { ...variables, [affinityKey("jacob")]: jcode.affinity + savedGiftAffinity(identityKey, "jacob") } : variables;
+    characterStatus(id, identity?.year ?? 5, identity?.house ?? "", relationshipVariables(runtime.variables));
+  const relationshipVariables = (variables: Runtime["variables"]) => ({
+    ...variables,
+    ...(isJcode ? { [affinityKey("jacob")]: jcode.affinity + Number(variables[affinityKey("jacob")] ?? 0) } : {}),
+    [jealousyKey(selectedLeadId)]: Number(variables[jealousyKey(selectedLeadId)] ?? 0) + giftJealousy,
+  });
   const showRelationshipChange = (id: string, before: Runtime, after: Runtime) => {
     const previous = relationship(id, before);
     const current = relationship(id, after);
@@ -376,7 +395,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         setLessonTime(String(next.variables.scene_time));
     }
     if (target === "hy-day10-a" || target === "hy-day10-b") {
-      next.variables.hyunjae_jealousy = Math.min(100, relationship("hyunjae", state).jealousy + (target.endsWith("-a") ? 3 : 1));
+      next.variables.hyunjae_jealousy = Math.min(100, Number(state.variables.hyunjae_jealousy ?? 0) + (target.endsWith("-a") ? 3 : 1));
     }
     showRelationshipChange(identity?.loveInterest ?? "hyunjae", state, next);
     setState(next);
@@ -450,7 +469,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         <div><small>HOGWARTS STUDENT</small><h1>Hogwarts Unspoken</h1><p><time dateTime={date.toISOString().slice(0, 10)}>2026年12月{day}日</time></p></div>
       </header>
       <main className={active === "calendar" ? "hogwarts-device-page hogwarts-today" : "hogwarts-device-page"}>
-        {active === "market" && relationshipHint}
+        {giftNotice && <div className="hogwarts-gift-toast" role="status">{giftNotice.text}</div>}
         {active !== "calendar" && <button className="hogwarts-device-back" onClick={() => setActive("calendar")}><ArrowLeft size={17}/> 今日行程</button>}
         <h2>{active === "calendar" ? <><small>TODAY</small> 今日行程 <time className="hogwarts-agenda-date" dateTime={date.toISOString().slice(0, 10)}>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)}</time></> : active === "owlpost" && !recipient ? <>消息 <small>MESSAGES</small></> : chosen.name}{active === "owlpost" && !recipient && <button className="hogwarts-shop-link" onClick={() => setActive("market")}>魔法商店 · 猫头鹰送礼</button>}</h2>
         {active === "owlpost" ? <section className="hogwarts-device-letters">
@@ -555,11 +574,20 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             const variables = { ...state.variables,
               [key]: Math.min(100, Number(state.variables[key] ?? state.variables["friendship_" + recipient] ?? 0) + giftAffinity(liked)),
             };
-            const jealous = recipient !== leadId && affection > sharedRules.giftJealousyAffinity;
-            if (jealous) variables[jealousyKey(leadId)] = Math.min(100, relationship(leadId, state).jealousy + (affection >= sharedRules.strongJealousyAffinity ? 5 : 3));
             const next = { ...state, variables };
             setState(next);
-            showRelationshipChange(jealous ? leadId : recipient, state, next);
+            const jealous = recipient !== leadId;
+            const person = contacts.find(contact => contact.id === (jealous ? leadId : recipient))?.name;
+            if (jealous) {
+              const gain = Math.min(100 - relationship(leadId, state).jealousy, affection >= sharedRules.strongJealousyAffinity ? 5 : 3);
+              const total = giftJealousy + gain;
+              setGiftJealousy(total);
+              try { localStorage.setItem(giftJealousyKey, String(total)); } catch { /* Keep the current session playable. */ }
+              setGiftNotice({ text: `${person}知道你送了礼物 · ${gain ? `嫉妒值 +${gain}` : "嫉妒值已满"}` });
+            } else {
+              const gain = relationship(recipient, next).affinity - affection;
+              setGiftNotice({ text: `${person} · ${gain ? `好感度 +${gain}` : "好感度已满"}` });
+            }
             if (recipient === identity.loveInterest && recipient === "hyunjae") {
               const reply = /围巾|手套|毛衣|厚袜|保暖帽/.test(item)
                 ? `收到你的${item}了。明天巡查我就用上。你要是碰见我，记得看一眼。`
@@ -581,7 +609,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           }} />
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
-            <HogwartsCharacters year={identity.year} house={identity.house} variables={withJcodeAffinity(state.variables)} />
+            <HogwartsCharacters year={identity.year} house={identity.house} variables={relationshipVariables(state.variables)} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime ?? startTime} selectedId={identity?.loveInterest}
