@@ -1,4 +1,5 @@
-import { AudioPlayer, useTrack } from "../audio";
+import "./ExperienceSkins.css";
+import { useTrack } from "../audio";
 import { useSkinState } from "../skinState";
 import {
   Bookmark,
@@ -11,13 +12,13 @@ import {
   Play,
   Plus,
   Search,
-  SkipForward,
   User,
   Users,
   Video,
 } from "lucide-react";
 import { useState } from "react";
 import { safeMedia, type Item } from "../schema";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 import {
   Avatar,
   Empty,
@@ -30,66 +31,40 @@ import {
   useContent,
   type Props,
 } from "./shared";
-function TrackPlayer({
-  item,
-  p,
-  onNext,
-}: {
-  item: Item;
-  p: Props;
-  onNext: () => void;
-}) {
-  return (
-    <div className="track-player">
-      <button onClick={() => p.onItem(item)}>
-        <Music size={20} />
-        <span>
-          {item.title}
-          <small>{item.sender}</small>
-        </span>
-      </button>
-      {item.kind === "audio" && safeMedia(item.media) ? (
-        <AudioPlayer p={p} item={item} />
-      ) : (
-        <button onClick={() => p.onItem(item)}>查看</button>
-      )}
-      <button aria-label="下一首" onClick={onNext}>
-        <SkipForward size={19} />
-      </button>
-    </div>
-  );
+function TrackPlayer({ item, onNext, onPrevious, onShuffle }: { item: Item; onNext: () => void; onPrevious: () => void; onShuffle: () => void }) {
+  return <SpotifyPlayer key={item.id} item={item} onNext={onNext} onPrevious={onPrevious} onShuffle={onShuffle} />;
 }
 export function SpotifySkin(p: Props) {
-  const { tab, setTab, q, setQ, items } = useContent(p, "首页");
+  const { tab, setTab, q, setQ, items } = useContent(p, "홈");
   const [playlist, setPlaylist] = useState(""),
     [track, setTrack] = useTrack(p, items);
   const list = playlist
-    ? items.filter((i) => (i.folder || "我的音乐") === playlist)
+    ? items.filter((i) => (i.folder || "내 음악") === playlist)
     : items;
   return (
     <div className="catalog-skin spotify-ui">
       <Header p={p} />
       <div className="catalog-scroll">
         <div className="spotify-heading">
-          <Avatar name={p.owner ?? "我"} />
+          <Avatar name={p.owner ?? "나"} />
           <button
-            className={tab === "首页" ? "selected" : ""}
-            onClick={() => setTab("首页")}
+            className={tab === "홈" ? "selected" : ""}
+            onClick={() => setTab("홈")}
           >
-            音乐
+            음악
           </button>
           <button
-            className={tab === "音乐库" ? "selected" : ""}
-            onClick={() => setTab("音乐库")}
+            className={tab === "보관함" ? "selected" : ""}
+            onClick={() => setTab("보관함")}
           >
-            音乐库
+            보관함
           </button>
         </div>
-        {tab === "搜索" && <SearchBox value={q} set={setQ} />}
-        <h1>{playlist || (tab === "音乐库" ? "音乐库" : "为你收藏")}</h1>
+        {tab === "검색" && <SearchBox value={q} set={setQ} placeholder="검색" />}
+        <h1>{playlist || (tab === "보관함" ? "보관함" : "추천 음악")}</h1>
         {!playlist && (
           <div className="spotify-playlists">
-            {groupItems(items, "我的音乐").map((g) => (
+            {groupItems(items, "내 음악").map((g) => (
               <button key={g} onClick={() => setPlaylist(g)}>
                 <Music size={29} />
                 <strong>{g}</strong>
@@ -98,9 +73,15 @@ export function SpotifySkin(p: Props) {
           </div>
         )}
         {playlist && (
-          <button className="playlist-back" onClick={() => setPlaylist("")}>
-            返回全部音乐
-          </button>
+          <>
+            <div className="spotify-playlist-hero">
+              <div className="spotify-playlist-art">
+                {safeMedia(meta(list[0], "cover")) ? <img src={safeMedia(meta(list[0], "cover"))} alt="" /> : <Music size={52} />}
+              </div>
+              <div><small>재생목록</small><h2>{playlist}</h2><p>{p.owner || "사용자"} · {list.length}곡</p></div>
+            </div>
+            <button className="playlist-back" onClick={() => setPlaylist("")}>전체 재생목록</button>
+          </>
         )}
         <div className="spotify-tracks">
           {list.map((i, n) => (
@@ -121,23 +102,27 @@ export function SpotifySkin(p: Props) {
             </button>
           ))}
         </div>
-        <Empty items={list} />
+        <Empty items={list} label="콘텐츠가 없습니다" />
       </div>
       {track && (
         <TrackPlayer
           item={track}
-          p={p}
-          onNext={() =>
-            setTrack(
-              items[
-                (items.findIndex((i) => i.id === track.id) + 1) % items.length
-              ],
-            )
-          }
+          onNext={() => {
+            const index = list.findIndex((i) => i.id === track.id);
+            setTrack(list[(index + 1) % list.length] ?? null);
+          }}
+          onPrevious={() => {
+            const index = list.findIndex((i) => i.id === track.id);
+            setTrack(list[(index - 1 + list.length) % list.length] ?? null);
+          }}
+          onShuffle={() => {
+            const choices = list.filter((i) => i.id !== track.id);
+            if (choices.length) setTrack(choices[Math.floor(Math.random() * choices.length)]);
+          }}
         />
       )}
       <Tabs
-        tabs={["首页", "搜索", "音乐库"]}
+        tabs={["홈", "검색", "보관함"]}
         value={tab}
         set={(t) => {
           setTab(t);
@@ -218,7 +203,8 @@ export function NeteaseSkin(p: Props) {
       {track && (
         <TrackPlayer
           item={track}
-          p={p}
+          onPrevious={() => setTrack(items[(items.findIndex(i => i.id === track.id) - 1 + items.length) % items.length])}
+          onShuffle={() => setTrack(items[(items.findIndex(i => i.id === track.id) + 1) % items.length])}
           onNext={() =>
             setTrack(
               items[

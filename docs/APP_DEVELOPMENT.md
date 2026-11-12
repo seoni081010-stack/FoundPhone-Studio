@@ -17,3 +17,14 @@ WeChat, WhatsApp and Instagram now have independent components in AppSkins.tsx, 
 ## 0.4 appearance
 
 AppArtwork.tsx has code-redrawn app artwork. Do not call these official files or claim pixel fidelity. AppIcon keeps user-provided image/text overrides first. ios18.css sets canonical device-point metrics with uniform zoom; avoid adding per-viewport internal dimensions again. Keep brand/app skins separate from host Studio styling. Player-only root headers may be visually clipped; detail navigation remains available. BRAND_NOTICE.txt ships with Studio and exported players.
+
+
+## Instagram video-call story data
+
+The existing Instagram skin remains the default when no call record is present. To open the incoming-call screen when the Instagram app is launched, add one item under `content.instagram` with `folder: "来电"` (or `meta.call: "true"`). Use its `sender` as the caller name, `avatar` as an embedded image data URL, and `media` as an embedded video data URL. Optional `meta.callerName` overrides the display name.
+
+Add scripted chat overlays as further Instagram items with `folder: "通话消息"`; `sender` is the speaker, `body` is the text, and `meta.delayMs` is the delay after the call is answered. An optional local-preview clip uses `folder: "通话小窗"` and a video `media` data URL. The caller record and all media must use the existing safe-media data URL policy. The incoming call can be declined or accepted; ending an accepted call returns to the phone home screen. These are fictional in-app interactions, not real Instagram calls, camera access, or microphone capture.
+
+## Spotify playlist story data
+
+Spotify uses the existing media App and groups tracks by `folder`. Set each track's `folder` to the playlist name. Use `title` for the track name and `sender` for the artist. For playable audio set `kind: "audio"` and `media` to a permitted embedded audio data URL. Without audio, the player provides a simulated timeline. Optional `meta.album`, `meta.duration`, `meta.durationSeconds`, and `meta.cover` provide album, display duration, simulated duration, and embedded cover art. The mini-player opens a full-screen player with seeking, previous/next, shuffle, and repeat controls. Spotify branding here is a fictional interface; it does not connect to Spotify's service or stream commercial tracks.

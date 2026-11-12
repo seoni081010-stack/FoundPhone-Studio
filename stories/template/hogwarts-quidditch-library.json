@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "setting": "peaceful Hogwarts AU",
+  "quidditch": {
+    "rules": {
+      "playersPerTeam": 7,
+      "chasers": 3,
+      "beaters": 2,
+      "keeper": 1,
+      "seeker": 1,
+      "quaffleGoalPoints": 10,
+      "snitchPoints": 150,
+      "snitchUsuallyEndsMatch": true
+    },
+    "houses": [
+      "gryffindor",
+      "slytherin",
+      "ravenclaw",
+      "hufflepuff"
+    ],
+    "matchesPerPair": 1,
+    "seasonMatches": 6,
+    "weekendMatches": true,
+    "ranking": "season cumulative points, with tie-breaking to be specified",
+    "leadPlayers": [
+      "juyeon",
+      "sunwoo",
+      "eric"
+    ],
+    "notes": [
+      "原著式学院杯赛制，赛季赛程须和学校日历联动",
+      "非固定每周一场，不能与课程及训练冲突"
+    ],
+    "friendlyPredictions": {
+      "type": "fictional_in_game_currency_only",
+      "inspiration": "学生间非官方友谊竞猜；不是原著规定的霍格沃茨官方制度",
+      "availableBeforeMatchOnly": true,
+      "stakeOptionsGalleons": [
+        1,
+        2,
+        5,
+        10
+      ],
+      "maximumStakeGalleons": 10,
+      "onePredictionPerMatch": true,
+      "chooseOneCompetingHouse": true,
+      "noRealMoney": true,
+      "noPurchasableCredits": true,
+      "noLoans": true,
+      "noChasingLosses": true,
+      "noOddsManipulation": true,
+      "settlement": "比赛结束后按预设固定规则自动结算；赔率与奖励在实现前须明确",
+      "optional": true,
+      "relationshipFlavorOnly": true,
+      "fundingSource": "player spending wallet funded by weekly allowance; never auto-withdraw from Gringotts vault",
+      "lose": "Player stake is forfeited, with no refund.",
+      "win": "Winning team spends 100% of the match prediction pool on drinks for all students who backed the winning team AND the winning team's Quidditch players; no cash payout or retained team share.",
+      "celebrationVenue": "Three Broomsticks, Hogsmeade",
+      "celebrationTiming": "after match if school-approved visit, otherwise next authorized Hogsmeade weekend",
+      "example": {
+        "totalPredictionPool": 100,
+        "drinksForWinningBackersAndTeamPlayers": 100,
+        "retainedByTeam": 0,
+        "playerCashReturn": 0
+      },
+      "implementationStatus": "rules only; wallet and match runtime not implemented",
+      "poolDefinition": "Total student prediction stakes collected for the match; distribution applies to this pooled amount.",
+      "playerCashPrize": false,
+      "teamPaysForSupporters": true,
+      "celebrationParticipants": "Students who backed the winning team plus all winning team players",
+      "celebrationBudgetPercent": 100,
+      "teamRetainedPercent": 0
+    }
+  },
+  "library": {
+    "accessible": true,
+    "periods": [
+      "before_class",
+      "lunch",
+      "afternoon",
+      "evening"
+    ],
+    "encounterInputs": [
+      "schoolDate",
+      "weekday",
+      "timeSlot",
+      "playerYear",
+      "playerHouse",
+      "leadSchedule",
+      "relationshipProgress",
+      "storyFlags",
+      "visitHistory"
+    ],
+    "rules": {
+      "neverSpawnCharacterDuringClass": true,
+      "neverSpawnCharacterDuringPrefectDuty": true,
+      "neverSpawnCharacterDuringQuidditchTraining": true,
+      "noGuaranteedRomanceEncounter": true,
+      "repeatVisitVariation": true,
+      "canStudyWithoutEncounter": true,
+      "restrictedSectionRequiresPermission": true
+    },
+    "eventTypes": [
+      "study",
+      "leadEncounter",
+      "classmateEncounter",
+      "mysteryClue",
+      "quietReading",
+      "homework",
+      "restrictedSection"
+    ],
+    "exampleEvents": [
+      {
+        "period": "afternoon",
+        "characters": [
+          "q"
+        ],
+        "event": "研究资料或参考书偶遇",
+        "conditional": true
+      },
+      {
+        "period": "evening",
+        "characters": [
+          "hyunjae"
+        ],
+        "event": "级长事务结束后的偶遇",
+        "conditional": true
+      },
+      {
+        "period": "evening",
+        "characters": [],
+        "event": "安静学习或发现旧书纸条",
+        "conditional": true
+      }
+    ]
+  },
+  "implementationStatus": "design data only, not wired into game clock or location runtime"
+}

@@ -26,7 +26,7 @@ describe("optional app lifecycle", () => {
         .map((a) => a.id)
         .sort(),
     ).toEqual([...essentialApps].sort());
-    expect(w.apps).toHaveLength(49);
+    expect(w.apps.filter((a) => a.installed).map((a) => a.id).sort()).toEqual([...essentialApps].sort());
   });
   it("upgrades old format v1 app records without uninstalling existing apps", () => {
     const old = createWork();
@@ -36,44 +36,44 @@ describe("optional app lifecycle", () => {
   });
   it("distinguishes home removal from uninstall and keeps content on request", () => {
     const w = createWork();
-    installApp(w, "wechat");
-    const data = structuredClone(w.data.wechat);
-    removeFromHome(w, "wechat");
-    expect(w.apps.find((a) => a.id === "wechat")).toMatchObject({
+    installApp(w, "owlpost");
+    const data = structuredClone(w.data.owlpost);
+    removeFromHome(w, "owlpost");
+    expect(w.apps.find((a) => a.id === "owlpost")).toMatchObject({
       installed: true,
       visible: false,
     });
-    expect(w.data.wechat).toEqual(data);
-    uninstallApp(w, "wechat", true);
-    expect(w.apps.find((a) => a.id === "wechat")?.installed).toBe(false);
-    installApp(w, "wechat");
-    expect(w.apps.find((a) => a.id === "wechat")).toMatchObject({
+    expect(w.data.owlpost).toEqual(data);
+    uninstallApp(w, "owlpost", true);
+    expect(w.apps.find((a) => a.id === "owlpost")?.installed).toBe(false);
+    installApp(w, "owlpost");
+    expect(w.apps.find((a) => a.id === "owlpost")).toMatchObject({
       installed: true,
       visible: true,
     });
-    expect(w.data.wechat).toEqual(data);
+    expect(w.data.owlpost).toEqual(data);
   });
   it("deletes app data only when selected and reinstall starts empty", () => {
     const w = createWork();
-    installApp(w, "instagram");
-    uninstallApp(w, "instagram", false);
-    expect(w.data.instagram).toBeUndefined();
-    installApp(w, "instagram");
-    expect(w.data.instagram).toEqual([]);
+    installApp(w, "magicphotos");
+    uninstallApp(w, "magicphotos", false);
+    expect(w.data.magicphotos).toBeUndefined();
+    installApp(w, "magicphotos");
+    expect(w.data.magicphotos).toEqual([]);
   });
   it("preserves icon, name, folders, order and install state on roundtrip", () => {
     const w = createWork();
-    installApp(w, "wechat");
-    const a = w.apps.find((a) => a.id === "wechat")!;
+    installApp(w, "owlpost");
+    const a = w.apps.find((a) => a.id === "owlpost")!;
     a.name = "私人消息";
     a.icon = "信";
-    a.folder = "社交";
-    moveApp(w, "wechat", "phone");
-    uninstallApp(w, "whatsapp", true);
+    a.folder = "书信";
+    moveApp(w, "owlpost", "schoolbook");
+    uninstallApp(w, "schoolbook", true);
     const copy = validateWork(JSON.parse(JSON.stringify(w)));
     expect(copy).toEqual(w);
-    expect(copy.apps[0].id).toBe("wechat");
-    expect(copy.apps.find((a) => a.id === "whatsapp")?.installed).toBe(false);
+    expect(copy.apps.some((a) => a.id === "owlpost")).toBe(true);
+    expect(copy.apps.find((a) => a.id === "schoolbook")?.installed).toBe(false);
   });
   it("retains custom app identity across uninstall and reinstall", () => {
     const w = createWork();

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "world": "Hogwarts AU",
+  "currency": {
+    "primary": "Galleon",
+    "symbols": {
+      "Galleon": "加隆",
+      "Sickle": "西可",
+      "Knut": "纳特"
+    },
+    "conversion": {
+      "sicklesPerGalleon": 17,
+      "knutsPerSickle": 29,
+      "knutsPerGalleon": 493
+    },
+    "noMuggleCurrency": true
+  },
+  "initial": {
+    "gringottsVault": {
+      "galleons": 100000
+    },
+    "wallet": {
+      "galleons": 5000
+    },
+    "totalGalleons": 105000
+  },
+  "allowanceSource": "父母",
+  "allowanceFrequency": "每游戏周一次（周一早晨）",
+  "freeCosts": [
+    "学费",
+    "住宿费",
+    "日常三餐"
+  ],
+  "shops": [
+    "对角巷",
+    "霍格莫德"
+  ],
+  "giftRules": {
+    "reasonablePrices": true,
+    "affinityBasedOnPreferences": true,
+    "diminishingReturnsForRepeatedGifts": true,
+    "wandNotGiftable": true
+  },
+  "notes": [
+    "金额直接定义为加隆，不使用现实货币换算",
+    "金库与钱包分开记录，避免重复计数",
+    "购物以加隆为主；普通礼物价格 5–75 加隆，魔杖不作为商品赠送"
+  ],
+  "weeklyAllowanceGalleons": {
+    "5": 1500,
+    "6": 2000,
+    "7": 2400
+  },
+  "allowanceRules": {
+    "depositTarget": "wallet",
+    "idempotencyKey": "schoolYear-weekNumber",
+    "notification": "父母猫头鹰汇款通知",
+    "noRepeatedPayout": true
+  },
+  "schoolSupplies": {
+    "wand": "入学前已拥有，不需购买",
+    "textbooks": "每学年开学一次采购",
+    "tuition": "不收取"
+  }
+}

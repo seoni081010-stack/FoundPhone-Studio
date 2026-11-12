@@ -1,0 +1,37 @@
+.hogwarts-ending {
+  --ending-paper: #141c35;
+  --ending-ink: #f5e4be;
+  --ending-gold: #ecc68a;
+  min-height: 100%;
+  position: relative;
+  background: var(--ending-paper);
+  color: var(--ending-ink);
+  text-align: center;
+  font-family: "Songti SC", SimSun, Georgia, serif;
+}
+.hogwarts-ending[data-kind="unspoken"] { --ending-paper: #34273d; --ending-ink: #f0dce6; --ending-gold: #dfb2bd; }
+.hogwarts-ending[data-kind="friends"] { --ending-paper: #38241d; --ending-ink: #fae5c9; --ending-gold: #e4ad76; }
+.ending-art { width: 100%; height: auto; display: block; transition: filter 2s ease; }
+.hogwarts-ending[data-sealed="true"] .ending-art { filter: brightness(.86); }
+.ending-copy { padding: 20px clamp(20px, 6vw, 40px) 34px; line-height: 1.85; }
+.ending-copy h2 { font-size: clamp(.95rem, 4.5vw, 1.4rem); white-space: nowrap; margin: .45em 0; color: var(--ending-gold); text-shadow: 0 0 18px #eac38960; }
+.ending-date, .ending-stats { font-size: .92rem; }
+.hogwarts-ending .ending-back { position: absolute; z-index: 1; inset: 12px auto auto 12px; display: inline-flex; align-items: center; gap: 5px; background: var(--ending-paper); }
+.hogwarts-ending .ending-restart { position: absolute; z-index: 1; inset: 12px 12px auto auto; background: var(--ending-paper); }
+.hogwarts-ending button { color: var(--ending-ink); background: transparent; border: 1px solid var(--ending-gold); border-radius: 20px; padding: 7px 12px; }
+.hogwarts-ending .ending-seal { width: 52px; height: 52px; padding: 0; color: #432b23; background: radial-gradient(circle at 35% 25%,#fff0bd,#b47b40); border: 2px double #eaca8c; font-size: 1.55rem; box-shadow: 0 3px 12px #120d14a0; }
+.ending-seal[aria-pressed="true"] { animation: ending-stamp 1.2s ease both; }
+.ending-seal-caption { animation: ending-reveal 1.6s .65s both; }
+.ending-particle { animation: ending-snow 17s linear infinite; }
+.ending-mistletoe, .ending-curtain { transform-box: fill-box; transform-origin: top center; animation: ending-sway 7s ease-in-out infinite alternate; }
+.ending-fire { transform-box: fill-box; transform-origin: bottom; animation: ending-fire 3.1s ease-in-out infinite alternate; }
+.ending-quill { animation: ending-quill 5s ease-out both; }
+.ending-candy { animation: ending-candy 3.5s ease-in-out 2; }
+@keyframes ending-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
+@keyframes ending-stamp { 0% { transform: scale(1.33) rotate(-12deg); } 72% { transform: scale(.94) rotate(-5deg); } 100% { transform: rotate(-5deg); } }
+@keyframes ending-snow { from { transform: translate(0,-24px); } to { transform: translate(14px,24px); opacity: .14; } }
+@keyframes ending-sway { to { transform: rotate(5deg); } }
+@keyframes ending-fire { to { transform: scaleY(.83) skewX(-6deg); opacity: .84; } }
+@keyframes ending-quill { 0% { opacity: .5; transform: translateX(-5px); } 36% { transform: translateX(1px); } 60%,100% { opacity: 1; transform: translateX(3px); } }
+@keyframes ending-candy { 50% { transform: translateY(-4px) rotate(-2deg); } }
+@media (prefers-reduced-motion: reduce) { .hogwarts-ending * { animation: none !important; transition: none !important; } }

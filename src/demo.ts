@@ -1,57 +1,31 @@
 import { makeItem, uid, type Work } from "./schema";
 import { registry } from "./registry";
-export function createWork(title = "雨停之前"): Work {
+export function createWork(title = "霍格沃茨遗失手札"): Work {
   const w: Work = {
     formatVersion: 1,
     id: uid(),
     title,
-    description:
-      "一部遗落在末班地铁上的手机，一条未送达的消息。\n在雨停之前，找到那个没有赴约的人。",
-    category: "悬疑 · 治愈",
+    description: "一份留在城堡里的魔法手札，记录着等待被发现的线索。",
+    category: "霍格沃茨互动故事",
     cover: "",
     updatedAt: Date.now(),
     phone: {
-      owner: "林知夏",
+      owner: "霍格沃茨学生",
       passcode: "",
-      wallpaper: "sage",
+      wallpaper: "parchment",
       theme: "light",
       time: "09:41",
       battery: 86,
-      network: "5G",
+      network: "霍格沃茨",
       notifications: true,
     },
     apps: registry.map((a) => ({
       id: a.id,
       name: a.name,
-      installed: [
-        "appstore",
-        "phone",
-        "messages",
-        "photos",
-        "notes",
-        "safari",
-        "settings",
-      ].includes(a.id),
+      installed: ["owlpost","schoolbook","wizardjournal","magicphotos","maraudersmap","heartarchive"].includes(a.id),
       visible: true,
-      dock: ["phone", "messages", "safari", "music"].includes(a.id),
-      folder:
-        ![
-          "appstore",
-          "wechat",
-          "photos",
-          "notes",
-          "instagram",
-          "whatsapp",
-          "mail",
-          "calendar",
-          "settings",
-          "camera",
-          "alipay",
-          "taobao",
-        ].includes(a.id) &&
-        !["phone", "messages", "safari", "music"].includes(a.id)
-          ? "更多应用"
-          : "",
+      dock: false,
+      folder: "",
       icon: "",
     })),
     data: {},
@@ -86,31 +60,31 @@ export function createWork(title = "雨停之前"): Work {
         folder: a.tabs[0],
       }),
     ];
-  w.data.wechat = [
+  w.data.owlpost = [
     makeItem({
-      id: "wx1",
-      title: "小林",
-      sender: "小林",
+      id: "owl1",
+      title: "猫头鹰来信",
+      sender: "同学",
       body: "知夏，你的手机是不是落在地铁上了？",
       time: "2026-09-01 08:30",
     }),
     makeItem({
-      id: "wx2",
-      title: "小林",
-      sender: "我",
+      id: "owl2",
+      title: "猫头鹰来信",
+      sender: "自己",
       body: "如果有人捡到，请帮我看看备忘录。",
       outgoing: true,
       time: "2026-09-01 08:32",
     }),
     makeItem({
-      id: "wx3",
-      title: "小林",
-      sender: "小林",
+      id: "owl3",
+      title: "猫头鹰来信",
+      sender: "同学",
       body: "还有一张照片。它比你想象的更重要。",
       time: "2026-09-01 08:34",
     }),
   ];
-  w.data.notes = [
+  w.data.wizardjournal = [
     makeItem({
       id: "note-clue",
       title: "如果我忘记了",
@@ -127,22 +101,22 @@ export function createWork(title = "雨停之前"): Work {
       folder: "私人笔记",
     }),
   ];
-  w.data.photos = [
+  w.data.magicphotos = [
     makeItem({
-      id: "photo-ticket",
+      id: "memory-ticket",
       title: "一张旧车票",
       body: "开往城南的最后一班车。背面写着：记得赴约。",
       kind: "image",
       hidden: true,
     }),
     makeItem({
-      id: "photo-rain",
+      id: "memory-rain",
       title: "窗外的雨",
       body: "2026 年 9 月 1 日 · 城南",
       kind: "image",
     }),
   ];
-  w.data.instagram = [
+  w.data.heartarchive = [
     makeItem({
       id: "ig1",
       sender: "lin.zhixia",
@@ -183,11 +157,11 @@ export function createWork(title = "雨停之前"): Work {
       logic: "and",
       actions: [
         { type: "clue", key: "ticket", value: true },
-        { type: "unlock", key: "photo-ticket", value: true },
+        { type: "unlock", key: "memory-ticket", value: true },
         {
           type: "notification",
           key: "",
-          value: "相册中似乎出现了一张新的照片。",
+          value: "魔法相册中似乎出现了一段新的回忆。",
         },
       ],
       next: ["decision"],

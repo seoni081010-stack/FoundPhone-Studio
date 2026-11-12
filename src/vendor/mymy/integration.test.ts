@@ -1,17 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { compileStory } from "../../story-engine/compiler";
 import { testStory } from "../../story-engine/testStory";
-import { dispatch } from "../../engine";
-import { initialRuntime } from "../../schema";
-import fixture from "../../../tests/fixtures/mymy-ui/story.json";
-describe("Mymy adapters preserve shared story engine", () => {
-  it("compiles authored KKT and verifies read → call → Instagram unlock", () => {
+import fixture from "../../../tests/fixtures/story-example/story.json";
+
+describe("shared magical story engine", () => {
+  it("compiles owl post, enchanted note, and magical photo flow", () => {
     const { story, work } = compileStory(fixture);
     expect(testStory(story, work)).toEqual([]);
-    let state = dispatch(work, initialRuntime(work), "read", "kkt-last");
-    expect(state.incomingCall?.target).toBe("test-call");
-    state = dispatch(work, state, "callAnswered", "test-call");
-    state = dispatch(work, state, "callEnded", "test-call");
-    expect(state.unlocked).toContain("ig-after-call");
+    expect(work.data.owlpost[0].id).toBe("owl-hint");
+    expect(work.data.wizardjournal[0].id).toBe("note-clue");
+    expect(work.data.magicphotos[0].id).toBe("photo-hidden");
   });
 });

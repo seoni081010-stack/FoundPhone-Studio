@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220">
+  <title>大礼堂的圣诞树</title>
+  <defs>
+    <radialGradient id="hall" cx=".46" cy=".46" r=".64">
+      <stop stop-color="#503c2e"/>
+      <stop offset="1" stop-color="#171b25"/>
+    </radialGradient>
+    <linearGradient id="fir" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#557057"/>
+      <stop offset="1" stop-color="#20362e"/>
+    </linearGradient>
+    <g id="bell">
+      <path d="M0-10c-4 0-5 4-5 8 0 2-2 3-2 4h14c0-1-2-2-2-4 0-4-1-8-5-8Z" fill="#d3d4ce" stroke="#777d78"/>
+      <path d="M-4-1c3 1 5 1 8 0" stroke="#fff4d6" fill="none"/>
+      <circle cy="3" r="1.5" fill="#b5ada0"/>
+    </g>
+  </defs>
+  <rect width="320" height="220" rx="4" fill="#e9dfcb"/>
+  <rect x="9" y="9" width="302" height="192" fill="url(#hall)"/>
+  <path d="M19 196V70q0-30 26-50 26 20 26 50v126m177 0V70q0-30 26-50 26 20 26 50v126" stroke="#73604f" stroke-width="3" opacity=".58" fill="none"/>
+  <path d="M32 176v-102q0-21 13-34 13 13 13 34v102m203 0v-102q0-21 13-34 13 13 13 34v102" fill="#303140" stroke="#52474a"/>
+  <path d="M23 184h274m-267 7h261" stroke="#9e7861" opacity=".28"/>
+  <path d="M141 166h19v25h-19z" fill="#5d4333"/>
+  <path d="M151 44c-13 20-27 35-40 42l14 1c-11 16-25 28-44 39l20-1c-11 17-31 35-47 43 27 2 53-2 68-7l-11 12c27 5 53 5 80 0l-11-12c18 6 38 9 62 8-18-12-35-28-45-44l19 1c-20-11-32-23-42-39l13-1c-14-9-28-22-36-42Z" fill="url(#fir)" stroke="#293c32" stroke-width="2"/>
+  <path d="M126 83q27 14 51 5m-77 34q51 24 102 1m-132 39q72 19 157 2" fill="none" stroke="#dcb878" opacity=".65" stroke-width="1.4"/>
+  <g fill="#f4ce87">
+    <circle cx="119" cy="117" r="2"/><circle cx="164" cy="92" r="2"/><circle cx="155" cy="135" r="2"/><circle cx="194" cy="127" r="1.7"/><circle cx="107" cy="160" r="2.2"/><circle cx="181" cy="169" r="2"/><circle cx="209" cy="158" r="2"/>
+  </g>
+  <g fill="#aa6457">
+    <circle cx="139" cy="78" r="4"/><circle cx="134" cy="119" r="4"/><circle cx="166" cy="154" r="4"/><circle cx="86" cy="160" r="3.5"/>
+  </g>
+  <use href="#bell" x="129" y="100"/>
+  <use href="#bell" x="114" y="147"/>
+  <g transform="translate(194 145)">
+    <use href="#bell" transform="rotate(12)">
+      <animateTransform attributeName="transform" type="rotate" values="12;1;1;12;12" keyTimes="0;.29;.43;.64;1" dur="5s" repeatCount="indefinite"/>
+    </use>
+  </g>
+  <g transform="translate(151 41)">
+    <circle r="14" fill="#f9d47d" opacity=".14"/>
+    <path d="M0-12 3-4 11-4 5 1 7 9 0 5-7 9-5 1-11-4-3-4Z" fill="#f5d58a">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <svg x="9" y="9" width="302" height="192" overflow="hidden">
+    <g transform="translate(112 0)">
+      <animateTransform attributeName="transform" type="translate" values="112 0;0 0;0 0;112 0;112 0" keyTimes="0;.29;.43;.68;1" dur="5s" repeatCount="indefinite"/>
+      <path d="M309 163l-68-24-18 9 86 53Z" fill="#30344b" stroke="#24283a"/>
+      <path d="M243 143l-14 18-11-5 12-18Z" fill="#65647a"/>
+      <path d="M229 142l-13-8c-5-2-9 0-12 1l-12 5c-4 2-2 5 1 5l9-2c-2 4 1 7 5 6 7-2 8 3 15 3Z" fill="#cb9a83" stroke="#9b695d"/>
+    </g>
+  </svg>
+  <path d="M13 205h294" stroke="#c6b69a"/>
+</svg>
