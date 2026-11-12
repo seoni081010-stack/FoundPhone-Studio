@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest";
-import { jcodeDays } from "./jcodeStory";
+import { jcodeDays, jcodeEndingFor, jcodeEndings } from "./jcodeStory";
 
 describe("confirmed Jcode archive", () => {
-  test("has all days, the authored number of choices and exactly three clues", () => {
-    expect(jcodeDays.map(day => day.day)).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
+  test("has all days, the authored number of choices and exactly four clues", () => {
+    expect(jcodeDays.map(day => day.day)).toEqual(Array.from({ length: 31 }, (_, i) => i + 1));
     expect(jcodeDays.map(day => day.beats.filter(beat => beat.kind === "choice").length))
-      .toEqual([3, 2, 2, 2, 1, 3, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 3, 2, 2]);
+      .toEqual([3, 2, 2, 2, 1, 3, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 3, 2, 2, ...Array(10).fill(2), 1]);
     expect(jcodeDays.flatMap(day => day.beats.flatMap(beat => beat.kind === "clue" ? [[day.day, beat.clue.title]] : [])))
-      .toEqual([[1, "胶卷编号"], [6, "取景框里的初雪"], [17, "没有寄出的照片"]]);
+      .toEqual([[1, "胶卷编号"], [6, "取景框里的初雪"], [17, "没有寄出的照片"], [24, "未说出口的圣诞夜"]]);
   });
 
   test.each(jcodeDays)("Day $day can replay either choice without leaking archive markers", day => {
@@ -39,4 +39,11 @@ describe("confirmed Jcode archive", () => {
       }
     }
   });
+});
+
+test("Day 31 resolves one authored ending at the shared score boundaries", () => {
+  expect([0, 79, 80, 99, 100].map(jcodeEndingFor)).toEqual(["unspoken", "unspoken", "friends", "friends", "together"]);
+  expect(jcodeDays[30].beats.at(-1)?.kind).toBe("ending");
+  expect(Object.values(jcodeEndings).map(ending => ending.title)).toEqual(["END 01 · 恋人", "END 02 · 朋友", "END 03 · 未说出口"]);
+  expect(Object.values(jcodeEndings).every(ending => ending.lines.some(line => line.speaker === "裴俊英"))).toBe(true);
 });

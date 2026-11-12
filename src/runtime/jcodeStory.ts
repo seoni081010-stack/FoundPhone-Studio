@@ -1,3 +1,5 @@
+import { sharedRules } from "./sharedRules";
+
 export type JcodeLine = { speaker?: string; body: string };
 export type JcodeClue = { id: string; title: string; body: string; unlocked: true };
 type Option = { body: string; affinity?: number; lines: JcodeLine[] };
@@ -5,13 +7,14 @@ export type JcodeBeat = { kind: "lines"; lines: JcodeLine[] }
   | { kind: "choice"; options: Option[] }
   | { kind: "wager" }
   | { kind: "team"; options: [JcodeLine[], JcodeLine[]] }
-  | { kind: "clue"; clue: JcodeClue };
+  | { kind: "clue"; clue: JcodeClue }
+  | { kind: "ending" };
 
 const sources = import.meta.glob("../../story-archive/jcode-day*.md", { eager: true, query: "?raw", import: "default" }) as Record<string, string>;
 const optionPattern = /^([AB])[.｜]「(.*)」(?:\s+心动 \+(\d+))?$/;
-const mergePattern = /^(?:【共同剧情】|(?:——|### )两组选项后|——(?:竞猜|兑奖)后继续|### 玩家固定回答)/;
-const structuralPattern = /^(?:【(?:旁白|面对面场景|玩家选项|共同剧情)】|玩家选项：|(?:### )?玩家选择[一二三]|选择[一二三]：|——两组选项后|### (?:两组选项后|剧情继续)|---$|（A\/B 两条分支汇合后）$)/;
-const speakerPattern = /^(裴俊英|你|一年级学生|另一个学生|同学|学生|平斯夫人)[：:]\s*(.*)$/;
+const mergePattern = /^(?:### 分支汇合|【共同剧情】|(?:——|### )两组选项后|——(?:竞猜|兑奖)后继续|### 玩家固定回答)/;
+const structuralPattern = /^(?:### (?:分支汇合|选择[一二三]（A\/B）)|固定(?:回答|回复)[一二三四]$|本日伏笔：|> 本日|【(?:旁白|面对面场景|玩家选项|共同剧情)】|玩家选项：|(?:### )?玩家选择[一二三]|选择[一二三]：|——两组选项后|### (?:两组选项后|剧情继续)|---$|（A\/B 两条分支汇合后）$)/;
+const speakerPattern = /^(裴俊英|你|一年级学生|另一个学生|同学|学生|平斯夫人|家养小精灵)[：:]\s*(.*)$/;
 const tidy = (line: string) => line.replace(/^\*\*(.*)\*\*$/, "$1");
 const unquote = (line: string) => line.replace(/^「(.*)」$/, "$1");
 function parseLine(line: string): JcodeLine {
@@ -37,6 +40,14 @@ function parseBeats(lines: string[], day: number): JcodeBeat[] {
   for (let i = 0; i < lines.length;) {
     const line = lines[i++];
     if (structuralPattern.test(line) || /^(?:【|### )玩家固定回答/.test(line)) continue;
+    if (line === "魔法相册·线索更新") {
+      flush();
+      const title = lines[i++].replace(/^线索④｜/, "");
+      const end = find(i, /^---$/);
+      beats.push({ kind: "clue", clue: { id: `jcode-${day}`, title, body: lines.slice(i, end).join("\n\n"), unlocked: true } });
+      i = end;
+      continue;
+    }
     if (/^(?:【|### )魔法相册/.test(line)) {
       flush();
       const title = (line.match(/《(.+)》/) ?? lines[i++].match(/《(.+)》/))?.[1];
@@ -60,6 +71,21 @@ function parseBeats(lines: string[], day: number): JcodeBeat[] {
       const a = readLines(i, second), b = readLines(second + 1, end);
       beats.push({ kind: "team", options: award ? [b, a] : [a, b] });
       i = end + 1;
+      continue;
+    }
+    const scored = line.match(/^A｜(?:心动|好感度)\s*\+(\d+)$/);
+    if (scored) {
+      flush();
+      const bIndex = find(i, /^B｜(?:心动|好感度)\s*\+\d+$/);
+      const end = find(bIndex + 1, mergePattern);
+      const bScore = lines[bIndex]?.match(/\+(\d+)$/);
+      if (!bScore || end === lines.length) throw new Error(`Day ${day}: incomplete scored choices`);
+      const options = [readLines(i, bIndex), readLines(bIndex + 1, end)].map(([reply, ...rest], index) => {
+        if (reply?.speaker !== "你") throw new Error(`Day ${day}: option missing player dialogue`);
+        return { body: reply.body, affinity: Number(index ? bScore[1] : scored[1]), lines: rest };
+      });
+      beats.push({ kind: "choice", options });
+      i = end;
       continue;
     }
     const a = line.match(optionPattern);
@@ -91,11 +117,35 @@ function parseBeats(lines: string[], day: number): JcodeBeat[] {
   return beats;
 }
 
+export type JcodeEndingKind = "together" | "friends" | "unspoken";
+const endingOrder: JcodeEndingKind[] = ["together", "friends", "unspoken"];
+export const jcodeEndings = {} as Record<JcodeEndingKind, { title: string; lines: JcodeLine[] }>;
+export function jcodeEndingFor(affinity: number): JcodeEndingKind {
+  if (affinity >= sharedRules.confessionAffinity) return "together";
+  return affinity >= sharedRules.friendsBelowAffinity ? "friends" : "unspoken";
+}
+
 export const jcodeDays = Object.values(sources).flatMap(source =>
   source.split(/^## Day /m).slice(1).map(section => {
-    const [heading, schedule, ...body] = section.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    const [heading, schedule, ...body] = section.split(/^## /m)[0].split(/\r?\n/).map(line => line.trim()).filter(Boolean);
     const [number, title] = heading.split("｜");
     const day = Number(number);
-    const details = schedule.split(" · ");
-    return { day, title, schedule, time: details.length === 3 ? details[1] : "14:00", place: details.at(-1)!, beats: parseBeats(body.map(tidy), day) };
+    const displaySchedule = tidy(schedule);
+    const details = displaySchedule.split(" · ");
+    const lines = body.map(tidy);
+    const endingStart = lines.findIndex(line => line.startsWith("### 结局一"));
+    if (endingStart !== -1) {
+      const endings = lines.splice(endingStart).join("\n").split(/^### 结局.+$/m).slice(1);
+      endings.forEach((ending, index) => {
+        const content = ending.split("\n").filter(Boolean);
+        const title = content.find(line => line.startsWith("END "));
+        if (!title) throw new Error("Missing Jcode ending title");
+        jcodeEndings[endingOrder[index]] = {
+          title, lines: content.filter(line => line !== title && !structuralPattern.test(line)).map(parseLine),
+        };
+      });
+    }
+    const beats = parseBeats(lines, day);
+    if (endingStart !== -1) beats.push({ kind: "ending" });
+    return { day, title, schedule: displaySchedule, time: details.length === 3 ? details[1] : "14:00", place: details.at(-1)!, beats };
   })).sort((a, b) => a.day - b.day);

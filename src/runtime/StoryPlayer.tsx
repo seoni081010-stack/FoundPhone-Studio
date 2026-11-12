@@ -1,6 +1,7 @@
 import { HogwartsCover } from "./HogwartsCover";
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import type { JcodeEndingKind } from "./jcodeStory";
 import { HogwartsDevice } from "./HogwartsDevice";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
@@ -54,7 +55,9 @@ async function prepareAvatar(file: File) {
 
 function StoryPlayer() {
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewDay = previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined;
+  const previewEnding = previewMode?.match(/^jcode-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
+  const jcodePreviewDay = Number(previewMode?.match(/^jcode-day(2[1-9]|3[01])$/)?.[1]);
+  const previewDay = previewEnding ? 31 : jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
   const previewLead = previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
@@ -205,7 +208,7 @@ function StoryPlayer() {
               <summary>{chosen.name} {identity.year}年级 {identity.name}</summary>
               <button type="button" onClick={restart}>重新开始</button>
             </details>}
-            <HogwartsDevice previewDay={previewDay} key={identity?.runId} work={work} identity={identity} contacts={loveInterests} onRestart={restart} />
+            <HogwartsDevice previewDay={previewDay} previewEnding={previewEnding} key={identity?.runId} work={work} identity={identity} contacts={loveInterests} onRestart={restart} />
           </>
         )
       ) : <p role="status">{error || "正在打开手机…"}</p>}

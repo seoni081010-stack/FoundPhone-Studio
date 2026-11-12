@@ -2,16 +2,17 @@ import { useState, type ReactNode } from "react";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper } from "./QuidditchPaper";
 import { spendGalleons } from "./MagicalShops";
-import { jcodeDays } from "./jcodeStory";
+import { jcodeDays, jcodeEndings, jcodeEndingFor, type JcodeEndingKind } from "./jcodeStory";
 
 type Cursor = { position: number; accepted?: boolean };
-type Progress = { day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean };
+type Progress = { day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind };
 const first = (day: number): Progress => ({ day, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: false });
 
-export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number) {
+export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind) {
   const storageKey = `hogwarts-jcode-v1:${key}`;
   const [progress, setProgress] = useState<Progress>(() => {
     if (!enabled) return first(1);
+    if (previewEnding) return { ...first(31), open: true, beat: jcodeDays[30].beats.length - 1, ending: previewEnding };
     if (previewDay) return { ...first(previewDay), open: true };
     try {
       const saved = localStorage.getItem(storageKey);
@@ -30,12 +31,14 @@ type Props = {
   progress: Progress;
   update: (patch: Partial<Progress>) => void;
   identityKey: string;
+  affinity: number;
+  onFinish: () => void;
   note: (name: string, text: string, outgoing: boolean, key?: number) => ReactNode;
   player: string;
   highlight: (body: string) => ReactNode;
 };
 
-export function JcodeScene({ progress, update, identityKey, note, player, highlight }: Props) {
+export function JcodeScene({ progress, update, identityKey, affinity, onFinish, note, player, highlight }: Props) {
   const day = jcodeDays[progress.day - 1];
   const beat = day.beats[progress.beat];
   const [team, setTeam] = useState("");
@@ -49,7 +52,8 @@ export function JcodeScene({ progress, update, identityKey, note, player, highli
       next({ team });
     }} />;
   const clue = beat?.kind === "clue" ? beat.clue : undefined;
-  const lines = beat?.kind === "lines" ? beat.lines
+  const ending = progress.ending ?? jcodeEndingFor(affinity);
+  const lines = beat?.kind === "ending" ? jcodeEndings[ending].lines : beat?.kind === "lines" ? beat.lines
     : beat?.kind === "team" ? beat.options[progress.team === "斯莱特林" ? 1 : 0]
     : beat?.kind === "choice" && progress.option !== undefined
       ? beat.options[progress.option].lines : [];
@@ -61,7 +65,7 @@ export function JcodeScene({ progress, update, identityKey, note, player, highli
       <button onClick={() => next({ clues: [...new Set([...progress.clues, clue.id])] })}>继续</button>
     </> : <>
       <p>{day.schedule}</p>
-      {!beat ? <button className="hogwarts-continue-day" onClick={() => update({ done: true, open: false })}>继续今天的行程</button>
+      {!beat ? <button className="hogwarts-continue-day" onClick={onFinish}>{day.day === 31 ? "查看结局" : "继续今天的行程"}</button>
         : beat.kind === "wager" ? <button onClick={() => setWagerOpen(true)}>打开竞猜纸条</button>
         : beat.kind === "choice" && progress.option === undefined ? <div className="hogwarts-device-choices">
           {beat.options.map((option, index) => <button key={index} onClick={() => update({
@@ -69,7 +73,7 @@ export function JcodeScene({ progress, update, identityKey, note, player, highli
             affinity: progress.affinity + (option.affinity ?? 0),
           })}>{option.body}</button>)}
         </div> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor}
-          onCheckpoint={cursor => update({ cursor })} onComplete={() => next()}>
+          onCheckpoint={cursor => update(beat.kind === "ending" ? { cursor, ending } : { cursor })} onComplete={() => next(beat.kind === "ending" ? { ending } : {})}>
           {beat.kind === "choice" && note(player, beat.options[progress.option!].body, true, -1)}
           {lines.map((line, index) => line.speaker
             ? note(line.speaker === "你" ? player : line.speaker, line.body, line.speaker === "你", index)

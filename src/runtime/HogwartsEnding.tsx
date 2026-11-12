@@ -5,7 +5,7 @@ import "./HogwartsEnding.css";
 type EndingKind = "together" | "unspoken" | "friends";
 type Props = {
   kind: EndingKind; title: string; text: string; character: { id: string; name: string };
-  affinity: number; jealousy: number; onBack: () => void; onRestart: () => void;
+  showFriendGift?: boolean; affinity: number; jealousy: number; onBack: () => void; onRestart: () => void;
 };
 
 const seals: Record<EndingKind, string> = {
@@ -79,7 +79,7 @@ function EndingArt({kind}: {kind: EndingKind}) {
   </>;
 }
 
-export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onBack,onRestart}: Props) {
+export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onBack,onRestart,showFriendGift = true}: Props) {
   const [sealed, setSealed] = useState(false);
   const [gift, setGift] = useState(false);
   return <div className="hogwarts-device-stage"><div className="hogwarts-device">
@@ -96,7 +96,7 @@ export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onBa
         <h2>{title}</h2>
         <p>{text}</p>
         <p className="ending-stats">{character.name} · 好感度 {affinity}% · 嫉妒值 {jealousy}%</p>
-        {kind === "friends" && <div>
+        {kind === "friends" && showFriendGift && <div>
           <button className="ending-candy" type="button" aria-expanded={gift} onClick={() => setGift(value => !value)}>拆开巧克力蛙</button>
           {gift && <p>{character.name}留了张纸条「巧克力蛙放你那儿了。拆的时候记得按住盒盖，上次那只跑得比我还快。」</p>}
         </div>}
