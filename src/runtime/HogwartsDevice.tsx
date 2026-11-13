@@ -1,3 +1,4 @@
+import jcodeOwlPost from "../../stories/jcode-owlpost.json";
 import { JcodeScene, useJcodeProgress } from "./JcodeScene";
 import { jcodeDays, jcodeEndings, type JcodeEndingKind } from "./jcodeStory";
 import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
@@ -280,6 +281,18 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [extraMail, setExtraMail] = useState<{ recipient: string; body: string; outgoing: boolean; day: number; order: number }[]>(() => isQ ? restoredQ.extraMail : []);
   const addMail = (recipient: string, body: string, outgoing: boolean) =>
     setExtraMail(previous => [...previous, { recipient, body, outgoing, day, order: entries.length + thread(recipient).length }]);
+  const jcodeMailKey = `hogwarts-jcode-owlpost:${identityKey}`;
+  const [jcodeMailChoices, setJcodeMailChoices] = useState<Record<number, { choice: number; followed?: boolean }>>(() => {
+    try { return JSON.parse(localStorage.getItem(jcodeMailKey) ?? "{}") ?? {}; } catch { return {}; }
+  });
+  const availableJcodeMail = isJcode ? jcodeOwlPost.filter(mail => mail.day < day || (
+    mail.day === day && (jcode.done || ![6, 12, 24, 27].includes(day))
+  )) : [];
+  const answerJcodeMail = (mailDay: number, choice: number, followed = false) => {
+    const next = { ...jcodeMailChoices, [mailDay]: { choice, followed } };
+    localStorage.setItem(jcodeMailKey, JSON.stringify(next));
+    setJcodeMailChoices(next);
+  };
   const thread = (contact: string): { body: string; outgoing: boolean; narration?: boolean; photo?: boolean; day: number; order: number }[] => [
     ...(isQ && contact === selectedLeadId ? qLetters(state.messages.owlpost ?? []).filter(entry => entry.day !== day || mailArrived) : []),
     ...conversation.flatMap((entry, order) => {
@@ -300,6 +313,22 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           outgoing: /^你[：:]/.test(line), day: entry.day, order: order + .5,
         })) : [];
     }),
+    ...(contact === "jacob" ? availableJcodeMail.flatMap(mail => {
+      const saved = jcodeMailChoices[mail.day];
+      const branch = saved && mail.options[saved.choice];
+      const follow = saved?.followed && mail.follow?.choice === saved.choice ? mail.follow : undefined;
+      return [
+        { body: mail.opening, outgoing: false, day: mail.day, order: 0 },
+        ...(branch ? [
+          { body: branch.reply, outgoing: true, day: mail.day, order: 1 },
+          { body: branch.answer, outgoing: false, day: mail.day, order: 2 },
+        ] : []),
+        ...(follow ? [
+          { body: follow.reply, outgoing: true, day: mail.day, order: 3 },
+          { body: follow.answer, outgoing: false, day: mail.day, order: 4 },
+        ] : []),
+      ];
+    }) : []),
     ...extraMail.filter(entry => entry.recipient === contact),
   ].sort((a, b) => a.day - b.day || a.order - b.order);
   const currentThread = thread(recipient);
@@ -486,12 +515,21 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           <button onClick={() => { setRecipient(""); setDraft(""); }}>返回会话列表</button>
           <h3>{contacts.find(contact => contact.id === recipient)?.name}</h3>
           {currentThread.length === 0 && <p>暂时没有新的猫头鹰纸条。</p>}
-          {currentThread.map((message, index) => <div key={index} className="hogwarts-note-thread">
+          {currentThread.map((message, index) => {
+            const mail = recipient === "jacob" && !finished ? availableJcodeMail.find(entry => entry.day === message.day) : undefined;
+            const saved = mail && jcodeMailChoices[mail.day];
+            const follow = mail && saved && !saved.followed && mail.follow?.choice === saved.choice ? mail.follow : undefined;
+            return <div key={index} className="hogwarts-note-thread">
             {(index === 0 || currentThread[index - 1].day !== message.day) && <small>12月{message.day}日</small>}
             {message.photo
               ? <img src="./hyunjae-christmas-photo.svg" alt="会动的圣诞树照片" width={320} height={220} style={{ maxWidth: "100%", height: "auto" }} />
               : message.narration ? <p className="hogwarts-narration">{message.body}</p> : note(message.outgoing ? identity?.name ?? "我" : contacts.find(contact => contact.id === recipient)?.name ?? "", message.body, message.outgoing)}
-          </div>)}
+            {mail && message.body === mail.opening && !saved && mail.options.map((option, choice) =>
+              <button type="button" key={option.reply} onClick={() => answerJcodeMail(mail.day, choice)}>{option.reply}</button>)}
+            {mail && saved && follow && message.body === mail.options[saved.choice]?.answer &&
+              <button type="button" onClick={() => answerJcodeMail(mail.day, saved.choice, true)}>{follow.reply}</button>}
+          </div>;
+          })}
           {recipient === selectedLeadId && owlToday && mailArrived && !awaitingEveningMail && <>{choices}{!sceneOpen && relationshipHint}</>}
           {!finished && <form onSubmit={event => {
             event.preventDefault();
