@@ -626,6 +626,20 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
               const gain = relationship(recipient, next).affinity - affection;
               setGiftNotice({ text: `${person} · ${gain ? `好感度 +${gain}` : "好感度已满"}` });
             }
+            if (leadId === "q") {
+              const reply = jealous
+                ? affection >= sharedRules.strongJealousyAffinity
+                  ? "刚才看见他拆你送的礼物。我本来想等见面再说。算了，现在说吧。我也想收到你挑的。"
+                  : "刚才碰见他了。他说礼物是你挑的。你下次去逛店的时候，叫我一起去吧。"
+                : /书签/.test(item)
+                  ? "收到啦。我刚把它夹进那本看了半个月的书里。翻开才发现，我上次停的地方离结尾就剩两页。"
+                  : /糖|多味豆/.test(item)
+                    ? "我拆了一颗，挺好吃的。刚才有人问我能不能拿一颗，我说可以，挑完才发现我给你留的那颗还攥在手里。"
+                    : /围巾/.test(item)
+                      ? "我刚戴着它下了一趟楼。走到一半才想起来，本来只是想在镜子前试一下。"
+                      : "刚收到。室友问我谁送的，我说是你。他说他猜到了。我还没问他怎么猜到的。";
+              addMail("q", reply, false);
+            }
             if (recipient === identity.loveInterest && recipient === "hyunjae") {
               const reply = /围巾|手套|毛衣|厚袜|保暖帽/.test(item)
                 ? `收到你的${item}了。明天巡查我就用上。你要是碰见我，记得看一眼。`
