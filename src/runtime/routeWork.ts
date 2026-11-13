@@ -142,7 +142,7 @@ export function qAlbumClues(readDays: readonly number[], completed: readonly str
       : []);
 }
 
-export const qSceneSpeakers = new Set(["池昌民", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像", "国王", "黑国王", "同学", "室友"]);
+export const qSceneSpeakers = new Set(["池昌民", "孙英宰", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像", "国王", "黑国王", "同学", "室友"]);
 
 export function qLetters(messages: Work["data"][string]) {
   let day = 1;
