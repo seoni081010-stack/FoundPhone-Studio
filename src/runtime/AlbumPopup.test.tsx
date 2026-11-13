@@ -122,10 +122,10 @@ it.each([
 });
 
 it.each([
-  { kind: "together", title: "恋人结局 · 想见你", score: 100, gift: false },
-  { kind: "together", title: "恋人结局 · 想见你", score: 100, gift: true },
-  { kind: "friends", title: "朋友结局 · 给我留一局", score: 66, gift: false },
-  { kind: "unspoken", title: "暧昧结局 · 明早见", score: 93, gift: false },
+  { kind: "together", title: "END·恋人", score: 100, gift: false },
+  { kind: "together", title: "END·恋人", score: 100, gift: true },
+  { kind: "friends", title: "END·朋友", score: 66, gift: false },
+  { kind: "unspoken", title: "END·未说出口", score: 93, gift: false },
 ] as const)("restores Q's $kind finale through the shared album and ending page (gift=$gift)", ({ kind, title, score, gift }) => {
   const original = compileStory(story).work;
   const work = gateRouteDays(qRouteWork(original, 4));
