@@ -44,6 +44,6 @@ describe("confirmed Jcode archive", () => {
 test("Day 31 resolves one authored ending at the shared score boundaries", () => {
   expect([0, 79, 80, 99, 100].map(jcodeEndingFor)).toEqual(["unspoken", "unspoken", "friends", "friends", "together"]);
   expect(jcodeDays[30].beats.at(-1)?.kind).toBe("ending");
-  expect(Object.values(jcodeEndings).map(ending => ending.title)).toEqual(["END 01 · 恋人", "END 02 · 朋友", "END 03 · 未说出口"]);
+  expect(Object.values(jcodeEndings).map(ending => ending.title)).toEqual(["END·恋人", "END·朋友", "END·未说出口"]);
   expect(Object.values(jcodeEndings).every(ending => ending.lines.some(line => line.speaker === "裴俊英"))).toBe(true);
 });

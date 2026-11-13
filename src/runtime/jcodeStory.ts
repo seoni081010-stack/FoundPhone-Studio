@@ -138,7 +138,7 @@ export const jcodeDays = Object.values(sources).flatMap(source =>
       const endings = lines.splice(endingStart).join("\n").split(/^### 结局.+$/m).slice(1);
       endings.forEach((ending, index) => {
         const content = ending.split("\n").filter(Boolean);
-        const title = content.find(line => line.startsWith("END "));
+        const title = content.find(line => line.startsWith("END·"));
         if (!title) throw new Error("Missing Jcode ending title");
         jcodeEndings[endingOrder[index]] = {
           title, lines: content.filter(line => line !== title && !structuralPattern.test(line)).map(parseLine),

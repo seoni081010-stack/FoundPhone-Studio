@@ -4,8 +4,14 @@ import "./HogwartsEnding.css";
 
 type EndingKind = "together" | "unspoken" | "friends";
 type Props = {
-  kind: EndingKind; title: string; text: string; character: { id: string; name: string };
+  kind: EndingKind; text: string; character: { id: string; name: string };
   showFriendGift?: boolean; affinity: number; jealousy: number; onBack: () => void; onRestart: () => void;
+};
+
+const endingLabels: Record<EndingKind, string> = {
+  together: "END·恋人",
+  friends: "END·朋友",
+  unspoken: "END·未说出口",
 };
 
 const seals: Record<EndingKind, string> = {
@@ -79,7 +85,7 @@ function EndingArt({kind}: {kind: EndingKind}) {
   </>;
 }
 
-export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onBack,onRestart,showFriendGift = true}: Props) {
+export function HogwartsEnding({kind,text,character,affinity,jealousy,onBack,onRestart,showFriendGift = true}: Props) {
   const [sealed, setSealed] = useState(false);
   const [gift, setGift] = useState(false);
   return <div className="hogwarts-device-stage"><div className="hogwarts-device">
@@ -93,7 +99,7 @@ export function HogwartsEnding({kind,title,text,character,affinity,jealousy,onBa
       <div className="ending-copy">
         <p className="ending-date">12月31日 · 第31天完结</p>
         <img className="hogwarts-lead-avatar" src={`./portraits/${character.id}.webp`} alt={character.name} />
-        <h2>{title}</h2>
+        <h2>{endingLabels[kind]}</h2>
         <p>{text}</p>
         <p className="ending-stats">{character.name} · 好感度 {affinity}% · 嫉妒值 {jealousy}%</p>
         {kind === "friends" && showFriendGift && <div>
