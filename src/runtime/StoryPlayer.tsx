@@ -57,8 +57,9 @@ function StoryPlayer() {
   const previewMode = new URLSearchParams(location.search).get("preview");
   const previewEnding = previewMode?.match(/^jcode-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
   const jcodePreviewDay = Number(previewMode?.match(/^jcode-day(2[1-9]|3[01])$/)?.[1]);
-  const previewDay = previewEnding ? 31 : jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
-  const previewLead = previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
+  const younghoonPreviewDay = Number(previewMode?.match(/^younghoon-day(6|12|21|24)$/)?.[1]);
+  const previewDay = previewEnding ? 31 : younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
+  const previewLead = younghoonPreviewDay ? "younghoon" : previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
