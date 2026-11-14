@@ -1,3 +1,4 @@
+import { younghoonDays, younghoonMailSteps } from "./younghoonStory";
 import qOwlPost from "../../stories/q-owlpost.json";
 import jcodeOwlPost from "../../stories/jcode-owlpost.json";
 import { JcodeScene, useJcodeProgress } from "./JcodeScene";
@@ -92,8 +93,11 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const qStorageKey = qProgressKey(identity);
   const identityKey = previewDay ? `review-${selectedLeadId}-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
   const isJcode = selectedLeadId === "jacob";
-  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, isJcode, previewDay, previewEnding);
-  const jcodeToday = isJcode ? jcodeDays[jcode.day - 1] : undefined;
+  const isYounghoon = selectedLeadId === "younghoon";
+  const usesScript = isJcode || isYounghoon;
+  const scriptDays = isYounghoon ? younghoonDays : jcodeDays;
+  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon);
+  const jcodeToday = usesScript ? scriptDays[jcode.day - 1] : undefined;
   const [restoredQ] = useState(() => previewDay && isQ ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
@@ -142,7 +146,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     characterStatus(id, identity?.year ?? 5, identity?.house ?? "", relationshipVariables(runtime.variables));
   const relationshipVariables = (variables: Runtime["variables"]) => ({
     ...variables,
-    ...(isJcode ? { [affinityKey("jacob")]: jcode.affinity + Number(variables[affinityKey("jacob")] ?? 0) } : {}),
+    ...(usesScript ? { [affinityKey(selectedLeadId)]: Math.min(100, jcode.affinity + Number(variables[affinityKey(selectedLeadId)] ?? 0)) } : {}),
     [jealousyKey(selectedLeadId)]: Number(variables[jealousyKey(selectedLeadId)] ?? 0) + giftJealousy,
   });
   const showRelationshipChange = (id: string, before: Runtime, after: Runtime) => {
@@ -171,12 +175,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [stake, setStake] = useState(() => isQ ? restoredQ.match?.stake ?? 1 : 1);
   const [matchError, setMatchError] = useState("");
   const [matchDialog, setMatchDialog] = useState(false);
-  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => previewDay === 12 && !isJcode ? "intro" : isQ ? restoredQ.match?.conversation : undefined);
+  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => previewDay === 12 && !usesScript ? "intro" : isQ ? restoredQ.match?.conversation : undefined);
   const [matchIntroRead, setMatchIntroRead] = useState(false);
   const [visitedMatchPub, setVisitedMatchPub] = useState(() => isQ && restoredQ.match?.visitedPub === true);
   const [mailRead, setMailRead] = useState<Record<string, number>>(() => isQ ? restoredQ.mailRead ?? {} : {});
   const won = team === "斯莱特林";
-  const [sceneOpen, setSceneOpen] = useState(Boolean(previewDay && previewDay !== 12 && !isJcode));
+  const [sceneOpen, setSceneOpen] = useState(Boolean(previewDay && previewDay !== 12 && !usesScript));
   const [seenScene, setSeenScene] = useState(() => isQ && restoredQ.readDays.includes(new Date(`${state.date}T12:00:00Z`).getUTCDate()) ? state.messages.scene?.at(-1)?.id ?? "" : "");
   const entries = (state.messages[isQ ? "scene" : "owlpost"] ?? []).filter(item => !item.hidden);
   const date = new Date((jcodeToday ? `2026-12-${String(jcodeToday.day).padStart(2, "0")}` : state.date || "2026-12-01") + "T12:00:00Z");
@@ -187,7 +191,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     work.nodes.find(node => node.id === choice.target)?.actions.some(action =>
       action.type === "date" && String(action.value) > (state.date || "")));
   const startTime = sharedRules.dayStartTime;
-  const [lessonTime, setLessonTime] = useState<string | undefined>(() => isJcode ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : undefined);
+  const [lessonTime, setLessonTime] = useState<string | undefined>(() => usesScript ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : undefined);
   const [recipient, setRecipient] = useState("");
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
@@ -242,7 +246,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     body: ending.memory,
     unlocked: finalSceneRead,
   };
-  const [attended, setAttended] = useState<Record<string, boolean>>(() => isJcode ? jcode.attended ?? {} : isQ
+  const [attended, setAttended] = useState<Record<string, boolean>>(() => usesScript ? jcode.attended ?? {} : isQ
     ? restoredQ.legacy && identity
       ? Object.fromEntries(dailyLessons(identity.year, identity.house, 1).map(lesson => [[1, lesson.time, lesson.subject].join("-"), true]))
       : restoredQ.attended : {});
@@ -262,7 +266,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const hyunjaeMailEncounter = selectedLeadId === "hyunjae" && (day === sharedRules.firstSnowDay || day === 17);
   const hyunjaeImmediateMail = hyunjaeMailEncounter || (selectedLeadId === "hyunjae" && [13, 15, 19, 20, 30].includes(day));
   const hyunjaeEveningMail = selectedLeadId === "hyunjae" && (day === 8 || day === 11);
-  const owlToday = !isJcode && (isQ || hyunjaeEveningMail ? delivery === "mail" : hyunjaeMailEncounter ? delivery !== "scene" : owlDays.includes(day));
+  const owlToday = !usesScript && (isQ || hyunjaeEveningMail ? delivery === "mail" : hyunjaeMailEncounter ? delivery !== "scene" : owlDays.includes(day));
   const awaitingEveningMail = hyunjaeEveningMail && owlToday && !completedSceneDays.includes(day);
   const qToday = qDays.find(entry => entry.day === day);
   const sceneTime = isQ ? String(state.variables.scene_time ?? "17:00") : undefined;
@@ -294,6 +298,21 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     localStorage.setItem(storyMailKey, JSON.stringify(next));
     setStoryMailChoices(next);
   };
+  const youngMailKey = `hogwarts-younghoon-mail:${identityKey}`;
+  const [youngMailSave, setYoungMailSave] = useState<Record<string, { choice?: number; replies: number }>>(() => {
+    try { return isYounghoon ? JSON.parse(localStorage.getItem(youngMailKey) ?? "{}") ?? {} : {}; } catch { return {}; }
+  });
+  const youngMail = isYounghoon ? younghoonDays.flatMap(storyDay => storyDay.beats.flatMap((beat, index) => {
+    if (beat.kind !== "mail" || storyDay.day > day || (storyDay.day === day && index > jcode.beat)) return [];
+    return [{ ...beat.mail, id: `${storyDay.day}-${beat.mail.time}`, index }];
+  })) : [];
+  const saveYoungMail = (id: string, choice: number, replies: number) => {
+    const next = { ...youngMailSave, [id]: { choice, replies } };
+    try { localStorage.setItem(youngMailKey, JSON.stringify(next)); } catch { /* Retain current session. */ }
+    setYoungMailSave(next);
+  };
+  const activeYoungMail = youngMail.find(mail => mail.day === day && mail.index === jcode.beat);
+  const openYoungMail = () => { setActive("owlpost"); setRecipient("younghoon"); };
   const thread = (contact: string): { body: string; outgoing: boolean; narration?: boolean; photo?: boolean; day: number; order: number }[] => [
     ...(isQ && contact === selectedLeadId ? qLetters(state.messages.owlpost ?? []).filter(entry => entry.day !== day || mailArrived) : []),
     ...conversation.flatMap((entry, order) => {
@@ -329,6 +348,14 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           { body: follow.answer, outgoing: false, day: mail.day, order: 4 },
         ] : []),
       ];
+    }) : []),
+    ...(contact === "younghoon" ? youngMail.flatMap(mail => {
+      const saved = youngMailSave[mail.id];
+      let replies = 0;
+      return younghoonMailSteps(mail, saved?.choice).filter((line, index) => {
+        if (saved && index >= mail.opening.length + mail.options[saved.choice!].length && line.speaker === "你") replies++;
+        return replies <= (saved?.replies ?? 0);
+      }).map((line, order) => ({ body: line.body, outgoing: line.speaker === "你", day: mail.day, order: Number(mail.time.replace(":", "")) * 100 + order }));
     }) : []),
     ...extraMail.filter(entry => entry.recipient === contact),
   ].sort((a, b) => a.day - b.day || a.order - b.order);
@@ -388,9 +415,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       unlocked: albumSceneRead(day, sharedRules.ballDay, completedSceneDays) && state.variables.hyunjae_day24_choice === "a",
     },
   ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked)
-    .concat(isQ ? qAlbumClues(qReadDays, state.completed) : [], isJcode ? jcodeDays.flatMap(day => day.beats.flatMap(beat => beat.kind === "clue" && jcode.clues.includes(beat.clue.id) ? [beat.clue] : [])) : [], finalMemory.unlocked ? [finalMemory] : []);
+    .concat(isQ ? qAlbumClues(qReadDays, state.completed) : [], usesScript ? scriptDays.flatMap(day => day.beats.flatMap(beat => beat.kind === "clue" && jcode.clues.includes(beat.clue.id) ? [beat.clue] : [])) : [], finalMemory.unlocked ? [finalMemory] : []);
   // Let story dialogs finish first, then announce each new entry in album order.
-  const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== finalMemory.id && !isJcode), acknowledgedClues,
+  const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== finalMemory.id && !usesScript), acknowledgedClues,
     Boolean(sceneOpen || matchDialog || matchConversation || dateReply || outing || destination || finalMemoryOpen || finished));
   useEffect(() => {
     if (previewDay) return;
@@ -531,6 +558,21 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
               <button type="button" onClick={() => answerStoryMail(mail.day, saved.choice, true)}>{follow.reply}</button>}
           </div>;
           })}
+          {recipient === "younghoon" && youngMail.map(mail => {
+            const saved = youngMailSave[mail.id];
+            const fixed = mail.tail.filter(line => line.speaker === "你");
+            const nextReply = saved && fixed[saved.replies];
+            return <div key={mail.id} className="hogwarts-device-choices">
+              {!saved && mail.options.map((branch, choice) => <button type="button" key={choice}
+                onClick={() => saveYoungMail(mail.id, choice, 0)}>{branch[0].body}</button>)}
+              {nextReply && saved.choice !== undefined && <button type="button"
+                onClick={() => saveYoungMail(mail.id, saved.choice!, saved.replies + 1)}>{nextReply.body}</button>}
+              {saved && !nextReply && activeYoungMail?.id === mail.id && <button type="button" onClick={() => {
+                updateJcode({ beat: jcode.beat + 1, option: undefined, cursor: { position: 0 } });
+                setActive("calendar");
+              }}>继续今天的行程</button>}
+            </div>;
+          })}
           {recipient === selectedLeadId && owlToday && mailArrived && !awaitingEveningMail && <>{choices}{!sceneOpen && relationshipHint}</>}
           {!finished && <form onSubmit={event => {
             event.preventDefault();
@@ -549,19 +591,19 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {mailArrived ? "查看池昌民的来信" : `${qMailStage.time} 午餐 · 查看池昌民的来信`}
           </button>}
           <HogwartsSchedule readOnly={finished} year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
-            sceneTime={jcodeToday?.time} sceneLabel={jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
-            onScene={jcodeToday ? !jcode.done ? () => { setLessonTime(jcodeToday.time); updateJcode({ open: true, time: jcodeToday.time }); } : undefined : (!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
+            sceneTime={jcodeToday?.time} sceneLabel={activeYoungMail ? `${activeYoungMail.time} · 猫头鹰信箱` : jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
+            onScene={activeYoungMail ? openYoungMail : jcodeToday ? !jcode.done ? () => { setLessonTime(jcodeToday.time); updateJcode({ open: true, time: jcodeToday.time }); } : undefined : (!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
               openScene();
             } : undefined}
             attended={attended} onAttend={(id, time, last) => {
               setAttended(previous => ({ ...previous, [id]: true }));
-              if (isJcode) updateJcode({ attended: { ...attended, [id]: true }, time });
+              if (usesScript) updateJcode({ attended: { ...attended, [id]: true }, time });
               setLessonTime(isQ && day === 1 && last ? "17:00" : time);
-              if (!isJcode && last && !sharedRules.manualSceneDays.includes(day) && !owlToday && scenes.length > 0 && !nextDay) {
+              if (!usesScript && last && !sharedRules.manualSceneDays.includes(day) && !owlToday && scenes.length > 0 && !nextDay) {
                 openScene();
               }
             }}
-            onEnd={isJcode ? !previewDay && jcode.done && day < 31 ? () => { updateJcode({ day: day + 1, beat: 0, cursor: { position: 0 }, done: false, team: undefined, time: undefined }); setLessonTime(undefined); } : undefined : !previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
+            onEnd={usesScript ? !previewDay && jcode.done && day < scriptDays.length ? () => { updateJcode({ day: day + 1, beat: 0, cursor: { position: 0 }, done: false, team: undefined, time: undefined }); setLessonTime(undefined); } : undefined : !previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
           {isQ && day === 1 && state.variables.q_mail_unlocked === true && <p><button onClick={() => { setActive("owlpost"); setRecipient("q"); }}>查看池昌民的来信</button></p>}
           {owlToday && !awaitingEveningMail && !nextDay && <button disabled={finished} onClick={() => { setRecipient(selectedLeadId); setActive("owlpost"); }}>{day === sharedRules.firstSnowDay ? `查看${lead?.name ?? ""}的新纸条` : "打开猫头鹰信箱"}</button>}
           {isHoliday(day) && <section aria-label="假期自由活动">
@@ -571,7 +613,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           </section>}
           {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={finished || attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
           {day === sharedRules.quidditchDay && matchStep === "pub" && <button className="hogwarts-activity" disabled={finished} onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和{lead?.name}去三把扫帚</button>}
-          {selectedLeadId !== "hyunjae" && !isQ && !isJcode && <p>这条路线的正文还在写作中。</p>}
+          {selectedLeadId !== "hyunjae" && !isQ && !usesScript && <p>这条路线的正文还在写作中。</p>}
           {finished && <button className="hogwarts-activity" type="button" onClick={() => setShowEnding(true)}>查看结局</button>}
         </section> : active === "date" ? <section className="hogwarts-date">
           <p>周末与假期约会</p>
@@ -672,7 +714,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           : active === "magicphotos" ? <section className="hogwarts-device-letters">
             {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
               <summary>{clue.title}</summary>
-              <p style={isJcode ? { whiteSpace: "pre-wrap" } : undefined}>{highlightMistletoe(clue.body)}</p>
+              <p style={usesScript ? { whiteSpace: "pre-wrap" } : undefined}>{highlightMistletoe(clue.body)}</p>
             </details>)}
             {!albumClues.length && <p>这页羊皮纸还没有写下新的内容。</p>}
           </section> : <section className="hogwarts-device-letters">
@@ -682,7 +724,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}
           </section>}
       </main>
-      {jcodeToday && jcode.open && <JcodeScene key={day} progress={jcode} update={updateJcode} identityKey={identityKey} affinity={relationship(selectedLeadId, state).affinity}
+      {jcodeToday && jcode.open && (!activeYoungMail || active !== "owlpost") && <JcodeScene younghoon={isYounghoon} onMail={openYoungMail} key={day} progress={jcode} update={updateJcode} identityKey={identityKey} affinity={relationship(selectedLeadId, state).affinity}
         onFinish={() => { updateJcode({ done: true, open: false }); if (day === 31) setShowEnding(true); }}
         note={note} player={identity?.name ?? "我"} highlight={highlightMistletoe} />}
       {destination && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
