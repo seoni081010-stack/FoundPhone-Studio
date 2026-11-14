@@ -27,7 +27,7 @@ export function WishCard({ onSubmit }: { onSubmit: () => void }) {
         <p className="wish-floating-text" aria-hidden="true">{wish}</p>
         <p className="wish-blessing" role="status">
           <em className="wish-blessing-english" lang="en">The parchment has received your wish. May it stay with you always.</em>
-          羊皮纸收到了你的愿望，希望它能伴你左右。
+          <span lang="zh-CN">羊皮纸收到了你的愿望，希望它能伴你左右。</span>
         </p>
       </div> : <>
         <textarea aria-label="写下你的愿望" placeholder="写下你的愿望" maxLength={500} value={wish}
