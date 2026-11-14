@@ -125,3 +125,10 @@
 .younghoon-wish form::before { content: "❄"; position: absolute; bottom: .8rem; left: 1rem; opacity: .24; pointer-events: none; }
 .wish-leaves { stroke: #a9c4b7; fill: #658c793e; }
 .wish-bell { stroke: #e0e9f1; fill: #c3dae332; }
+
+.wish-heading { text-align: center; margin: .65rem 0 .35rem; }
+.wish-heading h2 { margin: 0 0 .25rem; }
+.wish-heading-english { display: block; font: italic .92rem Georgia, serif; }
+.wish-submitted .wish-heading { visibility: hidden; }
+.wish-submitted .wish-receipt { min-height: 12rem; position: static; }
+.wish-submitted .wish-blessing { position: absolute; inset: 0; margin: 0; display: grid; align-content: center; justify-items: center; padding: 1rem; text-align: center; }
