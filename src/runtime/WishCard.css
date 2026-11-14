@@ -3,17 +3,17 @@
   max-height: calc(100dvh - 2rem);
   box-sizing: border-box;
   padding: 0;
-  border: 1px solid #97723f;
+  border: 1px solid #b8a47b;
   border-radius: 22px 9px 24px 10px;
-  color: #563127;
-  background: radial-gradient(ellipse at 20% 10%, #f7e7c5, transparent 65%), linear-gradient(135deg, #e6cca3, #f4e1ba 55%, #caa174);
-  box-shadow: inset 0 0 24px #88563144, 0 0 38px #dca84f40;
+  color: #e2edf7;
+  background: radial-gradient(ellipse at 20% 10%, #a6c7db52, transparent 65%), linear-gradient(135deg, #344c62, #263d55 55%, #40596c);
+  box-shadow: inset 0 0 24px #a8daff26, 0 0 38px #91b9da47;
 }
-.younghoon-wish::backdrop { background: #17101aeb; }
+.younghoon-wish::backdrop { background: radial-gradient(ellipse at 20% 80%, #77704b40, transparent 48%), linear-gradient(125deg, #142d29f5, #111b33fa); }
 .younghoon-wish form {
   position: relative;
   margin: .6rem;
-  border: 1px solid #97694680;
+  border: 1px solid #d3bd805c;
   border-radius: 16px 5px 17px 6px;
   padding: 1.7rem 1.15rem 1rem;
   display: grid;
@@ -31,19 +31,19 @@
   min-height: 8rem;
   resize: vertical;
   padding: .8rem;
-  border: 1px solid #9c7453;
+  border: 1px solid #b8d2e470;
   border-radius: 9px;
-  background: #fff5dfb0;
+  background: #10273b66;
   color: inherit;
   font: inherit;
 }
 .younghoon-wish button {
   justify-self: end;
   padding: .5rem 1.15rem;
-  border: 1px solid #a17a4d;
+  border: 1px solid #b9a77d;
   border-radius: 8px;
-  color: #fff0cf;
-  background: #71473a;
+  color: #edf3f9;
+  background: #294458;
 }
 .younghoon-wish button:disabled { opacity: .55; }
 .younghoon-wish-doodle {
@@ -52,7 +52,7 @@
   top: .45rem;
   right: .6rem;
   fill: none;
-  stroke: #8e533d;
+  stroke: #d2e1e9;
   stroke-width: 1.4;
   pointer-events: none;
 }
@@ -60,8 +60,8 @@
   position: absolute;
   top: .45rem;
   left: .9rem;
-  color: #98632d;
-  text-shadow: 0 0 8px #ffe3a3;
+  color: #c3dded;
+  text-shadow: 0 0 8px #adcfff;
   animation: younghoon-wish-drift 5s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -70,8 +70,8 @@
 
 .younghoon-wish.wish-submitted { background: transparent; border-color: transparent; box-shadow: none; overflow: hidden; }
 .wish-submitted form {
-  background: radial-gradient(ellipse at 30% 20%, #f7e7c5, #efd5a6 65%, #c79a69);
-  box-shadow: inset 0 0 24px #88563144;
+  background: radial-gradient(ellipse at 30% 20%, #a6c7db52, #2c455b 65%, #344e67);
+  box-shadow: inset 0 0 24px #a8daff26;
   animation: wish-paper-roll 1.25s 2s ease-in-out forwards;
 }
 .wish-receipt { position: relative; min-height: 10rem; display: grid; place-items: center; text-align: center; }
@@ -83,17 +83,25 @@
   overflow: hidden;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
-  color: #80521d;
-  text-shadow: 0 0 8px #ffcd62;
+  color: #e7f6ff;
+  text-shadow: 0 0 8px #8ad4ff;
   animation: wish-float .55s ease-out forwards;
 }
-.wish-blessing { color: #73462a; line-height: 1.8; text-shadow: 0 0 10px #ffd078; animation: wish-bless .25s .45s both; }
+.wish-blessing { color: #edf4fc; line-height: 1.8; text-shadow: 0 0 10px #98cbff; animation: wish-bless .25s .45s both; }
+.wish-blessing-english {
+  display: block;
+  margin-bottom: .4em;
+  font-size: .92em;
+  font-style: italic;
+  color: inherit;
+  text-align: center;
+}
 .wish-roll-edge {
   position: absolute;
   inset: .6rem auto .6rem 2%;
   width: 1.2rem;
   border-radius: 48%;
-  background: linear-gradient(90deg, #724028, #bd8857 28%, #f9dfaa 58%, #96603c);
+  background: linear-gradient(90deg, #23394d, #7d9fb5 28%, #e5f4ff 58%, #506f86);
   box-shadow: 0 0 13px #e6a956aa;
   opacity: 0;
   animation: wish-edge-roll 1.25s 2s ease-in-out forwards;
@@ -109,3 +117,11 @@
   .wish-submitted form, .wish-blessing { animation: none; }
   .wish-floating-text, .wish-roll-edge, .wish-trailing-stars { display: none; }
 }
+
+.younghoon-wish:not(.wish-submitted) {
+  background-image: radial-gradient(circle at 18% 24%, #dcecff88 0 1px, transparent 2px), radial-gradient(circle at 82% 72%, #dcecff77 0 1px, transparent 2px), linear-gradient(135deg, #6e9abc3b, #263d55b8 55%, #577b984f);
+  backdrop-filter: blur(8px);
+}
+.younghoon-wish form::before { content: "❄"; position: absolute; bottom: .8rem; left: 1rem; opacity: .24; pointer-events: none; }
+.wish-leaves { stroke: #a9c4b7; fill: #658c793e; }
+.wish-bell { stroke: #e0e9f1; fill: #c3dae332; }
