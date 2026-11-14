@@ -1,12 +1,13 @@
 import { useState, type ReactNode } from "react";
+import { WishCard } from "./WishCard";
 import { younghoonDays } from "./younghoonStory";
-import { SceneDialogue } from "./SceneDialogue";
+import { SceneDialogue, sceneParts } from "./SceneDialogue";
 import { QuidditchPaper } from "./QuidditchPaper";
 import { spendGalleons } from "./MagicalShops";
 import { jcodeDays, jcodeEndings, jcodeEndingFor, type JcodeEndingKind } from "./jcodeStory";
 
 type Cursor = { position: number; accepted?: boolean };
-type Progress = { day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind };
+type Progress = { day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind; wishSubmitted?: boolean };
 const first = (day: number): Progress => ({ day, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: false });
 
 export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind, younghoon = false) {
@@ -61,6 +62,13 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
     : beat?.kind === "team" ? beat.options[progress.team === "斯莱特林" ? 1 : 0]
     : beat?.kind === "choice" && progress.option !== undefined
       ? beat.options[progress.option].lines : [];
+  const dialogue = lines.map((line, index) => line.speaker
+    ? note(line.speaker === "你" ? player : line.speaker, line.body, line.speaker === "你", index)
+    : <p key={index} className="hogwarts-narration">{highlight(line.body)}</p>);
+  if (younghoon && day.day === 21 && beat?.kind === "lines" && !progress.wishSubmitted &&
+    sceneParts(dialogue).steps[progress.cursor.position]?.text.startsWith("你们分别写好卡片。")) {
+    return <WishCard onSubmit={() => update({ wishSubmitted: true })} />;
+  }
   return <dialog key={clue?.id ?? "story"} ref={node => { if (node && !node.open) node.showModal(); }}
     onCancel={event => event.preventDefault()} className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby="jcode-scene-title">
     <h2 id="jcode-scene-title">{clue ? "魔法相册解锁新内容" : younghoon ? <>金泳勋 <small>· YOUNGHOON</small></> : <>裴俊英 <small>· JACOB</small></>}</h2>
@@ -79,9 +87,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
         </div> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor}
           onCheckpoint={cursor => update(beat.kind === "ending" ? { cursor, ending } : { cursor })} onComplete={() => next(beat.kind === "ending" ? { ending } : {})}>
           {beat.kind === "choice" && note(player, beat.options[progress.option!].body, true, -1)}
-          {lines.map((line, index) => line.speaker
-            ? note(line.speaker === "你" ? player : line.speaker, line.body, line.speaker === "你", index)
-            : <p key={index} className="hogwarts-narration">{highlight(line.body)}</p>)}
+          {dialogue}
           <button onClick={() => next()}>继续</button>
         </SceneDialogue>}
     </>}
