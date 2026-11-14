@@ -67,3 +67,45 @@
 }
 @keyframes younghoon-wish-drift { to { transform: translate(8px, 3px); opacity: .42; } }
 @media (prefers-reduced-motion: reduce) { .younghoon-wish-sparks { animation: none; } }
+
+.younghoon-wish.wish-submitted { background: transparent; border-color: transparent; box-shadow: none; overflow: hidden; }
+.wish-submitted form {
+  background: radial-gradient(ellipse at 30% 20%, #f7e7c5, #efd5a6 65%, #c79a69);
+  box-shadow: inset 0 0 24px #88563144;
+  animation: wish-paper-roll 1.25s 2s ease-in-out forwards;
+}
+.wish-receipt { position: relative; min-height: 10rem; display: grid; place-items: center; text-align: center; }
+.wish-floating-text {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-height: 7rem;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  color: #80521d;
+  text-shadow: 0 0 8px #ffcd62;
+  animation: wish-float .55s ease-out forwards;
+}
+.wish-blessing { color: #73462a; line-height: 1.8; text-shadow: 0 0 10px #ffd078; animation: wish-bless .25s .45s both; }
+.wish-roll-edge {
+  position: absolute;
+  inset: .6rem auto .6rem 2%;
+  width: 1.2rem;
+  border-radius: 48%;
+  background: linear-gradient(90deg, #724028, #bd8857 28%, #f9dfaa 58%, #96603c);
+  box-shadow: 0 0 13px #e6a956aa;
+  opacity: 0;
+  animation: wish-edge-roll 1.25s 2s ease-in-out forwards;
+}
+.wish-roll-edge::after { content: "✦"; position: absolute; top: 25%; color: #ffe5a1; text-shadow: 0 3rem #ffc875, 0 7rem #ffe5a1; }
+.wish-trailing-stars { position: absolute; top: 45%; right: 4%; color: #ffe0a0; text-shadow: 0 0 12px #efb652; opacity: 0; animation: wish-star-fade .55s 3.07s ease-out; }
+@keyframes wish-float { to { transform: translateY(-1rem); opacity: 0; } }
+@keyframes wish-bless { from { opacity: 0; transform: translateY(4px); } }
+@keyframes wish-paper-roll { from { clip-path: inset(0 0 0 0 round 12px); } to { clip-path: inset(0 0 0 100% round 12px); } }
+@keyframes wish-edge-roll { 8% { opacity: 1; } 88% { opacity: 1; } to { left: 100%; opacity: 0; } }
+@keyframes wish-star-fade { 25% { opacity: 1; } to { opacity: 0; transform: translateY(-.6rem); } }
+@media (prefers-reduced-motion: reduce) {
+  .wish-submitted form, .wish-blessing { animation: none; }
+  .wish-floating-text, .wish-roll-edge, .wish-trailing-stars { display: none; }
+}
