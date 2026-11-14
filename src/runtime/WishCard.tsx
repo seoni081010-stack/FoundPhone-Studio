@@ -22,7 +22,10 @@ export function WishCard({ onSubmit }: { onSubmit: () => void }) {
         <path className="wish-leaves" d="M44 9Q34 24 15 30M37 17Q19 4 11 15q9 8 26 2M31 23Q16 19 9 34q13 2 22-11M44 9Q58 8 67 18q-13 6-23-9"/>
         <path className="wish-bell" d="M44 10v9m-8 11q4-3 4-8a4 4 0 0 1 8 0q0 5 4 8zM42 33q2 4 4 0"/>
       </svg>
-      <h2 id="younghoon-wish-title">愿此刻永恒</h2>
+      <header className="wish-heading">
+        <h2 id="younghoon-wish-title">愿此刻永恒</h2>
+        <em className="wish-heading-english" lang="en">May this moment last forever</em>
+      </header>
       {submitted ? <div className="wish-receipt">
         <p className="wish-floating-text" aria-hidden="true">{wish}</p>
         <p className="wish-blessing" role="status">
