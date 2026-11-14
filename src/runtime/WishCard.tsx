@@ -9,7 +9,7 @@ export function WishCard({ onSubmit }: { onSubmit: () => void }) {
       event.preventDefault();
       if (wish.trim()) onSubmit();
     }}>
-      <span className="younghoon-wish-sparks" aria-hidden="true">✧　✦　✧</span>
+      <span className="younghoon-wish-sparks" aria-hidden="true">✧ ✦ ✧</span>
       <svg className="younghoon-wish-doodle" viewBox="0 0 88 30" aria-hidden="true">
         <path d="M15 26C5 24 7 16 11 13c0 5 4 6 4 1 0-4 2-7 5-10-1 5 1 8 4 12 4 7-2 11-9 10ZM60 25l10-13 6 5-10 12zM73 13l4-7m0 0 5-2m-5 2-1-5m1 5 6 4" />
       </svg>
