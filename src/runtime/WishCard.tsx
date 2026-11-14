@@ -18,13 +18,17 @@ export function WishCard({ onSubmit }: { onSubmit: () => void }) {
       if (wish.trim()) setSubmitted(true);
     }}>
       <span className="younghoon-wish-sparks" aria-hidden="true">✧ ✦ ✧</span>
-      <svg className="younghoon-wish-doodle" viewBox="0 0 88 30" aria-hidden="true">
-        <path d="M15 26C5 24 7 16 11 13c0 5 4 6 4 1 0-4 2-7 5-10-1 5 1 8 4 12 4 7-2 11-9 10ZM60 25l10-13 6 5-10 12zM73 13l4-7m0 0 5-2m-5 2-1-5m1 5 6 4" />
+      <svg className="younghoon-wish-doodle" viewBox="0 0 88 40" aria-hidden="true">
+        <path className="wish-leaves" d="M44 9Q34 24 15 30M37 17Q19 4 11 15q9 8 26 2M31 23Q16 19 9 34q13 2 22-11M44 9Q58 8 67 18q-13 6-23-9"/>
+        <path className="wish-bell" d="M44 10v9m-8 11q4-3 4-8a4 4 0 0 1 8 0q0 5 4 8zM42 33q2 4 4 0"/>
       </svg>
       <h2 id="younghoon-wish-title">愿此刻永恒</h2>
       {submitted ? <div className="wish-receipt">
         <p className="wish-floating-text" aria-hidden="true">{wish}</p>
-        <p className="wish-blessing" role="status">羊皮纸收到了你的愿望<br />希望它能伴你左右</p>
+        <p className="wish-blessing" role="status">
+          <em className="wish-blessing-english" lang="en">The parchment has received your wish. May it stay with you always.</em>
+          羊皮纸收到了你的愿望，希望它能伴你左右。
+        </p>
       </div> : <>
         <textarea aria-label="写下你的愿望" placeholder="写下你的愿望" maxLength={500} value={wish}
           onChange={event => setWish(event.target.value)} />
