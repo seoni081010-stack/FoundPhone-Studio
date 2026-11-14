@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { younghoonDays } from "./younghoonStory";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper } from "./QuidditchPaper";
 import { spendGalleons } from "./MagicalShops";
@@ -8,8 +9,8 @@ type Cursor = { position: number; accepted?: boolean };
 type Progress = { day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind };
 const first = (day: number): Progress => ({ day, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: false });
 
-export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind) {
-  const storageKey = `hogwarts-jcode-v1:${key}`;
+export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind, younghoon = false) {
+  const storageKey = `hogwarts-${younghoon ? "younghoon" : "jcode"}-v1:${key}`;
   const [progress, setProgress] = useState<Progress>(() => {
     if (!enabled) return first(1);
     if (previewEnding) return { ...first(31), open: true, beat: jcodeDays[30].beats.length - 1, ending: previewEnding };
@@ -28,6 +29,8 @@ export function useJcodeProgress(key: string, enabled: boolean, previewDay?: num
 }
 
 type Props = {
+  younghoon?: boolean;
+  onMail?: () => void;
   progress: Progress;
   update: (patch: Partial<Progress>) => void;
   identityKey: string;
@@ -38,8 +41,8 @@ type Props = {
   highlight: (body: string) => ReactNode;
 };
 
-export function JcodeScene({ progress, update, identityKey, affinity, onFinish, note, player, highlight }: Props) {
-  const day = jcodeDays[progress.day - 1];
+export function JcodeScene({ progress, update, identityKey, affinity, onFinish, note, player, highlight, younghoon, onMail }: Props) {
+  const day = (younghoon ? younghoonDays : jcodeDays)[progress.day - 1];
   const beat = day.beats[progress.beat];
   const [team, setTeam] = useState("");
   const [stake, setStake] = useState(1);
@@ -51,6 +54,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
       if (!spendGalleons(identityKey, stake)) { setError("钱包里的加隆不够。"); return; }
       next({ team });
     }} />;
+  if (beat?.kind === "mail") return <button className="hogwarts-activity" onClick={onMail}>打开猫头鹰信箱</button>;
   const clue = beat?.kind === "clue" ? beat.clue : undefined;
   const ending = progress.ending ?? jcodeEndingFor(affinity);
   const lines = beat?.kind === "ending" ? jcodeEndings[ending].lines : beat?.kind === "lines" ? beat.lines
@@ -59,7 +63,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
       ? beat.options[progress.option].lines : [];
   return <dialog key={clue?.id ?? "story"} ref={node => { if (node && !node.open) node.showModal(); }}
     onCancel={event => event.preventDefault()} className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby="jcode-scene-title">
-    <h2 id="jcode-scene-title">{clue ? "魔法相册解锁新内容" : <>裴俊英 <small>· JACOB</small></>}</h2>
+    <h2 id="jcode-scene-title">{clue ? "魔法相册解锁新内容" : younghoon ? <>金泳勋 <small>· YOUNGHOON</small></> : <>裴俊英 <small>· JACOB</small></>}</h2>
     {clue ? <>
       <p>在魔法相册中查看「{clue.title}」。</p>
       <button onClick={() => next({ clues: [...new Set([...progress.clues, clue.id])] })}>继续</button>
