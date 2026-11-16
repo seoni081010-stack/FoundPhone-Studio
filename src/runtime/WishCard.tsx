@@ -20,7 +20,8 @@ export function WishCard({ onSubmit }: { onSubmit: () => void }) {
       <span className="younghoon-wish-sparks" aria-hidden="true">✧ ✦ ✧</span>
       <svg className="younghoon-wish-doodle" viewBox="0 0 88 40" aria-hidden="true">
         <path className="wish-leaves" d="M44 9Q34 24 15 30M37 17Q19 4 11 15q9 8 26 2M31 23Q16 19 9 34q13 2 22-11M44 9Q58 8 67 18q-13 6-23-9"/>
-        <path className="wish-bell" d="M44 10v9m-8 11q4-3 4-8a4 4 0 0 1 8 0q0 5 4 8zM42 33q2 4 4 0"/>
+        <path d="M64 27l16-13m-16 13-5 1-6 8 10-3 1-6m-5 1 4 5M75 5v6m-3-3h6"/>
+        <path className="wish-runes" d="M4 12Q20 1 40 4T84 9"/>
       </svg>
       <header className="wish-heading">
         <h2 id="younghoon-wish-title">愿此刻永恒</h2>
