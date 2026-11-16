@@ -1,7 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 import { nextAlbumNotice } from "./albumNotices";
 import { WishCard } from "./WishCard";
-import { younghoonDays, younghoonEndings } from "./younghoonStory";
+import { younghoonDays, younghoonEndings, younghoonStage } from "./younghoonStory";
 import { SceneDialogue, sceneParts } from "./SceneDialogue";
 import { QuidditchPaper } from "./QuidditchPaper";
 import { spendGalleons } from "./MagicalShops";
@@ -22,11 +22,13 @@ export function useJcodeProgress(key: string, enabled: boolean, previewDay?: num
       return saved ? JSON.parse(saved) as Progress : first(1);
     } catch { return first(1); }
   });
-  const update = (patch: Partial<Progress>) => {
-    const next = { ...progress, ...patch };
-    try { if (!previewDay) localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* The current session can still continue. */ }
-    setProgress(next);
-  };
+  const update = useCallback((patch: Partial<Progress>) => {
+    setProgress(previous => {
+      const next = { ...previous, ...patch };
+      try { if (!previewDay) localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* The current session can still continue. */ }
+      return next;
+    });
+  }, [storageKey, previewDay]);
   return { progress, update };
 }
 
@@ -48,7 +50,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
   const day = (younghoon ? younghoonDays : jcodeDays)[progress.day - 1];
   const beat = day.beats[progress.beat];
   const stage = day.beats.slice(0, progress.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
-  const schedule = stage?.kind === "lines" ? stage.schedule ?? day.schedule : day.schedule;
+  const schedule = younghoon ? younghoonStage(progress.day, progress.beat, progress.cursor.position).schedule : stage?.kind === "lines" ? stage.schedule ?? day.schedule : day.schedule;
   const [team, setTeam] = useState("");
   const [stake, setStake] = useState(1);
   const [error, setError] = useState("");
@@ -95,7 +97,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
             option: index, cursor: { position: 0, accepted: true },
             affinity: progress.affinity + (option.affinity ?? 0),
           })}>{option.body}</button>)}
-        </div> : <SceneDialogue key={progress.beat} instantNarration={!younghoon} checkpoint={progress.cursor}
+        </div> : <SceneDialogue key={progress.beat} checkpoint={progress.cursor}
           onCheckpoint={cursor => update(beat.kind === "ending" ? { cursor, ending } : { cursor })} onComplete={() => next(beat.kind === "ending" ? { ending } : {})}>
           {younghoon && beat.kind === "ending" && note(player, younghoonEndings[ending].reply, true, -2)}
           {beat.kind === "choice" && note(player, beat.options[progress.option!].body, true, -1)}

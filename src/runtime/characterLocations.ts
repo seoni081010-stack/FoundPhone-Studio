@@ -1,5 +1,6 @@
 import { people } from "./HogwartsCharacters";
 import { dailyLessons } from "./HogwartsSchedule";
+import { younghoonItinerary } from "./younghoonStory";
 import { qDays } from "./routeWork";
 
 const classrooms: Record<string, string> = {
@@ -27,6 +28,10 @@ export function characterLocations(day: number, time: string, selectedId: string
         place = scene.endTime && scene.endPlace && now >= minutes(scene.endTime)
           ? scene.endPlace : scene.place;
       }
+    }
+    if (person.id === "younghoon") {
+      const scene = younghoonItinerary(day).filter(stage => now >= minutes(stage.time)).at(-1);
+      if (scene && now < minutes(scene.time) + 120) place = scene.place;
     }
     if (day === 12 && now >= 14 * 60 && now < 16 * 60) place = "魁地奇球场";
     if (person.id === selectedId && selectedPlace) place = selectedPlace;

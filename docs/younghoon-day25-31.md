@@ -23,3 +23,13 @@
 浏览器脚本默认使用 `/usr/bin/chromium`；完整分支脚本支持 `CHROMIUM_PATH` 指定浏览器。以上属于桌面 Chromium 的移动视口检查，不代表真机 Safari 验证。
 
 发布继续使用原 GitHub Pages 仓库、既有工作流及 `feature/instagram-video-call-spotify-playlist` 发布分支。
+
+## 地图、旁白与送礼回归
+
+`node scripts/verify-route-map-typewriter.mjs` 检查 Day 1–31 所有已标注时刻与地点、七个人物标记，以及四条路线的逐字旁白。地图现在为金泳勋所有剧情地点提供明确坐标；旧版漏掉的 Day 24 19:00 礼堂外转场通过独立元数据恢复，不改原稿、剧情分支或存档的 beat/cursor。
+
+`node scripts/verify-gift-persistence.mjs` 在正式游戏入口创建隔离测试存档，实际购买并赠送偏好与普通礼物，核对四条路线：偏好 +5、普通 +2；送其他男主时当前男主好感度低于 70，嫉妒 +3，达到 70 后 +5；两项数值均以 100 为上限。每种情形刷新两次，检查当前男主与收礼人的数值未丢失、未重复计算。高分及封顶测试使用明确的既往送礼记录作为初始条件。
+
+这些修正不新增或接入约会文案；新增文案须另行审阅确认。
+
+`node scripts/verify-scene-time-save.mjs` 验证 Day 24 的 19:00 转场、Day 26 的 16:00 场景完成状态在旧时刻存档恢复后正确保存；刷新保留 beat、阅读位置和好感度。剧情进度采用基于前一状态的更新，避免转场时间与阅读游标同时保存时相互覆盖。

@@ -1,60 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { mapRooms as rooms, mapPoint } from "./mapLocations";
 import { characterLocations } from "./characterLocations";
 
-const rooms = [
-  ["天文塔", 82, 68], ["图书馆", 276, 68],
-  ["黑魔法防御术", 83, 123], ["魔咒学", 276, 123],
-  ["魔法史", 83, 175], ["古代如尼文", 276, 175],
-  ["占卜学", 83, 227], ["算术占卜", 276, 227],
-  ["门厅", 83, 301], ["大礼堂", 276, 301],
-  ["变形术", 83, 353], ["魔药学 · 地窖", 276, 353],
-  ["庭院与拱门", 82, 421], ["草药学温室", 276, 421],
-  ["神奇动物课场地", 82, 478], ["魁地奇球场", 276, 478],
-  ["禁林边缘", 180, 535],
-] as const;
-
 type MapAudioWindow = Window & { webkitAudioContext?: typeof AudioContext };
-
 type MapStage = "closed" | "oath" | "map" | "erasing";
-
-const landmarks: Partial<Record<string, readonly [number, number]>> = {
-  "霍格沃茨图书馆": [276, 68],
-  "霍格沃茨图书馆外": [235, 96],
-  "三号温室外": [310, 448],
-  "城堡庭院": [82, 421],
-  "霍格沃茨庭院": [82, 421],
-  "麻瓜研究教室外": [225, 245],
-  "霍格沃茨西侧回廊": [180, 260],
-  "霍格沃茨厨房外": [275, 325],
-  "霍格沃茨厨房附近": [275, 325],
-  "霍格沃茨魁地奇球场": [276, 478],
-  "赫奇帕奇公共休息室附近的走廊": [230, 334],
-  "霍格沃茨暗房": [310, 96],
-  "霍格沃茨礼堂": [276, 301],
-  "霍格沃茨礼堂外": [237, 301],
-  "长廊": [180, 280],
-  "城堡西侧长廊": [180, 260],
-  "西廊窗边": [180, 260],
-  "空教室": [229, 208],
-  "霍格莫德文具店": [70, 548],
-  "猫头鹰棚屋": [70, 42],
-  "城堡外的小路": [180, 548],
-  "黑湖湖畔": [320, 548],
-  "霍格沃茨厨房": [275, 325],
-  "佐科魔法笑话店": [70, 548],
-  "三把扫帚": [70, 548],
-  "温室外侧露台": [310, 448],
-  "三楼猎犬画像旁": [180, 180],
-  "三楼高窗石廊": [310, 180],
-  "回城堡的路上": [180, 505],
-  "城堡楼梯": [180, 320],
-  "图书馆门口": [235, 96],
-  "图书馆外的走廊": [235, 96],
-  "画像后的小房间": [310, 96],
-  "霍格莫德镇": [70, 548],
-  "蜂蜜公爵": [70, 548],
-  "城堡外的石桥": [280, 548],
-};
 
 export function MaraudersMap({ day, time = "09:00", place, activity, selectedId = "hyunjae", onEncounter }: {
   day: number; time?: string; place?: string; activity?: string; selectedId?: string; onEncounter?: () => void;
@@ -178,14 +127,13 @@ export function MaraudersMap({ day, time = "09:00", place, activity, selectedId 
                 {locations.some(person => person.place === "城堡外的石桥") && <text x="280" y="534" style={{ fontSize: 9 }}>石桥</text>}
               </g>
               {locations.map(person => {
-                const room = rooms.find(([name]) => name === person.place);
-                const point = room ? [room[1], room[2] + 15] : landmarks[person.place] ?? landmarks["长廊"]!;
+                const point = mapPoint(person.place);
                 const group = locations.filter(other => other.place === person.place);
                 const slot = group.findIndex(other => other.id === person.id);
                 const columns = Math.min(group.length, 3);
                 const x = point[0] + (slot % 3 - (columns - 1) / 2) * 37;
                 const y = point[1] + Math.floor(slot / 3) * 12;
-                return <g key={person.id} transform={`translate(${x} ${y})`}>
+                return <g key={person.id} data-person={person.id} data-place={person.place} transform={`translate(${x} ${y})`}>
                 <g className="marauder-person marauder-person-first" style={{ animationName: "marauder-local-walk" }}>
                   <title>{person.name} · {person.place}</title>
                   <text style={{ paintOrder: "stroke", stroke: "#f2dcac", strokeWidth: 3, fontSize: 9, textAnchor: "middle", fontWeight: person.id === selectedId ? "bold" : "normal" }}>{person.name}</text>

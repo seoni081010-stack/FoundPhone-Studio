@@ -1,4 +1,4 @@
-import { younghoonDays, younghoonMailSteps, younghoonEndings } from "./younghoonStory";
+import { younghoonDays, younghoonMailSteps, younghoonEndings, younghoonStage } from "./younghoonStory";
 import qOwlPost from "../../stories/q-owlpost.json";
 import jcodeOwlPost from "../../stories/jcode-owlpost.json";
 import { JcodeScene, useJcodeProgress } from "./JcodeScene";
@@ -100,7 +100,8 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const scriptToday = usesScript ? scriptDays[jcode.day - 1] : undefined;
   const stageSchedule = scriptToday?.beats.slice(0, jcode.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
   const stageDetails = stageSchedule?.kind === "lines" ? stageSchedule.schedule?.split(" · ") : undefined;
-  const jcodeToday = scriptToday && stageDetails ? { ...scriptToday, schedule: stageDetails.join(" · "), time: stageDetails[1], place: stageDetails[2] } : scriptToday;
+  const youngStage = isYounghoon ? younghoonStage(jcode.day, jcode.beat, jcode.cursor.position) : undefined;
+  const jcodeToday = scriptToday && youngStage ? { ...scriptToday, ...youngStage } : scriptToday && stageDetails ? { ...scriptToday, schedule: stageDetails.join(" · "), time: stageDetails[1], place: stageDetails[2] } : scriptToday;
   const [restoredQ] = useState(() => previewDay && isQ ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
@@ -197,8 +198,11 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [lessonTime, setLessonTime] = useState<string | undefined>(() => usesScript ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : undefined);
   const scriptTime = jcodeToday?.time;
   useEffect(() => {
-    if (usesScript && jcode.open && scriptTime) setLessonTime(scriptTime);
-  }, [usesScript, jcode.open, scriptTime]);
+    if (usesScript && (jcode.open || jcode.done) && scriptTime) {
+      setLessonTime(scriptTime);
+      updateJcode({ time: scriptTime });
+    }
+  }, [usesScript, jcode.open, jcode.done, scriptTime, updateJcode]);
   const [recipient, setRecipient] = useState("");
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
