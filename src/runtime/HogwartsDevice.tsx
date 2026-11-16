@@ -1,4 +1,4 @@
-import { younghoonDays, younghoonMailSteps } from "./younghoonStory";
+import { younghoonDays, younghoonMailSteps, younghoonEndings } from "./younghoonStory";
 import qOwlPost from "../../stories/q-owlpost.json";
 import jcodeOwlPost from "../../stories/jcode-owlpost.json";
 import { JcodeScene, useJcodeProgress } from "./JcodeScene";
@@ -91,13 +91,16 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const isQ = selectedLeadId === "q";
   const hyunjaePreview = selectedLeadId === "hyunjae" && previewDay === sharedRules.confessionDay;
   const qStorageKey = qProgressKey(identity);
-  const identityKey = previewDay ? `review-${selectedLeadId}-day${previewDay}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
+  const identityKey = previewDay ? `review-${selectedLeadId}-day${previewDay}${previewEnding ? `-${previewEnding}` : ""}` : identity ? identity.runId ?? [identity.name, identity.house, identity.year].join("-") : "";
   const isJcode = selectedLeadId === "jacob";
   const isYounghoon = selectedLeadId === "younghoon";
   const usesScript = isJcode || isYounghoon;
   const scriptDays = isYounghoon ? younghoonDays : jcodeDays;
   const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon);
-  const jcodeToday = usesScript ? scriptDays[jcode.day - 1] : undefined;
+  const scriptToday = usesScript ? scriptDays[jcode.day - 1] : undefined;
+  const stageSchedule = scriptToday?.beats.slice(0, jcode.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
+  const stageDetails = stageSchedule?.kind === "lines" ? stageSchedule.schedule?.split(" · ") : undefined;
+  const jcodeToday = scriptToday && stageDetails ? { ...scriptToday, schedule: stageDetails.join(" · "), time: stageDetails[1], place: stageDetails[2] } : scriptToday;
   const [restoredQ] = useState(() => previewDay && isQ ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
@@ -192,6 +195,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       action.type === "date" && String(action.value) > (state.date || "")));
   const startTime = sharedRules.dayStartTime;
   const [lessonTime, setLessonTime] = useState<string | undefined>(() => usesScript ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : undefined);
+  const scriptTime = jcodeToday?.time;
+  useEffect(() => {
+    if (usesScript && jcode.open && scriptTime) setLessonTime(scriptTime);
+  }, [usesScript, jcode.open, scriptTime]);
   const [recipient, setRecipient] = useState("");
   const [dateReply, setDateReply] = useState("");
   const [outing, setOuting] = useState(false);
@@ -226,7 +233,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     && (isQ ? qReadDays : completedSceneDays).includes(day);
   const finalMemoryAcknowledged = acknowledgedClues.includes(finalMemoryId);
   const [otherFinished, setFinished] = useState(isQ && finalSceneRead && finalMemoryAcknowledged);
-  const finished = isJcode ? day === 31 && !!jcode.done : otherFinished;
+  const finished = usesScript ? day === 31 && !!jcode.done : otherFinished;
   const finalMemoryOpen = finalSceneRead && !sceneOpen && !finalMemoryAcknowledged;
   const [showEnding, setShowEnding] = useState(!restoredQ.reviewingEnding);
   const sharedEnding = state.endings.includes(`${selectedLeadId}-together`) ? {
@@ -239,7 +246,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     kind: "unspoken" as const, title: "暧昧结局 · 明年第一个", text: "走到长廊尽头，你们就该往不同的方向走了。他多站了一会儿，说：「明年我还是想第一个来找你。」你说：「那你得来早点。」",
     memory: "长廊里很安静，他说，明年还是想第一个来找你。",
   };
-  const ending = isJcode && jcode.ending ? { kind: jcode.ending, title: jcodeEndings[jcode.ending].title, text: jcodeEndings[jcode.ending].lines.at(-1)?.body ?? "", memory: "" } : isQ ? { kind: sharedEnding.kind, ...qEndingCopy(sharedEnding.kind) } : sharedEnding;
+  const ending = isYounghoon && jcode.ending ? { kind: jcode.ending, text: younghoonEndings[jcode.ending].text, memory: "" } : isJcode && jcode.ending ? { kind: jcode.ending, title: jcodeEndings[jcode.ending].title, text: jcodeEndings[jcode.ending].lines.at(-1)?.body ?? "", memory: "" } : isQ ? { kind: sharedEnding.kind, ...qEndingCopy(sharedEnding.kind) } : sharedEnding;
   const finalMemory = {
     id: finalMemoryId,
     title: isQ ? "西廊窗边" : "跨年长廊",
@@ -517,7 +524,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const character = contacts.find(contact => contact.id === selectedLeadId) ?? { id: "hyunjae", name: "李贤在" };
     const stats = relationship(character.id, state);
     return <HogwartsEnding kind={ending.kind} text={ending.text} character={character}
-      affinity={previewEnding ? { together: 100, friends: 80, unspoken: 79 }[previewEnding] : stats.affinity} jealousy={stats.jealousy} showFriendGift={!isJcode} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
+      affinity={previewEnding ? { together: 100, friends: 80, unspoken: 79 }[previewEnding] : stats.affinity} jealousy={stats.jealousy} showFriendGift={!usesScript} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
   }
   return <div className="hogwarts-device-stage">
     <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
@@ -724,7 +731,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}
           </section>}
       </main>
-      {jcodeToday && jcode.open && (!activeYoungMail || active !== "owlpost") && <JcodeScene younghoon={isYounghoon} onMail={openYoungMail} key={day} progress={jcode} update={updateJcode} identityKey={identityKey} affinity={relationship(selectedLeadId, state).affinity}
+      {jcodeToday && jcode.open && (!activeYoungMail || active !== "owlpost") && <JcodeScene onClue={acknowledgeClue} younghoon={isYounghoon} onMail={openYoungMail} key={day} progress={jcode} update={updateJcode} identityKey={identityKey} affinity={relationship(selectedLeadId, state).affinity}
         onFinish={() => { updateJcode({ done: true, open: false }); if (day === 31) setShowEnding(true); }}
         note={note} player={identity?.name ?? "我"} highlight={highlightMistletoe} />}
       {destination && <dialog ref={element => { if (element && !element.open) element.showModal(); }}

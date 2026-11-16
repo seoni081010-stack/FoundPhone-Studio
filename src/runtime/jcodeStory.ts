@@ -3,7 +3,7 @@ import { sharedRules } from "./sharedRules";
 export type JcodeLine = { speaker?: string; body: string };
 export type JcodeClue = { id: string; title: string; body: string; unlocked: true };
 type Option = { body: string; affinity?: number; lines: JcodeLine[] };
-export type JcodeBeat = { kind: "lines"; lines: JcodeLine[] }
+export type JcodeBeat = { kind: "lines"; lines: JcodeLine[]; schedule?: string }
   | { kind: "choice"; options: Option[] }
   | { kind: "wager" }
   | { kind: "team"; options: [JcodeLine[], JcodeLine[]] }
