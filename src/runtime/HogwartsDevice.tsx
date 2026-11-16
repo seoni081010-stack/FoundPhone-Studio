@@ -7,7 +7,8 @@ import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
 import { albumNoticeKey, readAlbumNotices, saveAlbumNotices, albumSceneRead, nextAlbumNotice } from "./albumNotices";
 import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
-import { acceptsInvitation, availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
+import { canInvite, invitationReply, dateInvitationKey, readDateInvitations, saveDateInvitations } from "./dateInvitations";
+import { availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
 import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, hyunjaeDay31Preview, qAlbumClues, qDays, qEndingCopy, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
@@ -208,12 +209,17 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [outing, setOuting] = useState(false);
   const [dateContact, setDateContact] = useState("");
   const [dateDay, setDateDay] = useState(0);
-  const [attendedDates, setAttendedDates] = useState<number[]>([]);
+  const dateSaveKey = dateInvitationKey(identityKey, selectedLeadId);
+  const [dateSave, setDateSave] = useState(() => readDateInvitations(dateSaveKey));
+  const attendedDates = dateSave.attended;
+  useEffect(() => { saveDateInvitations(dateSaveKey, dateSave); }, [dateSaveKey, dateSave]);
   const [dateVenue, setDateVenue] = useState("");
   const [destination, setDestination] = useState<(typeof freeTimeScenes)[number]>();
   const [freeTimeResult, setFreeTimeResult] = useState("");
-  const [plans, setPlans] = useState<Record<number, string>>({});
-  const [acceptedVenues, setAcceptedVenues] = useState<Record<number, string>>({});
+  const acceptedInvitations = dateSave.invitations.filter(invitation => invitation.accepted);
+  const plans: Record<number, string> = Object.fromEntries(acceptedInvitations.map(invitation =>
+    [invitation.date, `${contacts.find(contact => contact.id === invitation.recipient)?.name ?? ""} · ${invitation.venueName}`]));
+  const acceptedVenues: Record<number, string> = Object.fromEntries(acceptedInvitations.map(invitation => [invitation.date, invitation.venue]));
   const [draft, setDraft] = useState("");
   const highlightMistletoe = (text: string) => text.split(/(槲寄生)/).map((word, index) =>
     word === "槲寄生" ? <strong key={index}>{word}</strong> : word);
@@ -369,6 +375,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       }).map((line, order) => ({ body: line.body, outgoing: line.speaker === "你", day: mail.day, order: Number(mail.time.replace(":", "")) * 100 + order }));
     }) : []),
     ...extraMail.filter(entry => entry.recipient === contact),
+    ...dateSave.invitations.filter(invitation => invitation.recipient === contact).flatMap(invitation => [
+      { body: `邀约：12月${invitation.date}日 · ${invitation.venueName}`, outgoing: true, day: invitation.day, order: invitation.order },
+      { body: invitation.reply, outgoing: false, day: invitation.day, order: invitation.order + 1 },
+    ]),
   ].sort((a, b) => a.day - b.day || a.order - b.order);
   const currentThread = thread(recipient);
   const unreadMail = (contact: string) => Math.max(0, thread(contact).filter(entry => !entry.outgoing && !entry.narration).length - (mailRead[contact] ?? 0));
@@ -622,7 +632,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {freeTimeScenes.map(scene => <button className="hogwarts-activity" type="button" key={scene.place} disabled={finished}
               onClick={() => { setFreeTimeResult(""); setDestination(scene); }}>{scene.place}</button>)}
           </section>}
-          {plans[day] && <p>今日约会：{plans[day]} <button className="hogwarts-activity" disabled={finished || attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button></p>}
+          {plans[day] && <p>今日约会：{plans[day]} {dateScenes[acceptedVenues[day]] && <button className="hogwarts-activity" disabled={finished || attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button>}</p>}
           {day === sharedRules.quidditchDay && matchStep === "pub" && <button className="hogwarts-activity" disabled={finished} onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>和{lead?.name}去三把扫帚</button>}
           {selectedLeadId !== "hyunjae" && !isQ && !usesScript && <p>这条路线的正文还在写作中。</p>}
           {finished && <button className="hogwarts-activity" type="button" onClick={() => setShowEnding(true)}>查看结局</button>}
@@ -643,20 +653,17 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
               {venue.name}（{venue.region}）
             </option>)}
           </select></label></p>
-          <button className="hogwarts-send-invite" disabled={finished || dateContact !== selectedLeadId || !dateScenes[dateVenue] || Boolean(plans[dateDay]) || !availableDateDays.includes(dateDay)}
+          <button className="hogwarts-send-invite" disabled={finished || dateContact !== selectedLeadId || !canInvite(selectedLeadId, dateVenue) || Boolean(plans[dateDay]) || !availableDateDays.includes(dateDay)}
             onClick={() => {
-              const accepted = dateContact === selectedLeadId && acceptsInvitation(relationship(selectedLeadId, state).affinity);
-              const reply = accepted ? dateScenes[dateVenue].reply : dateRoute.declines[(day - 1) % dateRoute.declines.length];
+              const result = invitationReply(selectedLeadId, relationship(selectedLeadId, state).affinity, dateVenue, day);
               const venue = dateOptions.venues.find(item => item.id === dateVenue);
-              if (accepted) {
-                setPlans(previous => ({ ...previous, [dateDay]: (lead?.name ?? "") + " · " + venue?.name }));
-                setAcceptedVenues(previous => ({ ...previous, [dateDay]: dateVenue }));
-              }
-              addMail(selectedLeadId, "邀约：12月" + dateDay + "日 · " + venue?.name, true);
-              addMail(selectedLeadId, reply, false);
-              setDateReply(reply);
+              if (!result || !venue) return;
+              const invitation = { recipient: selectedLeadId, day, date: dateDay, venue: venue.id, venueName: venue.name,
+                ...result, order: entries.length + thread(selectedLeadId).length };
+              setDateSave(previous => ({ ...previous, invitations: [...previous.invitations, invitation] }));
+              setDateReply(result.reply);
             }}>发送邀请</button>
-          {dateContact && !dateRoute && <p>这位角色的邀约剧情还在准备中。</p>}
+          {dateContact && !canInvite(selectedLeadId, dateOptions.venues[0].id) && <p>这位角色的邀约剧情还在准备中。</p>}
           <p className="hogwarts-date-hint">每天都能发邀请，赴约日期可选周末或12月22日起的假期。</p>
           {Object.entries(plans).filter(([value]) => Number(value) >= day).map(([value, plan]) => <p key={value}>12月{value}日 · {plan}</p>)}
         </section> : active === "market" && identity ? <MagicalShops readOnly={finished} identityKey={identityKey} leadId={identity.loveInterest} contacts={contacts} onGift={(recipient, item, liked) => {
@@ -758,7 +765,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           ? <p key={index} className="hogwarts-narration">{line}</p>
           : note(index === 2 ? identity?.name ?? "我" : lead?.name ?? "", line, index === 2, index))
           : <div className="date-mail-reply">{note(lead?.name ?? "", dateReply, false)}</div>}
-        <button onClick={() => { if (outing) setAttendedDates(previous => [...previous, day]); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
+        <button onClick={() => { if (outing) setDateSave(previous => ({ ...previous, attended: [...new Set([...previous.attended, day])] })); setDateReply(""); setOuting(false); }}>{outing ? "完成赴约" : "返回"}</button>
         </SceneDialogue>
       </dialog>}
       {matchConversation && !matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
