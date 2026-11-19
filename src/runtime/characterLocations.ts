@@ -1,5 +1,6 @@
 import { people } from "./HogwartsCharacters";
 import { dailyLessons } from "./HogwartsSchedule";
+import { sunwooItinerary } from "./sunwooStory";
 import { younghoonItinerary } from "./younghoonStory";
 import { qDays } from "./routeWork";
 
@@ -32,6 +33,13 @@ export function characterLocations(day: number, time: string, selectedId: string
     if (person.id === "younghoon") {
       const scene = younghoonItinerary(day).filter(stage => now >= minutes(stage.time)).at(-1);
       if (scene && now < minutes(scene.time) + 120) place = scene.place;
+    }
+    if (person.id === "sunwoo") {
+      // Day 31's 00:05 finale follows the late-night acts, not the morning schedule.
+      const routeMinutes = (value: string) => minutes(value) + (day === 31 && minutes(value) < 360 ? 1440 : 0);
+      const current = routeMinutes(time);
+      const scene = sunwooItinerary(day).filter(stage => current >= routeMinutes(stage.time)).at(-1);
+      if (scene && current < routeMinutes(scene.time) + 120) place = scene.place;
     }
     if (day === 12 && now >= 14 * 60 && now < 16 * 60) place = "魁地奇球场";
     if (person.id === selectedId && selectedPlace) place = selectedPlace;

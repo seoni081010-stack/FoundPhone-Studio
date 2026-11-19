@@ -10,7 +10,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: pages-${{ github.event_name == 'pull_request' && 'validation' || 'deployment' }}
+  group: pages-${{ github.event_name == 'pull_request' && 'validation' || github.ref }}
   cancel-in-progress: false
 jobs:
   build:
@@ -37,7 +37,9 @@ jobs:
         with:
           path: dist
   deploy:
-    if: github.event_name != 'pull_request'
+    # The existing github-pages environment permits this release branch.
+    # main and this branch receive the exact same tested commit.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/feature/instagram-video-call-spotify-playlist'
     needs: build
     runs-on: ubuntu-latest
     environment:

@@ -10,7 +10,7 @@ export type JcodeBeat = { kind: "lines"; lines: JcodeLine[]; schedule?: string }
   | { kind: "clue"; clue: JcodeClue }
   | { kind: "ending" };
 
-const sources = import.meta.glob("../../story-archive/jcode-day*.md", { eager: true, query: "?raw", import: "default" }) as Record<string, string>;
+const sources = import.meta.glob(["../../story-archive/jcode-day01-03.md", "../../story-archive/jcode-day04-06.md", "../../story-archive/jcode-day07-10.md", "../../story-archive/jcode-day11-13.md", "../../story-archive/jcode-day14-16.md", "../../story-archive/jcode-day17-18.md", "../../story-archive/jcode-day19-20.md", "../../story-archive/jcode-day21-31-complete.md"], { eager: true, query: "?raw", import: "default" }) as Record<string, string>;
 const optionPattern = /^([AB])[.｜]「(.*)」(?:\s+心动 \+(\d+))?$/;
 const mergePattern = /^(?:### 分支汇合|【共同剧情】|(?:——|### )两组选项后|——(?:竞猜|兑奖)后继续|### 玩家固定回答)/;
 const structuralPattern = /^(?:### (?:分支汇合|选择[一二三]（A\/B）)|固定(?:回答|回复)[一二三四]$|本日伏笔：|> 本日|【(?:旁白|面对面场景|玩家选项|共同剧情)】|玩家选项：|(?:### )?玩家选择[一二三]|选择[一二三]：|——两组选项后|### (?:两组选项后|剧情继续)|---$|（A\/B 两条分支汇合后）$)/;

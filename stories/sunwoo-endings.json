@@ -1,0 +1,5342 @@
+{
+  "together": {
+    "day": 31,
+    "title": "等你走过来",
+    "schedule": "12月31日 · 23:35 · 霍格沃茨塔楼露台",
+    "time": "23:35",
+    "place": "霍格沃茨塔楼露台",
+    "beats": [
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "今年的最后一个夜晚，霍格沃茨比平时更加热闹。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 6
+            }
+          },
+          {
+            "body": "礼堂里正在举行跨年庆祝活动，画像们难得没有因为走廊里的喧闹而抱怨，甚至有人跟着远处传来的音乐唱起歌。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 8
+            }
+          },
+          {
+            "body": "夜色中的城堡亮着温暖的灯光。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 10
+            }
+          },
+          {
+            "body": "你沿着约定好的楼梯走去。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 12
+            }
+          },
+          {
+            "body": "穿过最后一道石门，便来到了塔楼露台。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 14
+            }
+          },
+          {
+            "body": "金善旴已经站在那里。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 16
+            }
+          },
+          {
+            "body": "他穿着深色外套，围巾松松地搭在肩上，正低头调整一只黄铜望远镜。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 18
+            }
+          },
+          {
+            "body": "听见脚步声，他回过头。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 20
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}！",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 22
+            }
+          },
+          {
+            "body": "他直起身，脸上立刻出现笑意。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 24
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "来了？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 26
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你又提前到了？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 28
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没有多久。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 30
+            }
+          },
+          {
+            "body": "他说完，看见你的表情，自己先笑起来。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 32
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "好吧。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 34
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这次确实提前了。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 36
+            }
+          },
+          {
+            "body": "他朝露台边缘走去，示意你跟上。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 38
+            }
+          },
+          {
+            "body": "从这里望出去，城堡的尖塔在夜色里连成一片，远处的黑湖泛着微弱的银光。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 40
+            }
+          },
+          {
+            "body": "空中飘着很细的雪。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 42
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "怎么样？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 44
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这个位置不错吧？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 46
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "还真被你找到了这么好的地方。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 49
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "那当然。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 51
+                }
+              },
+              {
+                "body": "他扬起眉。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 53
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我不是答应你了吗？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 55
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你还挺得意。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 57
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "因为你夸我了啊。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 59
+                }
+              },
+              {
+                "body": "他笑着站到你旁边。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 61
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "难得听见一次。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 63
+                }
+              }
+            ]
+          },
+          {
+            "body": "这里真的很漂亮。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 65
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 67
+                }
+              },
+              {
+                "body": "他望着远处的城堡。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 69
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我之前来的时候就觉得，这里应该能看见全部烟火。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你一个人来的？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 73
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 75
+                }
+              },
+              {
+                "body": "他侧过头。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 77
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "不过现在不是了。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 79
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "金善旴将望远镜往旁边挪了挪。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 82
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你来看。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 84
+            }
+          },
+          {
+            "body": "你俯身望向镜片。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 86
+            }
+          },
+          {
+            "body": "远处礼堂的窗户透着明亮的光，有几名学生正穿过庭院，朝能够看见烟火的地方跑去。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 88
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "他们也出来看烟火了。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 90
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 92
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "估计再过一会儿，这里也会有人。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 94
+            }
+          },
+          {
+            "body": "他低头看了眼手表。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 96
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "还剩十几分钟。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 98
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你刚才不是说有件事要告诉我吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 100
+            }
+          },
+          {
+            "body": "金善旴将目光从表盘移到你脸上。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 102
+            }
+          },
+          {
+            "body": "他没有立刻回答。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 104
+            }
+          },
+          {
+            "body": "只是笑了一下。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 106
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "记性这么好？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 108
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是你自己说的。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 110
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我知道。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 112
+            }
+          },
+          {
+            "body": "他伸手将望远镜轻轻转向远处。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 114
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "那再等一下。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 116
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我想先跟你看完今年最后一场烟火。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 118
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处传来钟楼的声音。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 122
+            }
+          },
+          {
+            "body": "城堡里的灯光渐渐暗了一些。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 124
+            }
+          },
+          {
+            "body": "你知道，烟火即将开始。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 126
+            }
+          },
+          {
+            "body": "金善旴靠在石栏旁，忽然低下头笑了一声。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 128
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "怎么了？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 130
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没什么。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 132
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "就是突然想起之前那张被风吹走的羊皮纸。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 134
+            }
+          },
+          {
+            "body": "你也笑了起来。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 136
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你怎么到现在还惦记着它？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 138
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "因为真的挺有意思的啊。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 140
+            }
+          },
+          {
+            "body": "他转头看向你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 142
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "要是那天风没那么大。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 144
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我们现在可能就不会站在这里。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 146
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "也不一定。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 148
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 150
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "说不定我们还是会认识。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 153
+            },
+            "lines": [
+              {
+                "body": "金善旴看着你，忽然笑了。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 155
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "你还挺有信心。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 157
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你不是也挺爱到处跑吗？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 159
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "也是。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 161
+                }
+              },
+              {
+                "body": "他稍稍低下头。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 163
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "那要真是这样，我可能会想早点碰见你。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 165
+                }
+              }
+            ]
+          },
+          {
+            "body": "那你还真应该感谢那阵风。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 167
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "已经感谢过了。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 169
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "什么时候？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 171
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "刚才。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 173
+                }
+              },
+              {
+                "body": "他笑着朝远处扬了扬下巴。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 175
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "上来的路上，风特别大。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 177
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我就想，还好以前有一次风吹得挺对。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 179
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处的人群开始倒数。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 182
+            }
+          },
+          {
+            "body": "十。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 184
+            }
+          },
+          {
+            "body": "九。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 186
+            }
+          },
+          {
+            "body": "八。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 188
+            }
+          },
+          {
+            "body": "金善旴抬头望向天空。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 190
+            }
+          },
+          {
+            "body": "七。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 192
+            }
+          },
+          {
+            "body": "六。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 194
+            }
+          },
+          {
+            "body": "五。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 196
+            }
+          },
+          {
+            "body": "他忽然偏过头。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 198
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 200
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 202
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "新年快乐。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 204
+            }
+          },
+          {
+            "body": "倒数声仍在继续。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 206
+            }
+          },
+          {
+            "body": "三。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 208
+            }
+          },
+          {
+            "body": "二。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 210
+            }
+          },
+          {
+            "body": "一。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 212
+            }
+          },
+          {
+            "body": "下一秒，第一束烟火在黑湖上空绽开。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 214
+            }
+          },
+          {
+            "body": "银色光芒照亮了整片夜空。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 216
+            }
+          },
+          {
+            "body": "紧接着是金色、蓝色，还有像流星一样向四周散开的细小火花。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 218
+            }
+          },
+          {
+            "body": "人群的欢呼声从城堡下方传来。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 220
+            }
+          },
+          {
+            "body": "金善旴抬起头，眼睛里映着明亮的光。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 222
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "哇。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 224
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "真的挺漂亮。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 226
+            }
+          },
+          {
+            "body": "你看向他。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 228
+            }
+          },
+          {
+            "body": "他正好也转头看你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 230
+            }
+          },
+          {
+            "body": "那一瞬间，你们都笑了。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 232
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "看我干嘛？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 234
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "不是你说要我叫你看烟火吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 236
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "哦，对。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 238
+            }
+          },
+          {
+            "body": "他笑着重新望向天空。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 240
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "差点忘了。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 242
+            }
+          },
+          {
+            "body": "烟火仍在不断升起。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 244
+            }
+          },
+          {
+            "body": "又一束金色火光划过天空时，金善旴忽然开口。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 246
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "其实有句话。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 248
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我想亲口跟你说。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 250
+            }
+          },
+          {
+            "body": "这一次，金善旴没有急着开玩笑。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 252
+            }
+          },
+          {
+            "body": "也没有故意转移话题。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 254
+            }
+          },
+          {
+            "body": "他转过身，认真地看着你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 256
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 258
+            }
+          },
+          {
+            "body": "他的声音轻了一点。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 260
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "认识你以后，我觉得这个冬天变得特别好玩。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 262
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "原本很普通的事情，好像也都变得不太一样。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 264
+            }
+          },
+          {
+            "body": "他笑了。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 266
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "所以我想问你一件事。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 268
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "以后，还愿意跟我一起过这样的日子吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 270
+            }
+          },
+          {
+            "body": "烟火映亮了他身后的天空。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 272
+            }
+          },
+          {
+            "body": "他安静地等着你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 274
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你看着金善旴。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 278
+            }
+          },
+          {
+            "body": "他明明是平时最爱开玩笑的人，此刻却认真得让你有些不习惯。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 280
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "金善旴。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 282
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 284
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你刚才说的，是我想的那个意思吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 286
+            }
+          },
+          {
+            "body": "他先是一愣，随后笑起来。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 288
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你想的哪个意思？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 290
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你明明知道。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 292
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 294
+            }
+          },
+          {
+            "body": "他点了点头。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 296
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "知道。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 298
+            }
+          },
+          {
+            "body": "烟火在他身后的夜空中绽放。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 300
+            }
+          },
+          {
+            "body": "金善旴看着你，嘴角仍带着一点笑意。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 302
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "本来还想再逗你一下的。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 304
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "不过算了。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 306
+            }
+          },
+          {
+            "body": "他稍稍低下头，认真地望着你的眼睛。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 308
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}，我喜欢你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 310
+            }
+          },
+          {
+            "body": "他说完，安静了一瞬，又忍不住笑起来。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 312
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "怎么办，真的说出来以后，好像比想象中还紧张。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 314
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你也会紧张？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 316
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "当然会啊。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 318
+            }
+          },
+          {
+            "body": "他看着你，声音轻了一点。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 320
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "因为是你嘛。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 322
+            }
+          },
+          {
+            "body": "远处又升起一束金色烟火。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 324
+            }
+          },
+          {
+            "body": "金善旴没有移开视线。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 326
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "所以……",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 328
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你愿意和我在一起吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 330
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "我愿意。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 334
+            },
+            "lines": [
+              {
+                "body": "金善旴愣了一下。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 336
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "……真的？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 338
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 340
+                }
+              },
+              {
+                "body": "他忽然笑得眼睛都弯起来。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 342
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "等一下。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 344
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我现在有点太开心了。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 346
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你刚才不是还挺镇定的吗？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 348
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "装的啊。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 350
+                }
+              },
+              {
+                "body": "他笑着低下头。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 352
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "差点就装不下去了。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 354
+                }
+              }
+            ]
+          },
+          {
+            "body": "你怎么现在才问啊？",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 356
+            },
+            "lines": [
+              {
+                "body": "金善旴愣了一下。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 358
+                }
+              },
+              {
+                "body": "随后，他忽然笑起来。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 360
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "什么意思？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 362
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你说呢？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 364
+                }
+              },
+              {
+                "body": "他看着你，眼睛慢慢弯起来。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 366
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "所以你愿意？",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 368
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 370
+                }
+              },
+              {
+                "body": "金善旴低下头，忍不住笑了一声。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 372
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "早知道我就早点问了。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 374
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "现在也不晚。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 376
+                }
+              },
+              {
+                "body": "他抬起头，望着你。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 378
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 380
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "还好没错过。",
+                "source": {
+                  "file": "sunwoo-day31-lover-full.md",
+                  "line": 382
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "最后一束烟火在天空中慢慢散开。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 386
+            }
+          },
+          {
+            "body": "金善旴站在你面前，忽然伸手捂住了半张脸。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 388
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你干什么？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 390
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没有。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 392
+            }
+          },
+          {
+            "body": "他从指缝里看你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 394
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "就是突然有点高兴。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 396
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "有那么高兴？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 398
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "有。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 400
+            }
+          },
+          {
+            "body": "他放下手。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 402
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "特别高兴。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 404
+            }
+          },
+          {
+            "body": "你们相视而笑。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 406
+            }
+          },
+          {
+            "body": "过了一会儿，他轻轻朝你伸出手。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 408
+            }
+          },
+          {
+            "body": "你握住。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 410
+            }
+          },
+          {
+            "body": "这一次，他没有急着拉你离开，而是低头看了一眼你们交握的手。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 412
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "以后可怎么办啊。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 414
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "怎么了？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 416
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "以后上课、训练、吃饭的时候……",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 418
+            }
+          },
+          {
+            "body": "他笑着抬起头。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 420
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我估计会一直想你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 422
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你现在不是已经这样了吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 424
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "……",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 426
+            }
+          },
+          {
+            "body": "他怔了一下。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 428
+            }
+          },
+          {
+            "body": "随后笑出了声。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 430
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "好像也是。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 432
+            }
+          },
+          {
+            "body": "夜风从塔楼边缘吹过。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 434
+            }
+          },
+          {
+            "body": "金善旴伸手替你拢了拢肩上的衣服。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 436
+            }
+          },
+          {
+            "body": "他低头看着你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 438
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 440
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 442
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "新年第一天，可以亲一下我女朋友吗？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 444
+            }
+          },
+          {
+            "body": "你忍不住笑起来。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 446
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "可以。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 448
+            }
+          },
+          {
+            "body": "他轻轻低下头。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 450
+            }
+          },
+          {
+            "body": "这一次，他吻在你的唇上。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 452
+            }
+          },
+          {
+            "body": "很轻，却没有像平安夜那样匆匆退开。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 454
+            }
+          },
+          {
+            "body": "当你们重新分开时，远处恰好又升起一束迟来的金色烟火。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 456
+            }
+          },
+          {
+            "body": "金善旴低头笑了一声。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 458
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "看来今年运气真的很好。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 460
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "为什么？",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 462
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "因为喜欢的人也喜欢我啊。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 464
+            }
+          },
+          {
+            "body": "他握着你的手，朝塔楼下方的灯光望去。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 466
+            }
+          },
+          {
+            "body": "那个曾经被风吹走战术图的少年，如今站在你身边。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 468
+            }
+          },
+          {
+            "body": "他依然喜欢开玩笑，依然有些得意，依然会故意逗你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 470
+            }
+          },
+          {
+            "body": "只是以后，他不再需要找任何借口与你见面。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 472
+            }
+          },
+          {
+            "body": "风曾把一张羊皮纸送到你面前，而从今往后，金善旴会亲自走向你。",
+            "source": {
+              "file": "sunwoo-day31-lover-full.md",
+              "line": 476
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "clue",
+        "channel": "scene",
+        "time": "00:05",
+        "place": "霍格沃茨塔楼露台",
+        "clue": {
+          "id": "sunwoo-31-together",
+          "title": "等你走过来",
+          "body": "风曾把一张羊皮纸送到你面前，而从今往后，金善旴会亲自走向你。",
+          "unlocked": true
+        }
+      }
+    ],
+    "ending": {
+      "kind": "together",
+      "title": "等你走过来",
+      "text": "风曾把一张羊皮纸送到你面前，而从今往后，金善旴会亲自走向你。"
+    }
+  },
+  "friends": {
+    "day": 31,
+    "title": "还会一起看雪",
+    "schedule": "12月31日 · 23:35 · 霍格沃茨塔楼露台",
+    "time": "23:35",
+    "place": "霍格沃茨塔楼露台",
+    "beats": [
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "今年的最后一个夜晚，霍格沃茨比平时更加热闹。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 13
+            }
+          },
+          {
+            "body": "礼堂里正在举行跨年庆祝活动，画像们难得没有因为走廊里的喧闹而抱怨，甚至有人跟着远处传来的音乐唱起歌。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 15
+            }
+          },
+          {
+            "body": "夜色中的城堡亮着温暖的灯光。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 17
+            }
+          },
+          {
+            "body": "你沿着约定好的楼梯走去。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 19
+            }
+          },
+          {
+            "body": "穿过最后一道石门，便来到了塔楼露台。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 21
+            }
+          },
+          {
+            "body": "金善旴已经站在那里。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 23
+            }
+          },
+          {
+            "body": "他穿着深色外套，围巾松松地搭在肩上，正低头调整一只黄铜望远镜。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 25
+            }
+          },
+          {
+            "body": "听见脚步声，他回过头。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 27
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}！",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 29
+            }
+          },
+          {
+            "body": "他直起身，脸上立刻出现笑意。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 33
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "来了？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 35
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你又提前到了？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 37
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没有多久。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 39
+            }
+          },
+          {
+            "body": "他说完，看见你的表情，自己先笑起来。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 43
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "好吧。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 45
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这次确实提前了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 47
+            }
+          },
+          {
+            "body": "他朝露台边缘走去，示意你跟上。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 51
+            }
+          },
+          {
+            "body": "从这里望出去，城堡的尖塔在夜色里连成一片，远处的黑湖泛着微弱的银光。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 53
+            }
+          },
+          {
+            "body": "空中飘着很细的雪。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 55
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "怎么样？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 57
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这个位置不错吧？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 59
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "还真被你找到了这么好的地方。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 63
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "那当然。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 65
+                }
+              },
+              {
+                "body": "他扬起眉。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 69
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我不是答应你了吗？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你还挺得意。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 73
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "因为你夸我了啊。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 75
+                }
+              },
+              {
+                "body": "他笑着站到你旁边。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 79
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "难得听见一次。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 81
+                }
+              }
+            ]
+          },
+          {
+            "body": "这里真的很漂亮。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 83
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 85
+                }
+              },
+              {
+                "body": "他望着远处的城堡。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 89
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我之前来的时候就觉得，这里应该能看见全部烟火。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 91
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你一个人来的？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 93
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 95
+                }
+              },
+              {
+                "body": "他侧过头。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 99
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "不过现在不是了。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 101
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "金善旴将望远镜往旁边挪了挪。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 107
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你来看。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 109
+            }
+          },
+          {
+            "body": "你俯身望向镜片。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 113
+            }
+          },
+          {
+            "body": "远处礼堂的窗户透着明亮的光，有几名学生正穿过庭院，朝能够看见烟火的地方跑去。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 115
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "他们也出来看烟火了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 117
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 119
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "估计再过一会儿，这里也会有人。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 121
+            }
+          },
+          {
+            "body": "他低头看了眼手表。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "还剩十几分钟。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 127
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你刚才不是说有件事要告诉我吗？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 129
+            }
+          },
+          {
+            "body": "金善旴将目光从表盘移到你脸上。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 133
+            }
+          },
+          {
+            "body": "他没有立刻回答。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 135
+            }
+          },
+          {
+            "body": "只是笑了一下。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 137
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "记性这么好？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 139
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是你自己说的。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 141
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我知道。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 143
+            }
+          },
+          {
+            "body": "他伸手将望远镜轻轻转向远处。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 147
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "那再等一下。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 149
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我想先跟你看完今年最后一场烟火。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 151
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处传来钟楼的声音。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 157
+            }
+          },
+          {
+            "body": "城堡里的灯光渐渐暗了一些。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 159
+            }
+          },
+          {
+            "body": "你知道，烟火即将开始。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 161
+            }
+          },
+          {
+            "body": "金善旴靠在石栏旁，忽然低下头笑了一声。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 163
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "怎么了？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 165
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没什么。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 167
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "就是突然想起之前那张被风吹走的羊皮纸。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 169
+            }
+          },
+          {
+            "body": "你也笑了起来。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 173
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你怎么到现在还惦记着它？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 175
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "因为真的挺有意思的啊。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 177
+            }
+          },
+          {
+            "body": "他转头看向你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 181
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "要是那天风没那么大。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 183
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我们现在可能就不会站在这里。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 185
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "也不一定。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 187
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 189
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "说不定我们还是会认识。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 193
+            },
+            "lines": [
+              {
+                "body": "金善旴看着你，忽然笑了。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 197
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "你还挺有信心。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 199
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你不是也挺爱到处跑吗？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 201
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "也是。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 203
+                }
+              },
+              {
+                "body": "他稍稍低下头。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 207
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "那要真是这样，我可能会想早点碰见你。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 209
+                }
+              }
+            ]
+          },
+          {
+            "body": "那你还真应该感谢那阵风。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 211
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "已经感谢过了。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 213
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "什么时候？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 215
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "刚才。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 217
+                }
+              },
+              {
+                "body": "他笑着朝远处扬了扬下巴。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 221
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "上来的路上，风特别大。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 223
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我就想，还好以前有一次风吹得挺对。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 225
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处的人群开始倒数。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 231
+            }
+          },
+          {
+            "body": "十。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 233
+            }
+          },
+          {
+            "body": "九。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 235
+            }
+          },
+          {
+            "body": "八。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 237
+            }
+          },
+          {
+            "body": "金善旴抬头望向天空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 239
+            }
+          },
+          {
+            "body": "七。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 241
+            }
+          },
+          {
+            "body": "六。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 243
+            }
+          },
+          {
+            "body": "五。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 245
+            }
+          },
+          {
+            "body": "他忽然偏过头。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 247
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 249
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 251
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "新年快乐。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 253
+            }
+          },
+          {
+            "body": "倒数声仍在继续。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 257
+            }
+          },
+          {
+            "body": "三。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 259
+            }
+          },
+          {
+            "body": "二。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 261
+            }
+          },
+          {
+            "body": "一。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 263
+            }
+          },
+          {
+            "body": "下一秒，第一束烟火在黑湖上空绽开。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 265
+            }
+          },
+          {
+            "body": "银色光芒照亮了整片夜空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 267
+            }
+          },
+          {
+            "body": "紧接着是金色、蓝色，还有像流星一样向四周散开的细小火花。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 269
+            }
+          },
+          {
+            "body": "人群的欢呼声从城堡下方传来。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 271
+            }
+          },
+          {
+            "body": "金善旴抬起头，眼睛里映着明亮的光。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 273
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "哇。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 275
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "真的挺漂亮。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 277
+            }
+          },
+          {
+            "body": "你看向他。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 281
+            }
+          },
+          {
+            "body": "他正好也转头看你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 283
+            }
+          },
+          {
+            "body": "那一瞬间，你们都笑了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 285
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "看我干嘛？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 287
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "不是你说要我叫你看烟火吗？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 289
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "哦，对。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 291
+            }
+          },
+          {
+            "body": "他笑着重新望向天空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 295
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "差点忘了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 297
+            }
+          },
+          {
+            "body": "烟火仍在不断升起。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 301
+            }
+          },
+          {
+            "body": "又一束金色火光划过天空时，金善旴忽然开口。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 303
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "其实有句话。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 305
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我想亲口跟你说。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 307
+            }
+          },
+          {
+            "body": "这一次，金善旴没有急着开玩笑。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 311
+            }
+          },
+          {
+            "body": "也没有故意转移话题。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 313
+            }
+          },
+          {
+            "body": "他转过身，认真地看着你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 315
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 317
+            }
+          },
+          {
+            "body": "他的声音轻了一点。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 321
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "认识你以后，我觉得这个冬天变得特别好玩。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 323
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "原本很普通的事情，好像也都变得不太一样。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 325
+            }
+          },
+          {
+            "body": "他笑了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 329
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "所以我想问你一件事。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 331
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "以后，还愿意跟我一起过这样的日子吗？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 333
+            }
+          },
+          {
+            "body": "烟火映亮了他身后的天空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 337
+            }
+          },
+          {
+            "body": "他安静地等着你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 339
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你望着金善旴。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 9
+            }
+          },
+          {
+            "body": "烟火照亮了他的侧脸。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 11
+            }
+          },
+          {
+            "body": "他说完那句话以后，没有催促你。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 13
+            }
+          },
+          {
+            "body": "只是站在原地，安静地看着你。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 15
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "善旴。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 17
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 19
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "我很喜欢跟你待在一起。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 21
+            }
+          },
+          {
+            "body": "他笑了一下。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 25
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我知道啊。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 27
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "但是……",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 29
+            }
+          },
+          {
+            "body": "你停顿了片刻。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 33
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "我想，我们还是做朋友比较好。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 35
+            }
+          },
+          {
+            "body": "金善旴安静了两秒。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 39
+            }
+          },
+          {
+            "body": "他低下头，看了一眼栏杆边缘落下的雪。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 41
+            }
+          },
+          {
+            "body": "随后重新抬头。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 43
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这样啊。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 45
+            }
+          },
+          {
+            "body": "他笑了笑。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 49
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "好。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 51
+            }
+          },
+          {
+            "body": "你有些意外。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 55
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你不问为什么吗？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 57
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "为什么要问？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 59
+            }
+          },
+          {
+            "body": "他望着你。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 63
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你都认真告诉我了。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 65
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我也应该认真听啊。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 67
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "我不希望以后见面变得尴尬。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 71
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "我也不希望。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 73
+                }
+              },
+              {
+                "body": "他笑着靠回栏杆。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 77
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "不过你也别期待我以后会变得特别安静。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 79
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "我本来也没期待。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 81
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "那就好。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 83
+                }
+              },
+              {
+                "body": "他轻轻笑了一声。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 87
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "不然我还真不知道该怎么跟你相处了。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 89
+                }
+              }
+            ]
+          },
+          {
+            "body": "谢谢你愿意听我说完。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 91
+            },
+            "lines": [
+              {
+                "body": "金善旴怔了一下。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 95
+                }
+              },
+              {
+                "body": "随后笑了。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 97
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "你怎么突然这么客气？",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 99
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "因为我怕你会难过。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 101
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "会有一点吧。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 103
+                }
+              },
+              {
+                "body": "他没有否认。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 107
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "不过没关系。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 109
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "这是我的事，你不用替我决定该怎么难过。",
+                "source": {
+                  "file": "sunwoo-day31-friends-full.md",
+                  "line": 111
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "最后几束烟火缓缓落下。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 117
+            }
+          },
+          {
+            "body": "远处仍然有人欢呼。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 119
+            }
+          },
+          {
+            "body": "金善旴从栏杆旁站直，轻轻拍掉袖口上的雪。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 121
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "对了。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 123
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "什么？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我之前说，下次比赛还想让你来看。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 127
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 129
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "那句话还算数吧？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 131
+            }
+          },
+          {
+            "body": "你看着他。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 135
+            }
+          },
+          {
+            "body": "他笑了笑。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 137
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "不然我以后赢了比赛，都没人听我吹牛了。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 139
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "不是还有英宰他们？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 141
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "他们只会叫我闭嘴。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 143
+            }
+          },
+          {
+            "body": "你忍不住笑起来。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 147
+            }
+          },
+          {
+            "body": "金善旴也笑了。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 149
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "所以你要来啊。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 151
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "好。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 153
+            }
+          },
+          {
+            "body": "夜色中的城堡逐渐恢复安静。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 157
+            }
+          },
+          {
+            "body": "金善旴将书包背好，转身准备下楼。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 159
+            }
+          },
+          {
+            "body": "走出几步时，他突然回头。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 161
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 163
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 165
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我刚才说喜欢你那件事。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 167
+            }
+          },
+          {
+            "body": "他笑着看向你。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 171
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你不用当成什么很麻烦的事情。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 173
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我说出来，是因为我想让你知道。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 175
+            }
+          },
+          {
+            "body": "他停顿一下。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 179
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "不是为了让你欠我一个答案。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 181
+            }
+          },
+          {
+            "body": "你轻轻点头。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 185
+            }
+          },
+          {
+            "body": "金善旴走到石门前，将门推开。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 187
+            }
+          },
+          {
+            "body": "温暖的灯光落在他的肩上。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 189
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "走吧。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 191
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "外面冷。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 193
+            }
+          },
+          {
+            "body": "你们一前一后走下塔楼。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 197
+            }
+          },
+          {
+            "body": "走廊里，他又开始和你讨论下次魁地奇比赛的战术，还认真保证这次绝对不会把羊皮纸弄丢。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 199
+            }
+          },
+          {
+            "body": "你笑着反驳。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 201
+            }
+          },
+          {
+            "body": "金善旴也笑。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 203
+            }
+          },
+          {
+            "body": "你知道，有些关系不会因为一次拒绝，就失去所有曾经的快乐。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 205
+            }
+          },
+          {
+            "body": "那些一起看过的雪、说过的话、交换过的玩笑，都是真实存在过的。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 207
+            }
+          },
+          {
+            "body": "只是最后，它们停留在了另一种位置。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 209
+            }
+          },
+          {
+            "body": "往后每一场初雪，你们仍然可以并肩看，只是不再等待同一个答案。",
+            "source": {
+              "file": "sunwoo-day31-friends-full.md",
+              "line": 213
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "塔楼露台"
+      },
+      {
+        "kind": "clue",
+        "channel": "scene",
+        "time": "00:05",
+        "place": "霍格沃茨塔楼露台",
+        "clue": {
+          "id": "sunwoo-31-friends",
+          "title": "还会一起看雪",
+          "body": "往后每一场初雪，你们仍然可以并肩看，只是不再等待同一个答案。",
+          "unlocked": true
+        }
+      }
+    ],
+    "ending": {
+      "kind": "friends",
+      "title": "还会一起看雪",
+      "text": "往后每一场初雪，你们仍然可以并肩看，只是不再等待同一个答案。"
+    }
+  },
+  "unspoken": {
+    "day": 31,
+    "title": "好像差一点",
+    "schedule": "12月31日 · 23:35 · 霍格沃茨塔楼露台",
+    "time": "23:35",
+    "place": "霍格沃茨塔楼露台",
+    "beats": [
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "今年的最后一个夜晚，霍格沃茨比平时更加热闹。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 13
+            }
+          },
+          {
+            "body": "礼堂里正在举行跨年庆祝活动，画像们难得没有因为走廊里的喧闹而抱怨，甚至有人跟着远处传来的音乐唱起歌。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 15
+            }
+          },
+          {
+            "body": "夜色中的城堡亮着温暖的灯光。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 17
+            }
+          },
+          {
+            "body": "你沿着约定好的楼梯走去。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 19
+            }
+          },
+          {
+            "body": "穿过最后一道石门，便来到了塔楼露台。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 21
+            }
+          },
+          {
+            "body": "金善旴已经站在那里。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 23
+            }
+          },
+          {
+            "body": "他穿着深色外套，围巾松松地搭在肩上，正低头调整一只黄铜望远镜。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 25
+            }
+          },
+          {
+            "body": "听见脚步声，他回过头。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 27
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}！",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 29
+            }
+          },
+          {
+            "body": "他直起身，脸上立刻出现笑意。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 33
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "来了？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 35
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你又提前到了？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 37
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没有多久。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 39
+            }
+          },
+          {
+            "body": "他说完，看见你的表情，自己先笑起来。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 43
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "好吧。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 45
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这次确实提前了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 47
+            }
+          },
+          {
+            "body": "他朝露台边缘走去，示意你跟上。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 51
+            }
+          },
+          {
+            "body": "从这里望出去，城堡的尖塔在夜色里连成一片，远处的黑湖泛着微弱的银光。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 53
+            }
+          },
+          {
+            "body": "空中飘着很细的雪。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 55
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "怎么样？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 57
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "这个位置不错吧？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 59
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "还真被你找到了这么好的地方。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 63
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "那当然。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 65
+                }
+              },
+              {
+                "body": "他扬起眉。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 69
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我不是答应你了吗？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你还挺得意。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 73
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "因为你夸我了啊。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 75
+                }
+              },
+              {
+                "body": "他笑着站到你旁边。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 79
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "难得听见一次。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 81
+                }
+              }
+            ]
+          },
+          {
+            "body": "这里真的很漂亮。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 83
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 85
+                }
+              },
+              {
+                "body": "他望着远处的城堡。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 89
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我之前来的时候就觉得，这里应该能看见全部烟火。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 91
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你一个人来的？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 93
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 95
+                }
+              },
+              {
+                "body": "他侧过头。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 99
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "不过现在不是了。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 101
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "金善旴将望远镜往旁边挪了挪。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 107
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "你来看。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 109
+            }
+          },
+          {
+            "body": "你俯身望向镜片。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 113
+            }
+          },
+          {
+            "body": "远处礼堂的窗户透着明亮的光，有几名学生正穿过庭院，朝能够看见烟火的地方跑去。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 115
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "他们也出来看烟火了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 117
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 119
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "估计再过一会儿，这里也会有人。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 121
+            }
+          },
+          {
+            "body": "他低头看了眼手表。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "还剩十几分钟。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 127
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你刚才不是说有件事要告诉我吗？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 129
+            }
+          },
+          {
+            "body": "金善旴将目光从表盘移到你脸上。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 133
+            }
+          },
+          {
+            "body": "他没有立刻回答。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 135
+            }
+          },
+          {
+            "body": "只是笑了一下。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 137
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "记性这么好？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 139
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是你自己说的。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 141
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我知道。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 143
+            }
+          },
+          {
+            "body": "他伸手将望远镜轻轻转向远处。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 147
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "那再等一下。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 149
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我想先跟你看完今年最后一场烟火。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 151
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:35",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处传来钟楼的声音。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 157
+            }
+          },
+          {
+            "body": "城堡里的灯光渐渐暗了一些。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 159
+            }
+          },
+          {
+            "body": "你知道，烟火即将开始。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 161
+            }
+          },
+          {
+            "body": "金善旴靠在石栏旁，忽然低下头笑了一声。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 163
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "怎么了？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 165
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "没什么。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 167
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "就是突然想起之前那张被风吹走的羊皮纸。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 169
+            }
+          },
+          {
+            "body": "你也笑了起来。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 173
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你怎么到现在还惦记着它？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 175
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "因为真的挺有意思的啊。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 177
+            }
+          },
+          {
+            "body": "他转头看向你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 181
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "要是那天风没那么大。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 183
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我们现在可能就不会站在这里。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 185
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "也不一定。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 187
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 189
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "说不定我们还是会认识。",
+            "affinity": 2,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 193
+            },
+            "lines": [
+              {
+                "body": "金善旴看着你，忽然笑了。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 197
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "你还挺有信心。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 199
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你不是也挺爱到处跑吗？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 201
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "也是。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 203
+                }
+              },
+              {
+                "body": "他稍稍低下头。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 207
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "那要真是这样，我可能会想早点碰见你。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 209
+                }
+              }
+            ]
+          },
+          {
+            "body": "那你还真应该感谢那阵风。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 211
+            },
+            "lines": [
+              {
+                "speaker": "金善旴",
+                "body": "已经感谢过了。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 213
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "什么时候？",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 215
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "刚才。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 217
+                }
+              },
+              {
+                "body": "他笑着朝远处扬了扬下巴。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 221
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "上来的路上，风特别大。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 223
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "我就想，还好以前有一次风吹得挺对。",
+                "source": {
+                  "file": "sunwoo-day31-common-full.md",
+                  "line": 225
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处的人群开始倒数。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 231
+            }
+          },
+          {
+            "body": "十。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 233
+            }
+          },
+          {
+            "body": "九。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 235
+            }
+          },
+          {
+            "body": "八。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 237
+            }
+          },
+          {
+            "body": "金善旴抬头望向天空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 239
+            }
+          },
+          {
+            "body": "七。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 241
+            }
+          },
+          {
+            "body": "六。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 243
+            }
+          },
+          {
+            "body": "五。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 245
+            }
+          },
+          {
+            "body": "他忽然偏过头。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 247
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 249
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 251
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "新年快乐。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 253
+            }
+          },
+          {
+            "body": "倒数声仍在继续。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 257
+            }
+          },
+          {
+            "body": "三。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 259
+            }
+          },
+          {
+            "body": "二。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 261
+            }
+          },
+          {
+            "body": "一。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 263
+            }
+          },
+          {
+            "body": "下一秒，第一束烟火在黑湖上空绽开。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 265
+            }
+          },
+          {
+            "body": "银色光芒照亮了整片夜空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 267
+            }
+          },
+          {
+            "body": "紧接着是金色、蓝色，还有像流星一样向四周散开的细小火花。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 269
+            }
+          },
+          {
+            "body": "人群的欢呼声从城堡下方传来。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 271
+            }
+          },
+          {
+            "body": "金善旴抬起头，眼睛里映着明亮的光。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 273
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "哇。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 275
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "真的挺漂亮。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 277
+            }
+          },
+          {
+            "body": "你看向他。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 281
+            }
+          },
+          {
+            "body": "他正好也转头看你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 283
+            }
+          },
+          {
+            "body": "那一瞬间，你们都笑了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 285
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "看我干嘛？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 287
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "不是你说要我叫你看烟火吗？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 289
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "哦，对。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 291
+            }
+          },
+          {
+            "body": "他笑着重新望向天空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 295
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "差点忘了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 297
+            }
+          },
+          {
+            "body": "烟火仍在不断升起。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 301
+            }
+          },
+          {
+            "body": "又一束金色火光划过天空时，金善旴忽然开口。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 303
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "其实有句话。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 305
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我想亲口跟你说。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 307
+            }
+          },
+          {
+            "body": "这一次，金善旴没有急着开玩笑。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 311
+            }
+          },
+          {
+            "body": "也没有故意转移话题。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 313
+            }
+          },
+          {
+            "body": "他转过身，认真地看着你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 315
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 317
+            }
+          },
+          {
+            "body": "他的声音轻了一点。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 321
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "认识你以后，我觉得这个冬天变得特别好玩。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 323
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "原本很普通的事情，好像也都变得不太一样。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 325
+            }
+          },
+          {
+            "body": "他笑了。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 329
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "所以我想问你一件事。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 331
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "以后，还愿意跟我一起过这样的日子吗？",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 333
+            }
+          },
+          {
+            "body": "烟火映亮了他身后的天空。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 337
+            }
+          },
+          {
+            "body": "他安静地等着你。",
+            "source": {
+              "file": "sunwoo-day31-common-full.md",
+              "line": 339
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:55",
+        "place": "霍格沃茨塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你看着金善旴。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 9
+            }
+          },
+          {
+            "body": "他站在栏杆旁，正等着你的回答。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 11
+            }
+          },
+          {
+            "body": "远处又一束烟火升起。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 13
+            }
+          },
+          {
+            "body": "金色的光芒将夜空照得明亮。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 15
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "善旴。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 17
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 19
+            }
+          },
+          {
+            "body": "你张了张口。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 23
+            }
+          },
+          {
+            "body": "原本已经准备好的话，却忽然不知道该从哪里说起。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 25
+            }
+          },
+          {
+            "body": "金善旴安静地等着你。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 27
+            }
+          },
+          {
+            "body": "过了片刻，他突然笑起来。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 29
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "干嘛这么认真？",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 31
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "没有。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 33
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "那就继续看烟火啊。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 35
+            }
+          },
+          {
+            "body": "他说完，重新抬起头。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 39
+            }
+          },
+          {
+            "body": "你也跟着望向夜空。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 41
+            }
+          },
+          {
+            "body": "可那句没来得及说出口的话，仍然停在心里。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 43
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "塔楼露台"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "其实我也有话想对你说。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 47
+            },
+            "lines": [
+              {
+                "body": "金善旴转过头。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 51
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "嗯？",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 53
+                }
+              },
+              {
+                "body": "他望着你，像是真的在等。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 57
+                }
+              },
+              {
+                "body": "你看着他的眼睛。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 59
+                }
+              },
+              {
+                "body": "又一声烟火在空中炸开。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 61
+                }
+              },
+              {
+                "body": "你原本想好的句子，被那突如其来的声响打断。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 63
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "没听清。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 65
+                }
+              },
+              {
+                "body": "他微微靠近了一点。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 69
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "你刚才说什么？",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "……没什么。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 73
+                }
+              },
+              {
+                "body": "金善旴看了你一会儿。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 77
+                }
+              },
+              {
+                "body": "随后轻轻笑了。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 79
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "好。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 81
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "等你想说的时候再说。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 83
+                }
+              }
+            ]
+          },
+          {
+            "body": "烟火真的很好看。",
+            "affinity": 1,
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 85
+            },
+            "lines": [
+              {
+                "body": "金善旴抬头望向天空。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 89
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "嗯。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 91
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "比我之前想的还好看。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 93
+                }
+              },
+              {
+                "body": "他转头看你。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 97
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "还好今天叫你来了。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 99
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "为什么？",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 101
+                }
+              },
+              {
+                "speaker": "金善旴",
+                "body": "因为一个人看，估计没这么有意思。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 103
+                }
+              },
+              {
+                "body": "他笑着重新望向远处。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 107
+                }
+              },
+              {
+                "body": "你没有再问下去。",
+                "source": {
+                  "file": "sunwoo-day31-unspoken-full.md",
+                  "line": 109
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "塔楼露台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "最后一束烟火在黑湖上空绽开。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 115
+            }
+          },
+          {
+            "body": "天空短暂地明亮起来。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 117
+            }
+          },
+          {
+            "body": "随后，所有光芒缓缓消散。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 119
+            }
+          },
+          {
+            "body": "塔楼上重新安静下来。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 121
+            }
+          },
+          {
+            "body": "金善旴望着远处，忽然开口。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 123
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 127
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "其实我刚才想说的话……",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 129
+            }
+          },
+          {
+            "body": "他停顿了一下。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 133
+            }
+          },
+          {
+            "body": "你转头看向他。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 135
+            }
+          },
+          {
+            "body": "金善旴看着远处已经恢复漆黑的天空，忽然笑了。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 137
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "算了。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 139
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "今天先不说了。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 141
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "为什么？",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 143
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "因为今天已经很好了啊。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 145
+            }
+          },
+          {
+            "body": "他转头看你。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 149
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我不想把所有事情都挤在今晚。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 151
+            }
+          },
+          {
+            "body": "你没有继续追问。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 155
+            }
+          },
+          {
+            "body": "金善旴也没有再说。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 157
+            }
+          },
+          {
+            "body": "远处，钟楼再次响起。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 159
+            }
+          },
+          {
+            "body": "新的一年已经开始。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 161
+            }
+          },
+          {
+            "body": "他将望远镜转回原来的位置，低头收拾自己的东西。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 163
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "走吧。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 165
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我送你回去。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 167
+            }
+          },
+          {
+            "body": "你们沿着螺旋楼梯慢慢往下走。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 171
+            }
+          },
+          {
+            "body": "墙上的灯光将两个人的影子拉得很长。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 173
+            }
+          },
+          {
+            "body": "走到一处转角时，金善旴忽然停下。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 175
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "对了。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 177
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "怎么了？",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 179
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "之前那张书签。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 181
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "我一直留着。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 183
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "我知道。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 185
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "嗯。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 187
+            }
+          },
+          {
+            "body": "他笑了一下。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 191
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "就是突然想告诉你。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 193
+            }
+          },
+          {
+            "body": "两人又继续向下走。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 197
+            }
+          },
+          {
+            "body": "到了楼梯分岔处，你们终于停下。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 199
+            }
+          },
+          {
+            "body": "金善旴站在台阶上，转过身看你。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 201
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "新年快乐。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 203
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "新年快乐，善旴。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 205
+            }
+          },
+          {
+            "body": "他向你挥挥手。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 209
+            }
+          },
+          {
+            "speaker": "金善旴",
+            "body": "明天见。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 211
+            }
+          },
+          {
+            "body": "你目送他离开。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 215
+            }
+          },
+          {
+            "body": "直到脚步声消失在走廊尽头，你才低下头，看着自己空空的掌心。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 217
+            }
+          },
+          {
+            "body": "有一瞬间，你很想叫住他。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 219
+            }
+          },
+          {
+            "body": "告诉他，其实今晚你也有一句话没有说。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 221
+            }
+          },
+          {
+            "body": "可最终，你只是站在原地。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 223
+            }
+          },
+          {
+            "body": "听着窗外偶尔传来的余响。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 225
+            }
+          },
+          {
+            "body": "你想起冬天开始时，那张意外飞来的羊皮纸。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 227
+            }
+          },
+          {
+            "body": "那一天，你伸手接住了它。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 229
+            }
+          },
+          {
+            "body": "可在这个冬天的最后一晚，你没能伸手留住另一个瞬间。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 231
+            }
+          },
+          {
+            "body": "那场雪终于落到了故事的最后一页，而你们的名字，始终没有写进同一句话里。",
+            "source": {
+              "file": "sunwoo-day31-unspoken-full.md",
+              "line": 235
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "塔楼露台"
+      },
+      {
+        "kind": "clue",
+        "channel": "scene",
+        "time": "00:05",
+        "place": "霍格沃茨塔楼露台",
+        "clue": {
+          "id": "sunwoo-31-unspoken",
+          "title": "好像差一点",
+          "body": "那场雪终于落到了故事的最后一页，而你们的名字，始终没有写进同一句话里。",
+          "unlocked": true
+        }
+      }
+    ],
+    "ending": {
+      "kind": "unspoken",
+      "title": "好像差一点",
+      "text": "那场雪终于落到了故事的最后一页，而你们的名字，始终没有写进同一句话里。"
+    }
+  }
+}
