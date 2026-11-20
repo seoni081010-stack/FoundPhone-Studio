@@ -9,7 +9,10 @@ export function TruthParchment({ until }: { until?: number }) {
     onCancel={event => event.preventDefault()}>
     <div className="truth-parchment-sheet">
       <img src={`${import.meta.env.BASE_URL}sunwoo-truth-parchment.png`} alt="边缘磨损、微微褶皱的泛黄羊皮纸" />
-      <p style={{ animationDelay: `-${elapsed.current}ms` }}>请勿直接接触墨迹。</p>
+      <div className="truth-parchment-ink" style={{ animationDelay: `-${elapsed.current}ms` }}>
+        <p lang="zh-CN">请勿直接接触墨迹。</p>
+        <p lang="en">Do not touch the ink directly.</p>
+      </div>
     </div>
   </dialog>;
 }

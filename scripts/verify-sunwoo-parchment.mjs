@@ -22,12 +22,15 @@ for (const branch of [0,1]) {
  const saved=()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
  const deadline=(await saved()).truthParchmentUntil;
  assert.ok(deadline>Date.now());
- assert.equal(await modal.locator('p').textContent(),'请勿直接接触墨迹。');
+ assert.equal(await modal.locator('p[lang="zh-CN"]').textContent(),'请勿直接接触墨迹。');
+ assert.equal(await modal.locator('p[lang="en"]').textContent(),'Do not touch the ink directly.');
  assert.equal(await modal.locator('button,.hogwarts-message').count(),0);
  await page.keyboard.press('Escape');assert.ok(await modal.evaluate(el=>el.open));
  await page.waitForTimeout(700);
  assert.ok(await modal.evaluate(el=>el.open));
  assert.ok(await modal.locator('img').evaluate(el=>el.complete&&el.naturalWidth>0));
+ assert.ok(await page.evaluate(()=>document.fonts.check('24px "Parchment Chinese"')&&document.fonts.check('24px "Parchment English"')));
+ assert.equal(await modal.locator('p[lang="zh-CN"]').evaluate(el=>getComputedStyle(el).fontStyle),'italic');
  await page.screenshot({path:`work/parchment-branch-${branch}.png`});
  if(branch===1){
   await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await page.locator('.hogwarts-device-top').waitFor();

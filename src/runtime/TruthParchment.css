@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "Parchment Chinese";
+  src: url("/fonts/parchment-chinese.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Parchment English";
+  src: url("/fonts/parchment-english.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 .truth-parchment {
   border: 0;
   padding: 0;
@@ -12,23 +26,36 @@
 .truth-parchment::backdrop { background: rgb(10 15 18 / 72%); }
 .truth-parchment-sheet { position: relative; width: 100%; }
 .truth-parchment-sheet img { display: block; width: 100%; max-height: 86dvh; object-fit: contain; }
-.truth-parchment-sheet p {
+.truth-parchment-ink {
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 0;
   width: 100%;
-  margin: 0;
-  color: #b7e1cf;
-  font-family: "Noto Serif CJK SC", "Songti SC", "STSong", serif;
-  font-size: clamp(16px, 4.4vw, 23px);
-  font-weight: 500;
-  letter-spacing: .08em;
+  transform: translateY(-50%);
+  color: #416f60;
   text-align: center;
-  white-space: nowrap;
-  text-shadow: 0 0 5px #a5d6c6, 0 0 13px #b8e7d080, 0 1px 2px #355f5080;
+  text-shadow: 0 0 2px rgb(164 206 180 / 22%);
   opacity: 0;
   animation: truth-ink 2500ms ease-in-out both;
   pointer-events: none;
+}
+.truth-parchment-ink p {
+  margin: 0;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.truth-parchment-ink p[lang="zh-CN"] {
+  font-family: "Parchment Chinese", "STKaiti", "KaiTi", cursive;
+  font-style: italic;
+  font-size: clamp(21px, 5.8vw, 29px);
+  letter-spacing: .06em;
+  line-height: 1.55;
+}
+.truth-parchment-ink p[lang="en"] {
+  font-family: "Parchment English", "Brush Script MT", cursive;
+  font-size: clamp(21px, 5.8vw, 29px);
+  line-height: 1.25;
+  margin-top: .2em;
 }
 @keyframes truth-ink {
   0% { opacity: 0; filter: blur(4px); }

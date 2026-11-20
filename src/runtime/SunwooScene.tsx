@@ -34,6 +34,8 @@ export function SunwooScene({progress, update, identityKey, score, player, mailO
   const truthUntil = truthMoment ? progress.truthParchmentUntil : undefined;
   useEffect(() => {
     if (progress.day === 5) {
+      void document.fonts.load('italic 24px "Parchment Chinese"', "请勿直接接触墨迹。");
+      void document.fonts.load('24px "Parchment English"', "Do not touch the ink directly.");
       const image = new Image();
       image.src = `${import.meta.env.BASE_URL}sunwoo-truth-parchment.png`;
     }
