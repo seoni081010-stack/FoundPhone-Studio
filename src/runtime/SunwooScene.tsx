@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { TruthParchment } from "./TruthParchment";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
 import { spendGalleons } from "./MagicalShops";
@@ -27,6 +28,24 @@ export function SunwooScene({progress, update, identityKey, score, player, mailO
   const lines: SunwooLine[] = beat?.kind === "lines" ? beat.lines
     : beat?.kind === "choice" && progress.option !== undefined ? beat.options[progress.option].lines
     : beat?.kind === "team" ? beat.options[progress.team === "斯莱特林" ? 1 : 0] : [];
+  // Keep the existing narration block and cursor numbering, so older saves still resume correctly.
+  const truthMoment = progress.day === 5 && progress.cursor.position === 0
+    && lines[0]?.body === "金善旴将羊皮纸转过来。";
+  const truthUntil = truthMoment ? progress.truthParchmentUntil : undefined;
+  useEffect(() => {
+    if (progress.day === 5) {
+      const image = new Image();
+      image.src = `${import.meta.env.BASE_URL}sunwoo-truth-parchment.png`;
+    }
+  }, [progress.day]);
+  useEffect(() => {
+    if (truthMoment && truthUntil === undefined) update({ truthParchmentUntil: Date.now() + 2500 });
+  }, [truthMoment, truthUntil, update]);
+  useEffect(() => {
+    if (!truthMoment || !truthUntil) return;
+    const timer = window.setTimeout(() => update({ truthParchmentUntil: 0, cursor: { position: 1 } }), Math.max(0, truthUntil - Date.now()));
+    return () => window.clearTimeout(timer);
+  }, [truthMoment, truthUntil, update]);
   const next = (patch: Partial<Progress> = {}) => {
     const mailLines = beat?.channel === "mail" ? [
       ...(beat.kind === "choice" && progress.option !== undefined ? [{ speaker: "你", body: beat.options[progress.option].body }] : []),
@@ -65,7 +84,8 @@ export function SunwooScene({progress, update, identityKey, score, player, mailO
         </SceneDialogue>}
     </>}
   </>;
-  return (beat?.channel === "mail" || reviewing) && mailOpen ? <section className="sunwoo-mail-scene" aria-labelledby="sunwoo-scene-title">{content}</section>
+  const scene = (beat?.channel === "mail" || reviewing) && mailOpen ? <section className="sunwoo-mail-scene" aria-labelledby="sunwoo-scene-title">{content}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
       className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby="sunwoo-scene-title">{content}</dialog>;
+  return <>{scene}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}</>;
 }

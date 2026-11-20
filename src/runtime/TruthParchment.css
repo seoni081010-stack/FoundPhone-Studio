@@ -1,0 +1,37 @@
+.truth-parchment {
+  border: 0;
+  padding: 0;
+  margin: auto;
+  width: min(88vw, 420px);
+  max-width: none;
+  max-height: 90dvh;
+  overflow: visible;
+  background: transparent;
+  outline: none;
+}
+.truth-parchment::backdrop { background: rgb(10 15 18 / 72%); }
+.truth-parchment-sheet { position: relative; width: 100%; }
+.truth-parchment-sheet img { display: block; width: 100%; max-height: 86dvh; object-fit: contain; }
+.truth-parchment-sheet p {
+  position: absolute;
+  top: 48%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: #b7e1cf;
+  font-family: "Noto Serif CJK SC", "Songti SC", "STSong", serif;
+  font-size: clamp(16px, 4.4vw, 23px);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 0 5px #a5d6c6, 0 0 13px #b8e7d080, 0 1px 2px #355f5080;
+  opacity: 0;
+  animation: truth-ink 2500ms ease-in-out both;
+  pointer-events: none;
+}
+@keyframes truth-ink {
+  0% { opacity: 0; filter: blur(4px); }
+  28%, 62% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; filter: blur(5px); }
+}
