@@ -10,7 +10,7 @@ for (const branch of [0,1]) {
  await page.goto(base);
  await page.evaluate(({key,branch})=>{
   localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'栀子',house:'slytherin',year:6,loveInterest:'sunwoo',runId:`star-wish-${branch}`}));
-  localStorage.setItem(key,JSON.stringify({day:19,beat:4,option:branch,cursor:{position:0,accepted:true},clues:[],affinity:17,open:true}));
+  localStorage.setItem(key,JSON.stringify({day:19,beat:4,option:branch,cursor:{position:0,accepted:true},clues:[],affinity:17,open:true,starWishEntry:{draft:"",done:true}}));
  },{key,branch});
  await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await page.locator('.hogwarts-device-top').waitFor();
  assert.equal(await page.locator('.star-wish-paper').count(),0);

@@ -1,0 +1,87 @@
+@font-face {
+  font-family: "Wish Calligraphy";
+  src: url("/fonts/wish-calligraphy.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+.write-star-wish {
+  width: min(94vw, 470px);
+  max-width: none;
+  border: 0;
+  padding: 0;
+  margin: auto;
+  overflow: visible;
+  background: transparent;
+  outline: none;
+}
+.write-star-wish::backdrop { background: rgb(16 20 25 / 80%); }
+.write-star-stage { position: relative; min-height: 260px; perspective: 900px; }
+.write-star-strip {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 3%;
+  padding: 18px 18px 12px;
+  min-height: 174px;
+  color: #665b38;
+  background: linear-gradient(170deg, #fff7db, #f3e6ba 60%, #f7eccb);
+  box-shadow: 0 12px 30px #0004, inset 0 1px #fffcef, inset 0 -1px #cbbc8c;
+  clip-path: polygon(0 1%, 28% 0, 61% 1%, 100% 0, 99.6% 100%, 72% 99%, 38% 100%, .4% 99%);
+  text-align: center;
+}
+.write-star-strip label {
+  display: block;
+  font-family: "Wish Calligraphy", "STKaiti", "KaiTi", cursive;
+  font-style: italic;
+  font-size: clamp(23px, 6.1vw, 29px);
+  font-weight: 400;
+  letter-spacing: .06em;
+  animation: wish-prompt-appear 1100ms ease-out both;
+}
+.write-star-wish .write-star-strip textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 10px 0 8px;
+  padding: 6px;
+  border: 0;
+  border-bottom: 1px solid #b5a5768c;
+  border-radius: 0;
+  background: #fff9e53d;
+  color: #51472d;
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 17px;
+  line-height: 1.6;
+  resize: none;
+  outline-color: #94805a;
+}
+.write-star-wish .write-star-strip button {
+  padding: 6px 22px;
+  border: 1px solid #b5a576;
+  border-radius: 3px;
+  background: #fbf2d5;
+  color: #665735;
+  font: inherit;
+  cursor: pointer;
+}
+.write-star-wish .write-star-strip button:disabled { opacity: .4; cursor: default; }
+.write-star-submitted { font-family: "STKaiti", "KaiTi", serif; line-height: 1.7; overflow-wrap: anywhere; white-space: pre-wrap; }
+.write-star-folded {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  filter: drop-shadow(0 12px 15px #0004);
+  animation: written-wish-star 2200ms ease-in-out both;
+  animation-delay: inherit;
+}
+.is-folding .write-star-strip { animation: written-wish-fold 2200ms ease-in-out both; animation-delay: inherit; }
+@keyframes wish-prompt-appear { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes written-wish-fold {
+  0%, 12% { opacity: 1; transform: scaleX(1) rotateY(0); }
+  66%, 100% { opacity: 0; transform: scaleX(.12) scaleY(.6) rotateY(75deg); }
+}
+@keyframes written-wish-star {
+  0%, 42% { opacity: 0; transform: translate(-50%, -50%) scale(.3) rotate(45deg); }
+  77%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-12deg); }
+}

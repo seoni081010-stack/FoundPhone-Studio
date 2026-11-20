@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { StarWishPaper, starWishMoment, STAR_WISH_DURATION } from "./StarWishPaper";
+import { WriteStarWish, WRITE_STAR_FOLD_DURATION } from "./WriteStarWish";
 import { TruthParchment } from "./TruthParchment";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
@@ -60,6 +61,14 @@ export function SunwooScene({progress, update, identityKey, score, player, mailO
     const timer = window.setTimeout(() => update({ starWishUntil: 0, cursor: { position: wish.position + 1 } }), Math.max(0, wishUntil - Date.now()));
     return () => window.clearTimeout(timer);
   }, [wishMoment, wishUntil, wish, update]);
+  const writeWish = progress.day === 19 && progress.cursor.position === 0
+    && lines[0]?.body.startsWith("你们各自写完纸条。") && !progress.starWishEntry?.done;
+  const entry = progress.starWishEntry;
+  useEffect(() => {
+    if (!writeWish || !entry?.foldUntil) return;
+    const timer = window.setTimeout(() => update({ starWishEntry: { ...entry, done: true } }), Math.max(0, entry.foldUntil - Date.now()));
+    return () => window.clearTimeout(timer);
+  }, [writeWish, entry, update]);
   const next = (patch: Partial<Progress> = {}) => {
     const mailLines = beat?.channel === "mail" ? [
       ...(beat.kind === "choice" && progress.option !== undefined ? [{ speaker: "你", body: beat.options[progress.option].body }] : []),
@@ -90,7 +99,7 @@ export function SunwooScene({progress, update, identityKey, score, player, mailO
             affinity: progress.affinity + (option.affinity ?? 0), cursor:{position:0,accepted:true},
             choiceHistory: { ...progress.choiceHistory, [`${story.day}:${progress.beat}`]: index },
           })}>{sunwooName(option.body,player)}</button>)}
-        </div> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
+        </div> : writeWish ? null : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
           {beat.kind === "choice" && note(player,sunwooName(beat.options[progress.option!].body,player),true,-1)}
           {lines.map((line,index) => line.speaker ? note(line.speaker === "你" ? player : line.speaker,sunwooName(line.body,player),line.speaker === "你",index)
             : <p className="hogwarts-narration" key={index}>{highlight(sunwooName(line.body,player))}</p>)}
@@ -101,5 +110,7 @@ export function SunwooScene({progress, update, identityKey, score, player, mailO
   const scene = (beat?.channel === "mail" || reviewing) && mailOpen ? <section className="sunwoo-mail-scene" aria-labelledby="sunwoo-scene-title">{content}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
       className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby="sunwoo-scene-title">{content}</dialog>;
-  return <>{scene}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}{wishMoment && wishUntil !== 0 && <StarWishPaper until={wishUntil} text={wish.text} />}</>;
+  return <>{scene}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}{writeWish && <WriteStarWish draft={entry?.draft ?? ""} submitted={entry?.submitted} foldUntil={entry?.foldUntil}
+    onDraft={draft => update({ starWishEntry: { draft } })}
+    onSubmit={() => { const submitted = entry?.draft.trim(); if (submitted && !entry?.submitted) update({ starWishEntry: { draft: submitted, submitted, foldUntil: Date.now() + WRITE_STAR_FOLD_DURATION } }); }} />}{wishMoment && wishUntil !== 0 && <StarWishPaper until={wishUntil} text={wish.text} />}</>;
 }

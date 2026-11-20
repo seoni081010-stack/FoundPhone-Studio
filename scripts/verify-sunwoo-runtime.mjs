@@ -18,6 +18,19 @@ async function drive(page, config){
    const saved=config.key?JSON.parse(localStorage.getItem(config.key)||'null'):null;
    if(saved && saved.day>config.day)return {advanced:true,saved,clicks,fixed,choices,clues};
    if(saved && saved.done && config.day<31)return {done:true,saved,clicks,fixed,choices,clues};
+   const writer=document.querySelector('.write-star-wish');
+   if(writer){
+    const input=writer.querySelector('textarea');
+    if(input && !input.value){
+     Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(input,'愿我勇敢一点。');
+     input.dispatchEvent(new Event('input',{bubbles:true}));
+    }else{
+     const submit=writer.querySelector('button:not([disabled])');
+     if(submit)submit.click();
+    }
+    continue;
+   }
+   if(document.querySelector('.star-wish-paper,.truth-parchment'))continue;
    const dialog=document.querySelector('dialog[open]');
    const inline=document.querySelector('.sunwoo-mail-scene');
    const surface=dialog||inline;
