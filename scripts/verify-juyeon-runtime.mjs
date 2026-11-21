@@ -31,6 +31,8 @@ async function drive(page, config){
     continue;
    }
    if(document.querySelector('.star-wish-paper,.truth-parchment'))continue;
+   const chart=document.querySelector('.juyeon-star-chart');
+   if(chart){chart.querySelector('button:not([disabled])')?.click();continue;}
    const dialog=document.querySelector('dialog[open]');
    const inline=document.querySelector('.juyeon-mail-scene');
    const surface=dialog||inline;

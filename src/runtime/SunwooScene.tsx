@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { StarWishPaper, starWishMoment, STAR_WISH_DURATION } from "./StarWishPaper";
 import { WriteStarWish, WRITE_STAR_FOLD_DURATION } from "./WriteStarWish";
 import { juyeonDay } from "./juyeonStory";
+import { JuyeonStarChart } from "./JuyeonStarChart";
 import { TruthParchment } from "./TruthParchment";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
@@ -71,6 +72,17 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
     const timer = window.setTimeout(() => update({ starWishEntry: { ...entry, done: true } }), Math.max(0, entry.foldUntil - Date.now()));
     return () => window.clearTimeout(timer);
   }, [writeWish, entry, update]);
+  useEffect(() => {
+    if (route === "juyeon" && progress.day === 14) {
+      const image = new Image(); image.src = `${import.meta.env.BASE_URL}sunwoo-truth-parchment.png`;
+    }
+  }, [route, progress.day]);
+  const chartTrigger = route === "juyeon" && progress.day === 14 && progress.cursor.position === 0
+    && lines[0]?.body.includes("李柱延将一张羊皮纸铺在石桌上。");
+  const chartOpen = chartTrigger && !progress.juyeonStarChart?.done;
+  useEffect(() => {
+    if (chartOpen && !progress.juyeonStarChart) update({ juyeonStarChart: { startedAt: Date.now() } });
+  }, [chartOpen, progress.juyeonStarChart, update]);
   const next = (patch: Partial<Progress> = {}) => {
     const mailLines = beat?.channel === "mail" ? [
       ...(beat.kind === "choice" && progress.option !== undefined ? [{ speaker: "你", body: beat.options[progress.option].body }] : []),
@@ -101,7 +113,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
             affinity: progress.affinity + (progress.choiceHistory?.[`${story.day}:${progress.beat}`] === undefined ? option.affinity ?? 0 : 0), cursor:{position:0,accepted:true},
             choiceHistory: { ...progress.choiceHistory, [`${story.day}:${progress.beat}`]: index },
           })}>{sunwooName(option.body,player)}</button>)}
-        </div> : writeWish ? null : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
+        </div> : writeWish ? null : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
           {beat.kind === "choice" && note(player,sunwooName(beat.options[progress.option!].body,player),true,-1)}
           {lines.map((line,index) => line.speaker ? note(line.speaker === "你" ? player : line.speaker,sunwooName(line.body,player),line.speaker === "你",index)
             : <p className="hogwarts-narration" key={index}>{highlight(sunwooName(line.body,player))}</p>)}
@@ -112,7 +124,8 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   const scene = (beat?.channel === "mail" || reviewing) && mailOpen ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{content}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
       className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby={sceneId}>{content}</dialog>;
-  return <>{scene}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}{writeWish && <WriteStarWish draft={entry?.draft ?? ""} submitted={entry?.submitted} foldUntil={entry?.foldUntil}
+  return <>{scene}{chartOpen && progress.juyeonStarChart && <JuyeonStarChart startedAt={progress.juyeonStarChart.startedAt}
+    onContinue={() => update({ juyeonStarChart: { ...progress.juyeonStarChart!, done: true } })} />}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}{writeWish && <WriteStarWish draft={entry?.draft ?? ""} submitted={entry?.submitted} foldUntil={entry?.foldUntil}
     onDraft={draft => update({ starWishEntry: { draft } })}
     onSubmit={() => { const submitted = entry?.draft.trim(); if (submitted && !entry?.submitted) update({ starWishEntry: { draft: submitted, submitted, foldUntil: Date.now() + WRITE_STAR_FOLD_DURATION } }); }} />}{wishMoment && wishUntil !== 0 && <StarWishPaper until={wishUntil} text={wish.text} />}</>;
 }

@@ -42,3 +42,9 @@ The deployed `build-info.json` records the Actions commit SHA so the live websit
 - Restored progress at 0/79/80/99/100/250 used the unchanged ending gates correctly; normal fresh complete campaigns followed the explicitly approved lover-only policy.
 - Invitations at 45 and 46, six venues, all four acceptance/refusal lines and refreshed replies passed.
 - Juyeon gifts awarded +5/+2, gifts to a rival awarded jealousy +3/+5, and two refreshes preserved the exact numbers. Existing Hyunjae/Jacob/Q/Younghoon gift behavior, Younghoon's three full ending previews, Sunwoo's three ending previews, Day 5 parchment, Day 19 wish input and seven-route save isolation passed regression checks.
+
+## Day 14 animated star chart
+
+The existing 19:40 narration is interrupted after Juyeon spreads the parchment on the stone table. The paper unfolds, a wand-light sweep wakes sequential curved star trails, and the upper constellations settle into a gently breathing/drifting sky while the lower ink chart stays on the textured parchment. The only visible label in this overlay is its lower-right Continue button. Quiet Web Audio paper noise and low harmonic tones are generated locally; no speech, character art or additional story text is added.
+
+The reveal takes 10.5 seconds, then remains open until Continue. `juyeonStarChart.startedAt/done` persists the phase and acknowledgement without changing existing cursor numbering, choice scores or manuscript data. Continue restores the original narration block containing `你不由得低头看了一会儿。`; the next fixed reply still requires its normal click. Old saves already past the narration block bypass the new interruption. The browser verification is `scripts/verify-juyeon-star-chart.mjs` (both preceding branches, phone/desktop, audio cleanup, no auto-close, refresh, old checkpoint compatibility and unchanged affinity).
