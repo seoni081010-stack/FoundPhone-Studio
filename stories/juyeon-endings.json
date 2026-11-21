@@ -1,0 +1,3275 @@
+{
+  "together": {
+    "day": 31,
+    "title": "新年的第一颗星",
+    "schedule": "12月31日 · 23:00 · 黑湖湖畔的大山毛榉树下",
+    "time": "23:00",
+    "place": "黑湖湖畔的大山毛榉树下",
+    "beats": [
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "夜里的霍格沃茨笼罩在宁静的雪色中。城堡高处的窗户仍亮着灯，金色光芒映在黑湖边缘。湖水尚未完全结冰，风吹过时，水面轻轻泛起波纹，将灯影拉成长长的光带。远处隐约有学生的欢笑声。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 7
+            }
+          },
+          {
+            "body": "你沿湖岸前行，鞋底踩过积雪发出细碎声响。那棵高大的山毛榉树就在前方，树下站着熟悉的身影。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 9
+            }
+          },
+          {
+            "body": "李柱延穿着深色冬季外套，围巾松松围在颈间，正抬头看夜空。听见脚步，他回过头。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 10
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 11
+            }
+          },
+          {
+            "body": "他看见你，笑了起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 12
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "来了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 13
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。你到了多久？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 14
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "没多久。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 15
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "过来的时候冷不冷？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 16
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "还好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 17
+            }
+          },
+          {
+            "body": "他往旁边挪了些，给你让出树下避风的位置。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 18
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这里风小一点。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 19
+            }
+          },
+          {
+            "body": "远处的塔楼倒映在黑湖上，今夜没有厚云，星星清楚地悬在夜空中。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 20
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "今晚天气还不错。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 21
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是啊，星星很清楚。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 22
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。看来选对地方了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 23
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "我很喜欢这里。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 26
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "真的？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 27
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "嗯，尤其是从这里看城堡。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 28
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "我也是。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 29
+                }
+              }
+            ]
+          },
+          {
+            "body": "原来晚上从这里看霍格沃茨是这样的。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 31
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "平时很少有人这个时间过来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 32
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "难怪这么安静。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 33
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，不过还挺漂亮的。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 34
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你们沿湖边走了一小段，低矮石块覆着雪。李柱延从口袋里取出一枚小黄铜指南针。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 38
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "刚才从城堡过来的时候带了这个。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 39
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "指南针？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 40
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 41
+            }
+          },
+          {
+            "body": "表盘上的指针并没有指北，而是转动着指向湖面上方的一颗星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 42
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "之前天文课学过的咒语。它会指向提前选好的那颗星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 43
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "还挺方便的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 44
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "不过今晚应该用不上。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 45
+            }
+          },
+          {
+            "body": "他笑着把指南针收起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 46
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你们回到山毛榉树下。城堡的灯火比刚才更亮，远处窗口有人举着闪光装饰跑过。钟楼的时针正接近午夜。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 52
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "快到新年了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 53
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 54
+            }
+          },
+          {
+            "body": "李柱延从口袋里摸出深绿色信封，封口印着一颗小星星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 55
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你写完了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 56
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 57
+            }
+          },
+          {
+            "body": "他低头看了看信。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 58
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "本来想早点交出去的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 59
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "那怎么还在你手里？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 60
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "一直带着。不知道什么时候给比较好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 61
+            }
+          },
+          {
+            "body": "他犹豫了一会儿。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 62
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "其实……",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 63
+            }
+          },
+          {
+            "body": "风扬起他的围巾。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 64
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "算了，先不说这个。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 65
+            }
+          },
+          {
+            "body": "他收起信封，望向湖面。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 66
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "你有没有想过，新的一年想做什么？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 67
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "想做的事情很多，不过有些得慢慢来。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 70
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "嗯。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你呢？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 72
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "也有不少。希望能把想做的事情都认真做好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 73
+                }
+              }
+            ]
+          },
+          {
+            "body": "暂时还没有想那么远。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 75
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "也挺好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 76
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你已经计划好了？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 77
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "没有全部想好。不过有几件事，还是想试试。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 78
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处传来预备钟声，城堡里渐渐热闹起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 82
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "还有几分钟。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 83
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 84
+            }
+          },
+          {
+            "body": "他把信收好，你们并肩望着城堡。过了一会儿，他向你伸出手。你看了一眼，轻轻握住。他笑起来，眼睛弯起。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 85
+            }
+          },
+          {
+            "body": "你们就这样站着，等午夜的钟声。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 86
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "钟楼开始敲响。钟声越过屋顶，传向湖面。一声，又一声。最后几声响起时，城堡上空亮起银色的光。许多光点从塔楼后升起，聚拢又散开，化作满天光雨。雪花恰在此时重新落下，黑湖映出一片破碎而明亮的星河。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 92
+            }
+          },
+          {
+            "body": "新的一年到了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 94
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "新年快乐。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 95
+            }
+          },
+          {
+            "body": "他转过头，望着你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 96
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:59",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "新年快乐，李柱延。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 99
+            },
+            "lines": [
+              {
+                "body": "你握着他的手，朝他笑了。他也笑起来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 100
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，新年快乐。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 101
+                }
+              }
+            ]
+          },
+          {
+            "body": "今年也请多多关照。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 103
+            },
+            "lines": [
+              {
+                "body": "李柱延笑出了声。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 104
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "好啊。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 105
+                }
+              },
+              {
+                "body": "他轻轻晃了晃相握的手。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 106
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "你也是。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 107
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:59",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "城堡上空的银色光雨渐渐散去。夜风拂过山毛榉树的枝头，细雪簌簌落下。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 112
+            }
+          },
+          {
+            "body": "你抬头，发现一簇槲寄生垂在枝叶间。乳白色的浆果映着月光，随着风轻轻摇晃。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 114
+            }
+          },
+          {
+            "body": "李柱延顺着你的目光望去。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 116
+            }
+          },
+          {
+            "body": "他看了一会儿，又低头看向你。两人的视线恰好碰在一起。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 117
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 118
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 119
+            }
+          },
+          {
+            "body": "他轻轻碰了碰你的指尖。你没有躲开。李柱延便握住了你的手，掌心温暖。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 121
+            }
+          },
+          {
+            "body": "过了片刻，他从外套内侧取出那封深绿色的信。封口处，小小的星星印记在月光下微微发亮。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 122
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这个，给你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 123
+            }
+          },
+          {
+            "body": "你接过信。他仍握着你的另一只手，没有松开。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 124
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "我现在可以看吗？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "可以。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 126
+            }
+          },
+          {
+            "body": "你拆开封口。信纸第一行写着你的名字。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 127
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "clue",
+        "clue": {
+          "id": "juyeon-31",
+          "title": "未寄出的星光",
+          "body": "新年的钟声落下，槲寄生在夜风中轻轻摇晃。李柱延握着你的手，将一封印着星星的信交到你掌心。",
+          "unlocked": true
+        },
+        "sources": [
+          {
+            "file": "juyeon-day31-full.md",
+            "line": 130
+          },
+          {
+            "file": "juyeon-day31-full.md",
+            "line": 131
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你读下去：",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 137
+            }
+          },
+          {
+            "body": "「有些话，我想了很久。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 138
+            }
+          },
+          {
+            "body": "「以前总觉得，有些事情不用特意说出来。一起走过的路，聊过的话，应该已经足够让人明白。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 139
+            }
+          },
+          {
+            "body": "「可是后来发现，我好像比自己想象中更贪心一点。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 140
+            }
+          },
+          {
+            "body": "「我还想有更多机会，和你一起做那些很普通的事。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 141
+            }
+          },
+          {
+            "body": "「如果你愿意的话，我希望新的一年，也能一直陪在你身边。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 142
+            }
+          },
+          {
+            "body": "最后一行没有写满。你抬头，李柱延正认真地看着你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 144
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "本来想在信里写完的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 145
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "后来呢？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 146
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "后来觉得，最后一句还是应该自己说。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 147
+            }
+          },
+          {
+            "body": "他轻轻呼出一口气。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 148
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 149
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "我喜欢你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 150
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "不是从今天才开始的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 151
+            }
+          },
+          {
+            "body": "他望着你，耳尖似乎有些发红。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 152
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "所以……你愿意和我在一起吗？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 153
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下",
+        "endingGate": true
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "我也喜欢你。",
+            "affinity": 0,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 156
+            },
+            "lines": [
+              {
+                "body": "李柱延怔了一瞬，笑得眼睛几乎眯起来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 157
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "真的？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 158
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "嗯。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 159
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "……",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 160
+                }
+              },
+              {
+                "body": "他低头笑了一会儿，又望向你。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 161
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "那我现在真的很开心。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 162
+                }
+              }
+            ]
+          },
+          {
+            "body": "我还以为你要一直藏着这封信。",
+            "affinity": 0,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 164
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "我差点就这么做了。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 165
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "幸好没有。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 166
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，幸好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 167
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "因为我也喜欢你。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 168
+                }
+              },
+              {
+                "body": "他笑着握紧你的手。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 169
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "李柱延抬头看了一眼槲寄生，你也跟着抬头。深绿叶片轻轻晃动，像极了平安夜回廊里的景象。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 173
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "上次在槲寄生下面……",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 174
+            }
+          },
+          {
+            "body": "他忽然笑了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 175
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "上次怎么了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 176
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "没什么。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 177
+            }
+          },
+          {
+            "body": "他轻轻握住你的手。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 178
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这次可以吗？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 179
+            }
+          },
+          {
+            "body": "你点了点头。他俯身吻了你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 180
+            }
+          },
+          {
+            "body": "雪花慢慢落在你们肩头。这一次，没有人停在最后半步。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 181
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "新年的第一分钟，好像过得特别快。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 182
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "那以后还有很多分钟。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 183
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。还有很多年。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 184
+            }
+          },
+          {
+            "body": "新年的第一颗星星亮起时，他终于不用再把喜欢藏进未寄出的信里。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 186
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下"
+      }
+    ],
+    "ending": {
+      "kind": "together",
+      "title": "恋人",
+      "text": "新年的第一颗星星亮起时，他终于不用再把喜欢藏进未寄出的信里。"
+    }
+  },
+  "friends": {
+    "day": 31,
+    "title": "新年的第一颗星",
+    "schedule": "12月31日 · 23:00 · 黑湖湖畔的大山毛榉树下",
+    "time": "23:00",
+    "place": "黑湖湖畔的大山毛榉树下",
+    "beats": [
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "夜里的霍格沃茨笼罩在宁静的雪色中。城堡高处的窗户仍亮着灯，金色光芒映在黑湖边缘。湖水尚未完全结冰，风吹过时，水面轻轻泛起波纹，将灯影拉成长长的光带。远处隐约有学生的欢笑声。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 7
+            }
+          },
+          {
+            "body": "你沿湖岸前行，鞋底踩过积雪发出细碎声响。那棵高大的山毛榉树就在前方，树下站着熟悉的身影。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 9
+            }
+          },
+          {
+            "body": "李柱延穿着深色冬季外套，围巾松松围在颈间，正抬头看夜空。听见脚步，他回过头。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 10
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 11
+            }
+          },
+          {
+            "body": "他看见你，笑了起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 12
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "来了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 13
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。你到了多久？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 14
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "没多久。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 15
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "过来的时候冷不冷？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 16
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "还好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 17
+            }
+          },
+          {
+            "body": "他往旁边挪了些，给你让出树下避风的位置。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 18
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这里风小一点。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 19
+            }
+          },
+          {
+            "body": "远处的塔楼倒映在黑湖上，今夜没有厚云，星星清楚地悬在夜空中。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 20
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "今晚天气还不错。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 21
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是啊，星星很清楚。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 22
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。看来选对地方了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 23
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "我很喜欢这里。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 26
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "真的？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 27
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "嗯，尤其是从这里看城堡。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 28
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "我也是。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 29
+                }
+              }
+            ]
+          },
+          {
+            "body": "原来晚上从这里看霍格沃茨是这样的。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 31
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "平时很少有人这个时间过来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 32
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "难怪这么安静。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 33
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，不过还挺漂亮的。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 34
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你们沿湖边走了一小段，低矮石块覆着雪。李柱延从口袋里取出一枚小黄铜指南针。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 38
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "刚才从城堡过来的时候带了这个。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 39
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "指南针？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 40
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 41
+            }
+          },
+          {
+            "body": "表盘上的指针并没有指北，而是转动着指向湖面上方的一颗星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 42
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "之前天文课学过的咒语。它会指向提前选好的那颗星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 43
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "还挺方便的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 44
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "不过今晚应该用不上。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 45
+            }
+          },
+          {
+            "body": "他笑着把指南针收起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 46
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你们回到山毛榉树下。城堡的灯火比刚才更亮，远处窗口有人举着闪光装饰跑过。钟楼的时针正接近午夜。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 52
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "快到新年了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 53
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 54
+            }
+          },
+          {
+            "body": "李柱延从口袋里摸出深绿色信封，封口印着一颗小星星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 55
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你写完了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 56
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 57
+            }
+          },
+          {
+            "body": "他低头看了看信。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 58
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "本来想早点交出去的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 59
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "那怎么还在你手里？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 60
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "一直带着。不知道什么时候给比较好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 61
+            }
+          },
+          {
+            "body": "他犹豫了一会儿。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 62
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "其实……",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 63
+            }
+          },
+          {
+            "body": "风扬起他的围巾。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 64
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "算了，先不说这个。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 65
+            }
+          },
+          {
+            "body": "他收起信封，望向湖面。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 66
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "你有没有想过，新的一年想做什么？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 67
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "想做的事情很多，不过有些得慢慢来。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 70
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "嗯。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你呢？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 72
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "也有不少。希望能把想做的事情都认真做好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 73
+                }
+              }
+            ]
+          },
+          {
+            "body": "暂时还没有想那么远。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 75
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "也挺好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 76
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你已经计划好了？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 77
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "没有全部想好。不过有几件事，还是想试试。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 78
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处传来预备钟声，城堡里渐渐热闹起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 82
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "还有几分钟。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 83
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 84
+            }
+          },
+          {
+            "body": "他把信收好，你们并肩望着城堡。过了一会儿，他向你伸出手。你看了一眼，轻轻握住。他笑起来，眼睛弯起。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 85
+            }
+          },
+          {
+            "body": "你们就这样站着，等午夜的钟声。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 86
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "钟楼开始敲响。钟声越过屋顶，传向湖面。一声，又一声。最后几声响起时，城堡上空亮起银色的光。许多光点从塔楼后升起，聚拢又散开，化作满天光雨。雪花恰在此时重新落下，黑湖映出一片破碎而明亮的星河。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 92
+            }
+          },
+          {
+            "body": "新的一年到了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 94
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "新年快乐。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 95
+            }
+          },
+          {
+            "body": "他转过头，望着你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 96
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:59",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "新年快乐，李柱延。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 99
+            },
+            "lines": [
+              {
+                "body": "你握着他的手，朝他笑了。他也笑起来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 100
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，新年快乐。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 101
+                }
+              }
+            ]
+          },
+          {
+            "body": "今年也请多多关照。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 103
+            },
+            "lines": [
+              {
+                "body": "李柱延笑出了声。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 104
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "好啊。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 105
+                }
+              },
+              {
+                "body": "他轻轻晃了晃相握的手。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 106
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "你也是。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 107
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:59",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "城堡上空的银色光雨渐渐散去。夜风拂过山毛榉树的枝头，细雪簌簌落下。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 112
+            }
+          },
+          {
+            "body": "你抬头，发现一簇槲寄生垂在枝叶间。乳白色的浆果映着月光，随着风轻轻摇晃。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 114
+            }
+          },
+          {
+            "body": "李柱延顺着你的目光望去。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 116
+            }
+          },
+          {
+            "body": "他看了一会儿，又低头看向你。两人的视线恰好碰在一起。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 117
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 118
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 119
+            }
+          },
+          {
+            "body": "他轻轻碰了碰你的指尖。你没有躲开。李柱延便握住了你的手，掌心温暖。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 121
+            }
+          },
+          {
+            "body": "过了片刻，他从外套内侧取出那封深绿色的信。封口处，小小的星星印记在月光下微微发亮。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 122
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这个，给你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 123
+            }
+          },
+          {
+            "body": "你接过信。他仍握着你的另一只手，没有松开。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 124
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "我现在可以看吗？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "可以。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 126
+            }
+          },
+          {
+            "body": "你拆开封口。信纸第一行写着你的名字。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 127
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "clue",
+        "clue": {
+          "id": "juyeon-31",
+          "title": "未寄出的星光",
+          "body": "新年的钟声落下，槲寄生在夜风中轻轻摇晃。李柱延握着你的手，将一封印着星星的信交到你掌心。",
+          "unlocked": true
+        },
+        "sources": [
+          {
+            "file": "juyeon-day31-full.md",
+            "line": 130
+          },
+          {
+            "file": "juyeon-day31-full.md",
+            "line": 131
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你读下去：",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 194
+            }
+          },
+          {
+            "body": "「这一年认识了很多人，也发生了不少有意思的事。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 195
+            }
+          },
+          {
+            "body": "「但如果要选一个最想好好记住的人，我想应该是你。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 196
+            }
+          },
+          {
+            "body": "「跟你在一起的时候，总会发生一些原本没想到的事情。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 197
+            }
+          },
+          {
+            "body": "「希望以后也有机会，一起去更多地方。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 198
+            }
+          },
+          {
+            "body": "「新年快乐。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 199
+            }
+          },
+          {
+            "body": "你把羊皮纸折好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 200
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "怎么样？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 201
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "写得很好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 202
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "那就好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 203
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "所以你之前一直在改这封信？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 204
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。总觉得前面写得太正式。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 205
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "现在这样就挺好的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 206
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "我也觉得。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 207
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下",
+        "endingGate": true
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "以后也要经常一起出去玩。",
+            "affinity": 0,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 210
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "好啊。下次可以去个没去过的地方。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 211
+                }
+              }
+            ]
+          },
+          {
+            "body": "那新的一年，也继续当好朋友吧。",
+            "affinity": 0,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 213
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "当然。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 214
+                }
+              },
+              {
+                "body": "他向你伸出手。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 215
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "说好了。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 216
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "李柱延抬头看了一眼槲寄生，笑起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 220
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "看来今天挂错地方了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 221
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "为什么？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 222
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "没什么。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 223
+            }
+          },
+          {
+            "body": "他伸手轻轻拨去枝头积雪。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 224
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "不过放在这里还挺好看的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 225
+            }
+          },
+          {
+            "body": "你们一起望着城堡上空渐渐散去的光芒，没有再提起那项圣诞节的习俗。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 226
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "对了，之前那局棋还没下完。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 227
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你居然还记得？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 228
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "当然。我还等着赢回来呢。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 229
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "那可不一定。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 230
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "下次试试。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 231
+            }
+          },
+          {
+            "body": "你们沿湖岸回城堡。新的一年已经开始，而那局未下完的棋，终于又有了继续的机会。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 233
+            }
+          },
+          {
+            "body": "有些故事不必以爱情收尾，也依然值得在往后的每一年里，慢慢写下去。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 234
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下"
+      }
+    ],
+    "ending": {
+      "kind": "friends",
+      "title": "朋友",
+      "text": "有些故事不必以爱情收尾，也依然值得在往后的每一年里，慢慢写下去。"
+    }
+  },
+  "unspoken": {
+    "day": 31,
+    "title": "新年的第一颗星",
+    "schedule": "12月31日 · 23:00 · 黑湖湖畔的大山毛榉树下",
+    "time": "23:00",
+    "place": "黑湖湖畔的大山毛榉树下",
+    "beats": [
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "夜里的霍格沃茨笼罩在宁静的雪色中。城堡高处的窗户仍亮着灯，金色光芒映在黑湖边缘。湖水尚未完全结冰，风吹过时，水面轻轻泛起波纹，将灯影拉成长长的光带。远处隐约有学生的欢笑声。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 7
+            }
+          },
+          {
+            "body": "你沿湖岸前行，鞋底踩过积雪发出细碎声响。那棵高大的山毛榉树就在前方，树下站着熟悉的身影。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 9
+            }
+          },
+          {
+            "body": "李柱延穿着深色冬季外套，围巾松松围在颈间，正抬头看夜空。听见脚步，他回过头。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 10
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 11
+            }
+          },
+          {
+            "body": "他看见你，笑了起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 12
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "来了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 13
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。你到了多久？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 14
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "没多久。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 15
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "过来的时候冷不冷？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 16
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "还好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 17
+            }
+          },
+          {
+            "body": "他往旁边挪了些，给你让出树下避风的位置。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 18
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这里风小一点。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 19
+            }
+          },
+          {
+            "body": "远处的塔楼倒映在黑湖上，今夜没有厚云，星星清楚地悬在夜空中。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 20
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "今晚天气还不错。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 21
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是啊，星星很清楚。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 22
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。看来选对地方了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 23
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "我很喜欢这里。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 26
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "真的？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 27
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "嗯，尤其是从这里看城堡。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 28
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "我也是。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 29
+                }
+              }
+            ]
+          },
+          {
+            "body": "原来晚上从这里看霍格沃茨是这样的。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 31
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "平时很少有人这个时间过来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 32
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "难怪这么安静。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 33
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，不过还挺漂亮的。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 34
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你们沿湖边走了一小段，低矮石块覆着雪。李柱延从口袋里取出一枚小黄铜指南针。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 38
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "刚才从城堡过来的时候带了这个。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 39
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "指南针？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 40
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 41
+            }
+          },
+          {
+            "body": "表盘上的指针并没有指北，而是转动着指向湖面上方的一颗星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 42
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "之前天文课学过的咒语。它会指向提前选好的那颗星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 43
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "还挺方便的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 44
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "不过今晚应该用不上。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 45
+            }
+          },
+          {
+            "body": "他笑着把指南针收起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 46
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:00",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你们回到山毛榉树下。城堡的灯火比刚才更亮，远处窗口有人举着闪光装饰跑过。钟楼的时针正接近午夜。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 52
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "快到新年了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 53
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 54
+            }
+          },
+          {
+            "body": "李柱延从口袋里摸出深绿色信封，封口印着一颗小星星。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 55
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "你写完了？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 56
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 57
+            }
+          },
+          {
+            "body": "他低头看了看信。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 58
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "本来想早点交出去的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 59
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "那怎么还在你手里？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 60
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "一直带着。不知道什么时候给比较好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 61
+            }
+          },
+          {
+            "body": "他犹豫了一会儿。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 62
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "其实……",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 63
+            }
+          },
+          {
+            "body": "风扬起他的围巾。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 64
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "算了，先不说这个。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 65
+            }
+          },
+          {
+            "body": "他收起信封，望向湖面。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 66
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "你有没有想过，新的一年想做什么？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 67
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "想做的事情很多，不过有些得慢慢来。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 70
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "嗯。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 71
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你呢？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 72
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "也有不少。希望能把想做的事情都认真做好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 73
+                }
+              }
+            ]
+          },
+          {
+            "body": "暂时还没有想那么远。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 75
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "也挺好。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 76
+                }
+              },
+              {
+                "speaker": "你",
+                "body": "你已经计划好了？",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 77
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "没有全部想好。不过有几件事，还是想试试。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 78
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "远处传来预备钟声，城堡里渐渐热闹起来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 82
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "还有几分钟。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 83
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 84
+            }
+          },
+          {
+            "body": "他把信收好，你们并肩望着城堡。过了一会儿，他向你伸出手。你看了一眼，轻轻握住。他笑起来，眼睛弯起。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 85
+            }
+          },
+          {
+            "body": "你们就这样站着，等午夜的钟声。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 86
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:48",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "钟楼开始敲响。钟声越过屋顶，传向湖面。一声，又一声。最后几声响起时，城堡上空亮起银色的光。许多光点从塔楼后升起，聚拢又散开，化作满天光雨。雪花恰在此时重新落下，黑湖映出一片破碎而明亮的星河。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 92
+            }
+          },
+          {
+            "body": "新的一年到了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 94
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "新年快乐。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 95
+            }
+          },
+          {
+            "body": "他转过头，望着你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 96
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "23:59",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "新年快乐，李柱延。",
+            "affinity": 2,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 99
+            },
+            "lines": [
+              {
+                "body": "你握着他的手，朝他笑了。他也笑起来。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 100
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "嗯，新年快乐。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 101
+                }
+              }
+            ]
+          },
+          {
+            "body": "今年也请多多关照。",
+            "affinity": 1,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 103
+            },
+            "lines": [
+              {
+                "body": "李柱延笑出了声。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 104
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "好啊。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 105
+                }
+              },
+              {
+                "body": "他轻轻晃了晃相握的手。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 106
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "你也是。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 107
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "23:59",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "城堡上空的银色光雨渐渐散去。夜风拂过山毛榉树的枝头，细雪簌簌落下。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 112
+            }
+          },
+          {
+            "body": "你抬头，发现一簇槲寄生垂在枝叶间。乳白色的浆果映着月光，随着风轻轻摇晃。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 114
+            }
+          },
+          {
+            "body": "李柱延顺着你的目光望去。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 116
+            }
+          },
+          {
+            "body": "他看了一会儿，又低头看向你。两人的视线恰好碰在一起。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 117
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "{{playerName}}。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 118
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 119
+            }
+          },
+          {
+            "body": "他轻轻碰了碰你的指尖。你没有躲开。李柱延便握住了你的手，掌心温暖。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 121
+            }
+          },
+          {
+            "body": "过了片刻，他从外套内侧取出那封深绿色的信。封口处，小小的星星印记在月光下微微发亮。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 122
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "这个，给你。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 123
+            }
+          },
+          {
+            "body": "你接过信。他仍握着你的另一只手，没有松开。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 124
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "我现在可以看吗？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 125
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "可以。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 126
+            }
+          },
+          {
+            "body": "你拆开封口。信纸第一行写着你的名字。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 127
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "clue",
+        "clue": {
+          "id": "juyeon-31",
+          "title": "未寄出的星光",
+          "body": "新年的钟声落下，槲寄生在夜风中轻轻摇晃。李柱延握着你的手，将一封印着星星的信交到你掌心。",
+          "unlocked": true
+        },
+        "sources": [
+          {
+            "file": "juyeon-day31-full.md",
+            "line": 130
+          },
+          {
+            "file": "juyeon-day31-full.md",
+            "line": 131
+          }
+        ],
+        "channel": "scene",
+        "time": "00:05",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "你展开信纸：",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 242
+            }
+          },
+          {
+            "body": "「新年快乐。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 243
+            }
+          },
+          {
+            "body": "「原本有很多话想告诉你。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 244
+            }
+          },
+          {
+            "body": "「可是写到最后，又觉得不知道该从哪里开始。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 245
+            }
+          },
+          {
+            "body": "「希望新的一年，你想做的事情都能顺利。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 246
+            }
+          },
+          {
+            "body": "「也希望以后还能常常见到你。」",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 247
+            }
+          },
+          {
+            "body": "信的最后留下一小段空白。你抬起头，李柱延正看着湖面。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 248
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "写得有点短吧。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 249
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "不会。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 250
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "本来想写得更长一点。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 251
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "现在这样也很好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 252
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 253
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下",
+        "endingGate": true
+      },
+      {
+        "kind": "choice",
+        "options": [
+          {
+            "body": "谢谢你写给我的信。",
+            "affinity": 0,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 256
+            },
+            "lines": [
+              {
+                "speaker": "李柱延",
+                "body": "不用谢。新年快乐。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 257
+                }
+              }
+            ]
+          },
+          {
+            "body": "以后有想说的话，也可以直接告诉我。",
+            "affinity": 0,
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 259
+            },
+            "lines": [
+              {
+                "body": "李柱延怔了一下，片刻后点头。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 260
+                }
+              },
+              {
+                "speaker": "李柱延",
+                "body": "好。我会的。",
+                "source": {
+                  "file": "juyeon-day31-full.md",
+                  "line": 261
+                }
+              }
+            ]
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下"
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          {
+            "body": "李柱延望着头顶的槲寄生，安静了许久。风吹动枝叶，细雪从上面落下来。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 265
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "其实我原本……",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 266
+            }
+          },
+          {
+            "body": "他停住了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 267
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯？",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 268
+            }
+          },
+          {
+            "body": "李柱延看向你，最终只笑了一下。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 269
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "没什么。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 270
+            }
+          },
+          {
+            "body": "夜渐深，城堡的灯光一盏接一盏熄灭。你们沿小路回去，李柱延走在你身旁。经过覆雪的石阶，他轻轻扶了一下你的手臂，等你站稳便收回手。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 272
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "小心。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 273
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "嗯。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 274
+            }
+          },
+          {
+            "body": "城堡门口，他回头望向黑湖。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 275
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "今晚的星星真的挺好看的。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 276
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "是啊。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 277
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "下次再一起去看吧。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 278
+            }
+          },
+          {
+            "speaker": "你",
+            "body": "好。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 279
+            }
+          },
+          {
+            "speaker": "李柱延",
+            "body": "那就说好了。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 280
+            }
+          },
+          {
+            "body": "你们在楼梯口道别。你摸了摸口袋里的信。那一晚你没有问，他也没有再说。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 282
+            }
+          },
+          {
+            "body": "新年的钟声已经敲响，而那句差一点说出口的喜欢，仍然停在故事的最后一页。",
+            "source": {
+              "file": "juyeon-day31-full.md",
+              "line": 283
+            }
+          }
+        ],
+        "channel": "scene",
+        "time": "00:08",
+        "place": "黑湖湖畔的大山毛榉树下"
+      }
+    ],
+    "ending": {
+      "kind": "unspoken",
+      "title": "未说出口",
+      "text": "新年的钟声已经敲响，而那句差一点说出口的喜欢，仍然停在故事的最后一页。"
+    }
+  }
+}

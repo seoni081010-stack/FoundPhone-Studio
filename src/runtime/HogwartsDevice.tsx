@@ -1,3 +1,4 @@
+import { juyeonDays, juyeonDay, juyeonStage, juyeonEndings } from "./juyeonStory";
 import { SunwooScene } from "./SunwooScene";
 import { sunwooDays, sunwooDay, sunwooStage, sunwooEndings, sunwooEndingFor, sunwooName } from "./sunwooStory";
 import { younghoonDays, younghoonMailSteps, younghoonEndings, younghoonStage } from "./younghoonStory";
@@ -98,19 +99,25 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const isJcode = selectedLeadId === "jacob";
   const isYounghoon = selectedLeadId === "younghoon";
   const isSunwoo = selectedLeadId === "sunwoo";
-  const usesScript = isJcode || isYounghoon || isSunwoo;
-  const scriptDays = isSunwoo ? [...sunwooDays, sunwooDay(31)] : isYounghoon ? younghoonDays : jcodeDays;
-  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon, isSunwoo);
-  const sunwooScore = isSunwoo ? jcode.affinity + characterStatus(selectedLeadId, identity?.year ?? 5, identity?.house ?? "", {}).affinity
+  const isJuyeon = selectedLeadId === "juyeon";
+  const isAuthored = isSunwoo || isJuyeon;
+  const authoredDays = isJuyeon ? juyeonDays : sunwooDays;
+  const authoredDay = isJuyeon ? juyeonDay : sunwooDay;
+  const authoredStage = isJuyeon ? juyeonStage : sunwooStage;
+  const authoredEndings = isJuyeon ? juyeonEndings : sunwooEndings;
+  const usesScript = isJcode || isYounghoon || isAuthored;
+  const scriptDays = isAuthored ? [...authoredDays, authoredDay(31)] : isYounghoon ? younghoonDays : jcodeDays;
+  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon, isSunwoo, isJuyeon);
+  const sunwooScore = isAuthored ? jcode.affinity + characterStatus(selectedLeadId, identity?.year ?? 5, identity?.house ?? "", {}).affinity
     + (previewDay ? 0 : savedGiftAffinity(identityKey, selectedLeadId)) : 0;
   const sunwooKind = jcode.ending ?? sunwooEndingFor(sunwooScore);
-  const scriptToday = isSunwoo ? sunwooDay(jcode.day, sunwooKind) : usesScript ? scriptDays[jcode.day - 1] : undefined;
-  const sunwooBeat = isSunwoo ? scriptToday?.beats[jcode.beat] : undefined;
-  const sunwooMailActive = isSunwoo && sunwooBeat && "channel" in sunwooBeat && sunwooBeat.channel === "mail";
+  const scriptToday = isAuthored ? authoredDay(jcode.day, sunwooKind) : usesScript ? scriptDays[jcode.day - 1] : undefined;
+  const sunwooBeat = isAuthored ? scriptToday?.beats[jcode.beat] : undefined;
+  const sunwooMailActive = isAuthored && sunwooBeat && "channel" in sunwooBeat && sunwooBeat.channel === "mail";
   const stageSchedule = scriptToday?.beats.slice(0, jcode.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
   const stageDetails = stageSchedule?.kind === "lines" ? stageSchedule.schedule?.split(" · ") : undefined;
   const youngStage = isYounghoon ? younghoonStage(jcode.day, jcode.beat, jcode.cursor.position) : undefined;
-  const jcodeToday = scriptToday && isSunwoo ? { ...scriptToday, ...sunwooStage(jcode.day, jcode.beat, sunwooKind) } : scriptToday && youngStage ? { ...scriptToday, ...youngStage } : scriptToday && stageDetails ? { ...scriptToday, schedule: stageDetails.join(" · "), time: stageDetails[1], place: stageDetails[2] } : scriptToday;
+  const jcodeToday = scriptToday && isAuthored ? { ...scriptToday, ...authoredStage(jcode.day, jcode.beat, sunwooKind) } : scriptToday && youngStage ? { ...scriptToday, ...youngStage } : scriptToday && stageDetails ? { ...scriptToday, schedule: stageDetails.join(" · "), time: stageDetails[1], place: stageDetails[2] } : scriptToday;
   const [restoredQ] = useState(() => previewDay && isQ ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
   const [qReadDays, setQReadDays] = useState(() => isQ ? restoredQ.readDays : []);
@@ -183,9 +190,9 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [acknowledgedClues, setAcknowledgedClues] = useState<string[]>(() => [...new Set([
     ...restoredAlbum.acknowledged, ...(isQ ? restoredQ.acknowledgedClues : []),
   ])]);
-  const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">(() => isQ ? restoredQ.match?.step ?? "bet" : isSunwoo && jcode.day === 12 && jcode.team && jcode.beat > (sunwooDay(12).beats.findIndex(beat => beat.kind === "wager-result")) ? jcode.wagerClaimed ? "done" : "pub" : "bet");
-  const [team, setTeam] = useState(() => isSunwoo ? jcode.team ?? "" : isQ ? restoredQ.match?.team ?? "" : "");
-  const [stake, setStake] = useState(() => isSunwoo ? jcode.wagerStake ?? 1 : isQ ? restoredQ.match?.stake ?? 1 : 1);
+  const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">(() => isQ ? restoredQ.match?.step ?? "bet" : isAuthored && jcode.day === 12 && jcode.team && jcode.beat > (authoredDay(12).beats.findIndex(beat => beat.kind === "wager-result")) ? jcode.wagerClaimed ? "done" : "pub" : "bet");
+  const [team, setTeam] = useState(() => isAuthored ? jcode.team ?? "" : isQ ? restoredQ.match?.team ?? "" : "");
+  const [stake, setStake] = useState(() => isAuthored ? jcode.wagerStake ?? 1 : isQ ? restoredQ.match?.stake ?? 1 : 1);
   const [matchError, setMatchError] = useState("");
   const [matchDialog, setMatchDialog] = useState(false);
   const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => previewDay === 12 && !usesScript ? "intro" : isQ ? restoredQ.match?.conversation : undefined);
@@ -265,7 +272,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     kind: "unspoken" as const, title: "暧昧结局 · 明年第一个", text: "走到长廊尽头，你们就该往不同的方向走了。他多站了一会儿，说：「明年我还是想第一个来找你。」你说：「那你得来早点。」",
     memory: "长廊里很安静，他说，明年还是想第一个来找你。",
   };
-  const ending = isSunwoo ? { ...sunwooEndings[sunwooKind].ending, memory: "" } : isYounghoon && jcode.ending ? { kind: jcode.ending, text: younghoonEndings[jcode.ending].text, memory: "" } : isJcode && jcode.ending ? { kind: jcode.ending, title: jcodeEndings[jcode.ending].title, text: jcodeEndings[jcode.ending].lines.at(-1)?.body ?? "", memory: "" } : isQ ? { kind: sharedEnding.kind, ...qEndingCopy(sharedEnding.kind) } : sharedEnding;
+  const ending = isAuthored ? { ...authoredEndings[sunwooKind].ending, memory: "" } : isYounghoon && jcode.ending ? { kind: jcode.ending, text: younghoonEndings[jcode.ending].text, memory: "" } : isJcode && jcode.ending ? { kind: jcode.ending, title: jcodeEndings[jcode.ending].title, text: jcodeEndings[jcode.ending].lines.at(-1)?.body ?? "", memory: "" } : isQ ? { kind: sharedEnding.kind, ...qEndingCopy(sharedEnding.kind) } : sharedEnding;
   const finalMemory = {
     id: finalMemoryId,
     title: isQ ? "西廊窗边" : "跨年长廊",
@@ -383,7 +390,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         return replies <= (saved?.replies ?? 0);
       }).map((line, order) => ({ body: line.body, outgoing: line.speaker === "你", day: mail.day, order: Number(mail.time.replace(":", "")) * 100 + order }));
     }) : []),
-    ...(isSunwoo && contact === "sunwoo" ? (jcode.mailHistory ?? []).flatMap((mail, index) => mail.lines.map((line, order) => ({
+    ...(isAuthored && contact === selectedLeadId ? (jcode.mailHistory ?? []).flatMap((mail, index) => mail.lines.map((line, order) => ({
       body: sunwooName(line.body, identity?.name ?? "你"), outgoing: line.speaker === "你", narration: !line.speaker,
       day: mail.day, order: Number(mail.time.replace(":", "")) * 10000 + index * 100 + order,
     }))) : []),
@@ -394,7 +401,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     ]),
   ].sort((a, b) => a.day - b.day || a.order - b.order);
   const currentThread = thread(recipient);
-  const unreadMail = (contact: string) => Math.max(isSunwoo && contact === "sunwoo" && (sunwooMailActive || Object.keys(jcode.mailBacklog ?? {}).length > 0) ? 1 : 0, thread(contact).filter(entry => !entry.outgoing && !entry.narration).length - (mailRead[contact] ?? 0));
+  const unreadMail = (contact: string) => Math.max(isAuthored && contact === selectedLeadId && (sunwooMailActive || Object.keys(jcode.mailBacklog ?? {}).length > 0) ? 1 : 0, thread(contact).filter(entry => !entry.outgoing && !entry.narration).length - (mailRead[contact] ?? 0));
   useEffect(() => {
     if (active !== "owlpost" || !recipient) return;
     const count = currentThread.filter(entry => !entry.outgoing && !entry.narration).length;
@@ -449,7 +456,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       unlocked: albumSceneRead(day, sharedRules.ballDay, completedSceneDays) && state.variables.hyunjae_day24_choice === "a",
     },
   ].filter(clue => selectedLeadId === "hyunjae" && clue.unlocked)
-    .concat(isQ ? qAlbumClues(qReadDays, state.completed) : [], usesScript ? (isSunwoo ? [...sunwooDays, ...Object.values(sunwooEndings)] : scriptDays).flatMap(day => day.beats.flatMap(beat => beat.kind === "clue" && jcode.clues.includes(beat.clue.id) ? [beat.clue] : [])) : [], finalMemory.unlocked ? [finalMemory] : []);
+    .concat(isQ ? qAlbumClues(qReadDays, state.completed) : [], usesScript ? (isAuthored ? [...authoredDays, authoredEndings[sunwooKind]] : scriptDays).flatMap(day => day.beats.flatMap(beat => beat.kind === "clue" && jcode.clues.includes(beat.clue.id) ? [beat.clue] : [])) : [], finalMemory.unlocked ? [finalMemory] : []);
   // Let story dialogs finish first, then announce each new entry in album order.
   const pendingClue = nextAlbumNotice(albumClues.filter(clue => clue.id !== finalMemory.id && !usesScript), acknowledgedClues,
     Boolean(sceneOpen || matchDialog || matchConversation || dateReply || outing || destination || finalMemoryOpen || finished));
@@ -557,11 +564,11 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       cursor: cursor ?? sunwooReview.cursor,
     } } });
   };
-  const sunwooInline = isSunwoo && active === "owlpost" && recipient === "sunwoo" && (sunwooMailActive || Boolean(sunwooReview));
-  const sunwooMainRead = isSunwoo && jcode.beat > 0 && scriptToday?.beats.slice(jcode.beat).every(beat => "channel" in beat && beat.channel === "mail");
-  const sunwooScene = isSunwoo && jcodeToday && (jcode.open || sunwooReview) ? <SunwooScene key={sunwooProgress.day} progress={sunwooProgress} update={updateSunwoo}
-    reviewing={Boolean(sunwooReview)} identityKey={identityKey} score={sunwooScore} player={identity?.name ?? "你"} mailOpen={active === "owlpost" && recipient === "sunwoo"}
-    onMail={() => { setActive("owlpost"); setRecipient("sunwoo"); }} onClue={acknowledgeClue} note={note} highlight={highlightMistletoe}
+  const sunwooInline = isAuthored && active === "owlpost" && recipient === selectedLeadId && (sunwooMailActive || Boolean(sunwooReview));
+  const sunwooMainRead = isAuthored && jcode.beat > 0 && scriptToday?.beats.slice(jcode.beat).every(beat => "channel" in beat && beat.channel === "mail");
+  const sunwooScene = isAuthored && jcodeToday && (jcode.open || sunwooReview) ? <SunwooScene route={isJuyeon ? "juyeon" : "sunwoo"} key={sunwooProgress.day} progress={sunwooProgress} update={updateSunwoo}
+    reviewing={Boolean(sunwooReview)} identityKey={identityKey} score={sunwooScore} player={identity?.name ?? "你"} mailOpen={active === "owlpost" && recipient === selectedLeadId}
+    onMail={() => { setActive("owlpost"); setRecipient(selectedLeadId); }} onClue={acknowledgeClue} note={note} highlight={highlightMistletoe}
     onWagerResult={() => { setTeam(jcode.team ?? ""); setStake(jcode.wagerStake ?? 1); setMatchStep("pub"); }}
     onFinish={() => {
       if (sunwooReviewDay !== undefined && sunwooReview) {
@@ -573,7 +580,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   if (finished && showEnding) {
     const character = contacts.find(contact => contact.id === selectedLeadId) ?? { id: "hyunjae", name: "李贤在" };
     const stats = relationship(character.id, state);
-    return <HogwartsEnding endingTitle={isSunwoo ? sunwooEndings[sunwooKind].ending.title : undefined} kind={ending.kind} text={ending.text} character={character}
+    return <HogwartsEnding endingTitle={isAuthored ? authoredEndings[sunwooKind].ending.title : undefined} kind={ending.kind} text={ending.text} character={character}
       affinity={previewEnding ? { together: 100, friends: 80, unspoken: 79 }[previewEnding] : stats.affinity} jealousy={stats.jealousy} showFriendGift={!usesScript} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
   }
   return <div className="hogwarts-device-stage">
@@ -631,7 +638,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             </div>;
           })}
           {recipient === selectedLeadId && owlToday && mailArrived && !awaitingEveningMail && <>{choices}{!sceneOpen && relationshipHint}</>}
-          {isSunwoo && recipient === "sunwoo" && Object.keys(jcode.mailBacklog ?? {}).map(value => <button
+          {isAuthored && recipient === selectedLeadId && Object.keys(jcode.mailBacklog ?? {}).map(value => <button
             key={value} className="hogwarts-activity" disabled={finished} onClick={() => setSunwooReviewDay(Number(value))}>12月{value}日 · 未读来信</button>)}
           {sunwooReview && sunwooMailActive && <button onClick={() => setSunwooReviewDay(undefined)}>返回今天来信</button>}
           {sunwooInline && sunwooScene}
@@ -653,7 +660,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           </button>}
           <HogwartsSchedule readOnly={finished} year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
             sceneTime={jcodeToday?.time} sceneLabel={sunwooMailActive ? `${jcodeToday?.time} · 猫头鹰信箱` : activeYoungMail ? `${activeYoungMail.time} · 猫头鹰信箱` : jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
-            onScene={sunwooMailActive ? () => { updateJcode({open:true}); setActive("owlpost"); setRecipient("sunwoo"); } : activeYoungMail ? openYoungMail : jcodeToday ? !jcode.done ? () => { setSunwooReviewDay(undefined); setLessonTime(jcodeToday.time); updateJcode({ open: true, time: jcodeToday.time }); } : undefined : (!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
+            onScene={sunwooMailActive ? () => { updateJcode({open:true}); setActive("owlpost"); setRecipient(selectedLeadId); } : activeYoungMail ? openYoungMail : jcodeToday ? !jcode.done ? () => { setSunwooReviewDay(undefined); setLessonTime(jcodeToday.time); updateJcode({ open: true, time: jcodeToday.time }); } : undefined : (!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
               openScene();
             } : undefined}
             attended={attended} onAttend={(id, time, last) => {
@@ -666,8 +673,8 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             }}
             onEnd={usesScript ? !previewDay && (jcode.done || sunwooMainRead) && day < scriptDays.length ? () => {
               const backlog = { ...jcode.mailBacklog };
-              if (isSunwoo && !jcode.done && scriptToday && jcode.beat < scriptToday.beats.length) backlog[day] = { beat: jcode.beat, option: jcode.option, cursor: jcode.cursor };
-              updateJcode({ day: day + 1, beat: 0, cursor: { position: 0 }, done: false, open: false, team: undefined, time: undefined, ...(isSunwoo ? {mailBacklog: backlog} : {}) });
+              if (isAuthored && !jcode.done && scriptToday && jcode.beat < scriptToday.beats.length) backlog[day] = { beat: jcode.beat, option: jcode.option, cursor: jcode.cursor };
+              updateJcode({ day: day + 1, beat: 0, cursor: { position: 0 }, done: false, open: false, team: undefined, time: undefined, ...(isAuthored ? {mailBacklog: backlog} : {}) });
               setSunwooReviewDay(undefined); setLessonTime(undefined);
             } : undefined : !previewDay && nextDay && (day !== sharedRules.quidditchDay || matchStep === "done") && (!scenes.length || seenScene === scenes[scenes.length - 1]?.id) ? () => { select(nextDay.target); setLessonTime(sharedRules.dayStartTime); setSeenScene(""); setDestination(undefined); } : undefined} />
           {isQ && day === 1 && state.variables.q_mail_unlocked === true && <p><button onClick={() => { setActive("owlpost"); setRecipient("q"); }}>查看池昌民的来信</button></p>}
@@ -678,7 +685,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
               onClick={() => { setFreeTimeResult(""); setDestination(scene); }}>{scene.place}</button>)}
           </section>}
           {plans[day] && <p>今日约会：{plans[day]} {dateScenes[acceptedVenues[day]] && <button className="hogwarts-activity" disabled={finished || attendedDates.includes(day)} onClick={() => setOuting(true)}>{attendedDates.includes(day) ? "已赴约" : "去赴约"}</button>}</p>}
-          {day === sharedRules.quidditchDay && matchStep === "pub" && <button className="hogwarts-activity" disabled={finished} onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>{isSunwoo ? "去三把扫帚兑奖" : <>和{lead?.name}去三把扫帚</>}</button>}
+          {day === sharedRules.quidditchDay && matchStep === "pub" && <button className="hogwarts-activity" disabled={finished} onClick={() => { setVisitedMatchPub(true); setMatchDialog(true); }}>{isAuthored ? "去三把扫帚兑奖" : <>和{lead?.name}去三把扫帚</>}</button>}
           {selectedLeadId !== "hyunjae" && !isQ && !usesScript && <p>这条路线的正文还在写作中。</p>}
           {finished && <button className="hogwarts-activity" type="button" onClick={() => setShowEnding(true)}>查看结局</button>}
         </section> : active === "date" ? <section className="hogwarts-date">
@@ -787,7 +794,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {!(work.data[active] ?? []).length && <p>这页羊皮纸还没有写下新的内容。</p>}
           </section>}
       </main>
-      {jcodeToday && !isSunwoo && jcode.open && (!activeYoungMail || active !== "owlpost") && <JcodeScene onClue={acknowledgeClue} younghoon={isYounghoon} onMail={openYoungMail} key={day} progress={jcode} update={updateJcode} identityKey={identityKey} affinity={relationship(selectedLeadId, state).affinity}
+      {jcodeToday && !isAuthored && jcode.open && (!activeYoungMail || active !== "owlpost") && <JcodeScene onClue={acknowledgeClue} younghoon={isYounghoon} onMail={openYoungMail} key={day} progress={jcode} update={updateJcode} identityKey={identityKey} affinity={relationship(selectedLeadId, state).affinity}
         onFinish={() => { updateJcode({ done: true, open: false }); if (day === 31) setShowEnding(true); }}
         note={note} player={identity?.name ?? "我"} highlight={highlightMistletoe} />}
       {!sunwooInline && sunwooScene}
@@ -883,7 +890,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             </div>}
           </>}
           {isQ && qMatch && (won || matchStep !== "pub") && authoredLines(qMatch.closing)}
-          {(won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); if(isSunwoo) updateJcode({wagerClaimed:true}); }}>返回今日行程</button>}
+          {(won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); if(isAuthored) updateJcode({wagerClaimed:true}); }}>返回今日行程</button>}
           </SceneDialogue>
         {matchError && <p role="alert">{matchError}</p>}
       </dialog>}

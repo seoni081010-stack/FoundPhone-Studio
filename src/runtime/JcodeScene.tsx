@@ -11,11 +11,11 @@ type Cursor = { position: number; accepted?: boolean };
 export type Progress = { truthParchmentUntil?: number; starWishUntil?: number; starWishEntry?: { draft: string; submitted?: string; foldUntil?: number; done?: boolean }; day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind; wishSubmitted?: boolean; choiceHistory?: Record<string, number>; mailHistory?: { day: number; time: string; lines: { speaker?: string; body: string }[] }[]; wagerStake?: number; wagerClaimed?: boolean; mailBacklog?: Record<number, { beat: number; option?: number; cursor: Cursor }> };
 const first = (day: number): Progress => ({ day, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: false });
 
-export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind, younghoon = false, sunwoo = false) {
-  const storageKey = `hogwarts-${sunwoo ? "sunwoo" : younghoon ? "younghoon" : "jcode"}-v1:${key}`;
+export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind, younghoon = false, sunwoo = false, juyeon = false) {
+  const storageKey = `hogwarts-${juyeon ? "juyeon" : sunwoo ? "sunwoo" : younghoon ? "younghoon" : "jcode"}-v1:${key}`;
   const [progress, setProgress] = useState<Progress>(() => {
     if (!enabled) return first(1);
-    if (previewEnding) return { ...first(31), open: true, beat: younghoon || sunwoo ? 0 : jcodeDays[30].beats.length - 1, ending: previewEnding };
+    if (previewEnding) return { ...first(31), open: true, beat: younghoon || sunwoo || juyeon ? 0 : jcodeDays[30].beats.length - 1, ending: previewEnding };
     if (previewDay) return { ...first(previewDay), open: true };
     try {
       const saved = localStorage.getItem(storageKey);

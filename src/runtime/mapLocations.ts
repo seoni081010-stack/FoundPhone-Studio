@@ -1,3 +1,4 @@
+import { juyeonMapLocations } from "./juyeonMapLocations";
 export const mapRooms = [
   ["天文塔", 82, 68], ["图书馆", 276, 68],
   ["黑魔法防御术", 83, 123], ["魔咒学", 276, 123],
@@ -11,6 +12,7 @@ export const mapRooms = [
 ] as const;
 
 export const mapLandmarks: Partial<Record<string, readonly [number, number]>> = {
+  ...juyeonMapLocations,
   "秘密交换摊位": [245, 325],
   "壁炉旁": [210, 298],
   "圣诞树旁": [250, 298],

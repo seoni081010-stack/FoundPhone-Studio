@@ -5,7 +5,7 @@ const pools=JSON.parse(readFileSync('stories/date-invitations.json','utf8'));
 const venues=JSON.parse(readFileSync('stories/template/hogwarts-dates.json','utf8')).venues;
 const catalog=JSON.parse(readFileSync('stories/template/hogwarts-gift-catalog.json','utf8'));
 const prefs=JSON.parse(readFileSync('stories/template/hogwarts-gift-preferences.json','utf8')).preferences;
-const names={sunwoo:'金善旴',jacob:'裴俊英',q:'池昌民',younghoon:'金泳勋',hyunjae:'李贤在'};
+const names={juyeon:'李柱延',sunwoo:'金善旴',jacob:'裴俊英',q:'池昌民',younghoon:'金泳勋',hyunjae:'李贤在'};
 const b=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true});
 const base=process.env.BASE_URL||'http://127.0.0.1:4173/';
 const errors=[];
@@ -17,7 +17,7 @@ for(const lead of Object.keys(pools).filter(id=>!process.env.INVITATION_LEAD||pr
  const liked=catalog.items.find(i=>i.giftable&&preferred.includes(i.storeId));
  const ordinary=catalog.items.find(i=>i.giftable&&!preferred.includes(i.storeId));
  await p.goto(base);await p.evaluate(({lead,run,score,liked,ordinary,year})=>{
-  localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'邀约核验',house:'slytherin',year,loveInterest:lead,runId:run}));
+  localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'邀约核验',house:lead==='juyeon'?'ravenclaw':'slytherin',year,loveInterest:lead,runId:run}));
   localStorage.setItem(`foundphone-hogwarts-shopping-v1-${run}`,JSON.stringify({wallet:5000,vault:100000,inventory:{},gifts:score===45?{[liked.id+'-'+lead]:9}:{[liked.id+'-'+lead]:8,[ordinary.id+'-'+lead]:3},vaultUpgrade:true}));
  },{lead,run,score,liked,ordinary,year});
  await p.reload();await p.getByRole('button',{name:'推开霍格沃茨的大门'}).click();

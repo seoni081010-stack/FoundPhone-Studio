@@ -54,27 +54,29 @@ async function prepareAvatar(file: File) {
 }
 
 function StoryPlayer() {
+  const requestedLead = new URLSearchParams(location.search).get("route") === "juyeon" ? "juyeon" : undefined;
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewEnding = previewMode?.match(/^(?:jcode|younghoon|sunwoo)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
+  const previewEnding = previewMode?.match(/^(?:jcode|younghoon|sunwoo|juyeon)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
   const jcodePreviewDay = Number(previewMode?.match(/^jcode-day(2[1-9]|3[01])$/)?.[1]);
   const younghoonPreviewDay = Number(previewMode?.match(/^younghoon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
+  const juyeonPreviewDay = Number(previewMode?.match(/^juyeon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const sunwooPreviewDay = Number(previewMode?.match(/^sunwoo-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
-  const previewDay = previewEnding ? 31 : sunwooPreviewDay || younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
-  const previewLead = previewMode?.startsWith("sunwoo-") ? "sunwoo" : previewMode?.startsWith("younghoon-") ? "younghoon" : previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
+  const previewDay = previewEnding ? 31 : juyeonPreviewDay || sunwooPreviewDay || younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
+  const previewLead = previewMode?.startsWith("juyeon-") ? "juyeon" : previewMode?.startsWith("sunwoo-") ? "sunwoo" : previewMode?.startsWith("younghoon-") ? "younghoon" : previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
   const [identity, setIdentity] = useState<Identity | null>(() => previewDay ? {
     name: savedIdentity()?.name ?? "你", house: savedIdentity()?.house ?? (previewLead === "hyunjae" ? "gryffindor" : "ravenclaw"),
     year: savedIdentity()?.year ?? (previewLead === "hyunjae" ? 7 : 6), loveInterest: previewLead, runId: `review-${previewLead}-day${previewDay}${previewEnding ? `-${previewEnding}` : ""}`,
-  } : savedIdentity());
+  } : requestedLead && savedIdentity()?.loveInterest !== requestedLead ? null : savedIdentity());
   const [avatar, setAvatar] = useState(identity?.avatar);
   const [avatarBusy, setAvatarBusy] = useState(false);
   const [avatarError, setAvatarError] = useState("");
   const [name, setName] = useState(identity?.name || "");
   const [house, setHouse] = useState(identity?.house || "");
   const [year, setYear] = useState(identity?.year || 5);
-  const [loveInterest, setLoveInterest] = useState(identity?.loveInterest || "");
+  const [loveInterest, setLoveInterest] = useState(identity?.loveInterest || requestedLead || "");
   const requirePasscode = false;
   const [unlocked, setUnlocked] = useState(false);
   const [passcode, setPasscode] = useState("");
