@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getJuyeonEndingLetter } from "./juyeonLetterContent";
+import { getJuyeonEndingLetter, displayJuyeonLetterParagraph } from "./juyeonLetterContent";
 import { juyeonEndings } from "./juyeonStory";
 import { endingLetterReadyMs } from "./JuyeonEndingLetter";
 
@@ -20,4 +20,10 @@ test('the three letters are different complete letters without invented addition
   expect(letters[0]).toContain('「有些话，我想了很久。」');
   expect(letters[1]).toContain('「跟你在一起的时候，总会发生一些原本没想到的事情。」');
   expect(letters[2]).toContain('「也希望以后还能常常见到你。」');
+});
+
+test('letter display removes only outer quotation marks without changing content or the manuscript',()=>{
+  expect(displayJuyeonLetterParagraph('「我想说「谢谢」，{{playerName}}。」','星遥')).toBe('我想说「谢谢」，星遥。');
+  expect(displayJuyeonLetterParagraph('新年快乐。','星遥')).toBe('新年快乐。');
+  expect(getJuyeonEndingLetter('together').paragraphs[0]).toBe('「有些话，我想了很久。」');
 });

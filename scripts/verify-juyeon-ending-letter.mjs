@@ -7,7 +7,7 @@ const base=process.env.BASE_URL||'http://127.0.0.1:4181/';const errors=[];
 for(const kind of ['together','friends','unspoken']){
  const context=await browser.newContext({viewport:kind==='friends'?{width:1366,height:900}:{width:390,height:844},serviceWorkers:'block'});
  const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));
- const gate=endings[kind].beats.findIndex(b=>b.endingGate),expected=endings[kind].beats[gate].lines.slice(1,6).map(l=>l.body),after=endings[kind].beats[gate].lines[6].body;
+ const gate=endings[kind].beats.findIndex(b=>b.endingGate),expected=endings[kind].beats[gate].lines.slice(1,6).map(l=>l.body.slice(1,-1)),after=endings[kind].beats[gate].lines[6].body;
  const key=`hogwarts-juyeon-v1:ending-letter-${kind}`;
  await p.goto(base);await p.evaluate(({key,kind,gate})=>{
   localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'星遥',house:'slytherin',year:6,loveInterest:'juyeon',runId:`ending-letter-${kind}`}));

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { createRoot } from "react-dom/client";
 import type { JcodeEndingKind } from "./jcodeStory";
-import { getJuyeonEndingLetter } from "./juyeonLetterContent";
+import { getJuyeonEndingLetter, displayJuyeonLetterParagraph } from "./juyeonLetterContent";
 import "./JuyeonGreetingCard.css";
 import "./JuyeonEndingLetter.css";
 
@@ -58,7 +58,7 @@ function EndingLetter({ kind, playerName, startedAt, onContinueRequest, onFinish
         <img className="ending-letter-texture" src={`${import.meta.env.BASE_URL}sunwoo-truth-parchment.png`} alt="" />
         <div className="ending-letter-ink">
           <p className="ending-letter-player">{playerName}</p>
-          {paragraphs.map((text,index)=><p className="ending-letter-paragraph" key={index} style={{animationDelay:`${LETTER_TEXT_START_MS+index*LETTER_LINE_DELAY_MS-elapsed.current}ms`}}>{text.replaceAll("{{playerName}}",playerName)}</p>)}
+          {paragraphs.map((text,index)=><p className="ending-letter-paragraph" key={index} style={{animationDelay:`${LETTER_TEXT_START_MS+index*LETTER_LINE_DELAY_MS-elapsed.current}ms`}}>{displayJuyeonLetterParagraph(text,playerName)}</p>)}
           <div className="ending-letter-unwritten" aria-hidden="true" />
         </div>
       </div>

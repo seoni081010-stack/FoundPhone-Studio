@@ -15,3 +15,9 @@ export function getJuyeonEndingLetter(kind: JcodeEndingKind) {
   if (!paragraphs.length || resumeLineIndex >= firstSpeech) throw new Error("Missing letter reading transition");
   return { paragraphs, resumeLineIndex, afterReading: beat.lines[resumeLineIndex].body };
 }
+
+/** Remove only the manuscript's outer quotation marks, leaving its words and inner punctuation intact. */
+export function displayJuyeonLetterParagraph(text: string, playerName: string) {
+  const body = text.startsWith("「") && text.endsWith("」") ? text.slice(1,-1) : text;
+  return body.replaceAll("{{playerName}}",playerName);
+}

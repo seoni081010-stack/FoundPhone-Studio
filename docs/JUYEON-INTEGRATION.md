@@ -78,3 +78,7 @@ Verification: `scripts/verify-juyeon-greeting-card.mjs` covers phone/desktop, Ch
 `juyeonEndingLetter.kind/startedAt/done` persists the normal player's phase and acknowledgement. After acknowledgement, the printed paragraphs are omitted from the normal dialogue rendering because they were just displayed on parchment; their following narration remains step 0. Existing saved cursor numbering is unchanged, and old saves already past the first reading block bypass the new effect. Day 25's card and Day 14's star chart remain separate and unchanged.
 
 Verification: `scripts/verify-juyeon-ending-letter.mjs` checks all three exact texts, mobile/desktop, opening/extraction, successive fades, the empty tail, early taps, no buttons/automatic close, refreshed phases, page-tap acknowledgement, subsequent original dialogue and unchanged affinity. The whole-route driver also acknowledges this new manual visual interruption.
+
+## Letter and ending-page presentation correction
+
+The letter renderer removes only a paragraph's outer `「」` wrappers for display; the manuscript, wording, interior punctuation and stored story data stay intact. The shared HogwartsEnding page no longer renders a second book-title line. It uses the common END label, character-specific final sentence, name/affinity/jealousy row and existing clickable ending seal for all routes. Authored ending titles remain in story/archive data and album memories.

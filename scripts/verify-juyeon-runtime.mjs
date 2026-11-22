@@ -130,6 +130,14 @@ if(!process.env.CAMPAIGN)for(const kind of ['together','friends','unspoken'])for
  await page.goto(base+'?preview=juyeon-ending-'+kind);
  const result=await drive(page,{day:31,branch});assert.equal(result.ending,kind);
  assert.ok(result.text.includes(endings[kind].ending.text));
+ assert.equal(await page.locator('.ending-story-title').count(),0);
+ assert.equal(await page.locator('.ending-copy h2 + p').textContent(),endings[kind].ending.text);
+ assert.equal(await page.locator('.ending-copy h2').textContent(),{together:'END·恋人',friends:'END·朋友',unspoken:'END·未说出口'}[kind]);
+ await page.getByRole('button',{name:'盖上结局印章'}).click();
+ await page.locator('.ending-seal-caption').waitFor();
+ await page.screenshot({path:`work/juyeon-ending-clean-${kind}-${branch}.png`});
+ assert.ok((await page.locator('.ending-stats').innerText()).includes('李柱延 · 好感度'));
+ assert.ok((await page.locator('.ending-stats').innerText()).includes('嫉妒值'));
  for(const [other,entry]of Object.entries(endings))if(other!==kind)assert.ok(!result.text.includes(entry.ending.text));
  assert.equal(await page.evaluate(()=>localStorage.getItem('foundphone-hogwarts-identity-v1')),formal);
  assert.equal(await page.evaluate(()=>localStorage.getItem('hogwarts-younghoon-v1:formal-preserved')),formalProgress);

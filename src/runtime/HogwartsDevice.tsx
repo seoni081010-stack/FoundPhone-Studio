@@ -580,7 +580,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   if (finished && showEnding) {
     const character = contacts.find(contact => contact.id === selectedLeadId) ?? { id: "hyunjae", name: "李贤在" };
     const stats = relationship(character.id, state);
-    return <HogwartsEnding endingTitle={isAuthored ? authoredEndings[sunwooKind].ending.title : undefined} kind={ending.kind} text={ending.text} character={character}
+    return <HogwartsEnding kind={ending.kind} text={ending.text} character={character}
       affinity={previewEnding ? { together: 100, friends: 80, unspoken: 79 }[previewEnding] : stats.affinity} jealousy={stats.jealousy} showFriendGift={!usesScript} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
   }
   return <div className="hogwarts-device-stage">
