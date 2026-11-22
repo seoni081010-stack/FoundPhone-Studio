@@ -68,3 +68,13 @@ const card = startJuyeonGreetingCard({
 ```
 
 Verification: `scripts/verify-juyeon-greeting-card.mjs` covers phone/desktop, Chinese/Latin names, staged text, premature taps, no automatic closure, refresh, acknowledgement, and unchanged affinity.
+
+## Day 31 ending-specific envelope letter
+
+`startJuyeonEndingLetter({ kind, playerName, container?, startedAt?, onContinueRequest? })` starts the sealed light-blue envelope, split dark-green five-point-star wax seal, unfolding flap and rising worn parchment. It returns `{ hide(), finished }`. It makes no ending or affinity decisions and never hides automatically. After the selected letter is fully revealed, a page tap requests continuation; drag/scroll gestures and early taps do not advance.
+
+`getJuyeonEndingLetter(kind)` reads the five exact quoted paragraphs directly from that ending's existing source-backed beats. The player's name is the first line, as authored in the common scene. No signature, dots or extra message is added; the final unwritten tail stays empty. The existing 80/100 gate and independently forced preview modes select the kind before the animation starts. One ending never renders another's letter.
+
+`juyeonEndingLetter.kind/startedAt/done` persists the normal player's phase and acknowledgement. After acknowledgement, the printed paragraphs are omitted from the normal dialogue rendering because they were just displayed on parchment; their following narration remains step 0. Existing saved cursor numbering is unchanged, and old saves already past the first reading block bypass the new effect. Day 25's card and Day 14's star chart remain separate and unchanged.
+
+Verification: `scripts/verify-juyeon-ending-letter.mjs` checks all three exact texts, mobile/desktop, opening/extraction, successive fades, the empty tail, early taps, no buttons/automatic close, refreshed phases, page-tap acknowledgement, subsequent original dialogue and unchanged affinity. The whole-route driver also acknowledges this new manual visual interruption.
