@@ -31,6 +31,8 @@ async function drive(page, config){
     continue;
    }
    if(document.querySelector('.star-wish-paper,.truth-parchment'))continue;
+   const greeting=document.querySelector('.juyeon-greeting-modal');
+   if(greeting){if(greeting.querySelector('[data-readable="true"]'))greeting.querySelector('.greeting-inner')?.click();continue;}
    const chart=document.querySelector('.juyeon-star-chart');
    if(chart){chart.querySelector('button:not([disabled])')?.click();continue;}
    const dialog=document.querySelector('dialog[open]');

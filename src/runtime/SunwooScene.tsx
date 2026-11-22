@@ -1,7 +1,8 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { StarWishPaper, starWishMoment, STAR_WISH_DURATION } from "./StarWishPaper";
 import { WriteStarWish, WRITE_STAR_FOLD_DURATION } from "./WriteStarWish";
 import { juyeonDay } from "./juyeonStory";
+import { startJuyeonGreetingCard } from "./JuyeonGreetingCard";
 import { JuyeonStarChart } from "./JuyeonStarChart";
 import { TruthParchment } from "./TruthParchment";
 import { SceneDialogue } from "./SceneDialogue";
@@ -83,6 +84,31 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   useEffect(() => {
     if (chartOpen && !progress.juyeonStarChart) update({ juyeonStarChart: { startedAt: Date.now() } });
   }, [chartOpen, progress.juyeonStarChart, update]);
+  const greetingHost = useRef<HTMLDivElement>(null);
+  // These four narration paragraphs are the existing step 7; keep all saved positions intact.
+  const greetingTrigger = route === "juyeon" && progress.day === 25 && progress.cursor.position === 7
+    && lines.some(line => line.body.startsWith("你打开礼物盒，在柔软的衬布下面找到折好的小卡片。"));
+  const greetingOpen = greetingTrigger && !progress.juyeonGreeting?.done;
+  useEffect(() => {
+    if (route === "juyeon" && progress.day === 25) {
+      void document.fonts.load('italic 25px "Greeting Chinese"');
+      void document.fonts.load('25px "Greeting Latin"');
+    }
+  }, [route, progress.day]);
+  useEffect(() => {
+    if (greetingOpen && !progress.juyeonGreeting) update({ juyeonGreeting: { startedAt: Date.now() } });
+  }, [greetingOpen, progress.juyeonGreeting, update]);
+  const greetingStart = progress.juyeonGreeting?.startedAt;
+  const greetingAcknowledge = useRef(() => {});
+  greetingAcknowledge.current = () => {
+    if (progress.juyeonGreeting && !progress.juyeonGreeting.done) update({ juyeonGreeting: { ...progress.juyeonGreeting, done: true } });
+  };
+  useEffect(() => {
+    if (!greetingOpen || !greetingStart || !greetingHost.current) return;
+    const card = startJuyeonGreetingCard({ container: greetingHost.current, playerName: player, startedAt: greetingStart,
+      onContinueRequest: () => greetingAcknowledge.current() });
+    return () => card.hide();
+  }, [greetingOpen, greetingStart, player]);
   const next = (patch: Partial<Progress> = {}) => {
     const mailLines = beat?.channel === "mail" ? [
       ...(beat.kind === "choice" && progress.option !== undefined ? [{ speaker: "你", body: beat.options[progress.option].body }] : []),
@@ -113,7 +139,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
             affinity: progress.affinity + (progress.choiceHistory?.[`${story.day}:${progress.beat}`] === undefined ? option.affinity ?? 0 : 0), cursor:{position:0,accepted:true},
             choiceHistory: { ...progress.choiceHistory, [`${story.day}:${progress.beat}`]: index },
           })}>{sunwooName(option.body,player)}</button>)}
-        </div> : writeWish ? null : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
+        </div> : writeWish ? null : greetingOpen ? <p className="hogwarts-narration">{highlight("你打开礼物盒，在柔软的衬布下面找到折好的小卡片。")}</p> : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
           {beat.kind === "choice" && note(player,sunwooName(beat.options[progress.option!].body,player),true,-1)}
           {lines.map((line,index) => line.speaker ? note(line.speaker === "你" ? player : line.speaker,sunwooName(line.body,player),line.speaker === "你",index)
             : <p className="hogwarts-narration" key={index}>{highlight(sunwooName(line.body,player))}</p>)}
@@ -121,9 +147,10 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
         </SceneDialogue>}
     </>}
   </>;
-  const scene = (beat?.channel === "mail" || reviewing) && mailOpen ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{content}</section>
+  const hostedContent = <>{content}<div ref={greetingHost} /></>;
+  const scene = (beat?.channel === "mail" || reviewing) && mailOpen ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{hostedContent}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
-      className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby={sceneId}>{content}</dialog>;
+      className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby={sceneId}>{hostedContent}</dialog>;
   return <>{scene}{chartOpen && progress.juyeonStarChart && <JuyeonStarChart startedAt={progress.juyeonStarChart.startedAt}
     onContinue={() => update({ juyeonStarChart: { ...progress.juyeonStarChart!, done: true } })} />}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}{writeWish && <WriteStarWish draft={entry?.draft ?? ""} submitted={entry?.submitted} foldUntil={entry?.foldUntil}
     onDraft={draft => update({ starWishEntry: { draft } })}

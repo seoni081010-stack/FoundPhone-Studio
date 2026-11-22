@@ -1,0 +1,9 @@
+Greeting card fonts:
+- greeting-chinese.woff2: Ma Shan Zheng Regular, Copyright 2018 The Ma Shan Zheng Project Authors.
+  Source: https://github.com/google/fonts/tree/main/ofl/mashanzheng
+  License: MaShanZheng-OFL.txt (SIL Open Font License 1.1).
+- greeting-latin.woff2: Allura Regular, Copyright 2010 The Allura Project Authors.
+  Source: https://github.com/google/fonts/tree/main/ofl/allura
+  License: Allura-OFL.txt (SIL Open Font License 1.1).
+Both are losslessly repackaged from the source TTF files as WOFF2 for browser delivery.
+The complete font glyph sets are retained for player-defined names.

@@ -48,3 +48,23 @@ The deployed `build-info.json` records the Actions commit SHA so the live websit
 The existing 19:40 narration is interrupted after Juyeon spreads the parchment on the stone table. The paper unfolds, a wand-light sweep wakes sequential curved star trails, and the upper constellations settle into a gently breathing/drifting sky while the lower ink chart stays on the textured parchment. The only visible label in this overlay is its lower-right Continue button. Quiet Web Audio paper noise and low harmonic tones are generated locally; no speech, character art or additional story text is added.
 
 The reveal takes 10.5 seconds, then remains open until Continue. `juyeonStarChart.startedAt/done` persists the phase and acknowledgement without changing existing cursor numbering, choice scores or manuscript data. Continue restores the original narration block containing `你不由得低头看了一会儿。`; the next fixed reply still requires its normal click. Old saves already past the narration block bypass the new interruption. The browser verification is `scripts/verify-juyeon-star-chart.mjs` (both preceding branches, phone/desktop, audio cleanup, no auto-close, refresh, old checkpoint compatibility and unchanged affinity).
+
+## Day 25 greeting card module
+
+`startJuyeonGreetingCard({ playerName, container?, startedAt?, onContinueRequest? })` starts the folded cream card in one call. It returns `{ hide(), finished }`. The promise resolves true after the final gentle star light (13.2s), or false if hidden earlier. It never automatically hides. `hide()` is idempotent; repeated starts on the same container replace the previous card cleanly.
+
+The three exact message lines and `by Juyeon` are in `GREETING_LINES`. The actual player name is rendered on the front using complete licensed Chinese/Latin handwriting fonts. The inside fades in line by line after a slow bottom-fold opening; the signature is lower-right and smaller. The card has no visible buttons, captions, portraits or additional text. No authored manuscript or score is changed.
+
+As explicitly confirmed by the user, once the text has appeared (12s), tapping anywhere on the actual card invokes `onContinueRequest`. The game then acknowledges the visual and calls `hide()` through effect cleanup, resuming the existing narration step containing `你读完，抬头看向他。`. Early taps, blank-space taps and Escape do not advance. The existing cursor numbering is unchanged, and `juyeonGreeting.startedAt/done` restores the animation phase and acknowledgement per normal player save.
+
+Example outside the story renderer:
+
+```ts
+const card = startJuyeonGreetingCard({
+  playerName,
+  onContinueRequest: () => { card.hide(); continueStory(); },
+});
+// Or retain it until some later story event explicitly calls card.hide().
+```
+
+Verification: `scripts/verify-juyeon-greeting-card.mjs` covers phone/desktop, Chinese/Latin names, staged text, premature taps, no automatic closure, refresh, acknowledgement, and unchanged affinity.
