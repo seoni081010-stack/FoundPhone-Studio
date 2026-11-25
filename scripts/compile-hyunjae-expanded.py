@@ -180,8 +180,6 @@ def compile_all():
   if d==17:
    clue=(A/'hyunjae-day17-approved-clue.md').read_text().split('## 《没有署名的愿望》',1)[1].strip()
    result['beats'].append(dict(kind='clue',time='17:00',place='魔法相册',channel='scene',when=[],clue=dict(id='hyunjae-wish',title='没有署名的愿望',body=clue,unlocked=True)))
-  if d==22:
-   result['beats'].append(dict(kind='clue',time='20:35',place='魔法相册',channel='scene',when=['library-afternoon','library-pie'],clue=dict(id='photo-library-pie',title='图书馆的馅饼',body='你读完那一页，他还坐在旁边，替你压着纸包翘起来的一角。',unlocked=True)))
   if d==24:
    result['beats'].append(dict(kind='clue',time='22:50',place='魔法相册',channel='scene',when=['ball-happy'],clue=dict(id='photo-ball-mistletoe',title='舞会后的石拱门',body='舞会散场后，他在石拱门下放慢脚步，抬头看了一眼槲寄生，又看向你。',unlocked=True)))
   days.append(result)

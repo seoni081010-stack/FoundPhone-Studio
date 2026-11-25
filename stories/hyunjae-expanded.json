@@ -30895,23 +30895,6 @@
           "channel": "mail",
           "when": [],
           "hyunjaePresent": false
-        },
-        {
-          "kind": "clue",
-          "time": "20:35",
-          "place": "魔法相册",
-          "channel": "scene",
-          "when": [
-            "library-afternoon",
-            "library-pie"
-          ],
-          "clue": {
-            "id": "photo-library-pie",
-            "title": "图书馆的馅饼",
-            "body": "你读完那一页，他还坐在旁边，替你压着纸包翘起来的一角。",
-            "unlocked": true
-          },
-          "hyunjaePresent": false
         }
       ],
       "coverage": {

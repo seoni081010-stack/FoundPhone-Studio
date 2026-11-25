@@ -480,12 +480,6 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       unlocked: albumSceneRead(day, sharedRules.firstSnowDay, completedSceneDays) && state.variables.hyunjae_first_snow_together === true,
     },
     {
-      id: "photo-library-pie",
-      title: "图书馆的馅饼",
-      body: "你读完那一页，他还坐在旁边，替你压着纸包翘起来的一角。",
-      unlocked: albumSceneRead(day, 22, completedSceneDays) && state.completed.includes("hy-day22-library-b"),
-    },
-    {
       id: "photo-ball-mistletoe",
       title: "舞会后的石拱门",
       body: "舞会散场后，他在石拱门下放慢脚步，抬头看了一眼槲寄生，又看向你。",
