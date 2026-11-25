@@ -1,3 +1,4 @@
+import { classroomLocations } from "./castleFloors";
 import { ericDays, ericDay, ericStage, ericEndings } from "./ericStory";
 import { juyeonDays, juyeonDay, juyeonStage, juyeonEndings } from "./juyeonStory";
 import { SunwooScene } from "./SunwooScene";
@@ -433,13 +434,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const scheduledLesson = !mapPlace && lessonTime
     ? dailyLessons(7, "gryffindor", day).find(lesson => lesson.time === lessonTime)
     : undefined;
-  const scheduledPlace = scheduledLesson && ({
-    "保护神奇生物": "神奇动物课场地",
-    "魔药学": "魔药学 · 地窖",
-    "自习与作业": "图书馆",
-    "毕业研究": "图书馆",
-    "N.E.W.T.复习": "图书馆",
-  }[scheduledLesson.subject] ?? scheduledLesson.subject);
+  const scheduledPlace = scheduledLesson && (classroomLocations[scheduledLesson.subject] ?? scheduledLesson.subject);
   const albumClues = [
     {
       id: "photo-snow",

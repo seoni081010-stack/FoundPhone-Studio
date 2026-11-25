@@ -1,0 +1,21 @@
+.marauder-stage .marauder-paper::before { height: min(200vw,790px); }
+.marauder-stage .marauder-ink { gap: 8px; }
+.marauder-stage .marauder-signature { flex-shrink: 0; font-size: 11px; }
+.marauder-stage .marauder-signature strong { font-size: 19px; }
+.marauder-floor-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; flex-shrink: 0; }
+.hogwarts-device .marauder-floor-tabs button { min-height: 32px; margin: 0; padding: 5px 8px; border: 1px solid #9a7b50; border-radius: 4px; background: #f0dfb8; color: #523c29; font: 12px/1.3 Georgia,"Kaiti SC",serif; box-shadow: none; }
+.hogwarts-device .marauder-floor-tabs button[aria-pressed="true"] { background: #58664b; color: #fff5d6; border-color: #58664b; }
+.marauder-floor-tabs small { padding-left: 4px; opacity: .8; font-size: 10px; }
+.marauder-floor-canvas { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; border-block: 1px solid #9f80533d; scrollbar-width: thin; scrollbar-color: #92734c #ead3a8; }
+.marauder-floor-canvas:focus-visible { outline: 2px solid #58664b; outline-offset: -2px; }
+.marauder-stage .marauder-floor-canvas svg { display: block; flex: none; width: 100%; height: auto; min-height: 0; }
+.marauder-stage .marauder-floor-paper { fill: #fff8df1a; stroke: #84613b70; stroke-width: 1; }
+.marauder-stage .is-focused .marauder-floor-paper { fill: #61744516; stroke: #526745; stroke-width: 2; }
+.marauder-stage .marauder-room { fill: #fff9e438; stroke: #815b39; stroke-width: 1; }
+.marauder-stage .marauder-floor-title { font-size: 15px; font-weight: 700; letter-spacing: 3px; }
+.marauder-stage .marauder-room-label { font-size: 11px; }
+.marauder-stage .marauder-corridor-label { font-size: 9px; fill: #856849; }
+.marauder-stage .marauder-window { opacity: .4; stroke-width: .65px; }
+.marauder-stage .marauder-person path { stroke: #536441; stroke-width: 1.5px; }
+.marauder-stage .marauder-person.is-selected text { fill: #315c35; }
+.marauder-stage .marauder-close { flex-shrink: 0; }
