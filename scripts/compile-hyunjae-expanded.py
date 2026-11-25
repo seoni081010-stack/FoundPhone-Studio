@@ -124,7 +124,7 @@ class Parser:
    if h in ['公共剧情','共同剧情','当日晚间']:
     self.flush();self.outer=[];self.temp=[];self.detail=[];self.take(i,'condition-end');i+=1;continue
    if self.d==6 and h=='魔法相册 · 新线索解锁':
-    self.flush();self.add(dict(kind='clue',clue=dict(id='photo-snow',title='庭院初雪',body='初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。\n\n《石拱门下的初雪》\n\n他认出了拱门上悬挂的**槲寄生**。\n\n只是那天，他并没有告诉你，为什么在抬头看见它的一瞬间，忽然停下了脚步。',unlocked=True)))
+    self.flush();self.add(dict(kind='clue',clue=dict(id='photo-snow',title='庭院初雪',body='初雪落在庭院里，他伸手接住两片雪，抬头望向石拱门边的槲寄生。',unlocked=True)))
     while i<len(self.rows) and not self.rows[i].startswith('---'):self.take(i,'clue');i+=1
     continue
    if self.d==15 and '魔法相册更新' in self.place:
