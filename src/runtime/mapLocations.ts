@@ -1,3 +1,4 @@
+import { ericMapLocations } from "./ericMapLocations";
 import { juyeonMapLocations } from "./juyeonMapLocations";
 export const mapRooms = [
   ["天文塔", 82, 68], ["图书馆", 276, 68],
@@ -12,6 +13,7 @@ export const mapRooms = [
 ] as const;
 
 export const mapLandmarks: Partial<Record<string, readonly [number, number]>> = {
+  ...ericMapLocations,
   ...juyeonMapLocations,
   "秘密交换摊位": [245, 325],
   "壁炉旁": [210, 298],

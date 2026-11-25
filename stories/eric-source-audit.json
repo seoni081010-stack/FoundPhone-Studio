@@ -1,0 +1,387 @@
+{
+  "files": [
+    {
+      "file": "eric-date-responses.md",
+      "sha256": "7f56e286246a02cdb27e234ab8a4903704183dd946d1c4388f7d1a72062ce2f2",
+      "bytes": 718,
+      "lines": 17
+    },
+    {
+      "file": "eric-day01-02-full.md",
+      "sha256": "44156494d91c352eb1c3d0db15878f6ce79adb75b0d69c5dac0078aa50dd3ddd",
+      "bytes": 12580,
+      "lines": 267
+    },
+    {
+      "file": "eric-day03-full.md",
+      "sha256": "887d553cf7bd205d0385dc3e5ca69c9aac52783bb764d8c6aa51d95b0c9bbb24",
+      "bytes": 6069,
+      "lines": 127
+    },
+    {
+      "file": "eric-day04-full.md",
+      "sha256": "1f287caa23b89b8bcde7e6659c2cec7508adb4914e9c1cb4321944d8365865ec",
+      "bytes": 6061,
+      "lines": 142
+    },
+    {
+      "file": "eric-day05-full.md",
+      "sha256": "2de4a62fde865daf19c64ef92e602ccda9c217a8cef704f66e09d3ca6c5a2662",
+      "bytes": 8300,
+      "lines": 200
+    },
+    {
+      "file": "eric-day06-full.md",
+      "sha256": "cb23c7f815c694d18f5787d0d58c0550925466cccf88e15d4219884f1dbe8ca0",
+      "bytes": 12667,
+      "lines": 309
+    },
+    {
+      "file": "eric-day07-full.md",
+      "sha256": "50826b4d4a8a48b032298375fe74377ddd070f5c8a2523b2150dcb3a7702876a",
+      "bytes": 11503,
+      "lines": 289
+    },
+    {
+      "file": "eric-day08-full.md",
+      "sha256": "5b741420019ac74669682b419b5e34729ea48a7076330e57ad74b3f7dc8b206b",
+      "bytes": 11948,
+      "lines": 259
+    },
+    {
+      "file": "eric-day09-full.md",
+      "sha256": "d50fb93b60ef480ff0dc2f91cc877230e0621ca4dab72a1e2f249a7834f9c385",
+      "bytes": 11868,
+      "lines": 291
+    },
+    {
+      "file": "eric-day10-full.md",
+      "sha256": "9253708e3f3e28b10a2d6bd04d11f4d6d93fb4429a8eab2fcec3088bfbeadba7",
+      "bytes": 9710,
+      "lines": 223
+    },
+    {
+      "file": "eric-day11-full.md",
+      "sha256": "ef4c4033cd3a6dbd94e377ae40c0d2784ebdd82071e4c2589d46a5497f4e8156",
+      "bytes": 9672,
+      "lines": 231
+    },
+    {
+      "file": "eric-day12-full.md",
+      "sha256": "3c7d672235546f24e998151c368ae6992e07b586dc340a898b892bff485b5373",
+      "bytes": 13942,
+      "lines": 311
+    },
+    {
+      "file": "eric-day13-full.md",
+      "sha256": "b2f9984f9426208a4e082e8d84a0623ffb78870a41b28966566ede0315ac0adc",
+      "bytes": 9575,
+      "lines": 487
+    },
+    {
+      "file": "eric-day14-full.md",
+      "sha256": "1bfe8cfa364a099929330f5282e66c197c5f8cfd2a11052add3bc961a7eaef3f",
+      "bytes": 8749,
+      "lines": 467
+    },
+    {
+      "file": "eric-day15-full.md",
+      "sha256": "9c42cd81a99d3239a04a210a3fb533da431db6626bc3315451e3af6ef0332f77",
+      "bytes": 14776,
+      "lines": 338
+    },
+    {
+      "file": "eric-day16-full.md",
+      "sha256": "11ff19332050cc5cb8c6da8d63ed607d4685dbda3bde80b4d44e70b67a9275ab",
+      "bytes": 13500,
+      "lines": 653
+    },
+    {
+      "file": "eric-day17-full.md",
+      "sha256": "76c306361e1879ccbc953d62f50dc1614bf5d140d59ec19ccb5637b31f57dbd7",
+      "bytes": 12493,
+      "lines": 272
+    },
+    {
+      "file": "eric-day18-full.md",
+      "sha256": "7c4c5f45e3dcbc05eb8bd676cfe14b3ad42442e6776803738e5fe4fb59764887",
+      "bytes": 17746,
+      "lines": 398
+    },
+    {
+      "file": "eric-day19-full.md",
+      "sha256": "fad8cc21475731e4b4f3e2bf6fcedf87157fe2e95d5015594ef54c1842a9c6c6",
+      "bytes": 10958,
+      "lines": 491
+    },
+    {
+      "file": "eric-day20-full.md",
+      "sha256": "d50eba79f79ecaedb18fb6ba802a6e5ce3e3d1e9685ad4c64cc9c6b71b1d8328",
+      "bytes": 13197,
+      "lines": 595
+    },
+    {
+      "file": "eric-day21-full.md",
+      "sha256": "a3728811b29547c46e9c7f03fcc02e28df602190ee17efe66c0be224d0b7638e",
+      "bytes": 11715,
+      "lines": 593
+    },
+    {
+      "file": "eric-day22-full.md",
+      "sha256": "7f3b031e40a9c02d8ead24f480d655ee816144664c18e077167532a2811868a7",
+      "bytes": 17531,
+      "lines": 481
+    },
+    {
+      "file": "eric-day23-full.md",
+      "sha256": "a9f2760c7e2a3961d945b2294bf63c31ff634b608fe368f08b8be9d7ad01c76e",
+      "bytes": 9513,
+      "lines": 281
+    },
+    {
+      "file": "eric-day24-full.md",
+      "sha256": "46658d846ab2df89d3fc678d268726ea1cd822b4c2b5e14da87d1f7bcd8461d7",
+      "bytes": 13332,
+      "lines": 412
+    },
+    {
+      "file": "eric-day25-full.md",
+      "sha256": "3f679776d1a9891af80cdcefc4b552516917357e3a42a9f5ad920d2d7389f6cb",
+      "bytes": 8919,
+      "lines": 245
+    },
+    {
+      "file": "eric-day26-full.md",
+      "sha256": "60a225388b9aa22e13f3b580e34f0e57c2c858b5de5c6129bc7c756cb1c1e6b1",
+      "bytes": 10580,
+      "lines": 286
+    },
+    {
+      "file": "eric-day27-full.md",
+      "sha256": "e0eb563ffc186e05c5d400ebcc45ecf7e91fd9f4e393331753ce40da17e886dd",
+      "bytes": 7088,
+      "lines": 186
+    },
+    {
+      "file": "eric-day28-full.md",
+      "sha256": "178b1abaabcb3dc7b2e0cb78776d8f9dd7a42c5b7d38dd7ad3c6fac94a6e8c1b",
+      "bytes": 9984,
+      "lines": 271
+    },
+    {
+      "file": "eric-day29-full.md",
+      "sha256": "4fc68e010cf2c7577a581ee4948ae45dd8130244c0a5512d545ce83d7d6006f7",
+      "bytes": 8210,
+      "lines": 226
+    },
+    {
+      "file": "eric-day30-full.md",
+      "sha256": "2fcd7e9f4432d2eed07e52ca2c75579f64471459c9a2cc5486bac672c868296a",
+      "bytes": 7877,
+      "lines": 227
+    },
+    {
+      "file": "eric-day31-full.md",
+      "sha256": "45614ee670461d6fea176d1b4e2cbf822e49f4ce726de52ecb1fed7aa5a37fa5",
+      "bytes": 14123,
+      "lines": 382
+    }
+  ],
+  "sourceRows": 5746,
+  "scores": [
+    {
+      "day": 1,
+      "choices": 4,
+      "minimum": 4,
+      "maximum": 8
+    },
+    {
+      "day": 2,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    },
+    {
+      "day": 3,
+      "choices": 4,
+      "minimum": 4,
+      "maximum": 8
+    },
+    {
+      "day": 4,
+      "choices": 4,
+      "minimum": 4,
+      "maximum": 8
+    },
+    {
+      "day": 5,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 6,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 7,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 8,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    },
+    {
+      "day": 9,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 10,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 11,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 12,
+      "choices": 8,
+      "minimum": 8,
+      "maximum": 16
+    },
+    {
+      "day": 13,
+      "choices": 3,
+      "minimum": 3,
+      "maximum": 6
+    },
+    {
+      "day": 14,
+      "choices": 4,
+      "minimum": 4,
+      "maximum": 8
+    },
+    {
+      "day": 15,
+      "choices": 7,
+      "minimum": 7,
+      "maximum": 14
+    },
+    {
+      "day": 16,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 17,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 18,
+      "choices": 8,
+      "minimum": 8,
+      "maximum": 16
+    },
+    {
+      "day": 19,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 20,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 21,
+      "choices": 7,
+      "minimum": 7,
+      "maximum": 14
+    },
+    {
+      "day": 22,
+      "choices": 10,
+      "minimum": 10,
+      "maximum": 20
+    },
+    {
+      "day": 23,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    },
+    {
+      "day": 24,
+      "choices": 9,
+      "minimum": 9,
+      "maximum": 18
+    },
+    {
+      "day": 25,
+      "choices": 7,
+      "minimum": 7,
+      "maximum": 14
+    },
+    {
+      "day": 26,
+      "choices": 6,
+      "minimum": 6,
+      "maximum": 12
+    },
+    {
+      "day": 27,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    },
+    {
+      "day": 28,
+      "choices": 7,
+      "minimum": 7,
+      "maximum": 14
+    },
+    {
+      "day": 29,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    },
+    {
+      "day": 30,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    },
+    {
+      "day": 31,
+      "choices": 5,
+      "minimum": 5,
+      "maximum": 10
+    }
+  ],
+  "exceptions": [
+    "Day19 bedside-lamp premise conditional on choice 1B; authored sentence unchanged",
+    "Day24 missing common merge heading: hug and card shared after option5",
+    "Day25 option4 missing affinity: A+2/B+1 follows all other scored options; manuscript unchanged",
+    "Day25 shared farewell and castle return segmented after options2/6",
+    "Day30 deleted option6 not restored"
+  ],
+  "historicalScope": "Verbatim against the 31 main-branch archive files; external historical approvals cannot independently be verified"
+}

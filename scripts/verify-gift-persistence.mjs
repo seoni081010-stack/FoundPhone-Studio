@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 const catalog=JSON.parse(readFileSync('stories/template/hogwarts-gift-catalog.json','utf8'));
 const preferences=JSON.parse(readFileSync('stories/template/hogwarts-gift-preferences.json','utf8')).preferences;
-const names={juyeon:'李柱延',hyunjae:'李贤在',jacob:'裴俊英',q:'池昌民',younghoon:'金泳勋'};
+const names={eric:'孙英宰',juyeon:'李柱延',hyunjae:'李贤在',jacob:'裴俊英',q:'池昌民',younghoon:'金泳勋'};
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true});
 const base=process.env.BASE_URL||'http://127.0.0.1:4173/';
 const errors=[];

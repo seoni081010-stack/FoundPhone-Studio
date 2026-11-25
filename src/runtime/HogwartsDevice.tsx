@@ -1,3 +1,4 @@
+import { ericDays, ericDay, ericStage, ericEndings } from "./ericStory";
 import { juyeonDays, juyeonDay, juyeonStage, juyeonEndings } from "./juyeonStory";
 import { SunwooScene } from "./SunwooScene";
 import { sunwooDays, sunwooDay, sunwooStage, sunwooEndings, sunwooEndingFor, sunwooName } from "./sunwooStory";
@@ -100,14 +101,15 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const isYounghoon = selectedLeadId === "younghoon";
   const isSunwoo = selectedLeadId === "sunwoo";
   const isJuyeon = selectedLeadId === "juyeon";
-  const isAuthored = isSunwoo || isJuyeon;
-  const authoredDays = isJuyeon ? juyeonDays : sunwooDays;
-  const authoredDay = isJuyeon ? juyeonDay : sunwooDay;
-  const authoredStage = isJuyeon ? juyeonStage : sunwooStage;
-  const authoredEndings = isJuyeon ? juyeonEndings : sunwooEndings;
+  const isEric = selectedLeadId === "eric";
+  const isAuthored = isSunwoo || isJuyeon || isEric;
+  const authoredDays = isEric ? ericDays : isJuyeon ? juyeonDays : sunwooDays;
+  const authoredDay = isEric ? ericDay : isJuyeon ? juyeonDay : sunwooDay;
+  const authoredStage = isEric ? ericStage : isJuyeon ? juyeonStage : sunwooStage;
+  const authoredEndings = isEric ? ericEndings : isJuyeon ? juyeonEndings : sunwooEndings;
   const usesScript = isJcode || isYounghoon || isAuthored;
   const scriptDays = isAuthored ? [...authoredDays, authoredDay(31)] : isYounghoon ? younghoonDays : jcodeDays;
-  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon, isSunwoo, isJuyeon);
+  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon, isSunwoo, isJuyeon, isEric);
   const sunwooScore = isAuthored ? jcode.affinity + characterStatus(selectedLeadId, identity?.year ?? 5, identity?.house ?? "", {}).affinity
     + (previewDay ? 0 : savedGiftAffinity(identityKey, selectedLeadId)) : 0;
   const sunwooKind = jcode.ending ?? sunwooEndingFor(sunwooScore);
@@ -239,11 +241,13 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [draft, setDraft] = useState("");
   const highlightMistletoe = (text: string) => text.split(/(槲寄生)/).map((word, index) =>
     word === "槲寄生" ? <strong key={index}>{word}</strong> : word);
-  const note = (name: string, body: string, outgoing: boolean, key?: number) =>
-    <div key={key} className={`hogwarts-message ${outgoing ? "outgoing" : ""}`}>
-      <span className="hogwarts-avatar" aria-hidden="true">{outgoing && identity?.avatar ? <img src={identity.avatar} alt="" /> : !outgoing && contacts.some(contact => contact.name === name) ? <img src={`./portraits/${contacts.find(contact => contact.name === name)?.id}.webp`} alt="" /> : name.slice(-1)}</span>
+  const note = (name: string, body: string, outgoing: boolean, key?: number) => {
+    const avatarName = isEric ? name.replace(/（[^）]+）$/, "") : name;
+    return <div key={key} className={`hogwarts-message ${outgoing ? "outgoing" : ""}`}>
+      <span className="hogwarts-avatar" aria-hidden="true">{outgoing && identity?.avatar ? <img src={identity.avatar} alt="" /> : !outgoing && contacts.some(contact => contact.name === avatarName) ? <img src={`./portraits/${contacts.find(contact => contact.name === avatarName)?.id}.webp`} alt="" /> : name.slice(-1)}</span>
       <div><strong>{name}</strong><p>{body}</p></div>
     </div>;
+  };
   const authoredLines = (lines: readonly string[]) => lines.map((part, index) => {
     const line = part.match(/^([^：:]{1,30})[：:](.+)$/);
     return line && qSceneSpeakers.has(line[1])
@@ -566,7 +570,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   };
   const sunwooInline = isAuthored && active === "owlpost" && recipient === selectedLeadId && (sunwooMailActive || Boolean(sunwooReview));
   const sunwooMainRead = isAuthored && jcode.beat > 0 && scriptToday?.beats.slice(jcode.beat).every(beat => "channel" in beat && beat.channel === "mail");
-  const sunwooScene = isAuthored && jcodeToday && (jcode.open || sunwooReview) ? <SunwooScene route={isJuyeon ? "juyeon" : "sunwoo"} key={sunwooProgress.day} progress={sunwooProgress} update={updateSunwoo}
+  const sunwooScene = isAuthored && jcodeToday && (jcode.open || sunwooReview) ? <SunwooScene route={isEric ? "eric" : isJuyeon ? "juyeon" : "sunwoo"} key={sunwooProgress.day} progress={sunwooProgress} update={updateSunwoo}
     reviewing={Boolean(sunwooReview)} identityKey={identityKey} score={sunwooScore} player={identity?.name ?? "你"} mailOpen={active === "owlpost" && recipient === selectedLeadId}
     onMail={() => { setActive("owlpost"); setRecipient(selectedLeadId); }} onClue={acknowledgeClue} note={note} highlight={highlightMistletoe}
     onWagerResult={() => { setTeam(jcode.team ?? ""); setStake(jcode.wagerStake ?? 1); setMatchStep("pub"); }}
@@ -784,7 +788,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           : active === "magicphotos" ? <section className="hogwarts-device-letters">
             {albumClues.map(clue => <details className="hogwarts-device-letter" key={clue.id}>
               <summary>{clue.title}</summary>
-              <p style={usesScript ? { whiteSpace: "pre-wrap" } : undefined}>{highlightMistletoe(clue.body)}</p>
+              <p style={usesScript ? { whiteSpace: "pre-wrap" } : undefined}>{isEric ? clue.body.split(/(~~\*.*?\*~~)/).map((part,index) => part.startsWith("~~*") ? <del key={index}><i>{part.slice(3,-3)}</i></del> : <span key={index}>{highlightMistletoe(part)}</span>) : highlightMistletoe(clue.body)}</p>
             </details>)}
             {!albumClues.length && <p>这页羊皮纸还没有写下新的内容。</p>}
           </section> : <section className="hogwarts-device-letters">

@@ -1,3 +1,4 @@
+import { ericDay, ericVisibleLines } from "./ericStory";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { StarWishPaper, starWishMoment, STAR_WISH_DURATION } from "./StarWishPaper";
 import { WriteStarWish, WRITE_STAR_FOLD_DURATION } from "./WriteStarWish";
@@ -15,21 +16,21 @@ import type { Progress } from "./JcodeScene";
 import { sunwooDay, sunwooEndingFor, sunwooName, type SunwooLine } from "./sunwooStory";
 
 type Props = {
-  route?: "sunwoo" | "juyeon"; progress: Progress; update: (patch: Partial<Progress>) => void; identityKey: string;
+  route?: "sunwoo" | "juyeon" | "eric"; progress: Progress; update: (patch: Partial<Progress>) => void; identityKey: string;
   score: number; player: string; mailOpen: boolean; reviewing?: boolean; onMail: () => void; onFinish: () => void;
   onWagerResult: () => void; onClue: (id: string) => void; note: (name: string, body: string, outgoing: boolean, key?: number) => ReactNode;
   highlight: (body: string) => ReactNode;
 };
 export function SunwooScene({route = "sunwoo", progress, update, identityKey, score, player, mailOpen, onMail, onFinish, onClue, note, highlight, onWagerResult, reviewing}: Props) {
   const ending = progress.ending ?? sunwooEndingFor(score);
-  const story = route === "juyeon" ? juyeonDay(progress.day, ending) : sunwooDay(progress.day, ending);
+  const story = route === "eric" ? ericDay(progress.day, ending) : route === "juyeon" ? juyeonDay(progress.day, ending) : sunwooDay(progress.day, ending);
   const sceneId = `${route}-scene-title`;
   const beat = story.beats[progress.beat];
   const [team, setTeam] = useState("");
   const [stake, setStake] = useState(1);
   const [error, setError] = useState("");
   const [paper, setPaper] = useState(true);
-  const endingGate = progress.day === 31 && (route === "juyeon" ? beat && "endingGate" in beat && beat.endingGate : beat?.time === "00:05");
+  const endingGate = progress.day === 31 && (route !== "sunwoo" ? beat && "endingGate" in beat && beat.endingGate : beat?.time === "00:05");
   useEffect(() => {
     if (endingGate && !progress.ending) update({ ending });
   }, [endingGate, progress.ending, ending, update]);
@@ -139,8 +140,9 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   }, [letterOpen, letterStart, player, ending]);
   // The printed paragraphs were just read in the overlay. Their following narration
   // remains the same existing step 0, preserving every saved dialogue position.
+  const eligibleLines = route === "eric" ? ericVisibleLines(lines, progress.choiceHistory) : lines;
   const displayedLines = letterBeat && progress.juyeonEndingLetter?.kind === ending && progress.juyeonEndingLetter.done
-    ? lines.slice(getJuyeonEndingLetter(ending).resumeLineIndex) : lines;
+    ? lines.slice(getJuyeonEndingLetter(ending).resumeLineIndex) : eligibleLines;
   const next = (patch: Partial<Progress> = {}) => {
     const mailLines = beat?.channel === "mail" ? [
       ...(beat.kind === "choice" && progress.option !== undefined ? [{ speaker: "你", body: beat.options[progress.option].body }] : []),
@@ -158,7 +160,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   if (beat?.kind === "wager-result") return <QuidditchResult won={progress.team === "斯莱特林"} stake={progress.wagerStake ?? 1} onContinue={() => { onWagerResult(); next(); }} />;
   const clue = beat?.kind === "clue" ? nextAlbumNotice([beat.clue], [], false) : undefined;
   const content = <>
-    <h2 id={sceneId}>{clue ? "魔法相册解锁新内容" : route === "juyeon" ? <>李柱延 <small>· JUYEON</small></> : <>金善旴 <small>· SUNWOO</small></>}</h2>
+    <h2 id={sceneId}>{clue ? "魔法相册解锁新内容" : route === "eric" ? <>孙英宰 <small>· Eric Sohn</small></> : route === "juyeon" ? <>李柱延 <small>· JUYEON</small></> : <>金善旴 <small>· SUNWOO</small></>}</h2>
     {clue ? <>
       <p>在魔法相册中查看「{clue.title}」。</p>
       <button onClick={() => { onClue(clue.id); next({ clues: [...new Set([...progress.clues, clue.id])] }); }}>继续</button>
@@ -180,7 +182,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
     </>}
   </>;
   const hostedContent = <>{content}<div ref={greetingHost} /><div ref={letterHost} /></>;
-  const scene = (beat?.channel === "mail" || reviewing) && mailOpen ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{hostedContent}</section>
+  const scene = (beat?.channel === "mail" || reviewing) && mailOpen && !clue ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : route === "eric" ? "sunwoo-mail-scene eric-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{hostedContent}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
       className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby={sceneId}>{hostedContent}</dialog>;
   return <>{scene}{chartOpen && progress.juyeonStarChart && <JuyeonStarChart startedAt={progress.juyeonStarChart.startedAt}

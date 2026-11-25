@@ -22,12 +22,12 @@ test("random draws are per invitation, not a daily or venue-based rotation", () 
   expect(replies).toEqual([invitationPools.younghoon.accepts[0],invitationPools.younghoon.accepts[3],invitationPools.younghoon.accepts[0]]);
 });
 
-test("Hyunjae retains existing venue replies and threshold; unauthored routes stay unavailable", () => {
+test("Hyunjae retains existing venue replies and threshold; unknown routes stay unavailable", () => {
   for(const venue of dates.venues) {
     expect(invitationReply("hyunjae",46,venue.id,1)?.reply).toBe(routeDateContent.hyunjae.venues[venue.id].reply);
     expect(invitationReply("hyunjae",45,venue.id,1)?.accepted).toBe(false);
   }
-  expect(canInvite("eric","puddifoot")).toBe(false);
+  expect(canInvite("unknown","puddifoot")).toBe(false);
   expect(invitationReply("younghoon",100,"unknown",1)).toBeUndefined();
 });
 

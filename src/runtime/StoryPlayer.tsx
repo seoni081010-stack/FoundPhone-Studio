@@ -20,7 +20,7 @@ const loveInterests = [
   { id: "juyeon", year: 6, name: "李柱延", english: "JUYEON", house: "slytherin", traits: "沉稳 · 专注 · 行动力", intro: "比起解释自己，我更习惯用行动回答。", affinity: { slytherin: 88, gryffindor: 84, hufflepuff: 69, ravenclaw: 65 } },
   { id: "q", year: 6, name: "池昌民", english: "Q", house: "ravenclaw", traits: "奇思妙想 · 灵动 · 好奇", intro: "你觉得奇怪的东西，说不定正是最有趣的秘密。", affinity: { ravenclaw: 86, gryffindor: 79, hufflepuff: 73, slytherin: 61 } },
   { id: "sunwoo", year: 5, name: "金善旴", english: "SUNWOO", house: "gryffindor", traits: "机敏 · 自信 · 口才", intro: "想赢过我？那你得先猜到我下一步要做什么。", affinity: { slytherin: 95, ravenclaw: 86, gryffindor: 73, hufflepuff: 48 } },
-  { id: "eric", year: 5, name: "孙英宰", english: "ERIC", house: "gryffindor", traits: "热情 · 直率 · 勇敢", intro: "要不要一起去冒险？放心，我会跑在你前面！", affinity: { gryffindor: 97, hufflepuff: 83, slytherin: 60, ravenclaw: 56 } },
+  { id: "eric", year: 5, name: "孙英宰", english: "ERIC SOHN", house: "gryffindor", traits: "热情 · 直率 · 勇敢", intro: "要不要一起去冒险？放心，我会跑在你前面！", affinity: { gryffindor: 97, hufflepuff: 83, slytherin: 60, ravenclaw: 56 } },
 ] as const;
 type Identity = { name: string; house: string; year: number; loveInterest: string; avatar?: string; runId?: string };
 const storageKey = "foundphone-hogwarts-identity-v1";
@@ -54,15 +54,17 @@ async function prepareAvatar(file: File) {
 }
 
 function StoryPlayer() {
-  const requestedLead = new URLSearchParams(location.search).get("route") === "juyeon" ? "juyeon" : undefined;
+  const routeParam = new URLSearchParams(location.search).get("route");
+  const requestedLead = routeParam === "juyeon" || routeParam === "eric" ? routeParam : undefined;
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewEnding = previewMode?.match(/^(?:jcode|younghoon|sunwoo|juyeon)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
+  const previewEnding = previewMode?.match(/^(?:jcode|younghoon|sunwoo|juyeon|eric)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
   const jcodePreviewDay = Number(previewMode?.match(/^jcode-day(2[1-9]|3[01])$/)?.[1]);
   const younghoonPreviewDay = Number(previewMode?.match(/^younghoon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const juyeonPreviewDay = Number(previewMode?.match(/^juyeon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const sunwooPreviewDay = Number(previewMode?.match(/^sunwoo-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
-  const previewDay = previewEnding ? 31 : juyeonPreviewDay || sunwooPreviewDay || younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
-  const previewLead = previewMode?.startsWith("juyeon-") ? "juyeon" : previewMode?.startsWith("sunwoo-") ? "sunwoo" : previewMode?.startsWith("younghoon-") ? "younghoon" : previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
+  const ericPreviewDay = Number(previewMode?.match(/^eric-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
+  const previewDay = previewEnding ? 31 : ericPreviewDay || juyeonPreviewDay || sunwooPreviewDay || younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
+  const previewLead = previewMode?.startsWith("eric-") ? "eric" : previewMode?.startsWith("juyeon-") ? "juyeon" : previewMode?.startsWith("sunwoo-") ? "sunwoo" : previewMode?.startsWith("younghoon-") ? "younghoon" : previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
@@ -133,7 +135,7 @@ function StoryPlayer() {
     setIdentity(next);
   };
   return (
-    <main className="story-runtime">
+    <main className={`story-runtime${previewDay && previewLead === "eric" ? " eric-preview-runtime" : ""}`}>
       {!isTest && !coverOpened && !error ? <HogwartsCover onEnter={() => setCoverOpened(true)} /> : work ? (
         !isTest && !identity ? (
           <section className="hogwarts-entry" aria-label="霍格沃茨入学登记">

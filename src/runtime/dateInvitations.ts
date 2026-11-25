@@ -1,9 +1,10 @@
+import ericDate from "../../stories/eric-date.json";
 import approved from "../../stories/date-invitations.json";
 import dates from "../../stories/template/hogwarts-dates.json";
 import { routeDateContent } from "./routeDateContent";
 import { acceptsInvitation } from "./sharedRules";
 
-export const invitationPools: Record<string, { accepts: string[]; declines: string[] }> = approved;
+export const invitationPools: Record<string, { accepts: string[]; declines: string[] }> = { ...approved, eric: { accepts: ericDate.accept, declines: ericDate.decline } };
 export function canInvite(lead: string, venue: string) {
   return dates.venues.some(item => item.id === venue) && Boolean(invitationPools[lead] || routeDateContent[lead]?.venues[venue]);
 }
