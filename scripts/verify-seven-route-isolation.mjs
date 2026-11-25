@@ -10,7 +10,7 @@ const baseline=JSON.stringify({day:8,beat:0,cursor:{position:0},open:false,clues
 await p.evaluate(baseline=>localStorage.setItem('hogwarts-sunwoo-v1:seven-sunwoo',baseline),baseline);
 for(const lead of ids){
  await p.evaluate(lead=>localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'隔离核验',house:'ravenclaw',year:6,loveInterest:lead,runId:'seven-'+lead})),lead);
- await p.reload();await p.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
+ await p.reload();await p.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await p.getByRole('button',{name:'巫师手札',exact:true}).waitFor();
  assert.equal(await p.locator('.hogwarts-dock button').allTextContents().then(a=>a.map(t=>t.trim())).then(a=>JSON.stringify(a)),JSON.stringify(['魔法相册','猫头鹰信箱','巫师手札','Date']));
  await p.getByRole('button',{name:'猫头鹰信箱',exact:true}).click();
  assert.equal(await p.locator('.hogwarts-contact').count(),7);

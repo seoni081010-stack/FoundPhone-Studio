@@ -64,7 +64,7 @@ try{
    localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'完整核验',house:mode==='low'?'ravenclaw':'gryffindor',year:mode==='low'?5:mode==='friends'?6:7,loveInterest:'hyunjae',runId:run}));
    localStorage.setItem(`foundphone-hogwarts-shopping-v1-${run}`,JSON.stringify({wallet:1000,vault:100000,inventory:{},gifts:{},vaultUpgrade:true}));
   },{run,mode});
-  await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
+  await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await page.getByRole('button',{name:'巫师手札',exact:true}).waitFor();
   let fixed=0,choices=0,clues=0,wishes=0;
   for(let day=1;day<=31;day++){
    const result=await drive(page,{day,key,branch:mode==='low'?1:0,friend:mode==='friends',team:mode==='low'?'格兰芬多':'斯莱特林'});
@@ -75,12 +75,12 @@ try{
    if(day===17){assert.equal(saved.hyunjaeWish.submitted,'愿我们都能勇敢地走向喜欢的未来。');assert.equal(saved.hyunjaeWish.via,mode==='low'?'message':'tree');if(mode==='low')assert.ok(saved.mailHistory.some(mail=>mail.lines.some(line=>line.photo===true)));}
    if(day===31){assert.equal(result.kind,mode==='friends'?'friends':mode==='high'?'together':'unspoken');assert.ok(result.fireworks);assert.equal(saved.hyunjaeEndingId,`hyunjae-${result.kind}`);console.log('PASS complete campaign',mode,{fixed,choices,clues,wishes,affinity:saved.affinity,ending:result.kind});break;}
    const before=JSON.stringify(saved);
-   await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
+   await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await page.getByRole('button',{name:'巫师手札',exact:true}).waitFor();
    assert.equal(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).affinity,key),saved.affinity);
    assert.equal(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).day,key),day);
    let lateLessons=0;
    for(const lesson of await page.getByRole('button',{name:'去上课',exact:true}).all())if(await lesson.isEnabled()){await lesson.click();lateLessons++;}
-   if(lateLessons){const time=await page.locator('.hogwarts-device-top').innerText();await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();assert.equal(await page.locator('.hogwarts-device-top').innerText(),time);}
+   if(lateLessons){const time=await page.locator('.hogwarts-device-top').innerText();await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await page.getByRole('button',{name:'巫师手札',exact:true}).waitFor();assert.equal(await page.locator('.hogwarts-device-top').innerText(),time);}
    await page.waitForFunction(()=>[...document.querySelectorAll('button')].some(b=>b.textContent==='结束这一天'&&!b.disabled),{},{timeout:5000}).catch(async e=>{throw Error(e.message+'\n'+await page.locator('body').innerText()+'\n'+await page.evaluate(key=>localStorage.getItem(key),key));});
    await page.getByRole('button',{name:'结束这一天',exact:true}).click();
    console.log('PASS day',day,mode,'beats',beats.length,'save bytes',before.length);
