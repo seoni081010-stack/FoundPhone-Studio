@@ -7,3 +7,8 @@ Greeting card fonts:
   License: Allura-OFL.txt (SIL Open Font License 1.1).
 Both are losslessly repackaged from the source TTF files as WOFF2 for browser delivery.
 The complete font glyph sets are retained for player-defined names.
+
+Library note font:
+- library-note-neat.ttf: web-only subset of LXGW WenKai Regular, containing only the second handwritten note.
+  Source: https://github.com/lxgw/LxgwWenKai/blob/main/fonts/TTF/LXGWWenKai-Regular.ttf
+  License: LXGWWenKai-OFL.txt (SIL Open Font License 1.1 with additional permission for web delivery subsets).

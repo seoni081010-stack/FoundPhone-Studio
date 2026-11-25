@@ -6,6 +6,7 @@ import type { SunwooDay } from "./sunwooStory";
 export type HyIdentity = { house: string; year: number };
 export type HyProgress = Progress & {
   hyunjaeChoices?: Record<string, number>;
+  hyunjaeLibraryNoteRead?: boolean;
   hyunjaeWish?: { draft: string; submitted?: string; via?: "tree" | "message" };
   hyunjaeEndingId?: string;
   hyunjaeVoucherAt19?: boolean;

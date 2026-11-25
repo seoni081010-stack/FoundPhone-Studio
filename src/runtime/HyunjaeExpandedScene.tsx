@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { LibraryPaperNote } from "./LibraryPaperNote";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
 import { spendGalleons } from "./MagicalShops";
@@ -33,8 +34,13 @@ export function HyunjaeExpandedScene({ progress: base, update: baseUpdate, ident
     if (p.day === 19 && p.hyunjaeVoucherAt19 === undefined) update({ hyunjaeVoucherAt19: p.team === "斯莱特林" && !p.wagerClaimed });
   }, [p.day, p.hyunjaeVoucherAt19, p.team, p.wagerClaimed, update]);
   const text = (body: string) => hyunjaeText(body, p, player);
+  const libraryNote = p.day === 4 && beat?.kind === "lines" && beat.lines?.some(line => line.body === "过了几秒，李贤在将自己的羊皮纸往前推了一点。");
   const lines = (beat?.kind === "lines" ? beat.lines ?? [] : beat?.kind === "choice" && p.option !== undefined ? beat.options![p.option].lines : [])
     .map(line => ({ ...line, body: text(line.body) })).filter(line => line.body.length > 0 && !(p.day === 7 && line.body === "他一本正经地说完，自己先笑了。" && p.hyunjaeChoices?.["06:3A"] !== 0));
+  const shownLines = libraryNote ? lines.filter(line => ![
+    "上面多出了一行很小的字。", "刚才是你先笑的。", "你拿起羽毛笔，在下面写了一行。", "明明是你先给我看的。",
+    ...(!p.hyunjaeLibraryNoteRead ? ["他看完后，抿着嘴笑了一下，重新拿起自己的书。"] : []),
+  ].includes(line.body)) : lines;
   const treePhoto = p.day === 17 && lines.some(line => line.body === "你收到了一张魔法照片。");
   const next = (patch: Partial<HyProgress> = {}) => {
     const mail = beat?.channel === "mail" ? [
@@ -79,10 +85,11 @@ export function HyunjaeExpandedScene({ progress: base, update: baseUpdate, ident
                   ...(beat.id === "31:final" ? { ending: p.ending ?? (optionIndex === 2 ? "friends" : hyunjaeEndingFor(score + gain)) } : {}) });
               }}>{text(option.body)}</button>;
             })}
-          </div> : <SceneDialogue key={`${p.day}:${index}`} instantNarration checkpoint={p.cursor} onCheckpoint={cursor => update({ cursor })} onComplete={() => next()}>
+          </div> : <SceneDialogue key={`${p.day}:${index}`} instantNarration checkpoint={p.cursor} onCheckpoint={cursor => update({ cursor })} onComplete={() => { if (!libraryNote || p.hyunjaeLibraryNoteRead) next(); }}>
             {beat.kind === "choice" && note(player, text(beat.options![p.option!].body), true, -1)}
-            {lines.map((line, i) => line.speaker ? note(line.speaker === "你" ? player : line.speaker, line.body, line.speaker === "你", i) : <p className="hogwarts-narration" key={i}>
+            {shownLines.map((line, i) => line.speaker ? note(line.speaker === "你" ? player : line.speaker, line.body, line.speaker === "你", i) : <p className="hogwarts-narration" key={i}>
               {highlight(line.body)}
+              {libraryNote && !p.hyunjaeLibraryNoteRead && line.body === "过了几秒，李贤在将自己的羊皮纸往前推了一点。" && <LibraryPaperNote onComplete={() => update({ hyunjaeLibraryNoteRead: true })} />}
               {treePhoto && line.body === "你收到了一张魔法照片。" && <img src="./hyunjae-christmas-photo.svg" alt="会动的圣诞树照片" width={320} height={220} style={{ display: "block", maxWidth: "100%", height: "auto" }} />}
               {p.day === 29 && beat.id === "29:3A" && p.option === 1 && line.body === "你指向回廊的一侧。" && <span className="hyunjae-lamp" data-color={p.hyunjaeChoices?.["29:1"] === 0 ? "silver" : "blue"} role="img" aria-label={p.hyunjaeChoices?.["29:1"] === 0 ? "银白色的魔法灯" : "蓝色的魔法灯"}>✧</span>}
             </p>)}
