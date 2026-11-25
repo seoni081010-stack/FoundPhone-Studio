@@ -11,3 +11,5 @@ The existing parchment/oath/erase/audio interaction is retained. The map is one 
 A newly started timetable lesson takes over from an earlier authored scene’s two-hour location window. A scene beginning at or after that lesson, or the selected route's explicit active-story place, still takes precedence. This fixes pre-class staircase markers remaining there after a new class starts.
 
 Validation: 217 unit tests, typecheck, lint, story validation/tests and production build passed. The layered-map browser verifier covers mobile/desktop, all seven floor shortcuts, excluded-room absence, all seven markers, the 09:00 classroom handoff, close/reopen and unchanged save bytes. All 123 Eric authored time/place markers and seven-route entry/save-isolation checks passed.
+
+`MAP_MOTION_ONLY=1 node scripts/verify-layered-map.mjs` checks that all seven markers retain the original small walking/footstep animation without wandering out of their floor positions. Reduced-motion users retain the existing animation-free option.

@@ -4,7 +4,7 @@ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'
 const base=process.env.BASE_URL||'http://127.0.0.1:4182/';
 const errors=[];
 for(const mobile of [true,false]){
- const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1366,height:900},serviceWorkers:'block',reducedMotion:'reduce'}),page=await context.newPage();
+ const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1366,height:900},serviceWorkers:'block',reducedMotion:process.env.MAP_MOTION_ONLY?'no-preference':'reduce'}),page=await context.newPage();
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(base);await page.evaluate(()=>{
   localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'地图核验',house:'ravenclaw',year:7,loveInterest:'eric',runId:'floor-check'}));
@@ -22,6 +22,15 @@ for(const mobile of [true,false]){
  const signature=await page.locator('.marauder-signature').innerText();assert.ok(signature.includes('孙英宰'));
  for(const name of ['裴俊英','金泳勋','李柱延','池昌民','金善旴','李贤在'])assert.ok(!signature.includes(name));
  const labels=await map.locator('svg').textContent();assert.ok(!labels.includes('斯内普办公室'));assert.ok(!labels.includes('密室'));
+ if(process.env.MAP_MOTION_ONLY){
+  await page.waitForTimeout(2800);
+  assert.equal(await map.locator('.marauder-person-first').count(),7);
+  const marker=map.locator('.marauder-person-first').first();
+  assert.equal(await marker.evaluate(e=>getComputedStyle(e).animationName),'marauder-local-walk');
+  const pose=await marker.evaluate(e=>getComputedStyle(e).transform);
+  await page.waitForTimeout(400);assert.notEqual(await marker.evaluate(e=>getComputedStyle(e).transform),pose);
+  console.log('PASS moving map footsteps',mobile?'mobile':'desktop');await context.close();continue;
+ }
  const rooms={一层:['门厅','大礼堂'],二层:['黑魔法防御术教室','图书馆'],三层:['变形课教室','校医院'],四层:['魔咒课教室','级长浴室'],地窖:['魔药课教室','厨房'],高层与塔楼:['天文塔','北塔占卜教室'],室外:['温室','魁地奇球场']};
  for(const [floor,names]of Object.entries(rooms)){
   const tab=page.getByRole('navigation',{name:'地图楼层'}).getByRole('button',{name:floor,exact:true});

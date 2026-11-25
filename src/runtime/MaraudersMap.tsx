@@ -153,7 +153,7 @@ export function MaraudersMap({ day, time = "09:00", place, activity, selectedId 
                 const x=point.x+(slot%3-(columns-1)/2)*38,y=point.y+Math.floor(slot/3)*12;
                 return <g key={person.id} data-person={person.id} data-place={person.place} data-floor={point.floor} data-map-room={point.room}
                   data-mapped={point.explicit} transform={`translate(${x} ${y})`}>
-                  <g className={`marauder-person${person.id===selectedId?" is-selected":""}`}>
+                  <g className={`marauder-person marauder-person-first${person.id===selectedId?" is-selected":""}`} style={{ animationName: "marauder-local-walk" }}>
                     <title>{person.name} · {point.floorTitle} · {person.place}</title>
                     <text style={{ paintOrder:"stroke",stroke:"#f2dcac",strokeWidth:3,fontSize:10,textAnchor:"middle",fontWeight:person.id===selectedId?"bold":"normal" }}>{person.name}</text>
                     <path d="M-10 4l3 2m5-1 3 2" />
