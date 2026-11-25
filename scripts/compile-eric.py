@@ -74,8 +74,8 @@ class Parser:
    i+=1
   self.flush();assert self.initial,(self.day,'missing schedule')
   if self.day==12:
-   index=next(i for i,b in enumerate(self.beats) if b['time']=='11:45')
-   self.beats.insert(index,dict(kind='wager-result',channel='scene',time='11:30',place='魁地奇球场看台'))
+   index=next(i for i,b in enumerate(self.beats) if b['time']=='15:40')
+   self.beats.insert(index,dict(kind='wager-result',channel='scene',time='15:30',place='魁地奇球场看台'))
   return dict(day=self.day,title=self.title,schedule=f'12月{self.day}日 · {self.initial["time"]} · {self.initial["place"]}',time=self.initial['time'],place=self.initial['place'],beats=self.beats)
 
 days=[]

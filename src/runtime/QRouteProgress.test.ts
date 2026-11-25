@@ -141,7 +141,7 @@ it("starts the match-day preview before betting and suppresses earlier album not
   const preview = qDayPreviewProgress(compileStory(hyunjaeStory).work, 12);
   const state = preview.choices.reduce((previous, target) => choose(work, previous, target), dispatch(work, initialRuntime(work), "start"));
   expect(state.date).toBe("2026-12-12");
-  expect(preview.time).toBe("14:00");
+  expect(preview.time).toBe("10:30");
   expect(preview.readDays).not.toContain(12);
   expect(preview.acknowledgedClues).toContain("q-photo-snow");
   expect(state.variables.q_completed_day).toBe(11);

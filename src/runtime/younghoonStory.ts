@@ -1,3 +1,4 @@
+import { quidditchStage } from "./quidditchStage";
 import days01 from "../../stories/younghoon-01.json";
 import days05 from "../../stories/younghoon-05.json";
 import days09 from "../../stories/younghoon-09.json";
@@ -40,6 +41,8 @@ export function younghoonItinerary(day: number) {
 
 export function younghoonStage(day: number, beatIndex: number, position: number) {
   const story = younghoonDays[day - 1];
+  const match = quidditchStage(story, beatIndex, position);
+  if (match) return match;
   const scheduled = story.beats.slice(0, beatIndex + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
   let schedule = scheduled?.kind === "lines" ? scheduled.schedule ?? story.schedule : story.schedule;
   if (day === 24) {

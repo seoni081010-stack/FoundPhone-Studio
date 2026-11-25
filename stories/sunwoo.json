@@ -15599,7 +15599,7 @@
           }
         ],
         "channel": "scene",
-        "time": "13:30",
+        "time": "10:10",
         "place": "魁地奇球场看台"
       },
       {
@@ -15728,7 +15728,7 @@
           }
         ],
         "channel": "scene",
-        "time": "13:30",
+        "time": "10:10",
         "place": "魁地奇球场看台"
       },
       {
@@ -15781,13 +15781,13 @@
           }
         ],
         "channel": "scene",
-        "time": "13:30",
+        "time": "10:10",
         "place": "魁地奇球场看台"
       },
       {
         "kind": "wager",
         "channel": "scene",
-        "time": "13:30",
+        "time": "10:10",
         "place": "魁地奇球场看台"
       },
       {
@@ -15833,7 +15833,7 @@
           }
         ],
         "channel": "scene",
-        "time": "13:30",
+        "time": "10:10",
         "place": "魁地奇球场看台"
       },
       {
@@ -15939,7 +15939,7 @@
           ]
         ],
         "channel": "scene",
-        "time": "13:30",
+        "time": "10:10",
         "place": "魁地奇球场看台"
       },
       {
@@ -15974,29 +15974,29 @@
               "file": "sunwoo-day12-full.md",
               "line": 117
             }
-          },
+          }
+        ],
+        "channel": "scene",
+        "time": "10:10",
+        "place": "魁地奇球场看台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
           {
             "body": "裁判已经走到球场中央。两队球员在半空中排成队列。",
             "source": {
               "file": "sunwoo-day12-full.md",
-              "line": 119
+              "line": 121
             }
           },
           {
             "body": "哨声响起。十四把扫帚几乎同时升空。",
             "source": {
               "file": "sunwoo-day12-full.md",
-              "line": 121
+              "line": 123
             }
-          }
-        ],
-        "channel": "scene",
-        "time": "13:30",
-        "place": "魁地奇球场看台"
-      },
-      {
-        "kind": "lines",
-        "lines": [
+          },
           {
             "body": "鬼飞球被高高抛起。比赛正式开始。",
             "source": {
@@ -16159,7 +16159,7 @@
           }
         ],
         "channel": "scene",
-        "time": "14:00",
+        "time": "10:30",
         "place": "魁地奇球场看台"
       },
       {
@@ -16288,7 +16288,7 @@
           }
         ],
         "channel": "scene",
-        "time": "14:00",
+        "time": "10:30",
         "place": "魁地奇球场看台"
       },
       {
@@ -16511,7 +16511,15 @@
               "file": "sunwoo-day12-full.md",
               "line": 241
             }
-          },
+          }
+        ],
+        "channel": "scene",
+        "time": "10:30",
+        "place": "魁地奇球场看台"
+      },
+      {
+        "kind": "lines",
+        "lines": [
           {
             "body": "比赛持续了一段时间。你手中的热巧克力已经凉了大半。",
             "source": {
@@ -17023,13 +17031,13 @@
           }
         ],
         "channel": "scene",
-        "time": "14:00",
+        "time": "15:30",
         "place": "魁地奇球场看台"
       },
       {
         "kind": "wager-result",
         "channel": "scene",
-        "time": "16:00",
+        "time": "15:30",
         "place": "魁地奇球场看台"
       },
       {
@@ -17180,7 +17188,7 @@
           }
         ],
         "channel": "scene",
-        "time": "16:10",
+        "time": "15:40",
         "place": "球场外的石阶"
       },
       {
@@ -17356,7 +17364,7 @@
           }
         ],
         "channel": "scene",
-        "time": "16:10",
+        "time": "15:40",
         "place": "球场外的石阶"
       },
       {
@@ -17697,7 +17705,7 @@
           }
         ],
         "channel": "scene",
-        "time": "16:10",
+        "time": "15:40",
         "place": "球场外的石阶"
       },
       {
@@ -17727,7 +17735,7 @@
           }
         ],
         "channel": "scene",
-        "time": "16:10",
+        "time": "15:40",
         "place": "球场外的石阶"
       },
       {

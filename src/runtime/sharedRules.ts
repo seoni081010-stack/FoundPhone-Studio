@@ -5,6 +5,8 @@ import dateOptions from "../../stories/template/hogwarts-dates.json";
 export const sharedRules = {
   firstSnowDay: 6,
   quidditchDay: 12,
+  quidditchStart: "10:30",
+  quidditchResult: "15:30",
   holidayStartDay: 22,
   ballDay: 24,
   confessionDay: 31,

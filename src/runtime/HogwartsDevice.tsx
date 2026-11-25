@@ -1,3 +1,4 @@
+import { quidditchStage } from "./quidditchStage";
 import { classroomLocations } from "./castleFloors";
 import { ericDays, ericDay, ericStage, ericEndings } from "./ericStory";
 import { juyeonDays, juyeonDay, juyeonStage, juyeonEndings } from "./juyeonStory";
@@ -14,7 +15,7 @@ import { routeMatchContent, type MatchLine } from "./routeMatchContent";
 import { routeDateContent } from "./routeDateContent";
 import { canInvite, invitationReply, dateInvitationKey, readDateInvitations, saveDateInvitations } from "./dateInvitations";
 import { availableDateDays as sharedDateDays, isHoliday, sharedRules } from "./sharedRules";
-import { qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, hyunjaeDay31Preview, qAlbumClues, qDays, qEndingCopy, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
+import { type QMatchProgress, qDayPreviewProgress, qFirstDayMail, qProgressKey, characterRouteWork, gateRouteDays, hyunjaeDay31Preview, qAlbumClues, qDays, qEndingCopy, qLetters, qSceneSpeakers, readQProgress } from "./routeWork";
 import { SceneDialogue } from "./SceneDialogue";
 import { HogwartsEnding } from "./HogwartsEnding";
 import { MaraudersMap } from "./MaraudersMap";
@@ -119,7 +120,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const sunwooMailActive = isAuthored && sunwooBeat && "channel" in sunwooBeat && sunwooBeat.channel === "mail";
   const stageSchedule = scriptToday?.beats.slice(0, jcode.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
   const stageDetails = stageSchedule?.kind === "lines" ? stageSchedule.schedule?.split(" · ") : undefined;
-  const youngStage = isYounghoon ? younghoonStage(jcode.day, jcode.beat, jcode.cursor.position) : undefined;
+  const youngStage = isYounghoon ? younghoonStage(jcode.day, jcode.beat, jcode.cursor.position) : isJcode && scriptToday ? quidditchStage(scriptToday, jcode.beat, jcode.cursor.position) : undefined;
   const jcodeToday = scriptToday && isAuthored ? { ...scriptToday, ...authoredStage(jcode.day, jcode.beat, sunwooKind) } : scriptToday && youngStage ? { ...scriptToday, ...youngStage } : scriptToday && stageDetails ? { ...scriptToday, schedule: stageDetails.join(" · "), time: stageDetails[1], place: stageDetails[2] } : scriptToday;
   const [restoredQ] = useState(() => previewDay && isQ ? qDayPreviewProgress(original, previewDay) : readQProgress(qStorageKey));
   const [qChoiceHistory, setQChoiceHistory] = useState(() => isQ ? restoredQ.choices : []);
@@ -193,15 +194,28 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [acknowledgedClues, setAcknowledgedClues] = useState<string[]>(() => [...new Set([
     ...restoredAlbum.acknowledged, ...(isQ ? restoredQ.acknowledgedClues : []),
   ])]);
-  const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">(() => isQ ? restoredQ.match?.step ?? "bet" : isAuthored && jcode.day === 12 && jcode.team && jcode.beat > (authoredDay(12).beats.findIndex(beat => beat.kind === "wager-result")) ? jcode.wagerClaimed ? "done" : "pub" : "bet");
-  const [team, setTeam] = useState(() => isAuthored ? jcode.team ?? "" : isQ ? restoredQ.match?.team ?? "" : "");
-  const [stake, setStake] = useState(() => isAuthored ? jcode.wagerStake ?? 1 : isQ ? restoredQ.match?.stake ?? 1 : 1);
+  const matchStorageKey = `hogwarts-match-v1:${identityKey}`;
+  const [restoredMatch] = useState<QMatchProgress | undefined>(() => {
+    if (selectedLeadId !== "hyunjae" || previewDay) return undefined;
+    try {
+      const saved = JSON.parse(localStorage.getItem(matchStorageKey) ?? "null") as QMatchProgress | null;
+      return saved && ["bet", "ready", "result", "pub", "buy", "stay", "done"].includes(saved.step) ? saved : undefined;
+    } catch { return undefined; }
+  });
+  const [matchStep, setMatchStep] = useState<"bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done">(() => isQ ? restoredQ.match?.step ?? "bet" : isAuthored && jcode.day === 12 && jcode.team && jcode.beat > (authoredDay(12).beats.findIndex(beat => beat.kind === "wager-result")) ? jcode.wagerClaimed ? "done" : "pub" : restoredMatch?.step ?? "bet");
+  const [team, setTeam] = useState(() => isAuthored ? jcode.team ?? "" : isQ ? restoredQ.match?.team ?? "" : restoredMatch?.team ?? "");
+  const [stake, setStake] = useState(() => isAuthored ? jcode.wagerStake ?? 1 : isQ ? restoredQ.match?.stake ?? 1 : restoredMatch?.stake ?? 1);
   const [matchError, setMatchError] = useState("");
   const [matchDialog, setMatchDialog] = useState(false);
-  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => previewDay === 12 && !usesScript ? "intro" : isQ ? restoredQ.match?.conversation : undefined);
+  const [matchConversation, setMatchConversation] = useState<"intro" | "reaction" | undefined>(() => previewDay === 12 && !usesScript ? "intro" : isQ ? restoredQ.match?.conversation : restoredMatch?.conversation);
   const [matchIntroRead, setMatchIntroRead] = useState(false);
-  const [visitedMatchPub, setVisitedMatchPub] = useState(() => isQ && restoredQ.match?.visitedPub === true);
+  const [visitedMatchPub, setVisitedMatchPub] = useState(() => isQ ? restoredQ.match?.visitedPub === true : restoredMatch?.visitedPub === true);
   const [mailRead, setMailRead] = useState<Record<string, number>>(() => isQ ? restoredQ.mailRead ?? {} : {});
+  useEffect(() => {
+    if (selectedLeadId !== "hyunjae" || previewDay) return;
+    try { localStorage.setItem(matchStorageKey, JSON.stringify({ step: matchStep, team, stake, visitedPub: visitedMatchPub, conversation: matchConversation })); }
+    catch { /* Keep this session playable if browser storage is unavailable. */ }
+  }, [selectedLeadId, previewDay, matchStorageKey, matchStep, team, stake, visitedMatchPub, matchConversation]);
   const won = team === "斯莱特林";
   const [sceneOpen, setSceneOpen] = useState(Boolean(previewDay && previewDay !== 12 && !usesScript));
   const [seenScene, setSeenScene] = useState(() => isQ && restoredQ.readDays.includes(new Date(`${state.date}T12:00:00Z`).getUTCDate()) ? state.messages.scene?.at(-1)?.id ?? "" : "");
@@ -214,7 +228,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     work.nodes.find(node => node.id === choice.target)?.actions.some(action =>
       action.type === "date" && String(action.value) > (state.date || "")));
   const startTime = sharedRules.dayStartTime;
-  const [lessonTime, setLessonTime] = useState<string | undefined>(() => usesScript ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : undefined);
+  const [lessonTime, setLessonTime] = useState<string | undefined>(() => usesScript ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : day === sharedRules.quidditchDay && restoredMatch ? restoredMatch.step === "bet" || restoredMatch.step === "ready" ? sharedRules.quidditchStart : sharedRules.quidditchResult : undefined);
   const scriptTime = jcodeToday?.time;
   useEffect(() => {
     if (usesScript && (jcode.open || jcode.done) && scriptTime) {
@@ -523,7 +537,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       setActive("calendar");
       if (finalMemoryAcknowledged) setFinished(true);
     }
-    if (day === sharedRules.quidditchDay) { setMatchStep("result"); setMatchDialog(true); }
+    if (day === sharedRules.quidditchDay) { setLessonTime(sharedRules.quidditchResult); setMatchStep("result"); setMatchDialog(true); }
   }
   useEffect(() => {
     if (!isQ || previewDay) return;
@@ -540,7 +554,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   function openScene() {
     if (finished) return;
     if (day === sharedRules.quidditchDay) {
-      setLessonTime("14:00");
+      setLessonTime(sharedRules.quidditchStart);
       if (matchStep === "bet") { setMatchConversation("intro"); return; }
       if (matchConversation === "reaction") return;
     }
@@ -550,7 +564,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     setMatchConversation(undefined);
     if (waitingToMeet && state.choices[0]) select(state.choices[0].target);
     if (isQ) setLessonTime(qToday?.stages.find(stage => stage.channel === "scene")?.time ?? sceneTime);
-    else if (day === sharedRules.quidditchDay) setLessonTime("14:00");
+    else if (day === sharedRules.quidditchDay) setLessonTime(sharedRules.quidditchStart);
     setSceneOpen(true);
   }
   const sunwooReview = sunwooReviewDay !== undefined ? jcode.mailBacklog?.[sunwooReviewDay] : undefined;
@@ -658,7 +672,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {mailArrived ? "查看池昌民的来信" : `${qMailStage.time} 午餐 · 查看池昌民的来信`}
           </button>}
           <HogwartsSchedule readOnly={finished} year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
-            sceneTime={jcodeToday?.time} sceneLabel={sunwooMailActive ? `${jcodeToday?.time} · 猫头鹰信箱` : activeYoungMail ? `${activeYoungMail.time} · 猫头鹰信箱` : jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? "14:00 看魁地奇比赛" : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
+            sceneTime={jcodeToday?.time} sceneLabel={sunwooMailActive ? `${jcodeToday?.time} · 猫头鹰信箱` : activeYoungMail ? `${activeYoungMail.time} · 猫头鹰信箱` : jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? `${sharedRules.quidditchStart} 看魁地奇比赛` : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
             onScene={sunwooMailActive ? () => { updateJcode({open:true}); setActive("owlpost"); setRecipient(selectedLeadId); } : activeYoungMail ? openYoungMail : jcodeToday ? !jcode.done ? () => { setSunwooReviewDay(undefined); setLessonTime(jcodeToday.time); updateJcode({ open: true, time: jcodeToday.time }); } : undefined : (!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
               openScene();
             } : undefined}

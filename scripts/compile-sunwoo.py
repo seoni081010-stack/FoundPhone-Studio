@@ -11,7 +11,7 @@ META = re.compile(r'^(?:Day\s*\d+\s*(?:结束|完成|：)|关系状态：|伏笔
 STOP = re.compile(r'^#{1,5} (?:实装结构检查|审核与实施要点|后续连续性|后续注意|进度与下集伏笔)')
 LOCATIONS = {
     (6,'11:00'):'城堡里的茶点室', (10,'16:30'):'二楼窗边长廊',
-    (12,'13:30'):'魁地奇球场看台', (12,'14:00'):'魁地奇球场看台', (12,'16:10'):'球场外的石阶',
+    (12,'10:10'):'魁地奇球场看台', (12,'10:30'):'魁地奇球场看台', (12,'15:40'):'球场外的石阶',
     (17,'16:20'):'陈列室', (20,'17:30'):'霍格沃茨礼堂',
     (24,'19:20'):'霍格沃茨礼堂', (24,'20:10'):'石拱门',
     (25,'11:45'):'壁炉旁', (25,'12:15'):'圣诞树旁',
@@ -158,8 +158,8 @@ for path in sorted(ARCHIVE.glob('sunwoo-day*-full.md')):
             for clue in clues:clue.update(channel='scene',time=result['beats'][first_mail-1]['time'],place=result['beats'][first_mail-1]['place'])
             result['beats'][first_mail:first_mail]=clues
         if day==12:
-            index=next(i for i,beat in enumerate(result['beats']) if beat['time']=='16:10')
-            result['beats'].insert(index,dict(kind='wager-result',channel='scene',time='16:00',place='魁地奇球场看台'))
+            index=next(i for i,beat in enumerate(result['beats']) if beat['time']=='15:40')
+            result['beats'].insert(index,dict(kind='wager-result',channel='scene',time='15:30',place='魁地奇球场看台'))
         days.append(result)
 assert sorted(d['day'] for d in days)==list(range(1,31)),[d['day'] for d in days]
 

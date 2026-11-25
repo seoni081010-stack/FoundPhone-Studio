@@ -34,7 +34,7 @@ class Parser:
   if '来信' in m[2] or m[2]=='猫头鹰信箱':self.channel='mail';self.place='猫头鹰信箱'
   else:
    self.channel='scene';self.place=m[2]
-   if self.day==12 and self.time=='10:35':self.place='魁地奇球场上空'
+   if self.day==12 and self.time=='10:30':self.place='魁地奇球场上空'
    if self.day==31 and '黑湖' in self.place:self.place='黑湖湖畔的大山毛榉树下'
   if not self.initial:self.initial=self.stamp()
   return True
@@ -71,8 +71,8 @@ class Parser:
    i+=1
   self.flush();assert self.initial,(self.day,'missing schedule')
   if self.day==12:
-   index=next(i for i,b in enumerate(self.beats) if b['time']=='11:45')
-   self.beats.insert(index,dict(kind='wager-result',channel='scene',time='11:30',place='魁地奇球场看台'))
+   index=next(i for i,b in enumerate(self.beats) if b['time']=='15:40')
+   self.beats.insert(index,dict(kind='wager-result',channel='scene',time='15:30',place='魁地奇球场看台'))
   return dict(day=self.day,title=self.title,schedule=f'12月{self.day}日 · {self.initial["time"]} · {self.initial["place"]}',time=self.initial['time'],place=self.initial['place'],beats=self.beats)
 
 days=[]

@@ -1,3 +1,4 @@
+import { sharedRules } from "./sharedRules";
 import { classroomLocations } from "./castleFloors";
 import { ericItinerary } from "./ericStory";
 import { juyeonItinerary } from "./juyeonStory";
@@ -42,8 +43,9 @@ export function characterLocations(day: number, time: string, selectedId: string
       const scene = (person.id === "eric" ? ericItinerary(day) : person.id === "juyeon" ? juyeonItinerary(day) : sunwooItinerary(day)).filter(stage => current >= routeMinutes(stage.time)).at(-1);
       if (scene && followsCurrentLesson(scene.time) && current < routeMinutes(scene.time) + 120) place = scene.place;
     }
-    if (person.id !== "juyeon" && person.id !== "eric" && day === 12 && now >= 14 * 60 && now < 16 * 60) place = "魁地奇球场";
+    const matchInProgress = day === sharedRules.quidditchDay && now >= minutes(sharedRules.quidditchStart) && now <= minutes(sharedRules.quidditchResult);
+    if (matchInProgress) place = "魁地奇球场";
     if (person.id === selectedId && selectedPlace) place = selectedPlace;
-    return { ...person, place, activity: lesson?.subject };
+    return { ...person, place, activity: matchInProgress ? "魁地奇比赛" : lesson?.subject };
   });
 }

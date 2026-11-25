@@ -240,7 +240,7 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
   if (state.date !== date) throw new Error("该日期尚未开放预览。");
   const readDays = Array.from({ length: day - 1 }, (_, index) => index + 1);
   return { choices: history, readDays,
-    attended: {}, time: day === 12 ? "14:00" : day === sharedRules.confessionDay ? String(state.variables.scene_time) : "16:00", mailUnlocked: true, extraMail: [],
+    attended: {}, time: day === 12 ? sharedRules.quidditchStart : day === sharedRules.confessionDay ? String(state.variables.scene_time) : "16:00", mailUnlocked: true, extraMail: [],
     acknowledgedClues: qAlbumClues(readDays, state.completed).map(clue => clue.id), legacy: false };
 }
 

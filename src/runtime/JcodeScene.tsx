@@ -1,3 +1,4 @@
+import { quidditchStage } from "./quidditchStage";
 import { useCallback, useState, type ReactNode } from "react";
 import { nextAlbumNotice } from "./albumNotices";
 import { WishCard } from "./WishCard";
@@ -15,7 +16,7 @@ export function useJcodeProgress(key: string, enabled: boolean, previewDay?: num
   const storageKey = `hogwarts-${eric ? "eric" : juyeon ? "juyeon" : sunwoo ? "sunwoo" : younghoon ? "younghoon" : "jcode"}-v1:${key}`;
   const [progress, setProgress] = useState<Progress>(() => {
     if (!enabled) return first(1);
-    if (previewEnding) return { ...first(31), open: true, beat: younghoon || sunwoo || juyeon || eric ? 0 : jcodeDays[30].beats.length - 1, ending: previewEnding };
+    if (previewEnding) return { ...first(31), open: true, beat: 0, ending: previewEnding };
     if (previewDay) return { ...first(previewDay), open: true };
     try {
       const saved = localStorage.getItem(storageKey);
@@ -50,7 +51,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
   const day = (younghoon ? younghoonDays : jcodeDays)[progress.day - 1];
   const beat = day.beats[progress.beat];
   const stage = day.beats.slice(0, progress.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
-  const schedule = younghoon ? younghoonStage(progress.day, progress.beat, progress.cursor.position).schedule : stage?.kind === "lines" ? stage.schedule ?? day.schedule : day.schedule;
+  const schedule = quidditchStage(day, progress.beat, progress.cursor.position)?.schedule ?? (younghoon ? younghoonStage(progress.day, progress.beat, progress.cursor.position).schedule : stage?.kind === "lines" ? stage.schedule ?? day.schedule : day.schedule);
   const [team, setTeam] = useState("");
   const [stake, setStake] = useState(1);
   const [error, setError] = useState("");
@@ -59,7 +60,7 @@ export function JcodeScene({ progress, update, identityKey, affinity, onFinish, 
   if (beat?.kind === "wager" && wagerOpen) return <QuidditchPaper team={team} stake={stake} error={error}
     onTeam={setTeam} onStake={setStake} onReturn={() => setWagerOpen(false)} onSubmit={() => {
       if (!spendGalleons(identityKey, stake)) { setError("钱包里的加隆不够。"); return; }
-      next({ team });
+      next({ team, wagerStake: stake });
     }} />;
   if (beat?.kind === "mail") return <button className="hogwarts-activity" onClick={onMail}>打开猫头鹰信箱</button>;
   const clue = beat?.kind === "clue" ? nextAlbumNotice([beat.clue], [], false) : undefined;
