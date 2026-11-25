@@ -1,3 +1,4 @@
+import {assertCurrentFloorMarkers} from './assert-floor-markers.mjs';
 import {chromium} from 'playwright';
 import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
@@ -18,7 +19,7 @@ for(const day of [...days,ending]){
   await p.getByRole('button',{name:'巫师手札',exact:true}).click();await p.getByRole('button',{name:'打开活点地图',exact:true}).click();
   await p.getByRole('button',{name:'展开羊皮卷轴'}).click();await p.getByRole('button',{name:'我庄严宣誓，我不干好事'}).evaluate(e=>e.click());
   const marker=p.locator('[data-person="sunwoo"]');assert.equal(await marker.getAttribute('data-place'),stage.place);
-  assert.notEqual(await marker.getAttribute('transform'),'translate(180 280)');assert.equal(await p.locator('[data-person]').count(),7);
+  await assertCurrentFloorMarkers(p,marker);
   const header=await p.locator('.marauder-signature').innerText();assert.ok(header.includes(`${stage.time} · 金善旴 · ${stage.place}`));count++;
  }
  console.log('PASS map',day.day,stages.length);

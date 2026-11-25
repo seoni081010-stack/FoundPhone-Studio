@@ -1,3 +1,4 @@
+import {assertCurrentFloorMarkers} from './assert-floor-markers.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -22,8 +23,7 @@ for(const day of (process.env.TYPEWRITER_ONLY?[]:days)){
   await p.getByRole('button',{name:'我庄严宣誓，我不干好事'}).evaluate(e=>e.click());
   const marker=p.locator('[data-person="younghoon"]');
   assert.equal(await marker.getAttribute('data-place'),place,`${day.day} ${time}`);
-  assert.notEqual(await marker.getAttribute('transform'),'translate(180 280)',place);
-  assert.equal(await p.locator('[data-person]').count(),7);
+  await assertCurrentFloorMarkers(p,marker);
   assert.match(await p.locator('.marauder-signature').innerText(),new RegExp(`12月${day.day}日 · ${time} · 金泳勋 · ${place}`));
  }
  console.log('PASS map day',day.day,'stages',new Set(stages).size);

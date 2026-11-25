@@ -61,3 +61,12 @@ export function castleLocation(place:string) {
   return { floor:floor.id, floorTitle:floor.title, room:slot<0?`${floor.title}走廊`:room!, x:x+(doorway?8:0), y,
     explicit: Boolean(room || explicit || knownMapPoint(place)), key:`${floor.id}:${slot<0?"corridor":room}` };
 }
+
+// Each selected floor reuses the original castle drawing's room positions.
+export function castleFloorPoint(place:string) {
+  const location=castleLocation(place);
+  const floor=castleFloors.find(entry=>entry.id===location.floor)!;
+  const slot=floor.rooms.indexOf(location.room);
+  const rows=[68,123,175,227,301,353];
+  return { ...location, x:slot<0?180:slot%2===0?82:276, y:slot<0?280:rows[Math.floor(slot/2)]+17 };
+}

@@ -1,3 +1,5 @@
+import { characterLocations } from "./characterLocations";
+import { castleLocation } from "./castleFloors";
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { HogwartsDevice } from "./HogwartsDevice";
@@ -32,13 +34,20 @@ describe("Q first day", () => {
     expect(html).toContain("09:00");
     expect(html).not.toContain("你是不是忘了什么东西");
   });
-  it("shows all names inside the map, only the selected person in its header, and no roster below", () => {
+  it("shows only current-floor names, plain floor tabs, the selected header and no roster below", () => {
     const html = renderToStaticMarkup(<MaraudersMap day={1} time="11:00" selectedId="q" />);
     const header = html.match(/<header[^>]*>[\s\S]*?<\/header>/)?.[0] ?? "";
     expect(header).toContain("池昌民");
     expect(header).not.toContain("李贤在");
     const map = html.match(/<svg[\s\S]*?<\/svg>/)?.[0] ?? "";
-    for (const person of people) expect(map).toContain(person.name);
+    const locations=characterLocations(1,"11:00","q");
+    const selectedFloor=castleLocation(locations.find(person=>person.id==="q")!.place).floor;
+    for(const person of locations){
+      if(castleLocation(person.place).floor===selectedFloor)expect(map).toContain(person.name);
+      else expect(map).not.toContain(person.name);
+    }
+    expect(html).not.toContain("全图");
+    expect(html).not.toContain("<small>");
     expect(html).not.toContain("marauder-locations");
     expect(html).not.toContain("<ul");
   });

@@ -1,5 +1,5 @@
 import { describe,expect,it } from "vitest";
-import { castleFloors,castleLocation,classroomLocations,castleMapHeight } from "./castleFloors";
+import { castleFloors,castleFloorPoint,castleLocation,classroomLocations,castleMapHeight } from "./castleFloors";
 import timetable from "../../stories/template/hogwarts-timetables.json";
 import { mapLandmarks,mapRooms } from "./mapLocations";
 import { characterLocations } from "./characterLocations";
@@ -25,6 +25,12 @@ describe("reference cutaway floor map",()=>{
     for(let day=1;day<=21;day++)for(const time of ["09:00","11:00","14:00"]){
       const people=characterLocations(day,time,"hyunjae");expect(people).toHaveLength(7);
       for(const person of people){const lesson=dailyLessons(person.year,person.house,day).find(l=>l.time===time);if(lesson)expect(castleLocation(classroomLocations[lesson.subject]).room).not.toContain("走廊");}
+    }
+  });
+  it("projects every floor onto the original castle canvas without mixing floors",()=>{
+    for(const floor of castleFloors)for(const room of floor.rooms){
+      const point=castleFloorPoint(room);expect(point.floor).toBe(floor.id);
+      expect(point.x).toBeGreaterThan(0);expect(point.x).toBeLessThan(360);expect(point.y).toBeGreaterThan(0);expect(point.y).toBeLessThan(565);
     }
   });
   it("moves Eric from the earlier staircase scene into his new class",()=>{

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { castleFloorLayouts, castleMapHeight, castleLocation, type CastleFloorId } from "./castleFloors";
+import { castleFloorLayouts, castleFloorPoint, castleLocation, type CastleFloorId } from "./castleFloors";
 import "./MaraudersFloors.css";
 import { characterLocations } from "./characterLocations";
 
@@ -12,15 +12,10 @@ export function MaraudersMap({ day, time = "09:00", place, activity, selectedId 
   const locations = characterLocations(day, time, selectedId, place);
   const selected = locations.find(person => person.id === selectedId) ?? locations[2];
   const [stage, setStage] = useState<MapStage>("closed");
-  const canvas = useRef<HTMLDivElement>(null);
-  const [activeFloor,setActiveFloor] = useState<CastleFloorId | "all">("all");
   const selectedLocation = castleLocation(selected.place);
-  function focusFloor(id: CastleFloorId | "all") {
-    setActiveFloor(id);
-    const floor=castleFloorLayouts.find(entry=>entry.id===id);
-    const scale=(canvas.current?.querySelector("svg")?.getBoundingClientRect().width ?? 360)/360;
-    canvas.current?.scrollTo({ top: (floor?.top ?? 0)*scale, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-  }
+  const [activeFloor,setActiveFloor] = useState<CastleFloorId>(selectedLocation.floor);
+  const floor = castleFloorLayouts.find(entry=>entry.id===activeFloor)!;
+  function focusFloor(id: CastleFloorId) { setActiveFloor(id); }
   const audio = useRef<AudioContext | null>(null);
   const scroll = useRef<HTMLDivElement>(null);
 
@@ -118,43 +113,41 @@ export function MaraudersMap({ day, time = "09:00", place, activity, selectedId 
               <span aria-live="polite">12月{day}日 · {time} · {selected.name} · {selected.place} · {selectedLocation.floorTitle}{activity && activity !== selected.place ? ` · ${activity}` : ""}</span>
             </header>
             <nav className="marauder-floor-tabs" aria-label="地图楼层">
-              <button type="button" aria-pressed={activeFloor === "all"} onClick={()=>focusFloor("all")}>全图 · 7人</button>
               {(["one","two","three","four","dungeons","towers","grounds"] as const).map(id=>{
                 const floor=castleFloorLayouts.find(entry=>entry.id===id)!;
-                const count=locations.filter(person=>castleLocation(person.place).floor===id).length;
-                return <button key={id} type="button" aria-label={floor.title} aria-pressed={activeFloor===id} onClick={()=>focusFloor(id)}>{floor.title}<small>{count}</small></button>;
+                return <button key={id} type="button" aria-label={floor.title} aria-pressed={activeFloor===id} onClick={()=>focusFloor(id)}>{floor.title}</button>;
               })}
             </nav>
-            <div className="marauder-floor-canvas" ref={canvas} role="region" aria-label="分层城堡地图" tabIndex={0}>
-            <svg viewBox={`0 0 360 ${castleMapHeight}`} role="img" aria-label="霍格沃茨一至四层、地窖、塔楼和室外地图">
-              <title>霍格沃茨分层活点地图</title>
-              <g className="marauder-lines">
-                {castleFloorLayouts.map(floor=><g key={floor.id} data-floor-band={floor.id} className={activeFloor===floor.id?"is-focused":""}>
-                  <rect className="marauder-floor-paper" x="5" y={floor.top+4} width="350" height={floor.height-8} rx="10" />
-                  <text className="marauder-floor-title" x="180" y={floor.top+29}>{floor.title}</text>
-                  <path d={`M174 ${floor.top+39}v${floor.height-60}m12 0V${floor.top+39}`} />
-                  {floor.rooms.map((name,index)=>{
-                    const x=index%2===0?90:270,y=floor.top+88+Math.floor(index/2)*86;
-                    return <g key={name} data-map-room={name} data-room-floor={floor.id}>
-                      <rect className="marauder-room" x={x-76} y={y-42} width="152" height="66" rx="3" />
-                      <path d={`M${x<180?x+76:x-76} ${y-9}h${x<180?8:-8}`} />
-                      <text className="marauder-room-label" x={x} y={y-23}>{name}</text>
-                      <path className="marauder-window" d={`M${x-63} ${y-40}v10m7-10v10m7-10v10`} />
-                    </g>;
-                  })}
-                  <path className="marauder-stairs" d={`M165 ${floor.top+floor.height-35}h30m-30 5h30m-30 5h30`} />
-                  <text className="marauder-corridor-label" x="180" y={floor.top+floor.height-8}>楼梯与回廊</text>
-                </g>)}
+            <div className="marauder-floor-canvas" role="region" aria-label="分层城堡地图" tabIndex={0}>
+            <svg key={floor.id} viewBox="0 0 360 565" role="img" aria-label={`霍格沃茨${floor.title}活点地图`}>
+              <title>{`霍格沃茨活点地图 · ${floor.title}`}</title>
+              <g className="marauder-lines" data-floor-band={floor.id}>
+                <path className="marauder-etch" pathLength="1" d="M10 387V48l24-24 21 21h65V37l20-24 19 23h37V25L218 4l21 21v20h64l21-23 25 26v342l-20 16H33Zm150-89h40m-40 8h40m-40 8h40m-40 8h40m-40 8h40M154 340h52M154 349h52m-52 9h52M21 244h26m-26 7h26m-26 7h26m265-14h24m-24 7h24m-24 7h24" />
+                <path pathLength="1" d="M16 387V51l18-20 18 20h73V40l15-20 16 20h46V28l16-18 15 18v23h72l20-20 19 20v335l-18 13H34Z" />
+                <path pathLength="1" d="M171 58v328m18-328v328M22 265h315m-315 10h315M82 279v17m194-17v17M179 386l-97 31m97-31 97 31M82 434l1 32m193-31v31" />
+                <path className="marauder-secret" d="M280 76C345 138 324 202 306 240S238 330 284 355 327 440 198 522M76 302C34 343 54 393 104 416" />
+                {floor.rooms.map(name=>{
+                  const point=castleFloorPoint(name),x=point.x,y=point.y-17;
+                  return <g key={name} data-map-room={name} data-room-floor={floor.id}>
+                    {name==="魁地奇球场"?<ellipse pathLength="1" cx={x} cy={y} rx="61" ry="23" />:<path pathLength="1" d={`M${x-58} ${y-15}l116-1 1 31-117 1Z`} />}
+                    <text className="marauder-room-label" x={x} y={y+3}>{name}</text>
+                  </g>;
+                })}
+                <text x="180" y="258">长廊</text>
+                <text x="280" y="390">⋯ 秘密通道</text>
+                <text className="marauder-floor-title" x="180" y="454">{floor.title}</text>
+                <text className="marauder-doodle" x="45" y="395" aria-hidden="true">✧ ☽</text>
+                <g className="marauder-etch" aria-hidden="true"><path pathLength="1" d="M44 510q-4-16 22-19-6 16-22 19m-6 6 21-20m-12 9 8-2M305 508l8 15 15-9-15-8-8 16m11-23v32m-17-16h33" /></g>
               </g>
-              {locations.map(person=>{
-                const point=castleLocation(person.place);
+              {locations.filter(person=>castleLocation(person.place).floor===activeFloor).map(person=>{
+                const point=castleFloorPoint(person.place);
                 const group=locations.filter(other=>castleLocation(other.place).key===point.key);
                 const slot=group.findIndex(other=>other.id===person.id),columns=Math.min(group.length,3);
                 const x=point.x+(slot%3-(columns-1)/2)*38,y=point.y+Math.floor(slot/3)*12;
                 return <g key={person.id} data-person={person.id} data-place={person.place} data-floor={point.floor} data-map-room={point.room}
                   data-mapped={point.explicit} transform={`translate(${x} ${y})`}>
                   <g className={`marauder-person marauder-person-first${person.id===selectedId?" is-selected":""}`} style={{ animationName: "marauder-local-walk" }}>
-                    <title>{person.name} · {point.floorTitle} · {person.place}</title>
+                    <title>{`${person.name} · ${point.floorTitle} · ${person.place}`}</title>
                     <text style={{ paintOrder:"stroke",stroke:"#f2dcac",strokeWidth:3,fontSize:10,textAnchor:"middle",fontWeight:person.id===selectedId?"bold":"normal" }}>{person.name}</text>
                     <path d="M-10 4l3 2m5-1 3 2" />
                   </g>
