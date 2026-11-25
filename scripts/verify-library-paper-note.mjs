@@ -16,9 +16,9 @@ try{
   const enter=async()=>{await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await page.getByRole('button',{name:'巫师手札',exact:true}).waitFor();};
   await enter();
   assert.equal(await page.locator('.library-paper-note').count(),0,'must wait for the pushing narration');
-  await page.locator('.scene-current-step button').click();
-  await page.locator('.scene-current-step button').click();
-  const paper=page.locator('.library-paper-note[open]');await paper.waitFor();
+  const paper=page.locator('.library-paper-note[open]');
+  while(!await paper.count()){await page.locator('.scene-current-step button').click();await page.waitForTimeout(50);}
+  await paper.waitFor();
   assert.equal(await paper.locator('p').count(),2);
   await paper.click({position:{x:5,y:5}});
   assert.equal(await paper.count(),1,'early clicks cannot dismiss');
