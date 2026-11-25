@@ -18,6 +18,13 @@ async function drive(page, config){
    const saved=config.key?JSON.parse(localStorage.getItem(config.key)||'null'):null;
    if(saved && saved.day>config.day)return {advanced:true,saved,clicks,fixed,choices,clues};
    if(saved && saved.done && config.day<31)return {done:true,saved,clicks,fixed,choices,clues};
+   const birthday=document.querySelector('.eric-birthday-card');
+   if(birthday){
+    const input=birthday.querySelector('textarea');
+    if(input&&!input.value){Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(input,'生日快乐，愿你收集更多开心的回忆。');input.dispatchEvent(new Event('input',{bubbles:true}));}
+    else birthday.querySelector('button:not([disabled])')?.click();
+    continue;
+   }
    const writer=document.querySelector('.write-star-wish');
    if(writer){
     const input=writer.querySelector('textarea');
