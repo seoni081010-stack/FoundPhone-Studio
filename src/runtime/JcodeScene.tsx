@@ -1,3 +1,4 @@
+import { hyunjaePreviewProgress } from "./hyunjaeExpandedStory";
 import { quidditchStage } from "./quidditchStage";
 import { useCallback, useState, type ReactNode } from "react";
 import { nextAlbumNotice } from "./albumNotices";
@@ -9,13 +10,14 @@ import { spendGalleons } from "./MagicalShops";
 import { jcodeDays, jcodeEndings, jcodeEndingFor, type JcodeEndingKind } from "./jcodeStory";
 
 type Cursor = { position: number; accepted?: boolean };
-export type Progress = { ericChristmasCard?: { startedAt: number; done?: boolean }; ericBirthdayCard?: { draft: string; opened?: boolean; submitted?: string; done?: boolean }; ericPaperStar?: { startedAt: number; done?: boolean }; juyeonEndingLetter?: { kind: JcodeEndingKind; startedAt: number; done?: boolean }; juyeonGreeting?: { startedAt: number; done?: boolean }; juyeonStarChart?: { startedAt: number; done?: boolean }; truthParchmentUntil?: number; starWishUntil?: number; starWishEntry?: { draft: string; submitted?: string; foldUntil?: number; done?: boolean }; day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind; wishSubmitted?: boolean; choiceHistory?: Record<string, number>; mailHistory?: { day: number; time: string; lines: { speaker?: string; body: string }[] }[]; wagerStake?: number; wagerClaimed?: boolean; mailBacklog?: Record<number, { beat: number; option?: number; cursor: Cursor }> };
+export type Progress = { ericChristmasCard?: { startedAt: number; done?: boolean }; ericBirthdayCard?: { draft: string; opened?: boolean; submitted?: string; done?: boolean }; ericPaperStar?: { startedAt: number; done?: boolean }; juyeonEndingLetter?: { kind: JcodeEndingKind; startedAt: number; done?: boolean }; juyeonGreeting?: { startedAt: number; done?: boolean }; juyeonStarChart?: { startedAt: number; done?: boolean }; truthParchmentUntil?: number; starWishUntil?: number; starWishEntry?: { draft: string; submitted?: string; foldUntil?: number; done?: boolean }; day: number; beat: number; option?: number; cursor: Cursor; clues: string[]; affinity: number; team?: string; attended?: Record<string, boolean>; time?: string; open: boolean; done?: boolean; ending?: JcodeEndingKind; wishSubmitted?: boolean; choiceHistory?: Record<string, number>; mailHistory?: { day: number; time: string; lines: { speaker?: string; body: string; photo?: boolean }[] }[]; wagerStake?: number; wagerClaimed?: boolean; mailBacklog?: Record<number, { beat: number; option?: number; cursor: Cursor }> };
 const first = (day: number): Progress => ({ day, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: false });
 
-export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind, younghoon = false, sunwoo = false, juyeon = false, eric = false) {
-  const storageKey = `hogwarts-${eric ? "eric" : juyeon ? "juyeon" : sunwoo ? "sunwoo" : younghoon ? "younghoon" : "jcode"}-v1:${key}`;
+export function useJcodeProgress(key: string, enabled: boolean, previewDay?: number, previewEnding?: JcodeEndingKind, younghoon = false, sunwoo = false, juyeon = false, eric = false, hyunjae = false) {
+  const storageKey = `hogwarts-${hyunjae ? "hyunjae-expanded" : eric ? "eric" : juyeon ? "juyeon" : sunwoo ? "sunwoo" : younghoon ? "younghoon" : "jcode"}-v1:${key}`;
   const [progress, setProgress] = useState<Progress>(() => {
     if (!enabled) return first(1);
+    if (hyunjae && previewDay) return { ...first(previewDay), ...hyunjaePreviewProgress(previewDay, previewEnding) };
     if (previewEnding) return { ...first(31), open: true, beat: 0, ending: previewEnding };
     if (previewDay) return { ...first(previewDay), open: true };
     try {

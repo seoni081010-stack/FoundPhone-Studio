@@ -13,8 +13,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test:e2e": "node node_modules/@playwright/test/cli.js test",
     "licenses": "node scripts/licenses.mjs",
-    "story:validate": "python3 scripts/compile-sunwoo.py --check && python3 scripts/compile-juyeon.py --check && python3 scripts/compile-eric.py --check && node scripts/story.mjs validate",
-    "story:build": "python3 scripts/compile-sunwoo.py && python3 scripts/compile-juyeon.py && python3 scripts/compile-eric.py && node scripts/story.mjs build",
+    "story:validate": "python3 scripts/compile-hyunjae-expanded.py --check && python3 scripts/compile-sunwoo.py --check && python3 scripts/compile-juyeon.py --check && python3 scripts/compile-eric.py --check && node scripts/story.mjs validate",
+    "story:build": "python3 scripts/compile-hyunjae-expanded.py && python3 scripts/compile-sunwoo.py && python3 scripts/compile-juyeon.py && python3 scripts/compile-eric.py && node scripts/story.mjs build",
     "story:preview": "npm run dev",
     "story:test": "node scripts/story.mjs test"
   },

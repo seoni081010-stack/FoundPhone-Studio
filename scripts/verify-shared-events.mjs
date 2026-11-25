@@ -8,34 +8,30 @@ const y=await server.ssrLoadModule('/src/runtime/younghoonStory.ts');
 const q=await server.ssrLoadModule('/src/runtime/routeWork.ts');
 const {compileStory}=await server.ssrLoadModule('/src/story-engine/compiler.ts');
 const hy=JSON.parse(readFileSync('stories/hyunjae/story.json'));
-const hyMatchFixture=compileStory(hy).work;
-const start=hyMatchFixture.nodes.find(node=>node.type==='start');
-const matchScene=hyMatchFixture.nodes.find(node=>node.id==='hy-day12-scene');
-start.actions=matchScene.actions;start.next=matchScene.next; // Seed the real Day 12 opening, retaining its complete choice/minigame flow.
 const qSave=q.qDayPreviewProgress(compileStory(hy).work,12);
-const routes={jacob:j.jcodeDays,younghoon:y.younghoonDays};
+const routes={jacob:j.jcodeDays,younghoon:y.younghoonDays,hyunjae:JSON.parse(readFileSync('stories/hyunjae-expanded.json')).days};
 for(const name of ['sunwoo','juyeon','eric'])routes[name]=JSON.parse(readFileSync(`stories/${name}.json`));
 await server.close();
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true});
 const base=process.env.BASE_URL||'http://127.0.0.1:4182/';
 const errors=[];let paperText;
 try {
- for(const lead of [...Object.keys(routes),'q','hyunjae'].filter(id=>!process.env.MATCH_LEAD||process.env.MATCH_LEAD===id))for(const team of ['格兰芬多','斯莱特林']){
+ for(const lead of [...Object.keys(routes),'q'].filter(id=>!process.env.MATCH_LEAD||process.env.MATCH_LEAD===id))for(const team of ['格兰芬多','斯莱特林']){
   const context=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block',reducedMotion:'reduce'});
   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
   const run=`shared-match-${lead}-${team}`;
   const prefix=lead==='jacob'?'jcode':lead;
-  const key=lead==='hyunjae'?`hogwarts-match-v1:${run}`:lead==='q'?`foundphone-q-day01-${run}`:`hogwarts-${prefix}-v1:${run}`;
+  const key=lead==='hyunjae'?`hogwarts-hyunjae-expanded-v1:${run}`:lead==='q'?`foundphone-q-day01-${run}`:`hogwarts-${prefix}-v1:${run}`;
   const day=routes[lead]?.find(d=>d.day===12);const wager=day?.beats.findIndex(b=>b.kind==='wager');
-  if(lead==='hyunjae')await page.route('**/work.json',route=>route.fulfill({contentType:'application/json',body:JSON.stringify(hyMatchFixture)}));
+
   await page.goto(base);
   await page.evaluate(({lead,run,key,wager,qSave})=>{
    localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'共同事件核验',house:'ravenclaw',year:6,loveInterest:lead,runId:run}));
-   if(lead!=='hyunjae')localStorage.setItem(key,JSON.stringify(lead==='q'?{...qSave,version:2}:{day:12,beat:wager,cursor:{position:0},clues:[],affinity:37,open:true}));
+   localStorage.setItem(key,JSON.stringify(lead==='q'?{...qSave,version:2}:{day:12,beat:wager,cursor:{position:0},clues:[],affinity:37,open:true}));
    localStorage.setItem(`foundphone-hogwarts-shopping-v1-${run}`,JSON.stringify({wallet:100,vault:100000,inventory:{},gifts:{},vaultUpgrade:true}));
   },{lead,run,key,wager,qSave});
   await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
-  if(lead==='q'||lead==='hyunjae'){
+  if(lead==='q'){
    await page.getByRole('button',{name:/和池昌民看魁地奇比赛|去看台找李贤在/}).click({timeout:5000}).catch(async e=>{throw Error(e.message+'\n'+await page.locator('body').innerText());});
    for(let i=0;i<90 && !await page.locator('#match-wager-title').count();i++){
     const buttons=page.locator('dialog[open] button');const text=await buttons.allTextContents();
@@ -54,12 +50,12 @@ try {
   const walletKey=`foundphone-hogwarts-shopping-v1-${run}`;
   const before=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).wallet,walletKey);
   await paper.getByRole('button',{name:'就押这个',exact:true}).click();
-  await page.waitForFunction(({key,lead,wager})=>{const p=JSON.parse(localStorage.getItem(key));return lead==='hyunjae'?p?.step==='ready':lead==='q'?p?.match?.step==='ready':p?.beat>wager;},{key,lead,wager});
+  await page.waitForFunction(({key,lead,wager})=>{const p=JSON.parse(localStorage.getItem(key));return lead==='q'?p?.match?.step==='ready':p?.beat>wager;},{key,lead,wager});
   for(let reload=0;reload<2;reload++){
    await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
    const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
    assert.equal(lead==='q'?saved.match.team:saved.team,team);
-   assert.equal(lead==='hyunjae'?saved.stake:lead==='q'?saved.match.stake:saved.wagerStake,7);
+   assert.equal(lead==='q'?saved.match.stake:saved.wagerStake,7);
    assert.equal(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).wallet,walletKey),before-7);
    assert.equal(await page.locator('#match-wager-title').count(),0);
   }
@@ -72,13 +68,13 @@ try {
    let fireworks=false;
    for(let i=0;i<2500;i++){
     await new Promise(r=>setTimeout(r,0));
-    const surface=document.querySelector('dialog[open]');
+    const surface=document.querySelector('dialog[open]')||document.querySelector('.hyunjae-mail-scene');
     if(surface?.textContent.includes('烟花'))fireworks=true;
     if(document.querySelector('.hogwarts-ending'))return {fireworks,kind:document.querySelector('.hogwarts-ending').dataset.kind};
     const button=surface?.querySelector('.scene-current-step button,.scene-fixed-reply button,.scene-choices button,.hogwarts-device-choices button')
       ||[...surface?.querySelectorAll('button')||[]].find(b=>!b.disabled&&/继续|查看结局/.test(b.textContent))
       ||[...document.querySelectorAll('.hogwarts-device-choices button')].find(b=>!b.disabled)
-      ||[...document.querySelectorAll('button')].find(b=>!b.disabled&&b.textContent==='查看结局');
+      ||[...document.querySelectorAll('button')].find(b=>!b.disabled&&(b.textContent==='查看结局'||b.textContent==='打开猫头鹰信箱'));
     button?.click();
    }
    throw Error('Finale did not finish: '+document.body.innerText.slice(-1000));

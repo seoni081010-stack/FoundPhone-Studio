@@ -1,0 +1,290 @@
+[
+  {
+    "file": "hyunjae-day01-expanded.md",
+    "ref": "origin/main",
+    "bytes": 6353,
+    "lines": 221,
+    "sha256": "152d481ed007f7b46d8520df2179aa23289d633a9fc4399419598366234e1d23",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "152d481ed007f7b46d8520df2179aa23289d633a9fc4399419598366234e1d23"
+  },
+  {
+    "file": "hyunjae-day02-expanded.md",
+    "ref": "origin/main",
+    "bytes": 7003,
+    "lines": 267,
+    "sha256": "195efd64299e33320301d2a062785113f3f137bbbedec024768761b658412bcc",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "195efd64299e33320301d2a062785113f3f137bbbedec024768761b658412bcc"
+  },
+  {
+    "file": "hyunjae-day03-expanded.md",
+    "ref": "origin/main",
+    "bytes": 8420,
+    "lines": 325,
+    "sha256": "e50547001bc546cd17eba8a978f4cc32a8aa43597f91b0769cd8262aea5fec9c",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "e50547001bc546cd17eba8a978f4cc32a8aa43597f91b0769cd8262aea5fec9c"
+  },
+  {
+    "file": "hyunjae-day04-expanded.md",
+    "ref": "origin/main",
+    "bytes": 8023,
+    "lines": 295,
+    "sha256": "55ce8ce63c0d8b9bf1c66927214dadea83dd6f604230395b52f9e3eac6eba2ed",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "55ce8ce63c0d8b9bf1c66927214dadea83dd6f604230395b52f9e3eac6eba2ed"
+  },
+  {
+    "file": "hyunjae-day05-expanded.md",
+    "ref": "origin/main",
+    "bytes": 6558,
+    "lines": 159,
+    "sha256": "02677d778f7f1f73c0fe56da73a02acd824cd4237978f1e11b529165758364d1",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "8ef9e078a0026645660e3f846a90104439ee95c9527cdf38f0cf19187b938336"
+  },
+  {
+    "file": "hyunjae-day06-expanded.md",
+    "ref": "origin/main",
+    "bytes": 8291,
+    "lines": 312,
+    "sha256": "a783a5d475fc1dc5150596f6f376cbd8ac75f0f66a830a3be683b2bd7ed998f7",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "ac86811d489c6b3b59983413db0487a240e503f2e8ae3e70bdca1d9247c3edcb"
+  },
+  {
+    "file": "hyunjae-day07-expanded.md",
+    "ref": "origin/main",
+    "bytes": 6255,
+    "lines": 239,
+    "sha256": "d8e88be7a4e825eda017fd5c6107a199d6a161340570c3752a366d346023aae2",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "60e323b5e3078568db5665a75eab3026dfbd1fb02fa0feed20ce46aa98f58cb5"
+  },
+  {
+    "file": "hyunjae-day08-expanded.md",
+    "ref": "origin/main",
+    "bytes": 7208,
+    "lines": 303,
+    "sha256": "5f2171d1c60b13f1373aa09d301be6e4aa2d074e4e72fc666513754deed2dfbd",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "5f2171d1c60b13f1373aa09d301be6e4aa2d074e4e72fc666513754deed2dfbd"
+  },
+  {
+    "file": "hyunjae-day09-expanded.md",
+    "ref": "origin/main",
+    "bytes": 6862,
+    "lines": 294,
+    "sha256": "26313d72a259b1c216606fa6de7fcaf9c2b4bd08ce5990531d3a17ddd8a3a2d3",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "82baa8c452c5741e8faa175f202f88f80bfd4c023b7e257d337a0ae088558e40"
+  },
+  {
+    "file": "hyunjae-day10-expanded.md",
+    "ref": "origin/main",
+    "bytes": 7758,
+    "lines": 309,
+    "sha256": "688096f0bd55f8fbb39da4ec5c89f6dd4c86ddb2137732aa9f4b5aa0391a2e20",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "688096f0bd55f8fbb39da4ec5c89f6dd4c86ddb2137732aa9f4b5aa0391a2e20"
+  },
+  {
+    "file": "hyunjae-day11-expanded.md",
+    "ref": "origin/main",
+    "bytes": 5917,
+    "lines": 210,
+    "sha256": "e5a4b0913cc7fc43ed3f25b661bd7525028a79ba2eb698db869e524d31f468c4",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "908baa5a98b5e157ef36b4ee5653aecf3f2d455372827e8ab1be4fd7b26bb321"
+  },
+  {
+    "file": "hyunjae-day12-expanded.md",
+    "ref": "origin/main",
+    "bytes": 7925,
+    "lines": 334,
+    "sha256": "ad676ac6ccfdb6ca743875442518a18e2d0858f0535c5a3c6aa90faa0f4a412f",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "ad9830ff670c78d03b942dadf15828d3fec219e5cc2815f45c122f4a2db1ee1e"
+  },
+  {
+    "file": "hyunjae-day13-expanded.md",
+    "ref": "origin/main",
+    "bytes": 6022,
+    "lines": 242,
+    "sha256": "2212fadd1da157dd1fd4457721438ab77c36a7987ead8820bee7f185840cfac3",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "2231fdd1b71bd7eb90e99ac74f01ab1bf8add698b6818fc725e4a3c52bfa2ce8"
+  },
+  {
+    "file": "hyunjae-day14-expanded.md",
+    "ref": "origin/main",
+    "bytes": 7407,
+    "lines": 299,
+    "sha256": "cec837cbb3438bceb6c2c7c313d3500ba7d83c0f5c780c0a028e785eaf709f33",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "a4b419c512093d34a4774800a941b3a8fceb20c9196457aec080aab45a1c029d"
+  },
+  {
+    "file": "hyunjae-day15-expanded.md",
+    "ref": "origin/main",
+    "bytes": 9188,
+    "lines": 366,
+    "sha256": "1a06ffb8a5d9ed44454ce0ac5347e800bab55d4df3c25081e2dbe5224e7bca25",
+    "commit": "cd3279f5c7b66e28d21df78f60c5508492546885",
+    "approvedAdaptationSha256": "9481186c68e879216fd04238842ef36c4b86d7ae57741344759c3dd5d19866d4"
+  },
+  {
+    "file": "hyunjae-day16-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 7065,
+    "lines": 283,
+    "sha256": "697e7ba039efba1cd83ade831d31b0e59177320549309e15734de75cd19bf2b5",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "697e7ba039efba1cd83ade831d31b0e59177320549309e15734de75cd19bf2b5"
+  },
+  {
+    "file": "hyunjae-day17-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 10174,
+    "lines": 388,
+    "sha256": "12862d297b7268368c4f67d01af3d35130097a8d325aba3e88ea0407f51acbda",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "1125b929b6f7ae9cc4e9b14befe9c1178558f66d69faa94b114be165480d4056"
+  },
+  {
+    "file": "hyunjae-day18-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 7214,
+    "lines": 291,
+    "sha256": "ad5a6dfa6b5a4b09bfe6a46b33b74f364eefa52bfb295e23f10a64fd9943e508",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "ad5a6dfa6b5a4b09bfe6a46b33b74f364eefa52bfb295e23f10a64fd9943e508"
+  },
+  {
+    "file": "hyunjae-day19-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 6866,
+    "lines": 262,
+    "sha256": "004e791350453b866d100b3522eff6dc49a450b2f1cba5daa130d0720b33b284",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "224b2fad4baf2d5fa3c5dee5ce56e2555843a4644571b4eb2acc12e2b593421f"
+  },
+  {
+    "file": "hyunjae-day20-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 6393,
+    "lines": 257,
+    "sha256": "214fa39882a6144e1990969094978d60221858335215d8dd907caef5b095170e",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "c49665f8547913efb19fc5c0a07b1e2ffa5e68393431222d4d28967c25227857"
+  },
+  {
+    "file": "hyunjae-day21-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 6136,
+    "lines": 251,
+    "sha256": "a54244fcaba799fdf784eccdc4238831110bc7a06fd834a5c50a806664759c15",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "9355d7ea87ed7a95e1a0f25b5cbbdda5ce6ae21092c8965354d68a3a5f685217"
+  },
+  {
+    "file": "hyunjae-day22-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 8337,
+    "lines": 345,
+    "sha256": "5f5018a9566aee45f2faac772f5bb3306cd3818088ae4cff532f81501ced25c7",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "5f5018a9566aee45f2faac772f5bb3306cd3818088ae4cff532f81501ced25c7"
+  },
+  {
+    "file": "hyunjae-day23-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 5060,
+    "lines": 235,
+    "sha256": "b7f5417159f5eb400176c258dbfd2e551c175766b0162d72b31d95de08bf7adf",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "b7f5417159f5eb400176c258dbfd2e551c175766b0162d72b31d95de08bf7adf"
+  },
+  {
+    "file": "hyunjae-day24-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 10634,
+    "lines": 473,
+    "sha256": "38ef82ebcfc08f2863137c04b46dbcd6325286cc3820d4f5fdaf3e667e9f7076",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "41d8ba4c2c75f25c66b2be774783a467578f2cb638d838de7b39422fb061997c"
+  },
+  {
+    "file": "hyunjae-day25-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 7291,
+    "lines": 305,
+    "sha256": "2a698b94d5ccd6c6bd4ddadf71ed74ac24b4450d14d45294a4043f411fd1e8e9",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "2a698b94d5ccd6c6bd4ddadf71ed74ac24b4450d14d45294a4043f411fd1e8e9"
+  },
+  {
+    "file": "hyunjae-day26-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 5271,
+    "lines": 233,
+    "sha256": "4bc3daeda8afbf436887324d127aba67f2f7320b25822a2333f6f27d10eaa395",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "9f230241383167c98cad9d8b994e53f623af7795f4e6a726e44e0939777f34a7"
+  },
+  {
+    "file": "hyunjae-day27-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 6765,
+    "lines": 309,
+    "sha256": "bc86116665f1c0e8da633126e19bda041d680cb9768d8feb81e726f62cd05ddb",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "916b6dd93f71963e759cf010f672518025cb7ae1687eb4aba6c661e515fc8e13"
+  },
+  {
+    "file": "hyunjae-day28-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 5757,
+    "lines": 249,
+    "sha256": "c6cad8b2741498c207844829adbb413dd7e93d3b86bbb9a4796114010bae989b",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "3ada7231c23f195c9af0f39c348d0ac7a98fa2ea56608db318dde31b9d04d860"
+  },
+  {
+    "file": "hyunjae-day29-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 7852,
+    "lines": 347,
+    "sha256": "ed099a8231ba5b2076b68c3dad55901a839027c2ea767f3e92b1ec2d74b0a7a6",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "ed099a8231ba5b2076b68c3dad55901a839027c2ea767f3e92b1ec2d74b0a7a6"
+  },
+  {
+    "file": "hyunjae-day30-expanded.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "bytes": 6428,
+    "lines": 303,
+    "sha256": "75aaef795b010311697a4f55cd975e3b5fcf082d8bd23799cee1b826b8172277",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "75aaef795b010311697a4f55cd975e3b5fcf082d8bd23799cee1b826b8172277"
+  },
+  {
+    "file": "hyunjae-day31-expanded.md",
+    "ref": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "bytes": 12566,
+    "lines": 494,
+    "sha256": "b4664f4c70e61c067af7c7175bc75e5c9c152d65733792225b9f6459e437c563",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "approvedAdaptationSha256": "b4664f4c70e61c067af7c7175bc75e5c9c152d65733792225b9f6459e437c563"
+  },
+  {
+    "file": "hyunjae-day17-approved-clue.md",
+    "ref": "origin/archive/hyunjae-day01-05-expanded",
+    "commit": "14d8ecc6f4261e9b33f5575cf820b6f9fcf5c717",
+    "bytes": 490,
+    "lines": 15,
+    "sha256": "fb352036bf3e4867f244fa43b221e7ae699a62be0c5a4f2ad4b839e8d030bc2d",
+    "approvedAdaptationSha256": "fb352036bf3e4867f244fa43b221e7ae699a62be0c5a4f2ad4b839e8d030bc2d"
+  }
+]

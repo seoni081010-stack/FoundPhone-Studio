@@ -1,0 +1,7 @@
+.hyunjae-wish-dialog{background:#eee1bf;color:#514b3b;box-shadow:0 15px 70px #0008;border:1px solid #b6a17a;border-radius:12px}
+.hyunjae-wish{display:grid;gap:14px;padding:12px 4px;text-align:center}
+.hyunjae-wish p{margin:0}.hyunjae-wish [lang=en]{font-family:Georgia,serif;font-style:italic;font-size:1.4rem;color:#53655b}
+.hyunjae-wish textarea{min-height:160px;width:100%;box-sizing:border-box;resize:vertical;border:0;border-bottom:1px solid #a99972;background:#fff3;color:#454c46;padding:14px;line-height:1.9;font:inherit}
+.hyunjae-wish button{justify-self:center}.hyunjae-meal{padding:16px;background:#ddcda926;border-radius:8px}
+
+.hyunjae-lamp{display:block;width:56px;height:68px;border-radius:24px 24px 12px 12px;border:1px solid #c9c7b3;margin:14px auto;text-align:center;line-height:68px;font-size:34px;background:#8197a21a}.hyunjae-lamp[data-color=silver]{color:#d5dee0;box-shadow:0 0 16px #d5dee026}.hyunjae-lamp[data-color=blue]{color:#7cacc2;box-shadow:0 0 16px #7cacc226}

@@ -15,6 +15,9 @@ export const mapRooms = [
 export const mapLandmarks: Partial<Record<string, readonly [number, number]>> = {
   ...ericMapLocations,
   ...juyeonMapLocations,
+  "霍格沃茨外侧回廊": [60, 415],
+  "霍格沃茨西侧长廊": [180, 260],
+  "霍格沃茨长廊": [180, 280],
   "秘密交换摊位": [245, 325],
   "壁炉旁": [210, 298],
   "圣诞树旁": [250, 298],

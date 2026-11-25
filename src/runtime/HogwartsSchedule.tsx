@@ -7,7 +7,7 @@ const pick = (items: string[], seed: number, count = 1) => [...items]
  .map((item, index) => ({item, rank: Math.sin(seed * 97 + index * 131)}))
  .sort((a, b) => a.rank - b.rank).slice(0, count).map(({item}) => item);
 
-function dailyMenu(day: number) {
+export function dailyMenu(day: number) {
  const breakfast = [
    ...pick(["燕麦粥", "玉米片"], day), ...pick(["煎培根", "煎香肠", "煎蛋", "水煮蛋", "熏鲱鱼"], day + 1, 2),
    ...pick(breads, day + 2), ...pick(["果酱炸面圈", "薄荷硬糖"], day + 3), ...pick(drinks, day + 4),

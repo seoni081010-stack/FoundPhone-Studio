@@ -55,16 +55,17 @@ async function prepareAvatar(file: File) {
 
 function StoryPlayer() {
   const routeParam = new URLSearchParams(location.search).get("route");
-  const requestedLead = routeParam === "juyeon" || routeParam === "eric" ? routeParam : undefined;
+  const requestedLead = routeParam === "hyunjae" || routeParam === "juyeon" || routeParam === "eric" ? routeParam : undefined;
   const previewMode = new URLSearchParams(location.search).get("preview");
-  const previewEnding = previewMode?.match(/^(?:jcode|younghoon|sunwoo|juyeon|eric)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
+  const previewEnding = previewMode?.match(/^(?:hyunjae|jcode|younghoon|sunwoo|juyeon|eric)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
+  const hyunjaePreviewDay = Number(previewMode?.match(/^hyunjae-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const jcodePreviewDay = Number(previewMode?.match(/^jcode-day(2[1-9]|3[01])$/)?.[1]);
   const younghoonPreviewDay = Number(previewMode?.match(/^younghoon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const juyeonPreviewDay = Number(previewMode?.match(/^juyeon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const sunwooPreviewDay = Number(previewMode?.match(/^sunwoo-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const ericPreviewDay = Number(previewMode?.match(/^eric-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
-  const previewDay = previewEnding ? 31 : ericPreviewDay || juyeonPreviewDay || sunwooPreviewDay || younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
-  const previewLead = previewMode?.startsWith("eric-") ? "eric" : previewMode?.startsWith("juyeon-") ? "juyeon" : previewMode?.startsWith("sunwoo-") ? "sunwoo" : previewMode?.startsWith("younghoon-") ? "younghoon" : previewMode === "hyunjae-day31" ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
+  const previewDay = previewEnding ? 31 : hyunjaePreviewDay || ericPreviewDay || juyeonPreviewDay || sunwooPreviewDay || younghoonPreviewDay || jcodePreviewDay || (previewMode === "q-day6" || previewMode === "jcode-day6" ? 6 : previewMode === "q-day12" || previewMode === "jcode-day12" ? 12 : (previewMode === "q-day31" || previewMode === "hyunjae-day31") ? 31 : undefined);
+  const previewLead = previewMode?.startsWith("eric-") ? "eric" : previewMode?.startsWith("juyeon-") ? "juyeon" : previewMode?.startsWith("sunwoo-") ? "sunwoo" : previewMode?.startsWith("younghoon-") ? "younghoon" : previewMode?.startsWith("hyunjae-") ? "hyunjae" : previewMode?.startsWith("jcode-") ? "jacob" : "q";
   const [coverOpened, setCoverOpened] = useState(Boolean(previewDay));
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");

@@ -19,6 +19,7 @@ import type { Progress } from "./JcodeScene";
 import { sunwooDay, sunwooEndingFor, sunwooName, type SunwooLine } from "./sunwooStory";
 
 type Props = {
+  identity?: { house: string; year: number };
   route?: "sunwoo" | "juyeon" | "eric"; progress: Progress; update: (patch: Partial<Progress>) => void; identityKey: string;
   score: number; player: string; mailOpen: boolean; reviewing?: boolean; onMail: () => void; onFinish: () => void;
   onWagerResult: () => void; onClue: (id: string) => void; note: (name: string, body: string, outgoing: boolean, key?: number) => ReactNode;

@@ -1,3 +1,4 @@
+import { hyunjaeDay, type HyDay } from "./hyunjaeExpandedStory";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { HogwartsDevice } from "./HogwartsDevice";
@@ -209,21 +210,20 @@ it.each([
       : node),
   };
   const identity = { name: "试玩", house: "gryffindor", year: 7, loveInterest: "hyunjae", runId: "hyunjae-finale" };
+  const kind = target === "hy-ending-high" ? "together" : target === "hy-ending-low" ? "unspoken" : "friends";
+  const expanded = hyunjaeDay(31, kind) as unknown as HyDay;
   for (const read of [false, true]) {
-    vi.stubGlobal("localStorage", { getItem: (key: string) => key === albumNoticeKey(identity)
-      ? JSON.stringify({ acknowledged: ["photo-snow", "photo-ball-mistletoe"], completedDays: read ? [31] : [] })
-      : null });
+    vi.stubGlobal("localStorage", { getItem: (key: string) => key === "hogwarts-hyunjae-expanded-v1:hyunjae-finale"
+      ? JSON.stringify({ day: 31, beat: read ? expanded.beats.length - 1 : 0, cursor: { position: 0 }, clues: [], affinity, ending: kind, open: read })
+      : key === albumNoticeKey(identity) ? JSON.stringify({ acknowledged: ["photo-snow", "photo-ball-mistletoe"], completedDays: [] }) : null });
     const html = renderToStaticMarkup(<HogwartsDevice work={work} identity={identity} contacts={people} onRestart={() => {}} />);
     expect(html).toContain("D31/31");
-    expect(html.includes('aria-labelledby="final-memory-title"')).toBe(read);
+    expect(html.includes("魔法相册解锁新内容")).toBe(read);
     expect(html).not.toContain('aria-label="31天结算"');
     if (read) {
-      expect(html).toContain("<p>跨年长廊</p>");
-      expect(html).toContain(memory);
-      expect(html).toContain(">查看结局</button>");
-    } else {
-      expect(html).toContain(">夜里 · 去长廊</button>");
-    }
+      expect(expanded.beats.at(-1)!.clue!.body).toContain(memory);
+      expect(html).toContain("跨年长廊"); expect(html).toContain(">继续</button>");
+    } else expect(html).toContain("今年最后一天");
   }
 });
 
@@ -243,7 +243,7 @@ it("opens Hyunjae's independent preview at the start of day 31 with the confessi
   vi.stubGlobal("localStorage", { getItem: () => null, setItem });
   const html = renderToStaticMarkup(<HogwartsDevice previewDay={31} work={original} identity={identity} contacts={people} onRestart={() => {}} />);
   expect(html).toContain("D31/31");
-  expect(html).toContain('aria-labelledby="scene-title"');
+  expect(html).toContain('aria-labelledby="hyunjae-expanded-title"');
   expect(html).toContain("李贤在");
   expect(html).not.toContain('aria-labelledby="final-memory-title"');
   expect(html).not.toContain('aria-labelledby="album-clue-title"');
