@@ -1,0 +1,18 @@
+.eric-paper-star { border: 0; padding: 0; margin: auto; width: min(94vw, 510px); max-width: none; background: transparent; overflow: visible; outline: none; }
+.eric-paper-star::backdrop { background: rgb(13 25 31 / 82%); }
+.eric-paper-star-stage { position: relative; height: min(70dvh, 490px); }
+.eric-paper-star-float { position: absolute; width: clamp(175px, 52vw, 245px); left: 50%; top: 45%; animation: eric-star-levitate 10000ms linear both; animation-delay: inherit; }
+.eric-paper-star-float svg { width: 100%; height: auto; display: block; filter: drop-shadow(3px 13px 12px rgb(0 0 0 / 25%)); }
+.eric-paper-star-spell { position: absolute; top: 70%; left: 0; width: 100%; margin: 0; text-align: center; font-family: "Greeting Latin", "Parchment English", cursive; font-style: italic; font-size: clamp(29px, 8vw, 40px); font-weight: 400; letter-spacing: .025em; color: #9dcfc0; text-shadow: 0 0 12px rgb(117 185 165 / 27%); opacity: 0; animation: eric-star-spell 10000ms linear both; animation-delay: inherit; }
+@keyframes eric-star-spell { 0%,25% { opacity: 0; } 33%,46% { opacity: 1; } 54%,100% { opacity: 0; } }
+@keyframes eric-star-levitate {
+  0%,56% { transform: translate(-50%,-50%) rotate(0deg); }
+  56% { animation-timing-function: cubic-bezier(.42,0,.58,1); }
+  70% { transform: translate(calc(-50% + 3px),calc(-50% - 24px)) rotate(1.6deg); animation-timing-function: ease-in-out; }
+  84% { transform: translate(calc(-50% - 4px),calc(-50% - 59px)) rotate(-1.8deg); animation-timing-function: ease-in-out; }
+  100% { transform: translate(calc(-50% + 2px),calc(-50% - 98px)) rotate(.8deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eric-paper-star-float { animation-name: eric-star-levitate-reduced; }
+  @keyframes eric-star-levitate-reduced { 0%,56% { transform: translate(-50%,-50%); } 100% { transform: translate(-50%,calc(-50% - 28px)); } }
+}

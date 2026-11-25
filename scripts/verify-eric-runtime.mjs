@@ -30,7 +30,7 @@ async function drive(page, config){
     }
     continue;
    }
-   if(document.querySelector('.star-wish-paper,.truth-parchment'))continue;
+   if(document.querySelector('.star-wish-paper,.truth-parchment,.eric-paper-star'))continue;
    const dialog=document.querySelector('dialog[open]');
    const inline=document.querySelector('.eric-mail-scene');
    const surface=dialog||inline;

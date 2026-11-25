@@ -1,3 +1,4 @@
+import { EricPaperStar, ERIC_STAR_DURATION, isEricPaperStarMoment, ericPaperStarLines } from "./EricPaperStar";
 import { ericDay, ericVisibleLines } from "./ericStory";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { StarWishPaper, starWishMoment, STAR_WISH_DURATION } from "./StarWishPaper";
@@ -37,6 +38,18 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   const lines: SunwooLine[] = beat?.kind === "lines" ? beat.lines
     : beat?.kind === "choice" && progress.option !== undefined ? beat.options[progress.option].lines
     : beat?.kind === "team" ? beat.options[progress.team === "斯莱特林" ? 1 : 0] : [];
+  const ericStarBeat = route === "eric" && progress.day === 8 && isEricPaperStarMoment(lines);
+  const ericStarOpen = ericStarBeat && progress.cursor.position === 0 && !progress.ericPaperStar?.done;
+  const ericStarStart = progress.ericPaperStar?.startedAt;
+  useEffect(() => {
+    if (ericStarOpen && !ericStarStart) update({ ericPaperStar: { startedAt: Date.now() } });
+  }, [ericStarOpen, ericStarStart, update]);
+  useEffect(() => {
+    if (!ericStarOpen || !ericStarStart) return;
+    const timer = window.setTimeout(() => update({ ericPaperStar: { startedAt: ericStarStart, done: true }, cursor: { position: 1 } }),
+      Math.max(0, ericStarStart + ERIC_STAR_DURATION - Date.now()));
+    return () => window.clearTimeout(timer);
+  }, [ericStarOpen, ericStarStart, update]);
   // Keep the existing narration block and cursor numbering, so older saves still resume correctly.
   const truthMoment = route === "sunwoo" && progress.day === 5 && progress.cursor.position === 0
     && lines[0]?.body === "金善旴将羊皮纸转过来。";
@@ -140,7 +153,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   }, [letterOpen, letterStart, player, ending]);
   // The printed paragraphs were just read in the overlay. Their following narration
   // remains the same existing step 0, preserving every saved dialogue position.
-  const eligibleLines = route === "eric" ? ericVisibleLines(lines, progress.choiceHistory) : lines;
+  const eligibleLines = route === "eric" ? ericVisibleLines(ericStarBeat ? ericPaperStarLines(lines) : lines, progress.choiceHistory) : lines;
   const displayedLines = letterBeat && progress.juyeonEndingLetter?.kind === ending && progress.juyeonEndingLetter.done
     ? lines.slice(getJuyeonEndingLetter(ending).resumeLineIndex) : eligibleLines;
   const next = (patch: Partial<Progress> = {}) => {
@@ -173,7 +186,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
             affinity: progress.affinity + (progress.choiceHistory?.[`${story.day}:${progress.beat}`] === undefined ? option.affinity ?? 0 : 0), cursor:{position:0,accepted:true},
             choiceHistory: { ...progress.choiceHistory, [`${story.day}:${progress.beat}`]: index },
           })}>{sunwooName(option.body,player)}</button>)}
-        </div> : writeWish ? null : letterOpen ? <p className="hogwarts-narration">{lines[0]?.body}</p> : greetingOpen ? <p className="hogwarts-narration">{highlight("你打开礼物盒，在柔软的衬布下面找到折好的小卡片。")}</p> : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
+        </div> : writeWish ? null : ericStarOpen ? <p className="hogwarts-narration">你也完成了自己的第一颗星星。</p> : letterOpen ? <p className="hogwarts-narration">{lines[0]?.body}</p> : greetingOpen ? <p className="hogwarts-narration">{highlight("你打开礼物盒，在柔软的衬布下面找到折好的小卡片。")}</p> : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => update({cursor})} onComplete={() => next()}>
           {beat.kind === "choice" && note(player,sunwooName(beat.options[progress.option!].body,player),true,-1)}
           {displayedLines.map((line,index) => line.speaker ? note(line.speaker === "你" ? player : line.speaker,sunwooName(line.body,player),line.speaker === "你",index)
             : <p className="hogwarts-narration" key={index}>{highlight(sunwooName(line.body,player))}</p>)}
@@ -185,7 +198,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   const scene = (beat?.channel === "mail" || reviewing) && mailOpen && !clue ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : route === "eric" ? "sunwoo-mail-scene eric-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{hostedContent}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
       className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby={sceneId}>{hostedContent}</dialog>;
-  return <>{scene}{chartOpen && progress.juyeonStarChart && <JuyeonStarChart startedAt={progress.juyeonStarChart.startedAt}
+  return <>{scene}{ericStarOpen && ericStarStart && <EricPaperStar startedAt={ericStarStart} />}{chartOpen && progress.juyeonStarChart && <JuyeonStarChart startedAt={progress.juyeonStarChart.startedAt}
     onContinue={() => update({ juyeonStarChart: { ...progress.juyeonStarChart!, done: true } })} />}{truthMoment && truthUntil !== 0 && <TruthParchment until={truthUntil} />}{writeWish && <WriteStarWish draft={entry?.draft ?? ""} submitted={entry?.submitted} foldUntil={entry?.foldUntil}
     onDraft={draft => update({ starWishEntry: { draft } })}
     onSubmit={() => { const submitted = entry?.draft.trim(); if (submitted && !entry?.submitted) update({ starWishEntry: { draft: submitted, submitted, foldUntil: Date.now() + WRITE_STAR_FOLD_DURATION } }); }} />}{wishMoment && wishUntil !== 0 && <StarWishPaper until={wishUntil} text={wish.text} />}</>;
