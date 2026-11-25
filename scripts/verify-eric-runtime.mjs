@@ -18,6 +18,8 @@ async function drive(page, config){
    const saved=config.key?JSON.parse(localStorage.getItem(config.key)||'null'):null;
    if(saved && saved.day>config.day)return {advanced:true,saved,clicks,fixed,choices,clues};
    if(saved && saved.done && config.day<31)return {done:true,saved,clicks,fixed,choices,clues};
+   const christmas=document.querySelector('.eric-christmas-card');
+   if(christmas){if(christmas.dataset.ready==='true')christmas.click();continue;}
    const birthday=document.querySelector('.eric-birthday-card');
    if(birthday){
     const input=birthday.querySelector('textarea');

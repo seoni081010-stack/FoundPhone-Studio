@@ -1,0 +1,25 @@
+.eric-christmas-card { position: fixed; inset: 0; margin: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; padding: 0; border: 0; background: transparent; outline: none; overflow: auto; }
+.eric-christmas-card::backdrop { background: rgb(18 27 26 / 82%); }
+.eric-christmas-card[data-ready="true"] { cursor: pointer; }
+.eric-christmas-stage { position: relative; width: min(90vw,450px); height: min(86dvh,650px); min-height: 370px; margin: max(5dvh,12px) auto 0; perspective: 1100px; animation: eric-christmas-arrive 900ms ease-out both; animation-delay: inherit; }
+.eric-christmas-envelope { position: absolute; width: 100%; height: 230px; left: 0; bottom: 14px; filter: drop-shadow(0 15px 18px #0003); perspective: 900px; animation: eric-christmas-paper-shift 900ms ease-in-out both; animation-delay: calc(1300ms + var(--eric-delay,0ms)); }
+.eric-christmas-back { position: absolute; inset: 0; border-radius: 10px; background: #e7deca; box-shadow: inset 0 1px 4px #9c896d35; }
+.eric-christmas-pocket { position: absolute; inset: 0; z-index: 4; border-radius: 10px; background: linear-gradient(148deg,#fffaf0 0%,#f0e7d5 72%,#ece2cf 100%); clip-path: polygon(0 0,50% 52%,100% 0,100% 100%,0 100%); box-shadow: inset 0 -2px 4px #b7a17b25; }
+.eric-christmas-flap { position: absolute; inset: 0 0 auto; height: 140px; transform-origin: top center; border-radius: 10px 10px 0 0; background: #f7efdf; clip-path: polygon(0 0,100% 0,52% 98%,48% 98%); z-index: 6; animation: eric-christmas-unseal 1200ms ease-in-out both; animation-delay: calc(1300ms + var(--eric-delay,0ms)); }
+.eric-christmas-flap span { display: block; height: 100%; background: linear-gradient(175deg,#fffaf0,#e6dac3); }
+.eric-christmas-letter { position: absolute; box-sizing: border-box; z-index: 3; left: 4%; width: 92%; min-height: 310px; top: 12px; padding: 42px 24px 30px; border: 1px solid #c7b07d59; border-radius: 5px; color: #52604b; background: repeating-linear-gradient(6deg,#ffffff0b 0 1px,transparent 1px 4px),linear-gradient(125deg,#fffaf0,#f3ebdb); box-shadow: 0 5px 13px #44351e20; opacity: 0; animation: eric-christmas-slide 1300ms cubic-bezier(.3,0,.2,1) both; animation-delay: calc(2300ms + var(--eric-delay,0ms)); }
+.eric-christmas-letter .eric-christmas-wishes { margin: 0; padding: 0; text-align: center; font-family: "Greeting Chinese", "Songti SC", serif; font-size: clamp(21px,5.8vw,27px); font-weight: 400; line-height: 1.85; letter-spacing: .04em; overflow-wrap: anywhere; }
+.eric-christmas-letter .eric-christmas-signature { margin: 24px 0 0; padding: 0; text-align: right; font: 30px/1.3 "Greeting Latin",cursive; color: #71604d; }
+.eric-christmas-letter span { transition: opacity 70ms linear; }
+.eric-christmas-holly { position: absolute; z-index: 7; width: 81px; height: 57px; top: 24px; left: calc(50% - 40px); opacity: .9; }
+.eric-christmas-name { position: absolute; z-index: 7; bottom: 9px; left: 0; width: 100%; height: 66px; font-family: "Greeting Chinese","Greeting Latin",cursive; font-style: italic; filter: drop-shadow(0 .5px .3px #fff6); }
+.eric-christmas-seam { position: absolute; z-index: 8; top: 1px; height: 2px; width: 100%; opacity: 0; background: linear-gradient(90deg,transparent,#fffdf0,transparent); animation: eric-christmas-sweep 650ms ease-in-out both; animation-delay: calc(1650ms + var(--eric-delay,0ms)); }
+@keyframes eric-christmas-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes eric-christmas-unseal { 0% { transform: rotateX(0); z-index: 6; } 60%,100% { transform: rotateX(175deg); z-index: 1; } }
+@keyframes eric-christmas-slide { 0% { opacity: 0; transform: translateY(0); } 25% { opacity: 1; } 100% { opacity: 1; transform: translateY(-290px); z-index: 5; } }
+@keyframes eric-christmas-sweep { 0%,100% { opacity: 0; transform: scaleX(.15); } 45% { opacity: .5; transform: scaleX(.9); } }
+@media(max-width:400px) { .eric-christmas-letter { padding-inline: 18px; } }
+@media(prefers-reduced-motion:reduce) { .eric-christmas-stage { animation: none; } .eric-christmas-letter { animation-timing-function: linear; } }
+
+.eric-christmas-last { display: block; white-space: nowrap; margin-top: 4px; }
+@keyframes eric-christmas-paper-shift { 0%,100% { transform: translateY(0); } 48% { transform: translateY(-1.5px); } }

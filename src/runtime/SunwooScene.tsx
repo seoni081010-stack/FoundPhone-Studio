@@ -1,3 +1,4 @@
+import { EricChristmasCard, ericChristmasLeadIn } from "./EricChristmasCard";
 import { EricBirthdayCard, ericBirthdayMoment } from "./EricBirthdayCard";
 import { EricPaperStar, ERIC_STAR_DURATION, isEricPaperStarMoment, ericPaperStarLines } from "./EricPaperStar";
 import { ericDay, ericVisibleLines } from "./ericStory";
@@ -39,6 +40,8 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   const lines: SunwooLine[] = beat?.kind === "lines" ? beat.lines
     : beat?.kind === "choice" && progress.option !== undefined ? beat.options[progress.option].lines
     : beat?.kind === "team" ? beat.options[progress.team === "斯莱特林" ? 1 : 0] : [];
+  const christmasLeadIn = route === "eric" && progress.day === 24 ? ericChristmasLeadIn(lines) : undefined;
+  const christmasOpen = christmasLeadIn && progress.ericChristmasCard && !progress.ericChristmasCard.done;
   const birthday = route === "eric" && progress.day === 22 ? ericBirthdayMoment(lines) : undefined;
   const birthdayEntry = progress.ericBirthdayCard;
   const birthdayOpen = birthday && progress.cursor.position === birthday.position && birthdayEntry?.opened && !birthdayEntry.done;
@@ -160,7 +163,7 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   const eligibleLines = route === "eric" ? ericVisibleLines(ericStarBeat ? ericPaperStarLines(lines) : lines, progress.choiceHistory) : lines;
   const birthdayLines = birthday ? birthdayEntry?.done ? birthday.after : birthday.leadIn : eligibleLines;
   const displayedLines = letterBeat && progress.juyeonEndingLetter?.kind === ending && progress.juyeonEndingLetter.done
-    ? lines.slice(getJuyeonEndingLetter(ending).resumeLineIndex) : birthdayLines;
+    ? lines.slice(getJuyeonEndingLetter(ending).resumeLineIndex) : christmasLeadIn ?? birthdayLines;
   const next = (patch: Partial<Progress> = {}) => {
     const mailLines = beat?.channel === "mail" ? [
       ...(beat.kind === "choice" && progress.option !== undefined ? [{ speaker: "你", body: beat.options[progress.option].body }] : []),
@@ -168,6 +171,10 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
     ] : [];
     update({ beat: progress.beat + 1, option: undefined, cursor: { position: 0 },
       ...(mailLines.length ? { mailHistory: [...(progress.mailHistory ?? []), { day: story.day, time: beat.time, lines: mailLines }] } : {}), ...patch });
+  };
+  const completeLines = () => {
+    if (christmasLeadIn && !progress.ericChristmasCard?.done) update({ ericChristmasCard: { startedAt: Date.now() } });
+    else next();
   };
   if ((beat?.channel === "mail" || reviewing) && !mailOpen) return <button className="hogwarts-activity" onClick={onMail}>打开猫头鹰信箱</button>;
   if (beat?.kind === "wager" && paper) return <QuidditchPaper team={team} stake={stake} error={error} onTeam={setTeam} onStake={setStake}
@@ -191,15 +198,15 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
             affinity: progress.affinity + (progress.choiceHistory?.[`${story.day}:${progress.beat}`] === undefined ? option.affinity ?? 0 : 0), cursor:{position:0,accepted:true},
             choiceHistory: { ...progress.choiceHistory, [`${story.day}:${progress.beat}`]: index },
           })}>{sunwooName(option.body,player)}</button>)}
-        </div> : writeWish ? null : birthdayOpen ? <div>{birthday.before.map((line,index) => <p key={index} className="hogwarts-narration">{highlight(sunwooName(line.body,player))}</p>)}</div> : ericStarOpen ? <p className="hogwarts-narration">你也完成了自己的第一颗星星。</p> : letterOpen ? <p className="hogwarts-narration">{lines[0]?.body}</p> : greetingOpen ? <p className="hogwarts-narration">{highlight("你打开礼物盒，在柔软的衬布下面找到折好的小卡片。")}</p> : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => {
+        </div> : writeWish ? null : christmasOpen ? <p className="hogwarts-narration">你轻轻拆开信封。<br />卡片里面是他熟悉的字迹。</p> : birthdayOpen ? <div>{birthday.before.map((line,index) => <p key={index} className="hogwarts-narration">{highlight(sunwooName(line.body,player))}</p>)}</div> : ericStarOpen ? <p className="hogwarts-narration">你也完成了自己的第一颗星星。</p> : letterOpen ? <p className="hogwarts-narration">{lines[0]?.body}</p> : greetingOpen ? <p className="hogwarts-narration">{highlight("你打开礼物盒，在柔软的衬布下面找到折好的小卡片。")}</p> : chartOpen ? <p className="hogwarts-narration">{highlight(sunwooName(lines[0].body.split("李柱延将一张羊皮纸铺在石桌上。")[0] + "李柱延将一张羊皮纸铺在石桌上。", player))}</p> : <SceneDialogue key={progress.beat} instantNarration checkpoint={progress.cursor} onCheckpoint={cursor => {
           if (birthday && !birthdayEntry?.done && progress.cursor.position === birthday.position && cursor.position === birthday.position + 1) {
             update({ ericBirthdayCard: { draft: "", ...birthdayEntry, opened: true } });
           } else update({cursor});
-        }} onComplete={() => next()}>
+        }} onComplete={completeLines}>
           {beat.kind === "choice" && note(player,sunwooName(beat.options[progress.option!].body,player),true,-1)}
           {displayedLines.map((line,index) => line.speaker ? note(line.speaker === "你" ? player : line.speaker,sunwooName(line.body,player),line.speaker === "你",index)
             : <p className="hogwarts-narration" key={index}>{highlight(sunwooName(line.body,player))}</p>)}
-          <button onClick={() => next()}>继续</button>
+          <button onClick={completeLines}>继续</button>
         </SceneDialogue>}
     </>}
   </>;
@@ -207,7 +214,8 @@ export function SunwooScene({route = "sunwoo", progress, update, identityKey, sc
   const scene = (beat?.channel === "mail" || reviewing) && mailOpen && !clue ? <section className={route === "juyeon" ? "sunwoo-mail-scene juyeon-mail-scene" : route === "eric" ? "sunwoo-mail-scene eric-mail-scene" : "sunwoo-mail-scene"} aria-labelledby={sceneId}>{hostedContent}</section>
     : <dialog ref={node => { if(node && !node.open) node.showModal(); }} onCancel={event=>event.preventDefault()}
       className={`hogwarts-scene${clue ? " hogwarts-clue" : ""}`} aria-labelledby={sceneId}>{hostedContent}</dialog>;
-  return <>{scene}{birthdayOpen && <EricBirthdayCard entry={birthdayEntry ?? { draft: "" }}
+  return <>{scene}{christmasOpen && progress.ericChristmasCard && <EricChristmasCard player={player} startedAt={progress.ericChristmasCard.startedAt}
+    onContinue={() => next({ ericChristmasCard: { ...progress.ericChristmasCard!, done: true } })} />}{birthdayOpen && <EricBirthdayCard entry={birthdayEntry ?? { draft: "" }}
     onDraft={draft => { if (birthdayEntry?.submitted === undefined) update({ ericBirthdayCard: { ...birthdayEntry, draft } }); }}
     onSubmit={() => { if (birthdayEntry?.submitted === undefined && birthdayEntry?.draft.trim()) update({ ericBirthdayCard: { ...birthdayEntry, submitted: birthdayEntry.draft } }); }}
     onContinue={() => { if (birthdayEntry?.submitted !== undefined) update({ ericBirthdayCard: { ...birthdayEntry, done: true } }); }} />}{ericStarOpen && ericStarStart && <EricPaperStar startedAt={ericStarStart} />}{chartOpen && progress.juyeonStarChart && <JuyeonStarChart startedAt={progress.juyeonStarChart.startedAt}
