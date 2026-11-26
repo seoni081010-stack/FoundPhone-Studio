@@ -34,7 +34,10 @@ export function jacobText(body: string, p: JacobProgress, player: string): strin
     const changes = p.jacobFlags?.["second-cup"] ? adaptations.baseSceneReplacements["21"]["second-cup"] : adaptations.baseSceneReplacements["21"]["recipe-invitation"];
     text = (changes as Record<string, string>)[text] ?? text;
   }
-  if (p.day === 18 && !p.jacobFlags?.["camera-lesson"] && text === "昨天是教她拍照。") text = "昨天是带她看怎么洗照片。";
+  if (p.day === 18 && !p.jacobFlags?.["camera-lesson"]) {
+    if (text === "昨天是教她拍照。") text = "昨天是带她看怎么洗照片。";
+    if (text === "说在教你拍照。") text = "说在带你看怎么洗照片。";
+  }
   if (p.day === 27 && p.jacobFlags?.marshmallow && text === "终于不是什么都不加了？") text = "这次不是只加棉花糖了？";
   const drink = p.jacobFlags?.["drink-肉桂牛奶"] ? "肉桂牛奶" : p.jacobFlags?.["drink-热苹果汁"] ? "热苹果汁" : "热巧克力";
   if (p.day === 15 && drink !== "热巧克力") {
@@ -59,17 +62,17 @@ export function jacobExpandedItinerary(day: number) {
   const story = jacobExpandedDay(day) as unknown as JacobDay;
   return [...new Map(story.beats.filter(b => b.channel === "scene" && b.kind !== "clue" && b.jacobPresent).map(b => [b.time, { time: b.time, place: b.place }])).values()];
 }
-export function jacobPreviewProgress(day: number, ending?: JcodeEndingKind): Partial<JacobProgress> {
+export function jacobPreviewProgress(day: number, ending?: JcodeEndingKind, cards = false): Partial<JacobProgress> {
   const p: JacobProgress = { day: 1, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: true, jacobChoices: {}, jacobFlags: {}, jacobRawAffinity: 0 };
   for (let d = 1; d < day; d++) {
     p.day = d;
     for (const b of (jacobExpandedDay(d) as unknown as JacobDay).beats) {
       if (!b.when.every(c => jacobCondition(c, p))) continue;
-      if (b.kind === "choice") { const o = b.options![1];p.jacobChoices![b.id] = 1;p.jacobRawAffinity! += o.rawAffinity;Object.assign(p.jacobFlags!, o.effects ?? {}); }
+      if (b.kind === "choice") { const oi = day === 18 && b.options![0].effects?.["swap-cards"] ? 0 : 1;const o = b.options![oi];p.jacobChoices![b.id] = oi;p.jacobRawAffinity! += o.rawAffinity;Object.assign(p.jacobFlags!, o.effects ?? {}); }
       if (b.kind === "clue") p.clues.push(b.clue!.id);
     }
   }
-  return { ...p, day, ending, affinity: ending === "together" ? 100 : ending === "friends" ? 90 : jacobScore(p.jacobRawAffinity!) };
+  return { ...p, day, ending, ...(cards && day === 18 ? { beat: (jacobExpandedDay(18) as unknown as JacobDay).beats.findIndex(b => b.kind === "trading-cards") } : {}), affinity: ending === "together" ? 100 : ending === "friends" ? 90 : jacobScore(p.jacobRawAffinity!) };
 }
 
 export function jacobPhysicalPlace(p: JacobProgress) {

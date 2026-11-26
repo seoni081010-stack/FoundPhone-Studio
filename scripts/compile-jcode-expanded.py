@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 A=ROOT/'story-archive'
 NAMES=['01-05','06-10','11-15','16-20','21-25','26-30']
 FILES=[f'jcode-day{x}-additions-approved.md' for x in NAMES]+['jcode-day31-approved.md']
-SPEAKERS='裴俊英|你|Eloise|Roger|李贤在|池昌民|金泳勋|一年级学生|另一个学生|学生|画像|维奥莱特|斯普劳特教授|家养小精灵|平斯夫人'
+SPEAKERS='裴俊英|你|厄尼|Eloise|Roger|李贤在|池昌民|金泳勋|一年级学生|另一个学生|学生|画像|维奥莱特|斯普劳特教授|家养小精灵|平斯夫人'
 OPTION=re.compile(r'^([AB])(?:｜)?「(.*?)」\s*(?:心动\s*)?\+(\d+)\s*$')
 CONDS={
  '若 Day 03 喜欢甜一点：':'sweet','若不喜欢太甜：':'!sweet','若喜欢甜一点：':'sweet',

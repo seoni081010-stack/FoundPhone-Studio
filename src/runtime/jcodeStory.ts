@@ -14,7 +14,7 @@ const sources = import.meta.glob(["../../story-archive/jcode-day01-03.md", "../.
 const optionPattern = /^([AB])[.｜]「(.*)」(?:\s+心动 \+(\d+))?$/;
 const mergePattern = /^(?:### 分支汇合|【共同剧情】|(?:——|### )两组选项后|——(?:竞猜|兑奖)后继续|### 玩家固定回答)/;
 const structuralPattern = /^(?:### (?:分支汇合|选择[一二三]（A\/B）)|固定(?:回答|回复)[一二三四]$|本日伏笔：|> 本日|【(?:旁白|面对面场景|玩家选项|共同剧情)】|玩家选项：|(?:### )?玩家选择[一二三]|选择[一二三]：|——两组选项后|### (?:两组选项后|剧情继续)|---$|（A\/B 两条分支汇合后）$)/;
-const speakerPattern = /^(裴俊英|你|一年级学生|另一个学生|同学|学生|平斯夫人|家养小精灵)[：:]\s*(.*)$/;
+const speakerPattern = /^(裴俊英|你|一年级学生|另一个学生|同学|厄尼|学生|平斯夫人|家养小精灵)[：:]\s*(.*)$/;
 const tidy = (line: string) => line.replace(/^\*\*(.*)\*\*$/, "$1");
 const unquote = (line: string) => line.replace(/^「(.*)」$/, "$1");
 function parseLine(line: string): JcodeLine {

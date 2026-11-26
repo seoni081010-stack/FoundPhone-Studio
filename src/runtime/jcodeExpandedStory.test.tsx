@@ -2,7 +2,7 @@ import { knownMapPoint } from "./mapLocations";
 import { describe, expect, test } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import data from "../../stories/jcode-expanded.json";
-import { jacobCondition, jacobEndingFor, jacobExpandedDay, jacobNextBeat, jacobScore, jacobText, type JacobDay, type JacobProgress } from "./jcodeExpandedStory";
+import { jacobCondition, jacobEndingFor, jacobExpandedDay, jacobNextBeat, jacobPreviewProgress, jacobScore, jacobText, type JacobDay, type JacobProgress } from "./jcodeExpandedStory";
 import { JacobExpandedScene } from "./JacobExpandedScene";
 function play(policy: (index: number) => number) {
   const p: JacobProgress = { day: 1, beat: 0, cursor: { position: 0 }, clues: [], affinity: 0, open: true, jacobFlags: {}, jacobChoices: {}, jacobRawAffinity: 0 };
@@ -60,3 +60,16 @@ test('every authored Jacob scene place has an explicit map point',()=>{for(const
 test('drink and lesson memories reflect the actual branch',()=>{const p:JacobProgress={day:15,beat:0,cursor:{position:0},clues:[],affinity:0,open:true,jacobFlags:{'drink-热苹果汁':true}};expect(jacobText('厨房里的家养小精灵很快给你们准备了两杯热巧克力。',p,'玩家')).toContain('一杯热苹果汁和一杯热巧克力');p.day=20;expect(jacobText('他将其中一杯递给你。',p,'玩家')).toBe('他将热苹果汁递给你。');p.day=18;expect(jacobText('昨天是教她拍照。',p,'玩家')).toBe('昨天是带她看怎么洗照片。');p.day=27;p.jacobFlags!.marshmallow=true;expect(jacobText('终于不是什么都不加了？',p,'玩家')).toBe('这次不是只加棉花糖了？');});
 
  test("authoring instructions never enter playable narration",()=>{for(const day of data.days)for(const beat of day.beats)for(const line of beat.lines??[])expect(line.body).not.toMatch(/用户提供|图片位置|不标A／B／C|独立动画名额|原版/);});
+
+test('Day18 uses one named Hufflepuff friend and the actual Day17 lesson',()=>{
+ const day=data.days[17];const lines=day.beats.flatMap(b=>[...(b.lines??[]),...(b.options??[]).flatMap(o=>o.lines)]);
+ expect(lines.some(l=>l.body.includes('赫奇帕奇的厄尼·麦克米兰'))).toBe(true);
+ expect(lines.some(l=>l.speaker==='厄尼')).toBe(true);
+ expect(lines.some(l=>l.body.includes('同学')||l.speaker==='同学'||l.body.includes('两个厄尼'))).toBe(false);
+ const p:JacobProgress={day:18,beat:0,cursor:{position:0},clues:[],affinity:0,open:true,jacobFlags:{}};
+ expect(jacobText('说在教你拍照。',p,'玩家')).toBe('说在带你看怎么洗照片。');p.jacobFlags!['camera-lesson']=true;expect(jacobText('说在教你拍照。',p,'玩家')).toBe('说在教你拍照。');
+});
+
+test("Day18 preview includes the actual Day12 card exchange agreement",()=>{expect(jacobPreviewProgress(18).jacobFlags?.["swap-cards"]).toBe(true);expect(jacobPreviewProgress(19).jacobFlags?.["swap-cards"]).toBe(false);});
+
+test("chocolate frog preview starts directly on the existing card selector",()=>{const p=jacobPreviewProgress(18,undefined,true);expect(data.days[17].beats[p.beat!].kind).toBe("trading-cards");expect(p.jacobFlags?.["swap-cards"]).toBe(true);expect(p.open).toBe(true);});

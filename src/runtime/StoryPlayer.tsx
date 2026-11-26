@@ -59,7 +59,7 @@ function StoryPlayer() {
   const previewMode = new URLSearchParams(location.search).get("preview");
   const previewEnding = previewMode?.match(/^(?:hyunjae|jcode|younghoon|sunwoo|juyeon|eric)-ending-(together|friends|unspoken)$/)?.[1] as JcodeEndingKind | undefined;
   const hyunjaePreviewDay = Number(previewMode?.match(/^hyunjae-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
-  const jcodePreviewDay = Number(previewMode?.match(/^jcode-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
+  const jcodePreviewDay = previewMode === "jcode-chocolate-frog" ? 18 : Number(previewMode?.match(/^jcode-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const younghoonPreviewDay = Number(previewMode?.match(/^younghoon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const juyeonPreviewDay = Number(previewMode?.match(/^juyeon-day([1-9]|[12][0-9]|3[01])$/)?.[1]);
   const sunwooPreviewDay = Number(previewMode?.match(/^sunwoo-day([1-9]|[12][0-9]|3[01])$/)?.[1]);

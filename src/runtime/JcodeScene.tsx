@@ -18,7 +18,7 @@ export function useJcodeProgress(key: string, enabled: boolean, previewDay?: num
   const storageKey = `hogwarts-${jacob ? "jacob-expanded" : hyunjae ? "hyunjae-expanded" : eric ? "eric" : juyeon ? "juyeon" : sunwoo ? "sunwoo" : younghoon ? "younghoon" : "jcode"}-v1:${key}`;
   const [progress, setProgress] = useState<Progress>(() => {
     if (!enabled) return first(1);
-    if (jacob && previewDay) return { ...first(previewDay), ...jacobPreviewProgress(previewDay, previewEnding) };
+    if (jacob && previewDay) return { ...first(previewDay), ...jacobPreviewProgress(previewDay, previewEnding, new URLSearchParams(window.location.search).get("preview") === "jcode-chocolate-frog") };
     if (hyunjae && previewDay) return { ...first(previewDay), ...hyunjaePreviewProgress(previewDay, previewEnding) };
     if (previewEnding) return { ...first(31), open: true, beat: 0, ending: previewEnding };
     if (previewDay) return { ...first(previewDay), open: true };
