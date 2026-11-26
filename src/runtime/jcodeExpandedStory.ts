@@ -9,6 +9,8 @@ export type JacobProgress = Progress & {
   jacobRawAffinity?: number;
   jacobCard?: { color: string; decoration: string; draft: string; submitted?: boolean };
   jacobTradingCard?: string;
+  jacobChecklistRead?: boolean;
+  jacobChecklistStartedAt?: number;
 };
 export type JacobLine = JcodeLine & { when?: string[] };
 export type JacobBeat = { id: string; kind: string; when: string[]; time: string; place: string; channel: string; legacyBeat?: number; jacobPresent?: boolean;

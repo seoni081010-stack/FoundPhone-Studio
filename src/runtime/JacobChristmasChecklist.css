@@ -1,0 +1,19 @@
+@font-face{font-family:"Jacob Checklist Hand";src:url("/fonts/greeting-chinese.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Jacob Checklist English";src:url("/fonts/greeting-latin.woff2") format("woff2");font-display:swap}
+.jacob-christmas-checklist{padding:0;border:0;background:transparent;width:min(91vw,440px);max-width:440px;max-height:92dvh;overflow:auto;color:#59412c;outline:none;filter:drop-shadow(0 14px 20px #21190e55)}
+.jacob-christmas-checklist::backdrop{background:#1c251fc7;backdrop-filter:blur(3px)}
+.jacob-checklist-sheet{position:relative;box-sizing:border-box;width:100%;padding:35px clamp(25px,6.5vw,39px) 38px;background-color:#dfc89e;background-image:radial-gradient(ellipse at 14% 20%,#9a713b1c 0,transparent 24%),radial-gradient(ellipse at 80% 82%,#9b734327 0,transparent 21%),repeating-linear-gradient(94deg,#fff8df0b 0px,#fff8df0b 1px,transparent 2px,transparent 5px),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.53' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.09' filter='url(%23grain)'/%3E%3C/svg%3E");box-shadow:inset 0 0 24px #9b743b35,inset 2px 0 7px #fff5d947,inset -3px -5px 10px #92704430;clip-path:polygon(1% 0,19% .5%,37% 0,52% .5%,70% 0,87% .6%,99% 0,100% 19%,99.4% 40%,100% 62%,99.4% 81%,100% 98%,85% 99.3%,64% 99%,44% 100%,25% 99.3%,1% 100%,0 78%,.7% 53%,0 31%);opacity:0;transform:translateY(-22px) rotate(-.7deg)}
+.jacob-christmas-checklist[data-ready=true] .jacob-checklist-sheet{animation:jacob-checklist-arrive 1s ease-out both}
+.jacob-checklist-sheet::after{content:"";position:absolute;right:0;bottom:0;width:30px;height:24px;background:linear-gradient(145deg,transparent 43%,#b6996530 52%,#f0dfbb55 73%);pointer-events:none}
+.jacob-checklist-sheet h2{font-family:"Jacob Checklist English",cursive;font-style:italic;font-weight:400;font-size:clamp(22px,5.6vw,28px);text-align:center;line-height:1.35;margin:0 0 26px;color:#65492f;opacity:0}
+.jacob-checklist-sheet h2[data-visible=true]{animation:jacob-checklist-ink .6s ease-out both}
+.jacob-checklist-sheet ul{padding-left:17px;margin:0;font-family:"Jacob Checklist Hand",cursive;font-size:clamp(19px,5.2vw,24px);font-weight:400;line-height:1.65;letter-spacing:.02em}
+.jacob-checklist-sheet li{min-height:1.65em;margin:0 0 10px;padding-left:3px;visibility:hidden}
+.jacob-checklist-sheet li[data-visible=true]{visibility:visible}
+.jacob-checklist-sheet li:last-child{margin-bottom:0}
+.jacob-checklist-sheet li::marker{font-size:.55em;color:#755a3e}
+.jacob-checklist-ink>span{animation:jacob-checklist-ink .24s ease-out both}
+.jacob-checklist-sheet li[data-done=true] .jacob-checklist-ink{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#735138d9}
+@keyframes jacob-checklist-arrive{0%{opacity:0;transform:translateY(-22px) rotate(-.7deg)}72%{opacity:1;transform:translateY(3px) rotate(.2deg)}100%{opacity:1;transform:translateY(0) rotate(0)}}
+@keyframes jacob-checklist-ink{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.jacob-christmas-checklist[data-ready=true] .jacob-checklist-sheet{animation-duration:.01s}.jacob-checklist-sheet h2[data-visible=true],.jacob-checklist-ink>span{animation-duration:.01s}}
