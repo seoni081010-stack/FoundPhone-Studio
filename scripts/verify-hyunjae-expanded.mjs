@@ -15,6 +15,7 @@ async function drive(page,config){return page.evaluate(async config=>{
   if(saved?.done&&config.day<31)return {saved,fixed,choices,clues,wishes,fireworks};
   const paper=document.querySelector('.library-paper-note[open]');
   if(paper){if(paper.dataset.ready==='true')paper.click();else await new Promise(r=>setTimeout(r,40));continue;}
+  if(document.querySelector('.winter-wish-tag[data-submitted=true]')){await new Promise(r=>setTimeout(r,40));continue;}
   const dialog=document.querySelector('dialog[open]');
   const surface=dialog||document.querySelector('.hyunjae-mail-scene');
   if(surface?.textContent.includes('烟花在城堡上空'))fireworks=true;

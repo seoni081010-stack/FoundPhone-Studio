@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { WinterWishTag } from "./WinterWishTag";
 import { LibraryPaperNote } from "./LibraryPaperNote";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper, QuidditchResult } from "./QuidditchPaper";
@@ -62,13 +63,12 @@ export function HyunjaeExpandedScene({ progress: base, update: baseUpdate, ident
   const clue = beat?.kind === "clue" ? beat.clue : undefined;
   const wish = beat?.kind === "wish";
   const content = <>
-    <h2 id="hyunjae-expanded-title">{clue ? "魔法相册解锁新内容" : wish ? "寄给冬天的愿望" : <>李贤在 <small>· HYUNJAE</small></>}</h2>
+    {!wish && <h2 id="hyunjae-expanded-title">{clue ? "魔法相册解锁新内容" : wish ? "寄给冬天的愿望" : <>李贤在 <small>· HYUNJAE</small></>}</h2>}
     {clue ? <><p>在魔法相册中查看「{clue.title}」。</p><button onClick={() => { onClue(clue.id); next({ clues: [...new Set([...p.clues, clue.id])] }); }}>继续</button></>
-      : wish ? <form className="hyunjae-wish" onSubmit={event => { event.preventDefault(); if (p.hyunjaeWish?.draft.trim()) next({ hyunjaeWish: { draft: p.hyunjaeWish.draft, submitted: p.hyunjaeWish.draft, via: p.hyunjaeChoices?.["17:2"] === 0 ? "tree" : "message" } }); }}>
-        <p lang="en">Make a wish</p><p>这是一个只属于你的秘密。</p>
-        <textarea autoFocus aria-label="你的愿望" placeholder="写下你的愿望……" value={p.hyunjaeWish?.draft ?? ""} onChange={event => update({ hyunjaeWish: { draft: event.target.value } })} />
-        <button disabled={!p.hyunjaeWish?.draft.trim()} type="submit">将愿望挂上圣诞树</button>
-      </form> : <>
+      : wish ? <WinterWishTag key={`${p.day}:${index}`} draft={p.hyunjaeWish?.draft ?? ""} submitted={p.hyunjaeWish?.submitted}
+        onDraft={draft => update({ hyunjaeWish: { draft } })}
+        onSubmit={written => update({ hyunjaeWish: { draft: written, submitted: written, via: p.hyunjaeChoices?.["17:2"] === 0 ? "tree" : "message" } })}
+        onContinue={() => next()} onReset={() => update({ hyunjaeWish: { draft: "" } })} /> : <>
         <p>{`12月${story.day}日 · ${beat?.time ?? story.beats.at(-1)?.time ?? story.time} · ${beat?.channel === "mail" ? "猫头鹰信箱" : beat?.place ?? story.place}`}</p>
         {!beat ? <button className="hogwarts-continue-day" onClick={onFinish}>{reviewing ? "返回信箱" : p.day === 31 ? "查看结局" : "继续今天的行程"}</button>
           : beat.kind === "wager" ? <button onClick={() => setPaper(true)}>打开竞猜纸条</button>

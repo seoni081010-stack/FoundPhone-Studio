@@ -1,0 +1,29 @@
+@font-face{font-family:"Winter Wish English";src:url("/fonts/greeting-latin.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Winter Wish Hand";src:url("/fonts/greeting-chinese.woff2") format("woff2");font-display:swap}
+.hogwarts-scene.hyunjae-wish-dialog{width:min(84vw,340px);max-width:340px;max-height:92dvh;overflow:visible;padding:0;border:0;background:transparent;box-shadow:none;color:#594b39;outline:none}
+.hogwarts-scene.hyunjae-wish-dialog::backdrop{background:#d4deddc9;backdrop-filter:blur(5px)}
+.winter-wish-tag{position:relative;transform-origin:50% -36px;animation:winter-wish-arrive 1.3s ease-out both,winter-wish-sway 7s 1.3s ease-in-out infinite}
+.winter-wish-tag-cord{position:absolute;left:calc(50% - 13px);top:-51px;width:26px;height:71px;border:1.5px solid #c5b78f;border-bottom:0;border-radius:60% 60% 0 0;box-shadow:1px 0 0 #fbf5dc90;transform:rotate(-5deg);z-index:2;pointer-events:none}
+.winter-wish-tag-paper{position:relative;box-sizing:border-box;isolation:isolate;display:grid;gap:15px;margin:0;padding:51px 27px 31px;text-align:center;border:1px solid #cabc9d;border-radius:13px 13px 8px 8px;background:radial-gradient(ellipse at 12% 5%,#bca47b17,transparent 50%),repeating-linear-gradient(12deg,#9d8b6410 0 .5px,transparent .5px 5px),linear-gradient(115deg,#f1e7d4,#faf4e7 56%,#eee4d0);box-shadow:0 16px 38px #5f65512b,inset 0 0 23px #bbaa7e19;max-height:calc(92dvh - 25px);overflow:auto}
+.winter-wish-tag-paper::before{content:"";position:absolute;inset:9px;border:1px solid #bdab7c52;border-radius:8px;z-index:-1;pointer-events:none;mask:linear-gradient(#000 0 0) top left/20px 20px no-repeat,linear-gradient(#000 0 0) top right/20px 20px no-repeat,linear-gradient(#000 0 0) bottom left/20px 20px no-repeat,linear-gradient(#000 0 0) bottom right/20px 20px no-repeat}
+.winter-wish-tag-hole{position:absolute;top:15px;left:calc(50% - 4px);width:8px;height:8px;border:1px solid #baa783;border-radius:50%;background:#b7b59c;box-shadow:inset 0 1px 2px #4b443944}
+.winter-wish-tag-holly{position:absolute;top:22px;left:12px;width:56px;height:47px;pointer-events:none}
+.winter-wish-tag-stars{position:absolute;bottom:10px;right:10px;width:51px;height:47px;color:#ae9b6c;opacity:.6;pointer-events:none}
+.winter-wish-tag-title{animation:winter-wish-fade .8s .3s both}
+.winter-wish-tag-title [lang=en]{margin:0;color:#60715c;font-family:"Winter Wish English",cursive;font-size:45px;font-weight:400;line-height:1.1}
+.winter-wish-tag-title h2{margin:10px 0 5px;font-family:"Winter Wish Hand",KaiTi,cursive;font-weight:400;font-size:23px;letter-spacing:.08em;color:#66503d;line-height:1.5}
+.winter-wish-tag-writing{min-height:142px;animation:winter-wish-fade .8s .5s both}
+.winter-wish-tag-writing textarea{display:block;box-sizing:border-box;min-height:142px;width:100%;resize:vertical;max-height:230px;padding:15px 13px;border:1px solid #b9ab8a60;border-radius:7px;background:#fffdf64f;color:#514638;font:17px/1.9 "Winter Wish Hand",KaiTi,cursive;outline:none}
+.winter-wish-tag-writing textarea:focus{border-color:#859079;box-shadow:0 0 0 2px #85907915}
+.winter-wish-tag-writing textarea::placeholder{font:14px/1.9 Georgia,"Songti SC",serif;color:#a6a095}
+.winter-wish-tag-paper .winter-wish-tag-secret{margin:0;color:#9b978b;font-size:11px;line-height:1.8;letter-spacing:.06em;animation:winter-wish-fade .8s .7s both}
+.winter-wish-tag form.winter-wish-tag-paper button{justify-self:center;box-sizing:border-box;min-height:43px;padding:11px 20px;border:1px solid #51654f;border-radius:6px;background:#53684f;color:#f6f1e3;font:14px/1.4 Georgia,"Songti SC",serif;letter-spacing:.06em;transition:transform .2s,background .2s;animation:winter-wish-fade .8s .9s both}
+.winter-wish-tag form.winter-wish-tag-paper button:hover:not(:disabled){transform:translateY(-2px);background:#61795d}.winter-wish-tag form.winter-wish-tag-paper button:active:not(:disabled){transform:translateY(1px)}
+.winter-wish-tag form.winter-wish-tag-paper button:disabled{opacity:.42;cursor:default}
+.winter-wish-tag-written{margin:0;box-sizing:border-box;min-height:142px;padding:15px 13px;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;font:23px/1.9 "Winter Wish Hand",KaiTi,cursive;color:#5c4b39;animation:winter-wish-fade .35s both}
+.winter-wish-tag.is-submitted{animation:winter-wish-hang 1.5s ease-in-out both}.winter-wish-tag.is-submitted button{visibility:hidden}
+@keyframes winter-wish-arrive{from{opacity:0;transform:translateY(-28px) rotate(-4deg)}65%{opacity:1;transform:translateY(2px) rotate(2deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
+@keyframes winter-wish-sway{0%,100%{transform:rotate(-.65deg)}50%{transform:rotate(.65deg)}}
+@keyframes winter-wish-fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes winter-wish-hang{0%{opacity:1;transform:translateY(0)}65%{opacity:1;transform:translateY(-5px)}100%{opacity:0;transform:translateY(-22px)}}
+@media(prefers-reduced-motion:reduce){.winter-wish-tag{animation:winter-wish-fade .2s both}.winter-wish-tag *{animation-duration:.1s;animation-delay:0s}.winter-wish-tag.is-submitted{animation:winter-wish-hang 1.5s both}}
