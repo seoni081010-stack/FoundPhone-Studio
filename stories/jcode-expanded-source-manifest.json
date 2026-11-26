@@ -1,0 +1,51 @@
+[
+  {
+    "file": "story-archive/jcode-day01-05-additions-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "ebd364f3fc9bd4f73c915ca14f50882949b9462f091dd6b2ff209c3ee93584d3",
+    "approvedSha256": "ebd364f3fc9bd4f73c915ca14f50882949b9462f091dd6b2ff209c3ee93584d3",
+    "bytes": 23145
+  },
+  {
+    "file": "story-archive/jcode-day06-10-additions-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "8e8958c8ff6f9ceb8ba2b154172f92f36705c81339cd2533be47227aa43d2902",
+    "approvedSha256": "8e8958c8ff6f9ceb8ba2b154172f92f36705c81339cd2533be47227aa43d2902",
+    "bytes": 18067
+  },
+  {
+    "file": "story-archive/jcode-day11-15-additions-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "aa0238e7e4b32d8491c7bd5715ad092f9abeadd604ca64dcdb76b811e82ac105",
+    "approvedSha256": "dd5860d5a3091622e1c461a97a5ad0900797e09ae7529e37709407e5ca47d75b",
+    "bytes": 21337
+  },
+  {
+    "file": "story-archive/jcode-day16-20-additions-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "a52954140f9e7cdc32a04db1401e119aa893fededc62701b472ed7c6b59b9db3",
+    "approvedSha256": "427c71508414b9b8a3cbcff90d7bcd2fbcfe30f66995a77782a660bd95f040ec",
+    "bytes": 20538
+  },
+  {
+    "file": "story-archive/jcode-day21-25-additions-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "37b81e37e3256f0ac2e3dd2cb9828e91b0b6fe416ac498834d45906772a7094b",
+    "approvedSha256": "c627f627f037a4062cc95dba0d47083ad159638d04bae26b9f24e42d4186aacc",
+    "bytes": 20833
+  },
+  {
+    "file": "story-archive/jcode-day26-30-additions-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "9329c0cf7528fad27698b09937beb070a82a56072ed4b0b6ecb1af6c7eed13cb",
+    "approvedSha256": "6caee1af412da84c0c6065568201affd7daef1e0778578c8cdb3e88ef6e6b39e",
+    "bytes": 22014
+  },
+  {
+    "file": "story-archive/jcode-day31-approved.md",
+    "sourceCommit": "6ff5074dfb73926349bad9504ba11dd77027a6b6",
+    "sourceSha256": "3b669e8e6540c9ea8f920d8ea3cccca19ac54ea22cc79bf184004b7d6ef8ea1e",
+    "approvedSha256": "3b669e8e6540c9ea8f920d8ea3cccca19ac54ea22cc79bf184004b7d6ef8ea1e",
+    "bytes": 8872
+  }
+]
