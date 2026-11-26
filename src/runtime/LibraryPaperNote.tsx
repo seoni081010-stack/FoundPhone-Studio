@@ -53,11 +53,16 @@ export function showLibraryPaperNote(onComplete: () => void): () => void {
   });
   dialog.showModal();
   sheet.focus({ preventScroll: true });
-  later(() => write(first, "刚才是你先笑的", () => later(() => write(second, "明明是你先给我看的", () => {
+  const startWriting = () => later(() => write(first, "刚才是你先笑的", () => later(() => write(second, "明明是你先给我看的", () => {
     ready = true;
     dialog.dataset.ready = "true";
     sheet.setAttribute("aria-disabled", "false");
   }), 800)), 1100);
+  // Load the real handwriting before showing the ink, avoiding a fallback-font flash.
+  void Promise.all([
+    document.fonts.load('29px "Library Playful"', "刚才是你先笑的"),
+    document.fonts.load('29px "Library Neat"', "明明是你先给我看的"),
+  ]).then(() => { if (!disposed) startWriting(); }).catch(() => { if (!disposed) startWriting(); });
   return dispose;
 }
 

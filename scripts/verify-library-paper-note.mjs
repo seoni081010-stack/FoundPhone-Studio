@@ -33,6 +33,14 @@ try{
   assert.equal(await page.evaluate(async()=>(await document.fonts.load('25px "Library Neat"','明明是你先给我看的')).length),1);
   const fonts=await paper.locator('p').evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).fontFamily));
   assert.notEqual(fonts[0],fonts[1]);
+  const cdp=await context.newCDPSession(page);await cdp.send('DOM.enable');await cdp.send('CSS.enable');
+  const {root}=await cdp.send('DOM.getDocument');
+  for(const [selector,family] of [['.library-paper-note-first','Zhi Mang Xing'],['.library-paper-note-second','Long Cang']]){
+   const {nodeId}=await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector});
+   const actual=await cdp.send('CSS.getPlatformFontsForNode',{nodeId});
+   assert.ok(actual.fonts.length>0&&actual.fonts.every(font=>font.isCustomFont&&font.familyName===family),JSON.stringify(actual));
+  }
+  await cdp.detach();
   const box=await paper.boundingBox();assert.ok(box.x>=0&&box.x+box.width<=viewport.width);
   await page.screenshot({path:`work/library-note-${viewport.width}.png`});
   await page.waitForTimeout(2000);assert.equal(await paper.count(),1,'paper stays until clicked');

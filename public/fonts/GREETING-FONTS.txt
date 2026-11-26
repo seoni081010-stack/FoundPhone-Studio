@@ -12,3 +12,8 @@ Library note font:
 - library-note-neat.ttf: web-only subset of LXGW WenKai Regular, containing only the second handwritten note.
   Source: https://github.com/lxgw/LxgwWenKai/blob/main/fonts/TTF/LXGWWenKai-Regular.ttf
   License: LXGWWenKai-OFL.txt (SIL Open Font License 1.1 with additional permission for web delivery subsets).
+
+Casual library note handwriting (web subsets):
+- library-note-casual.ttf: Zhi Mang Xing Regular, first note. Source: https://github.com/google/fonts/tree/main/ofl/zhimangxing ; License: ZhiMangXing-OFL.txt.
+- library-note-natural.ttf: Long Cang Regular, second note. Source: https://github.com/google/fonts/tree/main/ofl/longcang ; License: LongCang-OFL.txt.
+Both use the original handwritten glyph outlines, without synthetic bold or italic.
