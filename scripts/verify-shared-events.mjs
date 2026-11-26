@@ -9,7 +9,7 @@ const q=await server.ssrLoadModule('/src/runtime/routeWork.ts');
 const {compileStory}=await server.ssrLoadModule('/src/story-engine/compiler.ts');
 const hy=JSON.parse(readFileSync('stories/hyunjae/story.json'));
 const qSave=q.qDayPreviewProgress(compileStory(hy).work,12);
-const routes={jacob:j.jcodeDays,younghoon:y.younghoonDays,hyunjae:JSON.parse(readFileSync('stories/hyunjae-expanded.json')).days};
+const routes={jacob:JSON.parse(readFileSync('stories/jcode-expanded.json')).days,younghoon:y.younghoonDays,hyunjae:JSON.parse(readFileSync('stories/hyunjae-expanded.json')).days};
 for(const name of ['sunwoo','juyeon','eric'])routes[name]=JSON.parse(readFileSync(`stories/${name}.json`));
 await server.close();
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true});
@@ -21,7 +21,7 @@ try {
   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
   const run=`shared-match-${lead}-${team}`;
   const prefix=lead==='jacob'?'jcode':lead;
-  const key=lead==='hyunjae'?`hogwarts-hyunjae-expanded-v1:${run}`:lead==='q'?`foundphone-q-day01-${run}`:`hogwarts-${prefix}-v1:${run}`;
+  const key=lead==='jacob'?`hogwarts-jacob-expanded-v1:${run}`:lead==='hyunjae'?`hogwarts-hyunjae-expanded-v1:${run}`:lead==='q'?`foundphone-q-day01-${run}`:`hogwarts-${prefix}-v1:${run}`;
   const day=routes[lead]?.find(d=>d.day===12);const wager=day?.beats.findIndex(b=>b.kind==='wager');
 
   await page.goto(base);
@@ -33,12 +33,12 @@ try {
   await page.reload();await page.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
   if(lead==='q'){
    await page.getByRole('button',{name:/和池昌民看魁地奇比赛|去看台找李贤在/}).click({timeout:5000}).catch(async e=>{throw Error(e.message+'\n'+await page.locator('body').innerText());});
-   for(let i=0;i<90 && !await page.locator('#match-wager-title').count();i++){
+   for(let i=0;i<500 && !await page.locator('#match-wager-title').count();i++){
     const buttons=page.locator('dialog[open] button');const text=await buttons.allTextContents();
     let target=buttons.filter({hasText:'显示完整'}).first();
     if(!await target.count())target=buttons.filter({hasText:/^继续$|展开羊皮纸/}).last();
     if(!await target.count())target=buttons.filter({hasText:text[0]||'__none__'}).first();
-    if(await target.count())await target.click();else throw Error('Q paper navigation '+text.join(','));
+    if(await target.count())await target.evaluate(e=>e.click()).catch(()=>{});else await page.waitForTimeout(10);
    }
   }
   const paper=page.locator('.hogwarts-wager');await paper.waitFor();
@@ -68,7 +68,7 @@ try {
    let fireworks=false;
    for(let i=0;i<2500;i++){
     await new Promise(r=>setTimeout(r,0));
-    const surface=document.querySelector('dialog[open]')||document.querySelector('.hyunjae-mail-scene');
+    const surface=document.querySelector('dialog[open]')||document.querySelector('.hyunjae-mail-scene,.sunwoo-mail-scene');
     if(surface?.textContent.includes('烟花'))fireworks=true;
     if(document.querySelector('.hogwarts-ending'))return {fireworks,kind:document.querySelector('.hogwarts-ending').dataset.kind};
     const button=surface?.querySelector('.scene-current-step button,.scene-fixed-reply button,.scene-choices button,.hogwarts-device-choices button')

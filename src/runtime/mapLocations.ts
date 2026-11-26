@@ -1,3 +1,4 @@
+import { jacobMapLocations } from "./jacobMapLocations";
 import { ericMapLocations } from "./ericMapLocations";
 import { juyeonMapLocations } from "./juyeonMapLocations";
 export const mapRooms = [
@@ -13,6 +14,7 @@ export const mapRooms = [
 ] as const;
 
 export const mapLandmarks: Partial<Record<string, readonly [number, number]>> = {
+  ...jacobMapLocations,
   ...ericMapLocations,
   ...juyeonMapLocations,
   "霍格沃茨外侧回廊": [60, 415],

@@ -1,3 +1,4 @@
+import { jacobExpandedItinerary } from "./jcodeExpandedStory";
 import { hyunjaeItinerary } from "./hyunjaeExpandedStory";
 import { sharedRules } from "./sharedRules";
 import { classroomLocations } from "./castleFloors";
@@ -33,8 +34,8 @@ export function characterLocations(day: number, time: string, selectedId: string
           ? scene.endPlace : scene.place;
       }
     }
-    if (person.id === "younghoon" || person.id === "hyunjae") {
-      const scene = (person.id === "hyunjae" ? hyunjaeItinerary(day) : younghoonItinerary(day)).filter(stage => now >= minutes(stage.time)).at(-1);
+    if (person.id === "jacob" || person.id === "younghoon" || person.id === "hyunjae") {
+      const scene = (person.id === "jacob" ? jacobExpandedItinerary(day) : person.id === "hyunjae" ? hyunjaeItinerary(day) : younghoonItinerary(day)).filter(stage => now >= minutes(stage.time)).at(-1);
       if (scene && followsCurrentLesson(scene.time) && now < minutes(scene.time) + 120) place = scene.place;
     }
     if (person.id === "sunwoo" || person.id === "juyeon" || person.id === "eric") {

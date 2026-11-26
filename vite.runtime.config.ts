@@ -5,6 +5,9 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig(({ command }) => ({
   base: "./",
   optimizeDeps: { entries: ["index.html"] },
+  build: { rollupOptions: { output: { manualChunks(id) {
+    if (id.endsWith("/stories/jcode-expanded.json")) return "jacob-expanded-story";
+  } } } },
   plugins: [
     localIconPlugin(command),
     react(),

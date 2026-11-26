@@ -1,3 +1,5 @@
+import { JacobExpandedScene } from "./JacobExpandedScene";
+import { jacobExpandedDays, jacobExpandedDay, jacobExpandedStage, jacobExpandedEndings, jacobNextBeat, jacobEndingFor, jacobPhysicalPlace, type JacobDay, type JacobProgress } from "./jcodeExpandedStory";
 import { HyunjaeExpandedScene } from "./HyunjaeExpandedScene";
 import { hyunjaeDays, hyunjaeDay, hyunjaeStage, hyunjaeEndings, hyunjaeEndingFor, hyunjaeText, hyunjaeNextBeat, hyunjaePhysicalPlace, hyunjaeLegacyMatch, type HyDay, type HyProgress } from "./hyunjaeExpandedStory";
 import { quidditchStage } from "./quidditchStage";
@@ -107,22 +109,23 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const isJuyeon = selectedLeadId === "juyeon";
   const isEric = selectedLeadId === "eric";
   const isHyunjaeExpanded = selectedLeadId === "hyunjae";
-  const isAuthored = isSunwoo || isJuyeon || isEric || isHyunjaeExpanded;
-  const authoredDays = isHyunjaeExpanded ? hyunjaeDays : isEric ? ericDays : isJuyeon ? juyeonDays : sunwooDays;
-  const authoredDay = isHyunjaeExpanded ? hyunjaeDay : isEric ? ericDay : isJuyeon ? juyeonDay : sunwooDay;
-  const authoredStage = isHyunjaeExpanded ? hyunjaeStage : isEric ? ericStage : isJuyeon ? juyeonStage : sunwooStage;
-  const authoredEndings = isHyunjaeExpanded ? hyunjaeEndings : isEric ? ericEndings : isJuyeon ? juyeonEndings : sunwooEndings;
+  const isConditioned = isHyunjaeExpanded || isJcode;
+  const isAuthored = isJcode || isSunwoo || isJuyeon || isEric || isHyunjaeExpanded;
+  const authoredDays = isJcode ? jacobExpandedDays : isHyunjaeExpanded ? hyunjaeDays : isEric ? ericDays : isJuyeon ? juyeonDays : sunwooDays;
+  const authoredDay = isJcode ? jacobExpandedDay : isHyunjaeExpanded ? hyunjaeDay : isEric ? ericDay : isJuyeon ? juyeonDay : sunwooDay;
+  const authoredStage = isJcode ? jacobExpandedStage : isHyunjaeExpanded ? hyunjaeStage : isEric ? ericStage : isJuyeon ? juyeonStage : sunwooStage;
+  const authoredEndings = isJcode ? jacobExpandedEndings : isHyunjaeExpanded ? hyunjaeEndings : isEric ? ericEndings : isJuyeon ? juyeonEndings : sunwooEndings;
   const usesScript = isJcode || isYounghoon || isAuthored;
   const scriptDays = isAuthored ? [...authoredDays, authoredDay(31)] : isYounghoon ? younghoonDays : jcodeDays;
-  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon, isSunwoo, isJuyeon, isEric, isHyunjaeExpanded);
+  const { progress: jcode, update: updateJcode } = useJcodeProgress(identityKey, usesScript, previewDay, previewEnding, isYounghoon, isSunwoo, isJuyeon, isEric, isHyunjaeExpanded, isJcode);
   const sunwooScore = isAuthored ? jcode.affinity + characterStatus(selectedLeadId, identity?.year ?? 5, identity?.house ?? "", {}).affinity
     + (previewDay ? 0 : savedGiftAffinity(identityKey, selectedLeadId)) : 0;
-  const sunwooKind = jcode.ending ?? (isHyunjaeExpanded ? hyunjaeEndingFor(sunwooScore) : sunwooEndingFor(sunwooScore));
+  const sunwooKind = jcode.ending ?? (isJcode ? jacobEndingFor(sunwooScore) : isHyunjaeExpanded ? hyunjaeEndingFor(sunwooScore) : sunwooEndingFor(sunwooScore));
   const scriptToday = isAuthored ? authoredDay(jcode.day, sunwooKind) : usesScript ? scriptDays[jcode.day - 1] : undefined;
-  const hyunjaeActiveBeat = isHyunjaeExpanded && scriptToday ? hyunjaeNextBeat(scriptToday as unknown as HyDay, jcode.beat, jcode as HyProgress, { house: identity?.house ?? "ravenclaw", year: identity?.year ?? 6 }) : jcode.beat;
+  const hyunjaeActiveBeat = isJcode && scriptToday ? jacobNextBeat(scriptToday as unknown as JacobDay, jcode.beat, jcode as JacobProgress) : isHyunjaeExpanded && scriptToday ? hyunjaeNextBeat(scriptToday as unknown as HyDay, jcode.beat, jcode as HyProgress, { house: identity?.house ?? "ravenclaw", year: identity?.year ?? 6 }) : jcode.beat;
   useEffect(() => {
-    if (isHyunjaeExpanded && hyunjaeActiveBeat !== jcode.beat) updateJcode({ beat: hyunjaeActiveBeat, option: undefined, cursor: { position: 0 } });
-  }, [isHyunjaeExpanded, hyunjaeActiveBeat, jcode.beat, updateJcode]);
+    if (isConditioned && hyunjaeActiveBeat !== jcode.beat) updateJcode({ beat: hyunjaeActiveBeat, option: undefined, cursor: { position: 0 } });
+  }, [isConditioned, hyunjaeActiveBeat, jcode.beat, updateJcode]);
   const sunwooBeat = isAuthored ? scriptToday?.beats[hyunjaeActiveBeat] : undefined;
   const sunwooMailActive = isAuthored && sunwooBeat && "channel" in sunwooBeat && sunwooBeat.channel === "mail";
   const stageSchedule = scriptToday?.beats.slice(0, jcode.beat + 1).reverse().find(beat => beat.kind === "lines" && beat.schedule);
@@ -237,13 +240,13 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const startTime = sharedRules.dayStartTime;
   const [lessonTime, setLessonTime] = useState<string | undefined>(() => usesScript ? jcode.time : isQ ? restoredQ.time : hyunjaePreview ? "23:45" : day === sharedRules.quidditchDay && restoredMatch ? restoredMatch.step === "bet" || restoredMatch.step === "ready" ? sharedRules.quidditchStart : sharedRules.quidditchResult : undefined);
   const storyTime = jcodeToday?.time;
-  const scriptTime = isHyunjaeExpanded && jcode.done && jcode.time && storyTime && jcode.time > storyTime ? jcode.time : storyTime;
+  const scriptTime = isConditioned && jcode.done && jcode.time && storyTime && jcode.time > storyTime ? jcode.time : storyTime;
   useEffect(() => {
-    if (usesScript && (jcode.open || jcode.done || isHyunjaeExpanded) && scriptTime) {
+    if (usesScript && (jcode.open || jcode.done || isConditioned) && scriptTime) {
       setLessonTime(scriptTime);
       updateJcode({ time: scriptTime });
     }
-  }, [usesScript, jcode.open, jcode.done, isHyunjaeExpanded, scriptTime, updateJcode]);
+  }, [usesScript, jcode.open, jcode.done, isConditioned, scriptTime, updateJcode]);
   const [recipient, setRecipient] = useState("");
   const [sunwooReviewDay, setSunwooReviewDay] = useState<number>();
   const [dateReply, setDateReply] = useState("");
@@ -311,14 +314,14 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       ? Object.fromEntries(dailyLessons(identity.year, identity.house, 1).map(lesson => [[1, lesson.time, lesson.subject].join("-"), true]))
       : restoredQ.attended : {});
   useEffect(() => {
-    if (!isHyunjaeExpanded || !identity || !scriptTime) return;
+    if (!isConditioned || !identity || !scriptTime) return;
     const previous = jcode.attended ?? {};
     const implied = dailyLessons(identity.year, identity.house, day).filter(lesson => lesson.time <= scriptTime);
     if (implied.some(lesson => !previous[[day, lesson.time, lesson.subject].join("-")])) {
       const next = { ...previous, ...Object.fromEntries(implied.map(lesson => [[day, lesson.time, lesson.subject].join("-"), true])) };
       setAttended(next); updateJcode({ attended: next });
     }
-  }, [isHyunjaeExpanded, identity, scriptTime, day, jcode.attended, updateJcode]);
+  }, [isConditioned, identity, scriptTime, day, jcode.attended, updateJcode]);
   useEffect(() => {
     if (!isHyunjaeExpanded || previewDay || (jcode as HyProgress).hyunjaeMigrated) return;
     let legacyMatch: Partial<HyProgress> = {};
@@ -365,7 +368,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const [storyMailChoices, setStoryMailChoices] = useState<Record<number, { choice: number; followed?: boolean }>>(() => {
     try { return JSON.parse(localStorage.getItem(storyMailKey) ?? "{}") ?? {}; } catch { return {}; }
   });
-  const availableStoryMail = (isQ ? qOwlPost : isJcode ? jcodeOwlPost : []).filter(mail => mail.day < day || (
+  const availableStoryMail = (isQ ? qOwlPost : isJcode && !isAuthored ? jcodeOwlPost : []).filter(mail => mail.day < day || (
     mail.day === day && (isQ ? (completedSceneDays.includes(day) || Boolean(nextDay)) || ![6, 12, 15, 16, 17, 18, 20, 21, 24].includes(day) : jcode.done || ![6, 12, 24, 27].includes(day))
   ));
   const answerStoryMail = (mailDay: number, choice: number, followed = false) => {
@@ -596,7 +599,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   };
   const sunwooInline = isAuthored && active === "owlpost" && recipient === selectedLeadId && (sunwooMailActive || Boolean(sunwooReview));
   const sunwooMainRead = isAuthored && jcode.beat > 0 && scriptToday?.beats.slice(jcode.beat).every(beat => "channel" in beat && beat.channel === "mail");
-  const AuthoredScene = isHyunjaeExpanded ? HyunjaeExpandedScene : SunwooScene;
+  const AuthoredScene = isJcode ? JacobExpandedScene : isHyunjaeExpanded ? HyunjaeExpandedScene : SunwooScene;
   const sunwooScene = isAuthored && jcodeToday && (jcode.open || sunwooReview) ? <AuthoredScene identity={{ house: identity?.house ?? "ravenclaw", year: identity?.year ?? 6 }} route={isEric ? "eric" : isJuyeon ? "juyeon" : "sunwoo"} key={sunwooProgress.day} progress={sunwooProgress} update={updateSunwoo}
     reviewing={Boolean(sunwooReview)} identityKey={identityKey} score={sunwooScore} player={identity?.name ?? "你"} mailOpen={active === "owlpost" && recipient === selectedLeadId}
     onMail={() => { setActive("owlpost"); setRecipient(selectedLeadId); }} onClue={acknowledgeClue} note={note} highlight={highlightMistletoe}
@@ -606,7 +609,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
         const backlog = { ...jcode.mailBacklog }; delete backlog[sunwooReviewDay];
         updateJcode({ mailBacklog: backlog }); setSunwooReviewDay(undefined); return;
       }
-      updateJcode({ done: true, open: false, ...(isHyunjaeExpanded && day === 31 ? { hyunjaeEndingId: `hyunjae-${sunwooKind}` } as Partial<HyProgress> : {}) }); if (isHyunjaeExpanded) setActive("calendar"); if(day === 31) setShowEnding(true);
+      updateJcode({ done: true, open: false, ...(isJcode && day === 31 ? { ending: sunwooKind } : {}), ...(isHyunjaeExpanded && day === 31 ? { hyunjaeEndingId: `hyunjae-${sunwooKind}` } as Partial<HyProgress> : {}) }); if (isConditioned) setActive("calendar"); if(day === 31) setShowEnding(true);
     }} /> : null;
   if (finished && showEnding) {
     const character = contacts.find(contact => contact.id === selectedLeadId) ?? { id: "hyunjae", name: "李贤在" };
@@ -805,11 +808,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
           }} />
           : active === "wizardjournal" && identity ? <section>
             {(work.data.wizardjournal ?? []).map(item => <p key={item.id}>{item.id === "journal-route" ? journalIntro : item.body}</p>)}
+            {isJcode && (jcode as JacobProgress).jacobTradingCard && <p>巧克力蛙卡片：{(jcode as JacobProgress).jacobTradingCard}</p>}
             <HogwartsCharacters year={identity.year} house={identity.house} variables={relationshipVariables(state.variables)} />
             <button className="hogwarts-open-map" onClick={() => setActive("maraudersmap")}>打开活点地图</button>
           </section>
           : active === "maraudersmap" ? <MaraudersMap day={day} time={lessonTime ?? startTime} selectedId={identity?.loveInterest}
-              place={isHyunjaeExpanded && (jcode.open || lessonTime === storyTime) ? hyunjaePhysicalPlace(jcode as HyProgress, { house: identity?.house ?? "ravenclaw", year: identity?.year ?? 6 }) : jcodeToday && !sunwooMailActive && lessonTime === jcodeToday.time ? jcodeToday.place : isQ ? mapPlace : identity?.loveInterest === "hyunjae" ? mapPlace ?? scheduledPlace : undefined}
+              place={isJcode && (jcode.open || lessonTime === storyTime) ? jacobPhysicalPlace(jcode as JacobProgress) : isHyunjaeExpanded && (jcode.open || lessonTime === storyTime) ? hyunjaePhysicalPlace(jcode as HyProgress, { house: identity?.house ?? "ravenclaw", year: identity?.year ?? 6 }) : jcodeToday && !sunwooMailActive && lessonTime === jcodeToday.time ? jcodeToday.place : isQ ? mapPlace : identity?.loveInterest === "hyunjae" ? mapPlace ?? scheduledPlace : undefined}
               activity={identity?.loveInterest === "hyunjae" ? scheduledLesson?.subject : undefined}
               onEncounter={!finished && isQ && identity && dailyLessons(identity.year, identity.house, day).every(lesson => attended[[day, lesson.time, lesson.subject].join("-")]) && (waitingToMeet || (sceneTime && (lessonTime ?? startTime) >= sceneTime)) ? openScene : undefined} />
           : active === "magicphotos" ? <section className="hogwarts-device-letters">

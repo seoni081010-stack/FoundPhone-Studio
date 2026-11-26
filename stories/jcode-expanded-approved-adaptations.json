@@ -4,7 +4,8 @@
     "rawPoints": "保留稿内+2/+1",
     "display": "按最终可达最高原始分折算为0–100",
     "friends": 80,
-    "together": 100
+    "together": 100,
+    "unmarkedOriginalOptions": "补齐已确认全局A/B规则：A+2，B+1；保留任何已有明确标分"
   },
   "baseSceneReplacements": {
     "14": {
