@@ -1,4 +1,4 @@
-import { JacobChristmasChecklist, jacobChecklistAnchor, jacobChecklistStep } from "./JacobChristmasChecklist";
+import { JacobChristmasChecklist, jacobChecklist21Anchor, jacobChecklistAnchor, jacobChecklistStep } from "./JacobChristmasChecklist";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SceneDialogue } from "./SceneDialogue";
 import { QuidditchPaper } from "./QuidditchPaper";
@@ -15,7 +15,11 @@ export function JacobExpandedScene({ progress: base, update: baseUpdate, identit
   useEffect(() => { if (p.beat !== index) update({ beat: index, option: undefined, cursor: { position: 0 } }); }, [p.beat, index, update]);
   const text = (body: string) => jacobText(body, p, player);
   const lines = (beat?.kind === "choice" && p.option !== undefined ? beat.options![p.option].lines : beat?.lines ?? []).filter(line => !line.when || line.when.every(c => jacobCondition(c, p)));
-  const checklistPosition = p.day === 16 && beat?.kind === "lines" ? jacobChecklistStep(lines) : -1;
+  const checklistDay = p.day === 21 ? 21 : 16;
+  const checklistAnchor = p.day === 21 ? jacobChecklist21Anchor : jacobChecklistAnchor;
+  const checklistRead = p.day === 21 ? p.jacobChecklist21Read : p.jacobChecklistRead;
+  const checklistStartedAt = p.day === 21 ? p.jacobChecklist21StartedAt : p.jacobChecklistStartedAt;
+  const checklistPosition = [16, 21].includes(p.day) && beat?.kind === "lines" ? jacobChecklistStep(lines, checklistAnchor) : -1;
   const next = (patch: Partial<JacobProgress> = {}) => {
     const mail = beat?.channel === "mail" ? [...(beat.kind === "choice" && p.option !== undefined ? [{ speaker: "你", body: text(beat.options![p.option].body) }] : []), ...lines.map(l => ({ ...l, body: text(l.body) }))] : [];
     update({ beat: index + 1, option: undefined, cursor: { position: 0 }, ...(mail.length ? { mailHistory: [...(p.mailHistory ?? []), { day: p.day, time: beat.time, lines: mail }] } : {}), ...patch });
@@ -49,7 +53,7 @@ export function JacobExpandedScene({ progress: base, update: baseUpdate, identit
         }}>{text(o.body)}</button>)}</div>
         : <SceneDialogue key={`${p.day}:${index}`} instantNarration checkpoint={p.cursor} onCheckpoint={cursor => update({ cursor })} onComplete={() => next()}>
           {beat.kind === "choice" && note(player, text(beat.options![p.option!].body), true, -1)}
-          {lines.map((l, i) => l.speaker ? note(l.speaker === "你" ? player : l.speaker, text(l.body), l.speaker === "你", i) : <p className="hogwarts-narration" key={i}>{highlight(text(l.body))}{l.body === jacobChecklistAnchor && checklistPosition >= 0 && p.cursor.position === checklistPosition && !p.jacobChecklistRead && <JacobChristmasChecklist startedAt={p.jacobChecklistStartedAt} onStart={time => update({ jacobChecklistStartedAt: time })} onComplete={() => update({ jacobChecklistRead: true, jacobChecklistStartedAt: undefined, cursor: { position: p.cursor.position + 1 } })} />}</p>)}
+          {lines.map((l, i) => l.speaker ? note(l.speaker === "你" ? player : l.speaker, text(l.body), l.speaker === "你", i) : <p className="hogwarts-narration" key={i}>{highlight(text(l.body))}{l.body === checklistAnchor && checklistPosition >= 0 && p.cursor.position === checklistPosition && !checklistRead && <JacobChristmasChecklist day={checklistDay} startedAt={checklistStartedAt} onStart={time => update(p.day === 21 ? { jacobChecklist21StartedAt: time } : { jacobChecklistStartedAt: time })} onComplete={() => update({ ...(p.day === 21 ? { jacobChecklist21Read: true, jacobChecklist21StartedAt: undefined } : { jacobChecklistRead: true, jacobChecklistStartedAt: undefined }), cursor: { position: p.cursor.position + 1 } })} />}</p>)}
           <button onClick={() => next()}>继续</button>
         </SceneDialogue>}
       </>}

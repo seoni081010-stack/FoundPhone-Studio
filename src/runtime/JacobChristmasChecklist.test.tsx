@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { sceneParts } from "./SceneDialogue";
 import { jacobExpandedDay, type JacobDay } from "./jcodeExpandedStory";
-import { jacobChecklistAnchor, jacobChecklistDuration, jacobChecklistItems, jacobChecklistRowStarts, jacobChecklistStep, jacobChecklistTiming, jacobChecklistWritingEnd } from "./JacobChristmasChecklist";
+import { jacobChecklist21Anchor, jacobChecklistItemsFor, jacobChecklistAnchor, jacobChecklistDuration, jacobChecklistItems, jacobChecklistRowStarts, jacobChecklistStep, jacobChecklistTiming, jacobChecklistWritingEnd } from "./JacobChristmasChecklist";
 
 describe('Jacob December16 Christmas checklist',()=>{
  test('preserves all seven supplied items and exactly the four completed marks',()=>{
@@ -19,4 +19,11 @@ describe('Jacob December16 Christmas checklist',()=>{
   for(let i=1;i<jacobChecklistRowStarts.length;i++)expect(jacobChecklistRowStarts[i]).toBeGreaterThan(jacobChecklistRowStarts[i-1]+jacobChecklistItems[i-1].text.length*jacobChecklistTiming.character);
   expect(jacobChecklistDuration-jacobChecklistWritingEnd).toBe(8000);expect(jacobChecklistDuration).toBeGreaterThan(14000);
  });
+});
+
+test('Day21 only leaves sleeping in unchecked, at its own narration checkpoint',()=>{
+ const before=jacobChecklistItemsFor(16);expect(jacobChecklistItemsFor(21).map(i=>i.done)).toEqual([true,true,true,true,true,true,false]);expect(jacobChecklistItemsFor(16)).toEqual(before);
+ const day=jacobExpandedDay(21) as unknown as JacobDay,lines=day.beats.find(b=>b.lines?.some(l=>l.body===jacobChecklist21Anchor))!.lines!;
+ const parts=sceneParts(lines.map((l,i)=>l.speaker?<article key={i} className={`hogwarts-message${l.speaker==='你'?' outgoing':''}`}><div><p>{l.body}</p></div></article>:<p key={i} className="hogwarts-narration">{l.body}</p>));const index=jacobChecklistStep(lines,jacobChecklist21Anchor);
+ expect(parts.steps[index].text).toContain('原本写得密密麻麻的清单上，几乎所有事项都已经被划掉了。');expect(parts.steps[index].text).toContain('睡到自然醒。');expect(parts.steps[index+1].text).toBe('恭喜你，终于可以放假了。');expect(parts.steps[index+1].outgoing).toBe(true);
 });
