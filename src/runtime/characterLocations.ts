@@ -1,3 +1,4 @@
+import { qExpandedItinerary } from "./qExpansion";
 import { jacobExpandedItinerary } from "./jcodeExpandedStory";
 import { hyunjaeItinerary } from "./hyunjaeExpandedStory";
 import { sharedRules } from "./sharedRules";
@@ -28,10 +29,10 @@ export function characterLocations(day: number, time: string, selectedId: string
           : person.id === "jacob" ? "草药学温室" : person.house === "ravenclaw" ? "图书馆" : "长廊";
     if (person.id === "q" && day === 1 && now >= 17 * 60 && now < 18 * 60) place = "图书馆";
     if (person.id === "q") {
-      const scene = qDays.find(entry => entry.day === day)?.stages.filter(stage => stage.channel === "scene" && now >= minutes(stage.time)).at(-1);
+      const scene = [...(qDays.find(entry => entry.day === day)?.stages.filter(stage => stage.channel === "scene") ?? []), ...qExpandedItinerary(day)].sort((a,b) => minutes(a.time)-minutes(b.time)).filter(stage => now >= minutes(stage.time)).at(-1);
       if (scene && followsCurrentLesson(scene.time) && now < minutes(scene.time) + 120) {
-        place = scene.endTime && scene.endPlace && now >= minutes(scene.endTime)
-          ? scene.endPlace : scene.place;
+        place = "endTime" in scene && "endPlace" in scene && scene.endTime && scene.endPlace && now >= minutes(String(scene.endTime))
+          ? String(scene.endPlace) : scene.place;
       }
     }
     if (person.id === "jacob" || person.id === "younghoon" || person.id === "hyunjae") {

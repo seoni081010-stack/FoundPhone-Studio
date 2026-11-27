@@ -79,7 +79,7 @@ it("announces the newly added day-fourteen clue to an existing day-sixteen save"
   const work = gateRouteDays(qRouteWork(original));
   let state = dispatch(work, initialRuntime(work), "start");
   const history: string[] = [];
-  for (let step = 0; state.variables.q_completed_day !== 16 && step < 250; step++) {
+  for (let step = 0; state.variables.q_completed_day !== 16 && step < 1000; step++) {
     const target = state.choices[0].target;
     history.push(target);
     state = choose(work, state, target);
@@ -106,7 +106,7 @@ it.each([
   const work = gateRouteDays(qRouteWork(original));
   let state = dispatch(work, initialRuntime(work), "start");
   const history: string[] = [];
-  for (let step = 0; state.variables.q_completed_day !== 24 && step < 250; step++) {
+  for (let step = 0; state.variables.q_completed_day !== 24 && step < 1000; step++) {
     const choice = state.choices.find(entry => entry.target === `q-day24-stage2-${branch}`) ?? state.choices[0];
     history.push(choice.target);
     state = choose(work, state, choice.target);
@@ -134,7 +134,7 @@ it.each([
   if (gift) initial.variables.q_affection = 5;
   let state = dispatch(work, initial, "start");
   const history: string[] = [];
-  for (let step = 0; state.choices.length && step < 250; step++) {
+  for (let step = 0; state.choices.length && step < 1000; step++) {
     const gain = (target: string) => Number(work.nodes.find(node => node.id === target)?.actions
       .find(action => action.type === "increment" && action.key === "q_affection")?.value ?? 0);
     const first = state.choices[0];
@@ -150,7 +150,7 @@ it.each([
   expect(state.variables.q_completed_day).toBe(31);
   expect(state.endings).toEqual([`q-${kind}`]);
   const finale = (state.messages.scene ?? []).map(entry => entry.body).join("\n").split("12月31日｜").slice(1).join("\n");
-  expect(finale).toContain(kind !== "together" ? "到窗边才叫出来" : "你手指动了一下");
+  expect(finale).toContain(kind !== "together" ? "我们后来也在窗边站了很久" : "我们在外面待了好久");
   expect(finale).toContain("一簇烟花从湖对岸升起来");
   expect(finale.indexOf("一簇烟花从湖对岸升起来")).toBeLessThan(finale.lastIndexOf("池昌民："));
   const identity = { name: "试玩", house: "ravenclaw", year: 6, loveInterest: "q", runId: "q-finale" };

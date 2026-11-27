@@ -1,0 +1,268 @@
+[
+  {
+    "file": "story-archive/q-day01-05-additions-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "58dae366018686dc5778add7777bedfe6cf90ac4614bcb79cd3d96ba7faeb5b0",
+    "bytes": 19998,
+    "lines": 448
+  },
+  {
+    "file": "story-archive/q-day06-10-additions-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "0ad5692ee29f41f90ad252322e22e232bb10b0c00c686982d09c68e2f639e223",
+    "bytes": 17378,
+    "lines": 382
+  },
+  {
+    "file": "story-archive/q-day11-15-additions-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "8ec5ac7e52261be87ca2efb561393f4e8682ebda5dafd25ab652b9251f286b1d",
+    "bytes": 18486,
+    "lines": 389
+  },
+  {
+    "file": "story-archive/q-day16-20-additions-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "a04cb571c89552388e15cc3c4345c359a69301876149d862c1c11be109c56aca",
+    "bytes": 19259,
+    "lines": 408
+  },
+  {
+    "file": "story-archive/q-day21-25-additions-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "4cfef211d482aa18b4ef895b681b9cbaf38d092a5fb8c538fc1eb28ba9713c1f",
+    "bytes": 32544,
+    "lines": 702
+  },
+  {
+    "file": "story-archive/q-day26-30-additions-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "e272344d8aee57f93c24103a20288784c87997cc767624e71e9ce112d771ce1b",
+    "bytes": 22744,
+    "lines": 490
+  },
+  {
+    "file": "story-archive/q-day31-approved.md",
+    "sourceCommit": "442271b2ac2b9e84bbf5fb30f9b2ecadf54a7d00",
+    "sha256": "ac43a7adab7691a454637ad2383b6c044a3f8ed1a16bda9d732726c86adc3b2e",
+    "bytes": 4042,
+    "lines": 96
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day01-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "0d60e20669bb46382c70f0f5f471c05a7c0af7a5c2cef90628f9c55d79364f34",
+    "bytes": 11970,
+    "lines": 362
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day02-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "02764c1b70cd1784a4c72d0406fd9b2cf212aeeecf804e5d2d5eb7f9e72ce6d5",
+    "bytes": 9722,
+    "lines": 261
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day03-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "ed212a8efb4e1dc7f38d29fa3268823975720e034e256c0751ec810b631695e9",
+    "bytes": 10847,
+    "lines": 280
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day04-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "cf37c969834432aa115a0fa23a4560c584efbf3c80fdb9be4aa96a761f9f1c39",
+    "bytes": 11061,
+    "lines": 278
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day05-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "830793a333176ecef727bcd8c35291d4e60de6653f12b00bb9eea3cef3be53ff",
+    "bytes": 11953,
+    "lines": 309
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day06-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "18fcf0e9e9f71862822512115fbe45258bf621aba044746e61082b648d1f2256",
+    "bytes": 13001,
+    "lines": 330
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day07-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "593549e2715af1320641356ffd44de5d3b1f5bdee2cb46c183fd0c71f3c7da2b",
+    "bytes": 9876,
+    "lines": 222
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day08-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "f5e5261b629dd34ab07089d5512ee9b1c2af9504e757ea6c1fa9e0e7c7ae3811",
+    "bytes": 13690,
+    "lines": 341
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day09-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "b3ec291683448cd24659a15f2aadaf1e0de000831b71be18bf6bbb49c9ebb142",
+    "bytes": 14602,
+    "lines": 357
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day10-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "4db806833f0c8d5f13eef28793bd1c7d0f510c68f853d714c3b179c10e8ec1f3",
+    "bytes": 13373,
+    "lines": 317
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day11-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "748495f72c8bb644daf4ace331c2872bf6b1c0db41c6a1037b06e9d0f1124ea8",
+    "bytes": 13848,
+    "lines": 357
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day12-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "890f900b7d977a4dec830b8c8a597304c7b47625c952cd585ab6cc85b2190e74",
+    "bytes": 20563,
+    "lines": 592
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day13-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "386316acd6e10b3386c94121bfa7e899668033e2828d23c7c3745772f4ae26c6",
+    "bytes": 15938,
+    "lines": 402
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day14-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "b124cb04928b971983e1071af9fa6dd9e1a93987b6f7795126d61ee7a4b2ba36",
+    "bytes": 13305,
+    "lines": 331
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day15-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "b52a76d5073fd382e7a0a8cf627ac9b086611b9b4dee6816209541d0e10409d2",
+    "bytes": 15384,
+    "lines": 357
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day16-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "f7c2bab56dc8208de2dcfb02ef5f884b9597a1d85370b5da35a92060eca25a8b",
+    "bytes": 15237,
+    "lines": 380
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day17-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "3cd0321750e6355d68fd3e1e9302bac4f5d268b3d27f036d13e3f51d8323bea2",
+    "bytes": 17741,
+    "lines": 411
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day18-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "c3c15bb1e4f08a8a77326d1d80b9cdc00c071c3ee12d1301c0e0c7d11d28cadd",
+    "bytes": 11656,
+    "lines": 301
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day19-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "b2d242b83b950752b4badb5d1f31dcbcdff8f5e0dedf7f1fdd142ee40eba7783",
+    "bytes": 11009,
+    "lines": 282
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day20-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "96406e93bcd383015aa8ab3cb70fbbffddbac9562adfc4b8f8b9d179eafda95a",
+    "bytes": 12099,
+    "lines": 321
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day21-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "085cadbbcda2a5127f02f322856f76ac454e7ad2889277dade3e944090f0152b",
+    "bytes": 11207,
+    "lines": 310
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day22-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "87dbda45f11622492863cea91e8cc1a0211d5d625d23ef5cc08a202d548cf86e",
+    "bytes": 14281,
+    "lines": 414
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day23-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "47afd80326cb2dbbbdd244a40f7fc607205cf50d74ae5ba2932d8ca1cfb331c2",
+    "bytes": 8654,
+    "lines": 252
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day24-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "5f6261bc5bafba910ee2e768b3e89e7ab1e75162f6d2d3af689ca639cc99a497",
+    "bytes": 13224,
+    "lines": 363
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day25-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "fbddc5e1f9fe5e89c201211cd30ba432d026d58459d8373045a5375021044dbb",
+    "bytes": 10496,
+    "lines": 258
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day26-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "5d1970aa8f1b34fcc9a5bfc1b06adf9a778a04418fcebca4341cba355dcac305",
+    "bytes": 11420,
+    "lines": 280
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day27-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "4576df41a1c3cfd53a7203543dd01d842a9afd0fc0735e05fe4f1ec30083e3dc",
+    "bytes": 10251,
+    "lines": 213
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day28-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "b4497261ed258e9ffb04a283894848caa3e5e7939e9f8a9719a46ff8cf34510c",
+    "bytes": 8722,
+    "lines": 203
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day29-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "5e93cd196d6a79fb5d810a35a23517df0cee6f649a27c0122a275124d8ba21fa",
+    "bytes": 7764,
+    "lines": 201
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day30-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "d43aa50091f7c75860a8f071372eda781ee5528db742286d24fc6410b2281208",
+    "bytes": 8112,
+    "lines": 199
+  },
+  {
+    "file": "story-archive/q-current-runtime/q-day31-original.md",
+    "sourceCommit": "2e1245a79e1346f6d889a62af3873c3cdd66d869",
+    "sha256": "b81cbcd5f5350199a6a30781cfd592573d4b5d6934e5589d6ecd530c68e43aff",
+    "bytes": 17142,
+    "lines": 422
+  }
+]

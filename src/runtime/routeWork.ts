@@ -1,18 +1,15 @@
 import { choose, dispatch } from "../engine";
 import { people } from "./HogwartsCharacters";
-import story from "../../stories/q/day01.json";
-import earlyDays from "../../stories/q/days02-06.json";
-import laterDays from "../../stories/q/days07-16.json";
-import middleDays from "../../stories/q/days17-22.json";
-import holidayDays from "../../stories/q/days23-26.json";
-import finale from "../../stories/q/days27-31.json";
+import { applyQExpansion, qExpanded } from "./qExpansion";
+const story = qExpanded.story;
+const finale = { endings: qExpanded.endings };
 import { sharedRules } from "./sharedRules";
 import { initialRuntime, makeItem, nodeSchema, type Runtime, type Work } from "../schema";
 
 const followingDays: { day: number; label: string; match?: { opening: string[]; gryffindor: string[]; slytherin: string[]; won: string[]; lost: string[]; closing: string[] }; album?: { id: string; title: string; body: string; requiresChoice?: string }; stages: {
   channel: string; time: string; place: string; opening: string[]; choices: { label: string; lines: string[]; affinity?: number }[];
   tail: string[]; openingVariant?: { key: string; value: number; accepted: string; otherwise: string; after?: string[] }; endPlace?: string; endTime?: string;
-}[] }[] = [...earlyDays, ...laterDays, ...middleDays, ...holidayDays, ...finale.days];
+}[] }[] = qExpanded.days;
 
 export function qEndingCopy(kind: keyof typeof finale.endings) {
   const { title, text, memory } = finale.endings[kind];
@@ -20,7 +17,7 @@ export function qEndingCopy(kind: keyof typeof finale.endings) {
 }
 
 // Reuse the normal phone and event engine; only the authored route data changes.
-export function qRouteWork(original: Work, startingAffinity = 0, legacyFriends = false): Work {
+export function qRouteWork(original: Work, startingAffinity = 0, legacyFriends = false, includeExpansion = true): Work {
   const confessionScore = sharedRules.confessionAffinity - startingAffinity;
   const friendsScore = sharedRules.friendsBelowAffinity - startingAffinity;
   const node = (id: string, label: string, type: string, actions: unknown[], next: string[], conditions: unknown[] = []) => nodeSchema.parse({
@@ -38,7 +35,7 @@ export function qRouteWork(original: Work, startingAffinity = 0, legacyFriends =
     ],
     friends: legacyFriends ? [] : [{ key: "q_affection", op: "lt", value: friendsScore }],
   };
-  return {
+  const result: Work = {
     ...original,
     id: "hogwarts-q-december", title: "霍格沃茨十二月 · 池昌民",
     data: { ...original.data, owlpost: [], magicphotos: [], wizardjournal: [makeItem({ id: "journal-route", body: "" })] },
@@ -120,6 +117,7 @@ export function qRouteWork(original: Work, startingAffinity = 0, legacyFriends =
       )),
     ],
   };
+  return includeExpansion ? applyQExpansion(result) : result;
 }
 
 export function gateRouteDays(route: Work): Work {
@@ -142,7 +140,7 @@ export function qAlbumClues(readDays: readonly number[], completed: readonly str
       : []);
 }
 
-export const qSceneSpeakers = new Set(["池昌民", "孙英宰", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像", "国王", "黑国王", "同学", "室友"]);
+export const qSceneSpeakers = new Set(["池昌民", "孙英宰", "你", "学生", "画像里的老巫师", "皮皮鬼", "猎犬画像", "国王", "黑国王", "同学", "室友", "奥斯瓦尔德", "斯普劳特教授", "店主", "摊主", "家养小精灵", "小精灵", "石像"]);
 
 export function qLetters(messages: Work["data"][string]) {
   let day = 1;
@@ -168,7 +166,7 @@ export function qProgressKey(identity?: { name: string; house: string; year: num
 export type QMail = { recipient: string; body: string; outgoing: boolean; day: number; order: number };
 export type QMatchProgress = { step: "bet" | "ready" | "result" | "pub" | "buy" | "stay" | "done"; team: string; stake: number; visitedPub: boolean; conversation?: "intro" | "reaction" };
 export type QProgress = {
-  match?: QMatchProgress; mailRead?: Record<string, number>;
+  expanded?: boolean; match?: QMatchProgress; mailRead?: Record<string, number>;
   choices: string[]; readDays: number[]; attended: Record<string, boolean>; time: string;
   mailUnlocked: boolean; extraMail: QMail[]; acknowledgedClues: string[]; legacy: boolean; jealousy?: number; reviewingEnding?: boolean;
 };
@@ -177,9 +175,10 @@ export function readQProgress(key: string): QProgress {
   const empty: QProgress = { choices: [], readDays: [], attended: {}, time: "09:00", mailUnlocked: false, extraMail: [], acknowledgedClues: [], legacy: false };
   try {
     const saved = JSON.parse(localStorage.getItem(key) ?? "null");
-    if (saved?.version === 2 && Array.isArray(saved.choices) && Array.isArray(saved.readDays)) {
+    if ([2, 3].includes(saved?.version) && Array.isArray(saved.choices) && Array.isArray(saved.readDays)) {
       return {
-        choices: saved.choices.filter((value: unknown) => typeof value === "string").slice(0, 500),
+        expanded: saved.version === 3,
+        choices: saved.choices.filter((value: unknown) => typeof value === "string").slice(0, 5000),
         readDays: saved.readDays.filter((value: unknown) => Number.isInteger(value) && Number(value) >= 1 && Number(value) <= 31),
         attended: Object.fromEntries(Object.entries(saved.attended ?? {}).filter(([, value]) => value === true).map(([key]) => [key, true])),
         time: /^\d{2}:\d{2}$/.test(saved.time) ? saved.time : "09:00",
@@ -231,7 +230,7 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
   let state = dispatch(work, initialRuntime(work), "start");
   const history: string[] = [];
   const date = `2026-12-${String(day).padStart(2, "0")}`;
-  for (let step = 0; state.date !== date && state.choices.length && step < 500; step++) {
+  for (let step = 0; state.date !== date && state.choices.length && step < 5000; step++) {
     const target = state.choices.reduce((best, choice) =>
       (affinityGains.get(choice.target) ?? 0) > (affinityGains.get(best.target) ?? 0) ? choice : best).target;
     history.push(target);
@@ -240,7 +239,7 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
   if (state.date !== date) throw new Error("该日期尚未开放预览。");
   const readDays = Array.from({ length: day - 1 }, (_, index) => index + 1);
   return { choices: history, readDays,
-    attended: {}, time: day === 12 ? sharedRules.quidditchStart : day === sharedRules.confessionDay ? String(state.variables.scene_time) : "16:00", mailUnlocked: true, extraMail: [],
+    attended: {}, time: day === 12 ? sharedRules.quidditchStart : String(state.variables.scene_time ?? "16:00"), mailUnlocked: true, extraMail: [],
     acknowledgedClues: qAlbumClues(readDays, state.completed).map(clue => clue.id), legacy: false };
 }
 
@@ -248,7 +247,7 @@ export function qDayPreviewProgress(original: Work, day: number): QProgress {
 export function hyunjaeDay31Preview(work: Work, initial: Runtime): Runtime {
   let state = dispatch(work, initial, "start");
   const date = `2026-12-${sharedRules.confessionDay}`;
-  for (let step = 0; state.date !== date && state.choices.length && step < 500; step++) {
+  for (let step = 0; state.date !== date && state.choices.length && step < 5000; step++) {
     state = choose(work, state, state.choices[0].target);
   }
   if (state.date !== date) throw new Error("该日期尚未开放预览。");

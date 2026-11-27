@@ -1,3 +1,7 @@
+import { QSceneDialogue } from "./QSceneDialogue";
+import { QMatchExpansion, qConditionalLines } from "./QMatchExpansion";
+import { qExpanded, type QFlow } from "./qExpansion";
+import { replayQChoice } from "./qExpansion";
 import { JacobExpandedScene } from "./JacobExpandedScene";
 import { jacobExpandedDays, jacobExpandedDay, jacobExpandedStage, jacobExpandedEndings, jacobNextBeat, jacobEndingFor, jacobPhysicalPlace, type JacobDay, type JacobProgress } from "./jcodeExpandedStory";
 import { HyunjaeExpandedScene } from "./HyunjaeExpandedScene";
@@ -9,7 +13,7 @@ import { juyeonDays, juyeonDay, juyeonStage, juyeonEndings } from "./juyeonStory
 import { SunwooScene } from "./SunwooScene";
 import { sunwooDays, sunwooDay, sunwooStage, sunwooEndings, sunwooEndingFor, sunwooName } from "./sunwooStory";
 import { younghoonDays, younghoonMailSteps, younghoonEndings, younghoonStage } from "./younghoonStory";
-import qOwlPost from "../../stories/q-owlpost.json";
+const qOwlPost = qExpanded.owlpost;
 import jcodeOwlPost from "../../stories/jcode-owlpost.json";
 import { JcodeScene, useJcodeProgress } from "./JcodeScene";
 import { jcodeDays, jcodeEndings, type JcodeEndingKind } from "./jcodeStory";
@@ -153,12 +157,23 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     if (hyunjaePreview && !isHyunjaeExpanded) return hyunjaeDay31Preview(work, initial);
     let runtime = dispatch(work, initial, "start");
     if (isQ) {
-      for (const target of restoredQ.choices) runtime = choose(work, runtime, target);
+      for (const target of restoredQ.choices) runtime = replayQChoice(work, runtime, target);
+      if (!previewDay && !restoredQ.expanded && restoredQ.readDays.includes(Number(runtime.date?.slice(-2)))) {
+        for (let i = 0; i < 100 && runtime.choices.length && runtime.choices.every(choice => choice.target.startsWith("q-expanded-")); i++)
+          runtime = choose(work, runtime, runtime.choices[0].target);
+      }
+      if (previewDay === 31 && previewEnding) runtime.variables.q_affection = previewEnding === "together" ? 100 : previewEnding === "unspoken" ? 80 : 0;
       runtime.variables.q_mail_unlocked = restoredQ.mailUnlocked;
       if (restoredQ.jealousy !== undefined) runtime.variables.q_jealousy = restoredQ.jealousy;
     }
     return runtime;
   });
+  useEffect(() => {
+    if (!isQ || previewDay || restoredQ.expanded) return;
+    const targets = new Set(work.nodes.filter(node => node.type === "choice").flatMap(node => node.next));
+    const migrated = state.completed.filter(id => targets.has(id));
+    setQChoiceHistory(previous => JSON.stringify(previous) === JSON.stringify(migrated) ? previous : migrated);
+  }, [isQ, previewDay, restoredQ.expanded, state.completed, work]);
   const [relationshipNotice, setRelationshipNotice] = useState("");
   useEffect(() => {
     if (!relationshipNotice) return;
@@ -500,9 +515,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   const acknowledgeClue = (id: string) =>
     setAcknowledgedClues(previous => previous.includes(id) ? previous : [...previous, id]);
   const chosen = modules.find(m => m.id === active) ?? modules[0];
+  const StoryDialogue = isQ ? QSceneDialogue : SceneDialogue;
   const choices = !nextDay && state.choices.length > 0 ? <div className="hogwarts-device-choices">
 
-    {state.choices.map(choice => <button key={choice.target} onClick={() => select(choice.target)}>{choice.label}</button>)}
+    {state.choices.map(choice => <button key={choice.target} data-choice-target={isQ ? choice.target : undefined} onClick={() => select(choice.target)}>{choice.label}</button>)}
   </div> : null;
   const renderSceneSegment = (scene: (typeof scenes)[number]) => (
     <div key={scene.id} data-scene-segment={scene.id}>
@@ -523,7 +539,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const next = choose(work, state, target);
     if (isQ) {
       setQChoiceHistory(previous => [...previous, target]);
-      if (sceneOpen && next.variables.scene_time !== state.variables.scene_time)
+      const pendingLesson = !previewDay && next.date === state.date && identity && dailyLessons(identity.year, identity.house, day)
+        .some(lesson => lesson.time < String(next.variables.scene_time) && !attended[[day, lesson.time, lesson.subject].join("-")]);
+      if (sceneOpen && pendingLesson) setSceneOpen(false);
+      else if (sceneOpen && next.variables.scene_time !== state.variables.scene_time)
         setLessonTime(String(next.variables.scene_time));
     }
     if (target === "hy-day10-a" || target === "hy-day10-b") {
@@ -563,7 +582,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     if (!isQ || previewDay) return;
     try {
       localStorage.setItem(qStorageKey, JSON.stringify({
-        version: 2, choices: qChoiceHistory, readDays: qReadDays, attended,
+        version: 3, choices: qChoiceHistory, readDays: qReadDays, attended,
         time: lessonTime ?? startTime, extraMail, acknowledgedClues, mailUnlocked: state.variables.q_mail_unlocked === true,
         jealousy: state.variables.q_jealousy, reviewingEnding: finished && !showEnding,
         match: { step: matchStep, team, stake, visitedPub: visitedMatchPub, conversation: matchConversation }, mailRead,
@@ -582,8 +601,16 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
   }
   function resumeStoryScene() {
     setMatchConversation(undefined);
-    if (waitingToMeet && state.choices[0]) select(state.choices[0].target);
-    if (isQ) setLessonTime(qToday?.stages.find(stage => stage.channel === "scene")?.time ?? sceneTime);
+    let upcomingTime = sceneTime;
+    if (waitingToMeet && state.choices[0]) {
+      const next = choose(work, state, state.choices[0].target);
+      select(state.choices[0].target);
+      upcomingTime = String(next.variables.scene_time);
+      if (isQ && !previewDay && identity && dailyLessons(identity.year, identity.house, day).some(lesson => lesson.time < upcomingTime! && !attended[[day, lesson.time, lesson.subject].join("-")])) {
+        setSceneOpen(false); return;
+      }
+    }
+    if (isQ) setLessonTime(upcomingTime ?? qToday?.stages.find(stage => stage.channel === "scene")?.time);
     else if (day === sharedRules.quidditchDay) setLessonTime(sharedRules.quidditchStart);
     setSceneOpen(true);
   }
@@ -615,10 +642,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
     const character = contacts.find(contact => contact.id === selectedLeadId) ?? { id: "hyunjae", name: "李贤在" };
     const stats = relationship(character.id, state);
     return <HogwartsEnding kind={ending.kind} text={ending.text} character={character}
-      affinity={previewEnding ? { together: 100, friends: 80, unspoken: 79 }[previewEnding] : stats.affinity} jealousy={stats.jealousy} showFriendGift={!usesScript || isHyunjaeExpanded} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
+      affinity={previewEnding && !isQ ? { together: 100, friends: 80, unspoken: 79 }[previewEnding] : stats.affinity} jealousy={stats.jealousy} showFriendGift={!usesScript || isHyunjaeExpanded} onRestart={onRestart} onBack={() => { setActive("calendar"); setShowEnding(false); }} />;
   }
   return <div className="hogwarts-device-stage">
-    <div className="hogwarts-device" aria-label="Hogwarts Unspoken">
+    <div className="hogwarts-device" aria-label="Hogwarts Unspoken" data-q-day-complete={isQ && nextDay && qReadDays.includes(day) && (day !== 12 || matchStep === "done") ? "true" : undefined}>
       <div className="hogwarts-device-top"><span>12月{day}日 {new Intl.DateTimeFormat("zh-CN", { weekday: "short", timeZone: "UTC" }).format(date)} <strong>D{day}/31</strong></span><span>{lessonTime ?? startTime}</span></div>
       <header className="hogwarts-device-header">
         <div className="hogwarts-device-seal">H</div>
@@ -693,7 +720,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
             {mailArrived ? "查看池昌民的来信" : `${qMailStage.time} 午餐 · 查看池昌民的来信`}
           </button>}
           <HogwartsSchedule readOnly={finished} year={identity.year} house={identity.house} day={day} interaction={owlToday ? "猫头鹰信箱" : undefined}
-            sceneTime={jcodeToday?.time} sceneLabel={sunwooMailActive ? `${jcodeToday?.time} · 猫头鹰信箱` : activeYoungMail ? `${activeYoungMail.time} · 猫头鹰信箱` : jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? `${sharedRules.quidditchStart} 看魁地奇比赛` : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
+            sceneTime={isQ ? sceneTime : jcodeToday?.time} sceneLabel={sunwooMailActive ? `${jcodeToday?.time} · 猫头鹰信箱` : activeYoungMail ? `${activeYoungMail.time} · 猫头鹰信箱` : jcodeToday ? `${jcodeToday.time} · ${jcodeToday.title}` : isQ ? qToday?.label ?? "傍晚 · 去图书馆找池昌民" : {3: "晚上下楼", 4: "去图书馆", 12: matchStep === "ready" ? `${sharedRules.quidditchStart} 看魁地奇比赛` : `去看台找${lead?.name ?? ""}`, [sharedRules.confessionDay]: "夜里 · 去长廊"}[day]}
             onScene={sunwooMailActive ? () => { updateJcode({open:true}); setActive("owlpost"); setRecipient(selectedLeadId); } : activeYoungMail ? openYoungMail : jcodeToday ? !jcode.done ? () => { setSunwooReviewDay(undefined); setLessonTime(jcodeToday.time); updateJcode({ open: true, time: jcodeToday.time }); } : undefined : (!finalSceneRead || finished) && !owlToday && (scenes.length > 0 || waitingToMeet) && !nextDay ? () => {
               openScene();
             } : undefined}
@@ -859,10 +886,10 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       {matchConversation && !matchDialog && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="match-conversation-title">
         <h2 id="match-conversation-title">{lead?.name ?? "比赛日"}</h2>
-        <SceneDialogue key={`match-conversation-${matchConversation}`}>
+        <SceneDialogue key={`match-conversation-${matchConversation}`} instantNarration={isQ}>
           {matchConversation === "intro" ? <>
             {!matchIntroRead && (hyunjaeMatch ? preMatchScenes.map(renderSceneSegment) : <>
-              {isQ && qMatch ? authoredLines(qMatch.opening) : matchLine("opening", false)}
+              {isQ && qMatch ? authoredLines([...qMatch.opening.slice(0, 4), ...qConditionalLines(qExpanded.matchIntro as unknown as QFlow, state.variables), ...qMatch.opening.slice(4)]) : matchLine("opening", false)}
               <p className="hogwarts-narration">一张羊皮纸飘到你面前，落款是弗雷德和乔治。</p>
             </>)}
             {matchIntroRead && <p className="hogwarts-narration">你将羊皮纸折好，暂时放在手边。</p>}
@@ -891,7 +918,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       {matchDialog && !["bet", "result"].includes(matchStep) && <dialog ref={element => { if (element && !element.open) element.showModal(); }}
         onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="match-pub-title">
           <h2 id="match-pub-title">三把扫帚</h2>
-          <SceneDialogue key="match-pub">
+          <SceneDialogue key="match-pub" instantNarration={isQ}>
           <p className="hogwarts-narration">斯莱特林那桌还在复盘最后一球。{selectedLeadId === "hyunjae" ? "李贤在找到一张靠窗的小桌，把里面的位置留给你。" : ""}</p>
           {won ? <>
             <p className="hogwarts-narration">斯莱特林那桌给你送来一杯黄油啤酒。{selectedLeadId === "hyunjae" ? "他也给自己点了一杯。" : ""}</p>
@@ -924,8 +951,8 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
               <p className="hogwarts-narration">斯莱特林那桌又敲了一下杯子。{selectedLeadId === "hyunjae" ? "你们对视一眼，都笑了。" : ""}</p>
             </div>}
           </>}
-          {isQ && qMatch && (won || matchStep !== "pub") && authoredLines(qMatch.closing)}
-          {(won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); if(isAuthored) updateJcode({wagerClaimed:true}); }}>返回今日行程</button>}
+          {isQ && qMatch && (won || matchStep !== "pub") && <QMatchExpansion work={work} variables={state.variables} storageKey={previewDay ? undefined : `hogwarts-q-pub:${identityKey}`} renderLines={authoredLines} closing={qMatch.closing} onDone={() => { setMatchStep("done"); setMatchDialog(false); }} />}
+          {!isQ && (won || matchStep !== "pub") && <button onClick={() => { setMatchStep("done"); setMatchDialog(false); if(isAuthored) updateJcode({wagerClaimed:true}); }}>返回今日行程</button>}
           </SceneDialogue>
         {matchError && <p role="alert">{matchError}</p>}
       </dialog>}
@@ -942,12 +969,12 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       </dialog>}
       {sceneOpen && !matchDialog && !matchConversation && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">{lead?.name ?? ""} <small>· {selectedLeadId.toUpperCase()}</small></h2>
-        <SceneDialogue key={`story-${day}`}>
+        <StoryDialogue key={`story-${day}`} storageKey={isQ && !previewDay ? `hogwarts-q-scene:${identityKey}:${day}` : undefined}>
         {matchScenes.map(renderSceneSegment)}
         {!owlToday && choices}
         {relationshipHint}
         {(!choices || owlToday) && <button className="hogwarts-continue-day" onClick={finishScene}>继续今天的行程</button>}
-        </SceneDialogue>
+        </StoryDialogue>
       </dialog>}
       <nav className="hogwarts-dock" aria-label="学生手机应用">
         {modules.filter(module => ["magicphotos", "owlpost", "wizardjournal", "date"].includes(module.id)).sort((a, b) => ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(a.id) - ["magicphotos", "owlpost", "wizardjournal", "date"].indexOf(b.id)).map(module =>

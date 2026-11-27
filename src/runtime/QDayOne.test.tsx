@@ -60,7 +60,8 @@ describe("Q first day", () => {
     expect(next.variables.q_day1_choice).toBe(index);
     expect(next.endings).toEqual([]);
     expect(next.date).toBe("2026-12-01");
-    expect(next.choices).toEqual([{ label: "傍晚 · 去图书馆", target: "q-day02-stage0" }]);
+    expect(next.choices).toHaveLength(2);
+    expect(next.choices.every(choice => choice.target.startsWith("q-expanded-01-0"))).toBe(true);
   });
   it("keeps both approved branches and the revised bookmark reaction", () => {
     expect(story.choices).toHaveLength(2);

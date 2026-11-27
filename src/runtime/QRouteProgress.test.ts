@@ -1,3 +1,4 @@
+import { replayQChoice } from "./qExpansion";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { compileStory } from "../story-engine/compiler";
 import { choose, dispatch, validateGraph } from "../engine";
@@ -34,13 +35,13 @@ describe("Q's reviewed twenty-six-day route", () => {
     expect(state.variables.q_affection).toBeLessThanOrEqual(85);
     expect(characterStatus("q", 6, "ravenclaw", state.variables).affinity).toBeLessThanOrEqual(89);
     const scenes = (state.messages.scene ?? []).map(entry => entry.body).join("\n");
-    expect(scenes).toContain(branch === 0 ? "池昌民：我们现在过去？" : "池昌民：第一支舞，你现在想跳吗？");
-    expect(scenes).not.toContain(branch === 0 ? "池昌民：第一支舞，你现在想跳吗？" : "池昌民：我们现在过去？");
+    expect(scenes).toContain(branch === 0 ? "池昌民：我们现在过去？" : "池昌民：我们去跳舞吗？");
+    expect(scenes).not.toContain(branch === 0 ? "池昌民：我们去跳舞吗？" : "池昌民：我们现在过去？");
     expect(state.endings).toEqual([]);
     expect(qLetters(state.messages.owlpost ?? []).some(entry => entry.day === 2 && entry.outgoing)).toBe(true);
     expect(qLetters(state.messages.owlpost ?? []).some(entry => entry.day === 5)).toBe(true);
     const face = (state.messages.scene ?? []).map(entry => entry.body).join("\n");
-    expect(face).toContain("画像里的老巫师：");
+    expect(face).toContain("奥斯瓦尔德：");
     expect(face).toContain("这槲寄生挂得也太低了。");
     expect(face).not.toContain("你：这是什么？");
     let replayed = dispatch(work, initialRuntime(work), "start");
@@ -64,7 +65,7 @@ describe("Q's reviewed twenty-six-day route", () => {
     const start = dispatch(work, initialRuntime(work), "start");
     const restored = saved.choices.reduce((state, target) => choose(work, state, target), start);
     expect(restored.date).toBe("2026-12-01");
-    expect(restored.choices[0].target).toBe("q-day02-stage0");
+    expect(restored.choices[0].target).toMatch(/^q-expanded-01-0/);
     expect(saved.extraMail).toHaveLength(6);
   });
   it("updates map positions from authored visit times", () => {
@@ -73,7 +74,7 @@ describe("Q's reviewed twenty-six-day route", () => {
     expect(location(4, "16:00")).toBe("画像后的小房间");
     expect(location(5, "15:00")).toBe("蜂蜜公爵");
     expect(location(6, "16:00")).toBe("画像后的小房间");
-    expect(location(6, "17:00")).toBe("城堡外的石桥");
+    expect(location(6, "17:00")).toBe("门厅");
   });
 });
 
@@ -87,7 +88,7 @@ describe("Q's reviewed additions", () => {
       state = choose(work, state, target);
     }
     expect(state.choices[0].target).toBe("q-day07-stage0");
-    const restored = history.reduce((previous, target) => choose(work, previous, target), dispatch(work, initialRuntime(work), "start"));
+    const restored = history.reduce((previous, target) => replayQChoice(work, previous, target), dispatch(work, initialRuntime(work), "start"));
     expect(choose(work, restored, restored.choices[0].target).date).toBe("2026-12-07");
   });
   it("keeps consecutive face choices in one meeting, and only mail-to-face transitions require travel", () => {
@@ -113,7 +114,7 @@ describe("Q's reviewed additions", () => {
   });
   it("shows Q's authored positions on every character's map", () => {
     for (const selected of ["hyunjae", "q", "eric"]) {
-      for (const [day, time, expected] of [[9, "16:00", "猫头鹰棚屋"], [13, "14:00", "佐科魔法笑话店"], [13, "15:00", "三把扫帚"], [14, "17:00", "城堡西侧长廊"], [15, "19:00", "三楼高窗石廊"], [16, "16:00", "温室外侧露台"]]) {
+      for (const [day, time, expected] of [[9, "16:00", "猫头鹰棚屋"], [13, "14:00", "佐科魔法笑话店"], [13, "15:00", "三把扫帚"], [14, "17:00", "城堡西侧长廊"], [15, "19:25", "三楼高窗石廊"], [16, "16:00", "温室外侧露台"]]) {
         const locations = characterLocations(Number(day), String(time), selected);
         expect(locations).toHaveLength(7);
         expect(locations.find(person => person.id === "q")?.place).toBe(expected);
@@ -163,8 +164,8 @@ it("unlocks the approved silver-leaf album after day fourteen and uses the exist
 it("resumes a completed day-16 save and announces the third clue after day 26", async () => {
   const original = compileStory(hyunjaeStory).work;
   const oldWork = validateWork(gateRouteDays({
-    ...qRouteWork(original),
-    nodes: qRouteWork(original).nodes
+    ...qRouteWork(original, 0, false, false),
+    nodes: qRouteWork(original, 0, false, false).nodes
       .filter(node => !/^q-(?:day(?:1[7-9]|2[0-9]|3[01])-|ending-)/.test(node.id))
       .map(node => node.id === "q-day16-stage2-tail" ? { ...node, next: [] } : node),
   }));
@@ -175,7 +176,8 @@ it("resumes a completed day-16 save and announces the third clue after day 26", 
     state = choose(oldWork, state, history.at(-1)!);
   }
   expect(state.variables.q_completed_day).toBe(16);
-  const resumed = history.reduce((previous, target) => choose(work, previous, target), dispatch(work, initialRuntime(work), "start"));
+  let resumed = history.reduce((previous, target) => replayQChoice(work, previous, target), dispatch(work, initialRuntime(work), "start"));
+  while (resumed.choices[0]?.target.startsWith("q-expanded-")) resumed = choose(work, resumed, resumed.choices[0].target);
   expect(resumed.choices[0]?.target).toBe("q-day17-stage0");
   expect(choose(work, resumed, resumed.choices[0].target).date).toBe("2026-12-17");
 
