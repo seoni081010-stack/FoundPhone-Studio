@@ -16,6 +16,8 @@ async function drive(page,config){return page.evaluate(async config=>{
   const paper=document.querySelector('.library-paper-note[open]');
   if(paper){if(paper.dataset.ready==='true')paper.click();else await new Promise(r=>setTimeout(r,40));continue;}
   if(document.querySelector('.winter-wish-tag[data-submitted=true]')){await new Promise(r=>setTimeout(r,40));continue;}
+  const checklist=document.querySelector('.jacob-christmas-checklist[open]');if(checklist){await new Promise(r=>setTimeout(r,40));continue;}
+  const photo=document.querySelector('.jacob-gingerbread-photo[open]');if(photo){photo.querySelector('button:not(:disabled)')?.click();await new Promise(r=>setTimeout(r,10));continue;}
   const dialog=document.querySelector('dialog[open]');
   const surface=dialog||document.querySelector('.sunwoo-mail-scene');
   if(/烟花.*(?:城堡|庭院)/.test(surface?.textContent||''))fireworks=true;
