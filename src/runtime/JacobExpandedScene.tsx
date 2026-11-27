@@ -16,7 +16,7 @@ export function JacobExpandedScene({ progress: base, update: baseUpdate, identit
   useEffect(() => { if (p.beat !== index) update({ beat: index, option: undefined, cursor: { position: 0 } }); }, [p.beat, index, update]);
   const text = (body: string) => jacobText(body, p, player);
   const lines = (beat?.kind === "choice" && p.option !== undefined ? beat.options![p.option].lines : beat?.lines ?? []).filter(line => !line.when || line.when.every(c => jacobCondition(c, p)));
-  const gingerbreadPhoto = p.day === 21 && beat?.kind === "choice" && p.option !== undefined && lines.at(-1)?.speaker === "裴俊英" && lines.at(-1)?.body === "现在完成了。";
+  const gingerbreadPhoto = p.day === 21 && beat?.kind === "choice" && p.option !== undefined && beat.options!.some(option => option.lines.some(line => line.speaker === "裴俊英" && line.body === "现在完成了。"));
   const checklistDay = p.day === 21 ? 21 : 16;
   const checklistAnchor = p.day === 21 ? jacobChecklist21Anchor : jacobChecklistAnchor;
   const checklistRead = p.day === 21 ? p.jacobChecklist21Read : p.jacobChecklistRead;

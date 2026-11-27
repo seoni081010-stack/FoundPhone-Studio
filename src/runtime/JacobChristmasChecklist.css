@@ -17,3 +17,5 @@
 @keyframes jacob-checklist-arrive{0%{opacity:0;transform:translateY(-22px) rotate(-.7deg)}72%{opacity:1;transform:translateY(3px) rotate(.2deg)}100%{opacity:1;transform:translateY(0) rotate(0)}}
 @keyframes jacob-checklist-ink{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.jacob-christmas-checklist[data-ready=true] .jacob-checklist-sheet{animation-duration:.01s}.jacob-checklist-sheet h2[data-visible=true],.jacob-checklist-ink>span{animation-duration:.01s}}
+
+.jacob-checklist-sheet{outline:none;cursor:default}.jacob-christmas-checklist[data-written=true] .jacob-checklist-sheet{cursor:pointer}.jacob-checklist-sheet:focus-visible{outline:2px solid #bfa56b;outline-offset:-7px}

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { sceneParts } from "./SceneDialogue";
 import { jacobExpandedDay, type JacobDay } from "./jcodeExpandedStory";
-import { jacobChecklist21Anchor, jacobChecklistItemsFor, jacobChecklistAnchor, jacobChecklistDuration, jacobChecklistItems, jacobChecklistRowStarts, jacobChecklistStep, jacobChecklistTiming, jacobChecklistWritingEnd } from "./JacobChristmasChecklist";
+import { jacobChecklist21Anchor, jacobChecklistItemsFor, jacobChecklistAnchor, jacobChecklistItems, jacobChecklistRowStarts, jacobChecklistStep, jacobChecklistTiming, jacobChecklistWritingEnd } from "./JacobChristmasChecklist";
 
 describe('Jacob December16 Christmas checklist',()=>{
  test('preserves all seven supplied items and exactly the four completed marks',()=>{
@@ -14,10 +14,10 @@ describe('Jacob December16 Christmas checklist',()=>{
   const index=jacobChecklistStep(lines);expect(index).toBeGreaterThanOrEqual(0);expect(parts.steps[index].text).toContain(jacobChecklistAnchor);expect(parts.steps[index+1].text).toBe('你还给自己列了清单？');expect(parts.steps[index+1].outgoing).toBe(true);
   expect(jacobChecklistStep([{body:'普通旁白'}])).toBe(-1);
  });
- test('finishes each row in order, then reserves eight full seconds for reading',()=>{
+ test('finishes each row in order without a timed reading hold',()=>{
   expect(jacobChecklistRowStarts[0]).toBeGreaterThan(jacobChecklistTiming.title);
   for(let i=1;i<jacobChecklistRowStarts.length;i++)expect(jacobChecklistRowStarts[i]).toBeGreaterThan(jacobChecklistRowStarts[i-1]+jacobChecklistItems[i-1].text.length*jacobChecklistTiming.character);
-  expect(jacobChecklistDuration-jacobChecklistWritingEnd).toBe(8000);expect(jacobChecklistDuration).toBeGreaterThan(14000);
+  expect(jacobChecklistTiming).not.toHaveProperty("hold");expect(jacobChecklistWritingEnd).toBeGreaterThan(jacobChecklistRowStarts.at(-1)!);
  });
 });
 

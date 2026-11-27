@@ -14,13 +14,12 @@ export const jacobChecklistItems = [
   { text: "睡到自然醒", done: false },
 ] as const;
 export function jacobChecklistItemsFor(day: 16 | 21) { return jacobChecklistItems.map((item, index) => ({ ...item, done: day === 21 ? index < 6 : item.done })); }
-export const jacobChecklistTiming = { title: 900, rows: 1500, character: 95, gap: 320, hold: 8000 };
+export const jacobChecklistTiming = { title: 900, rows: 1500, character: 95, gap: 320 };
 export const jacobChecklistRowStarts = jacobChecklistItems.reduce<number[]>((starts, item, index) => {
   starts.push(index === 0 ? jacobChecklistTiming.rows : starts[index - 1] + Array.from(jacobChecklistItems[index - 1].text).length * jacobChecklistTiming.character + jacobChecklistTiming.gap);
   return starts;
 }, []);
 export const jacobChecklistWritingEnd = jacobChecklistRowStarts.at(-1)! + Array.from(jacobChecklistItems.at(-1)!.text).length * jacobChecklistTiming.character + 240;
-export const jacobChecklistDuration = jacobChecklistWritingEnd + jacobChecklistTiming.hold;
 
 /** Match SceneDialogue's consecutive-narration grouping without changing story/save IDs. */
 export function jacobChecklistStep(lines: JacobLine[], anchor = jacobChecklistAnchor): number {
@@ -38,7 +37,7 @@ export function showJacobChristmasChecklist(startedAt: number | undefined, onSta
   const dialog = document.createElement("dialog");
   dialog.className = "jacob-christmas-checklist";dialog.dataset.day = String(day);
   dialog.setAttribute("aria-label", "裴俊英的圣诞待办清单");
-  const sheet = document.createElement("section");sheet.className = "jacob-checklist-sheet";
+  const sheet = document.createElement("section");sheet.className = "jacob-checklist-sheet";sheet.tabIndex = 0;sheet.setAttribute("role", "button");sheet.setAttribute("aria-label", "文字显示完后，点击羊皮纸任意位置继续剧情");sheet.setAttribute("aria-disabled", "true");
   const title = document.createElement("h2");title.textContent = "things to do before Christmas";
   const list = document.createElement("ul");
   const rows = jacobChecklistItemsFor(day).map(item => {
@@ -48,8 +47,16 @@ export function showJacobChristmasChecklist(startedAt: number | undefined, onSta
   });
   sheet.append(title, list);dialog.append(sheet);document.body.append(dialog);
   dialog.addEventListener("cancel", event => event.preventDefault());dialog.showModal();
-  let disposed = false, timer: number | undefined;
+  let disposed = false, written = false, timer: number | undefined;
   const dispose = () => { if (disposed) return;disposed = true;window.clearInterval(timer);if (dialog.open) dialog.close();dialog.remove(); };
+  const complete = () => { if (!written || disposed) return;dispose();onComplete(); };
+  dialog.addEventListener("click", event => {
+    const bounds = dialog.getBoundingClientRect();
+    const inside = event.clientX >= bounds.left && event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+    if ((event.target instanceof Node && sheet.contains(event.target)) || inside) complete();
+  });
+  sheet.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault();complete(); } });
+  sheet.focus({ preventScroll: true });
   const run = () => {
     if (disposed) return;
     const start = startedAt ?? Date.now();if (startedAt === undefined) onStart(start);
@@ -65,8 +72,7 @@ export function showJacobChristmasChecklist(startedAt: number | undefined, onSta
         const letters = Array.from(jacobChecklistItems[index].text);
         while (ink.childNodes.length < count) { const letter = document.createElement("span");letter.textContent = letters[ink.childNodes.length];ink.append(letter); }
       });
-      if (elapsed >= jacobChecklistWritingEnd) dialog.dataset.written = "true";
-      if (elapsed >= jacobChecklistDuration) { dispose();onComplete(); }
+      if (elapsed >= jacobChecklistWritingEnd) { written = true;dialog.dataset.written = "true";sheet.setAttribute("aria-disabled", "false");window.clearInterval(timer); }
     };
     timer = window.setInterval(tick, 40);tick();
   };
