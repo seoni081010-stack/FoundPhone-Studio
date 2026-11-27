@@ -1,3 +1,4 @@
+import { JacobGingerbreadPhoto } from "./JacobGingerbreadPhoto";
 import { JacobChristmasChecklist, jacobChecklist21Anchor, jacobChecklistAnchor, jacobChecklistStep } from "./JacobChristmasChecklist";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SceneDialogue } from "./SceneDialogue";
@@ -15,6 +16,7 @@ export function JacobExpandedScene({ progress: base, update: baseUpdate, identit
   useEffect(() => { if (p.beat !== index) update({ beat: index, option: undefined, cursor: { position: 0 } }); }, [p.beat, index, update]);
   const text = (body: string) => jacobText(body, p, player);
   const lines = (beat?.kind === "choice" && p.option !== undefined ? beat.options![p.option].lines : beat?.lines ?? []).filter(line => !line.when || line.when.every(c => jacobCondition(c, p)));
+  const gingerbreadPhoto = p.day === 21 && beat?.kind === "choice" && p.option !== undefined && lines.at(-1)?.speaker === "裴俊英" && lines.at(-1)?.body === "现在完成了。";
   const checklistDay = p.day === 21 ? 21 : 16;
   const checklistAnchor = p.day === 21 ? jacobChecklist21Anchor : jacobChecklistAnchor;
   const checklistRead = p.day === 21 ? p.jacobChecklist21Read : p.jacobChecklistRead;
@@ -25,6 +27,7 @@ export function JacobExpandedScene({ progress: base, update: baseUpdate, identit
     update({ beat: index + 1, option: undefined, cursor: { position: 0 }, ...(mail.length ? { mailHistory: [...(p.mailHistory ?? []), { day: p.day, time: beat.time, lines: mail }] } : {}), ...patch });
   };
   if (p.beat !== index) return null;
+  if (gingerbreadPhoto && p.jacobGingerbreadPhotoOpen) return <JacobGingerbreadPhoto onContinue={() => next({ jacobGingerbreadPhotoOpen: false, jacobGingerbreadPhotoRead: true })} />;
   if (beat?.channel === "mail" && !mailOpen) return <button className="hogwarts-activity" onClick={onMail}>打开猫头鹰信箱</button>;
   if (beat?.kind === "wager" && paper) return <QuidditchPaper team={team} stake={stake} error={error} onTeam={setTeam} onStake={setStake} onReturn={() => setPaper(false)} onSubmit={() => {
     if (paid.current) return;if (!spendGalleons(identityKey, stake)) { setError("钱包里的加隆不够。");return; }paid.current = true;next({ team, wagerStake: stake });
@@ -51,7 +54,7 @@ export function JacobExpandedScene({ progress: base, update: baseUpdate, identit
           if (p.jacobChoices?.[beat.id] !== undefined) return;const raw = (p.jacobRawAffinity ?? 0) + o.rawAffinity;
           update({ option: oi, cursor: { position: 0, accepted: true }, jacobRawAffinity: raw, affinity: jacobScore(raw), jacobFlags: { ...p.jacobFlags, ...o.effects }, jacobChoices: { ...p.jacobChoices, [beat.id]: oi }, choiceHistory: { ...p.choiceHistory, [`${p.day}:${index}`]: oi } });
         }}>{text(o.body)}</button>)}</div>
-        : <SceneDialogue key={`${p.day}:${index}`} instantNarration checkpoint={p.cursor} onCheckpoint={cursor => update({ cursor })} onComplete={() => next()}>
+        : <SceneDialogue key={`${p.day}:${index}`} instantNarration checkpoint={p.cursor} onCheckpoint={cursor => update({ cursor })} onComplete={() => { if (gingerbreadPhoto && !p.jacobGingerbreadPhotoRead) update({ jacobGingerbreadPhotoOpen: true });else next(); }}>
           {beat.kind === "choice" && note(player, text(beat.options![p.option!].body), true, -1)}
           {lines.map((l, i) => l.speaker ? note(l.speaker === "你" ? player : l.speaker, text(l.body), l.speaker === "你", i) : <p className="hogwarts-narration" key={i}>{highlight(text(l.body))}{l.body === checklistAnchor && checklistPosition >= 0 && p.cursor.position === checklistPosition && !checklistRead && <JacobChristmasChecklist day={checklistDay} startedAt={checklistStartedAt} onStart={time => update(p.day === 21 ? { jacobChecklist21StartedAt: time } : { jacobChecklistStartedAt: time })} onComplete={() => update({ ...(p.day === 21 ? { jacobChecklist21Read: true, jacobChecklist21StartedAt: undefined } : { jacobChecklistRead: true, jacobChecklistStartedAt: undefined }), cursor: { position: p.cursor.position + 1 } })} />}</p>)}
           <button onClick={() => next()}>继续</button>
