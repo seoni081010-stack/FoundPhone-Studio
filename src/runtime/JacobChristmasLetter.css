@@ -1,0 +1,36 @@
+@font-face{font-family:"Jacob Christmas Hand";src:url("/fonts/greeting-chinese.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Jacob Christmas English";src:url("/fonts/greeting-latin.woff2") format("woff2");font-display:swap}
+.jacob-christmas-letter{width:min(91vw,440px);max-width:440px;max-height:94dvh;padding:0;border:0;background:transparent;color:#59432e;overflow:auto;outline:none;filter:drop-shadow(0 16px 24px #1b150f50);--jacob-letter-elapsed:0ms}
+.jacob-christmas-letter::backdrop{background:#20271fd1;backdrop-filter:blur(3px)}
+.jacob-letter-stage{position:relative;isolation:isolate;box-sizing:border-box;min-height:580px;padding:8px 7px 68px;perspective:900px;outline:none;cursor:default}
+.jacob-christmas-letter[data-written=true],.jacob-christmas-letter[data-written=true] .jacob-letter-stage{cursor:pointer}
+.jacob-letter-stage:focus-visible{outline:1px solid #b6a06d;outline-offset:-4px}
+.jacob-letter-envelope-position{position:absolute;z-index:1;top:calc(50% - 85px);left:6%;width:88%;height:170px}
+.jacob-letter-envelope{position:relative;box-sizing:border-box;width:100%;height:100%;border-radius:4px;background-color:#f0e4c7;background-image:repeating-linear-gradient(87deg,#b59b6f09 0 1px,transparent 2px 5px),radial-gradient(ellipse at 13% 22%,#bda58122,transparent 37%);box-shadow:0 9px 15px #31291a28,inset 0 -3px 9px #b4a17b24;opacity:0;transform:translateY(-20px)}
+.jacob-letter-envelope::after{content:"";position:absolute;inset:0;clip-path:polygon(0 100%,0 35%,50% 80%,100% 35%,100% 100%);background:linear-gradient(120deg,#eee1c4,#f6ebd2 55%,#eaddc1);border-radius:0 0 4px 4px;z-index:1;pointer-events:none}
+.jacob-letter-flap{position:absolute;z-index:3;left:0;top:0;width:100%;height:86px;transform-origin:50% 0;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(#eee0bf,#e5d4af);filter:drop-shadow(0 2px 2px #7d694432);backface-visibility:visible}
+.jacob-letter-front{position:absolute;z-index:2;top:88px;left:8px;right:8px;margin:0;text-align:center;color:#4e5540;font-family:"Jacob Christmas English",cursive;font-size:clamp(24px,6.3vw,29px);font-style:italic;line-height:1.2}
+.jacob-letter-ribbon{position:absolute;z-index:4;right:35px;top:16px;width:18px;height:105px;border-left:2px solid #cdbb8f;border-right:1px solid #f8efce;transform-origin:50% 0;transform:rotate(9deg)}
+.jacob-letter-ribbon::before,.jacob-letter-ribbon::after{content:"";position:absolute;top:-3px;width:24px;height:12px;border:1px solid #d2c192;border-radius:60% 70% 40% 50%;background:#f2e4bc25}
+.jacob-letter-ribbon::before{left:-20px;transform:rotate(20deg)}.jacob-letter-ribbon::after{left:4px;transform:rotate(-24deg)}
+.jacob-letter-paper{position:relative;z-index:2;box-sizing:border-box;width:100%;padding:30px clamp(24px,6.5vw,35px) 28px;background-color:#e6d2ac;background-image:radial-gradient(ellipse at 14% 18%,#92693712,transparent 30%),radial-gradient(ellipse at 87% 85%,#8e64391b,transparent 23%),repeating-linear-gradient(93deg,#fff5d810 0 1px,transparent 2px 5px),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.54' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.08' filter='url(%23grain)'/%3E%3C/svg%3E");box-shadow:inset 0 0 22px #b3965d30,0 5px 12px #49392218;clip-path:polygon(1% 0,25% .4%,45% 0,68% .4%,99% 0,100% 25%,99.5% 65%,100% 99%,77% 99.5%,53% 99%,24% 100%,0 99%,.5% 69%,0 35%);opacity:0;transform:translateY(85px) scaleY(.08) rotateX(8deg);transform-origin:50% 100%;font-family:"Jacob Christmas Hand",cursive;font-size:clamp(18px,4.9vw,21px);font-weight:400;line-height:1.7;letter-spacing:.015em}
+.jacob-letter-paper::after{content:"";position:absolute;right:0;bottom:0;width:29px;height:23px;background:linear-gradient(145deg,transparent 40%,#b4976530 53%,#fbefcd4d 75%);pointer-events:none}
+.jacob-letter-paper h2{font:inherit;font-size:1.12em;text-align:left;margin:0 0 17px;color:#59432e}
+.jacob-letter-paper p{margin:0 0 15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.jacob-letter-paper .jacob-letter-signature{text-align:right;font-family:"Jacob Christmas English",cursive;font-style:italic;font-size:1.5em;line-height:1.2;margin:17px 5px 0}
+.jacob-letter-paper h2,.jacob-letter-paper p{opacity:0}
+.jacob-letter-paper [data-visible=true]{animation:jacob-letter-ink 1s ease-out both}
+.jacob-christmas-letter[data-ready=true] .jacob-letter-envelope{animation:jacob-letter-arrive .95s ease-out calc(0ms - var(--jacob-letter-elapsed)) both}
+.jacob-christmas-letter[data-ready=true] .jacob-letter-envelope-position{animation:jacob-letter-settle 1.6s ease-in-out calc(2400ms - var(--jacob-letter-elapsed)) both}
+.jacob-christmas-letter[data-ready=true] .jacob-letter-flap{animation:jacob-letter-open .95s ease-in-out calc(1450ms - var(--jacob-letter-elapsed)) both}
+.jacob-christmas-letter[data-ready=true] .jacob-letter-paper{animation:jacob-letter-unfold 1.7s ease-in-out calc(2400ms - var(--jacob-letter-elapsed)) both}
+.jacob-christmas-letter[data-ready=true] .jacob-letter-ribbon{animation:jacob-letter-ribbon-sway 5s ease-in-out infinite}
+.jacob-christmas-letter[data-written=true] .jacob-letter-ribbon{animation-play-state:paused}
+@keyframes jacob-letter-arrive{0%{opacity:0;transform:translateY(-20px)}75%{opacity:1;transform:translateY(3px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes jacob-letter-settle{from{transform:translateY(0)}to{transform:translateY(180px)}}
+@keyframes jacob-letter-open{from{transform:rotateX(0)}to{transform:rotateX(180deg)}}
+@keyframes jacob-letter-unfold{0%{opacity:0;transform:translateY(85px) scaleY(.08) rotateX(8deg)}25%{opacity:1}100%{opacity:1;transform:translateY(0) scaleY(1) rotateX(0)}}
+@keyframes jacob-letter-ink{from{opacity:0;filter:blur(.5px)}to{opacity:1;filter:blur(0)}}
+@keyframes jacob-letter-ribbon-sway{0%,100%{transform:rotate(9deg)}50%{transform:rotate(5deg)}}
+@media(max-height:650px){.jacob-letter-stage{min-height:480px}.jacob-letter-paper{font-size:17px;padding:24px}.jacob-letter-paper p{margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){.jacob-christmas-letter[data-ready=true] .jacob-letter-envelope,.jacob-christmas-letter[data-ready=true] .jacob-letter-envelope-position,.jacob-christmas-letter[data-ready=true] .jacob-letter-flap,.jacob-christmas-letter[data-ready=true] .jacob-letter-paper,.jacob-letter-paper [data-visible=true]{animation-duration:.01s}.jacob-christmas-letter[data-ready=true] .jacob-letter-ribbon{animation:none}}

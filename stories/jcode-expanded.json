@@ -42869,6 +42869,14 @@
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 357
               }
+            },
+            {
+              "speaker": "裴俊英",
+              "body": "原来你选的是这样的颜色。",
+              "source": {
+                "file": "jcode-day21-25-additions-approved.md",
+                "line": 358
+              }
             }
           ],
           "insertion": {
@@ -42889,27 +42897,18 @@
               "body": "裴俊英没有立刻打开你送给他的贺卡。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 359
-              }
-            },
-            {
-              "body": "你站在他旁边，忽然有些不好意思。",
-              "source": {
-                "file": "jcode-day21-25-additions-approved.md",
                 "line": 360
               }
             },
             {
-              "speaker": "你",
-              "body": "你要现在看吗？",
+              "body": "他先看了一会儿信封上的名字，才小心地将封口拆开。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 361
               }
             },
             {
-              "speaker": "裴俊英",
-              "body": "可以吗？",
+              "body": "你站在他旁边，忽然有些不好意思。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 362
@@ -42917,17 +42916,33 @@
             },
             {
               "speaker": "你",
-              "body": "本来就是写给你的。",
+              "body": "你要现在看吗？",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 363
               }
             },
             {
-              "body": "他笑了笑。",
+              "speaker": "裴俊英",
+              "body": "可以吗？",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 364
+              }
+            },
+            {
+              "speaker": "你",
+              "body": "本来就是写给你的。",
+              "source": {
+                "file": "jcode-day21-25-additions-approved.md",
+                "line": 365
+              }
+            },
+            {
+              "body": "他笑了笑。",
+              "source": {
+                "file": "jcode-day21-25-additions-approved.md",
+                "line": 366
               }
             },
             {
@@ -42935,21 +42950,21 @@
               "body": "那我看了。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 365
+                "line": 367
               }
             },
             {
               "body": "他低下头，认真地读着里面的文字。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 366
+                "line": 368
               }
             },
             {
               "body": "读完以后，他没有立刻说话，而是重新看了一遍。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 367
+                "line": 369
               }
             }
           ],
@@ -42977,7 +42992,7 @@
                   "body": "裴俊英抬起头。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 369
+                    "line": 371
                   }
                 },
                 {
@@ -42985,26 +43000,11 @@
                   "body": "因为刚才有点不知道该说什么。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 370
-                  }
-                },
-                {
-                  "body": "他低头笑了一下。",
-                  "source": {
-                    "file": "jcode-day21-25-additions-approved.md",
-                    "line": 371
-                  }
-                },
-                {
-                  "speaker": "裴俊英",
-                  "body": "我很喜欢。",
-                  "source": {
-                    "file": "jcode-day21-25-additions-approved.md",
                     "line": 372
                   }
                 },
                 {
-                  "body": "他将贺卡收好。",
+                  "body": "他低头笑了一下。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 373
@@ -43012,15 +43012,14 @@
                 },
                 {
                   "speaker": "裴俊英",
-                  "body": "这张我要好好留着。",
+                  "body": "我很喜欢。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 374
                   }
                 },
                 {
-                  "speaker": "你",
-                  "body": "可不要弄丢了。",
+                  "body": "他将贺卡收好。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 375
@@ -43028,14 +43027,15 @@
                 },
                 {
                   "speaker": "裴俊英",
-                  "body": "不会的。",
+                  "body": "这张我要好好留着。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 376
                   }
                 },
                 {
-                  "body": "他轻轻拍了拍放着贺卡的口袋。",
+                  "speaker": "你",
+                  "body": "可不要弄丢了。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 377
@@ -43043,16 +43043,31 @@
                 },
                 {
                   "speaker": "裴俊英",
-                  "body": "很重要的东西，我会好好收起来。",
+                  "body": "不会的。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 378
+                  }
+                },
+                {
+                  "body": "他轻轻拍了拍放着贺卡的口袋。",
+                  "source": {
+                    "file": "jcode-day21-25-additions-approved.md",
+                    "line": 379
+                  }
+                },
+                {
+                  "speaker": "裴俊英",
+                  "body": "很重要的东西，我会好好收起来。",
+                  "source": {
+                    "file": "jcode-day21-25-additions-approved.md",
+                    "line": 380
                   }
                 }
               ],
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 368
+                "line": 370
               }
             },
             {
@@ -43065,27 +43080,11 @@
                   "body": "喜欢啊。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 380
-                  }
-                },
-                {
-                  "body": "他笑着看向你。",
-                  "source": {
-                    "file": "jcode-day21-25-additions-approved.md",
-                    "line": 381
-                  }
-                },
-                {
-                  "speaker": "裴俊英",
-                  "body": "而且刚才读的时候，有一种很奇怪的感觉。",
-                  "source": {
-                    "file": "jcode-day21-25-additions-approved.md",
                     "line": 382
                   }
                 },
                 {
-                  "speaker": "你",
-                  "body": "什么感觉？",
+                  "body": "他笑着看向你。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 383
@@ -43093,22 +43092,23 @@
                 },
                 {
                   "speaker": "裴俊英",
-                  "body": "明明你就站在我旁边。",
+                  "body": "而且刚才读的时候，有一种很奇怪的感觉。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 384
                   }
                 },
                 {
-                  "speaker": "裴俊英",
-                  "body": "但收到你写的信，还是会觉得特别开心。",
+                  "speaker": "你",
+                  "body": "什么感觉？",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 385
                   }
                 },
                 {
-                  "body": "他将贺卡收好。",
+                  "speaker": "裴俊英",
+                  "body": "明明你就站在我旁边。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 386
@@ -43116,16 +43116,31 @@
                 },
                 {
                   "speaker": "裴俊英",
-                  "body": "谢谢你。",
+                  "body": "但收到你写的信，还是会觉得特别开心。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 387
+                  }
+                },
+                {
+                  "body": "他将贺卡收好。",
+                  "source": {
+                    "file": "jcode-day21-25-additions-approved.md",
+                    "line": 388
+                  }
+                },
+                {
+                  "speaker": "裴俊英",
+                  "body": "谢谢你。",
+                  "source": {
+                    "file": "jcode-day21-25-additions-approved.md",
+                    "line": 389
                   }
                 }
               ],
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 379
+                "line": 381
               }
             }
           ],
@@ -43146,7 +43161,7 @@
               "body": "裴俊英看了一眼你手里的贺卡。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 389
+                "line": 391
               }
             },
             {
@@ -43154,21 +43169,21 @@
               "body": "我的也看完了吗？",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 390
+                "line": 392
               }
             },
             {
               "body": "你点点头。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 391
+                "line": 393
               }
             },
             {
               "body": "他笑了笑。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 392
+                "line": 394
               }
             },
             {
@@ -43176,14 +43191,14 @@
               "body": "那就好。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 393
+                "line": 395
               }
             },
             {
               "body": "你们并肩朝礼堂走去。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 394
+                "line": 396
               }
             }
           ],
@@ -43405,28 +43420,28 @@
               "body": "门厅中央摆着一棵高大的圣诞树。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 397
+                "line": 399
               }
             },
             {
               "body": "树下放着一篮能够自动变换图案的圣诞拉炮。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 398
+                "line": 400
               }
             },
             {
               "body": "几个学生正在旁边拆礼物。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 399
+                "line": 401
               }
             },
             {
               "body": "裴俊英从篮子里拿出一个深蓝色的拉炮。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 400
+                "line": 402
               }
             },
             {
@@ -43434,42 +43449,42 @@
               "body": "要试试吗？",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 401
+                "line": 403
               }
             },
             {
               "body": "你握住另一端。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 402
+                "line": 404
               }
             },
             {
               "body": "你们同时向两边拉开。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 403
+                "line": 405
               }
             },
             {
               "body": "一阵清脆的响声过后，几颗银色的小星星从里面飞出来。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 404
+                "line": 406
               }
             },
             {
               "body": "随后，一顶有些夸张的纸皇冠落到裴俊英手中。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 405
+                "line": 407
               }
             },
             {
               "body": "他低头看了看。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 406
+                "line": 408
               }
             },
             {
@@ -43477,7 +43492,7 @@
               "body": "这个……",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 407
+                "line": 409
               }
             }
           ],
@@ -43505,7 +43520,7 @@
                   "body": "裴俊英忍不住笑起来。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 409
+                    "line": 411
                   }
                 },
                 {
@@ -43513,7 +43528,7 @@
                   "body": "一定要戴吗？",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 410
+                    "line": 412
                   }
                 },
                 {
@@ -43521,14 +43536,14 @@
                   "body": "当然。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 411
+                    "line": 413
                   }
                 },
                 {
                   "body": "他将纸皇冠戴在头上，十分配合地向你微微鞠了一躬。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 412
+                    "line": 414
                   }
                 },
                 {
@@ -43536,21 +43551,21 @@
                   "body": "圣诞快乐。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 413
+                    "line": 415
                   }
                 },
                 {
                   "body": "你笑得停不下来。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 414
+                    "line": 416
                   }
                 },
                 {
                   "body": "他也跟着笑起来。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 415
+                    "line": 417
                   }
                 },
                 {
@@ -43558,13 +43573,13 @@
                   "body": "满意了吗？",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 416
+                    "line": 418
                   }
                 }
               ],
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 408
+                "line": 410
               }
             },
             {
@@ -43577,26 +43592,11 @@
                   "body": "真的假的？",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 418
-                  }
-                },
-                {
-                  "body": "他拿着纸皇冠比了一下，随后笑着戴到自己头上。",
-                  "source": {
-                    "file": "jcode-day21-25-additions-approved.md",
-                    "line": 419
-                  }
-                },
-                {
-                  "speaker": "裴俊英",
-                  "body": "那就戴一会儿吧。",
-                  "source": {
-                    "file": "jcode-day21-25-additions-approved.md",
                     "line": 420
                   }
                 },
                 {
-                  "body": "他从篮子里又拿出一个拉炮。",
+                  "body": "他拿着纸皇冠比了一下，随后笑着戴到自己头上。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 421
@@ -43604,16 +43604,31 @@
                 },
                 {
                   "speaker": "裴俊英",
-                  "body": "不过你也得有一个。",
+                  "body": "那就戴一会儿吧。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
                     "line": 422
+                  }
+                },
+                {
+                  "body": "他从篮子里又拿出一个拉炮。",
+                  "source": {
+                    "file": "jcode-day21-25-additions-approved.md",
+                    "line": 423
+                  }
+                },
+                {
+                  "speaker": "裴俊英",
+                  "body": "不过你也得有一个。",
+                  "source": {
+                    "file": "jcode-day21-25-additions-approved.md",
+                    "line": 424
                   }
                 }
               ],
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 417
+                "line": 419
               }
             }
           ],
@@ -43634,40 +43649,25 @@
               "body": "第二个拉炮里掉出一枚小小的魔法胸针。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 424
+                "line": 426
               }
             },
             {
               "body": "胸针上是一只正在打瞌睡的雪人。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 425
+                "line": 427
               }
             },
             {
               "body": "裴俊英用指尖轻轻碰了一下。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 426
-              }
-            },
-            {
-              "body": "雪人揉了揉眼睛，又继续闭上眼睛睡觉。",
-              "source": {
-                "file": "jcode-day21-25-additions-approved.md",
-                "line": 427
-              }
-            },
-            {
-              "speaker": "裴俊英",
-              "body": "这个好可爱。",
-              "source": {
-                "file": "jcode-day21-25-additions-approved.md",
                 "line": 428
               }
             },
             {
-              "body": "他将胸针递给你。",
+              "body": "雪人揉了揉眼睛，又继续闭上眼睛睡觉。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 429
@@ -43675,10 +43675,25 @@
             },
             {
               "speaker": "裴俊英",
-              "body": "你留着吧。",
+              "body": "这个好可爱。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
                 "line": 430
+              }
+            },
+            {
+              "body": "他将胸针递给你。",
+              "source": {
+                "file": "jcode-day21-25-additions-approved.md",
+                "line": 431
+              }
+            },
+            {
+              "speaker": "裴俊英",
+              "body": "你留着吧。",
+              "source": {
+                "file": "jcode-day21-25-additions-approved.md",
+                "line": 432
               }
             }
           ],
@@ -44203,7 +44218,7 @@
               "body": "刚才给家里写完信了。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 432
+                "line": 434
               }
             },
             {
@@ -44211,7 +44226,7 @@
               "body": "也替你说了圣诞快乐。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 433
+                "line": 435
               }
             },
             {
@@ -44219,7 +44234,7 @@
               "body": "还有，你送我的贺卡，我又看了一遍。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 434
+                "line": 436
               }
             },
             {
@@ -44227,7 +44242,7 @@
               "body": "又看一遍，不会看腻吗？",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 435
+                "line": 437
               }
             },
             {
@@ -44235,7 +44250,7 @@
               "body": "不会啊。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 436
+                "line": 438
               }
             },
             {
@@ -44243,7 +44258,7 @@
               "body": "今天收到很多祝福。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 437
+                "line": 439
               }
             },
             {
@@ -44251,7 +44266,7 @@
               "body": "不过有些东西，还是想特别留起来。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 438
+                "line": 440
               }
             },
             {
@@ -44259,7 +44274,7 @@
               "body": "你的贺卡就是其中之一。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 439
+                "line": 441
               }
             }
           ],
@@ -44288,7 +44303,7 @@
                   "body": "好啊。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 441
+                    "line": 443
                   }
                 },
                 {
@@ -44296,7 +44311,7 @@
                   "body": "不过明年也不用等到圣诞节才给我写东西。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 442
+                    "line": 444
                   }
                 },
                 {
@@ -44304,13 +44319,13 @@
                   "body": "平时收到你的消息，我也会很开心。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 443
+                    "line": 445
                   }
                 }
               ],
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 440
+                "line": 442
               }
             },
             {
@@ -44323,7 +44338,7 @@
                   "body": "我也是。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 445
+                    "line": 447
                   }
                 },
                 {
@@ -44331,7 +44346,7 @@
                   "body": "和以前过的圣诞节有点不一样。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 446
+                    "line": 448
                   }
                 },
                 {
@@ -44339,13 +44354,13 @@
                   "body": "是很好的那种不一样。",
                   "source": {
                     "file": "jcode-day21-25-additions-approved.md",
-                    "line": 447
+                    "line": 449
                   }
                 }
               ],
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 444
+                "line": 446
               }
             }
           ],
@@ -44367,7 +44382,7 @@
               "body": "圣诞快乐。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 449
+                "line": 451
               }
             },
             {
@@ -44375,7 +44390,7 @@
               "body": "今天做个好梦。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 450
+                "line": 452
               }
             },
             {
@@ -44383,7 +44398,7 @@
               "body": "晚安。",
               "source": {
                 "file": "jcode-day21-25-additions-approved.md",
-                "line": 451
+                "line": 453
               }
             }
           ],

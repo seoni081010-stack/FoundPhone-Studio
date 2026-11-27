@@ -45,7 +45,7 @@ describe('approved Jacob expansion',()=>{
   const p=play(()=>0).p;p.day=21;expect(jacobText('不是还欠你热巧克力吗？',p,'玩家')).toBe('不是还答应再请你一杯吗？');
   p.jacobFlags!['second-cup']=false;expect(jacobText('不是还欠你热巧克力吗？',p,'玩家')).toBe('想请你试试新的热巧克力配方。');
  });
- test('Day25 does not access Day13 card data or display a special card popup',()=>{
+ test('Day25 does not access Day13 player card data or display its creation form',()=>{
   const p: JacobProgress={day:25,beat:0,cursor:{position:0},clues:[],affinity:50,open:true};Object.defineProperty(p,'jacobCard',{get(){throw Error('Day25 read Day13 card');}});
   const html=renderToStaticMarkup(<JacobExpandedScene progress={p} update={()=>{}} identityKey="test" score={50} player="玩家" mailOpen={false} onMail={()=>{}} onFinish={()=>{}} onClue={()=>{}} note={(_,body)=><div>{body}</div>} highlight={body=>body}/>);
   expect(html).not.toContain('jacob-card-maker');expect((jacobExpandedDay(25) as unknown as JacobDay).beats.some(b=>['greeting-card','trading-cards'].includes(b.kind))).toBe(false);

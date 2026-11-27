@@ -9,6 +9,9 @@ export type JacobProgress = Progress & {
   jacobRawAffinity?: number;
   jacobCard?: { color: string; decoration: string; draft: string; submitted?: boolean };
   jacobTradingCard?: string;
+  jacobChristmasLetterOpen?: boolean;
+  jacobChristmasLetterRead?: boolean;
+  jacobChristmasLetterStartedAt?: number;
   jacobGingerbreadPhotoOpen?: boolean;
   jacobGingerbreadPhotoRead?: boolean;
   jacobChecklist21Read?: boolean;
