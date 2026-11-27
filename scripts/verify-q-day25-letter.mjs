@@ -1,0 +1,20 @@
+import {createServer} from 'vite';import {chromium} from 'playwright';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+const ssr=await createServer({configFile:false,optimizeDeps:{noDiscovery:true,entries:[]},server:{middlewareMode:true},appType:'custom'});const q=await ssr.ssrLoadModule('/src/runtime/routeWork.ts');const {qChristmasLetterText}=await ssr.ssrLoadModule('/src/runtime/QChristmasLetter.tsx');const {compileStory}=await ssr.ssrLoadModule('/src/story-engine/compiler.ts');const save=q.qDayPreviewProgress(compileStory(JSON.parse(readFileSync('stories/hyunjae/story.json'))).work,25);await ssr.close();
+const base=process.env.BASE_URL||'http://127.0.0.1:4183/';const b=await chromium.launch({executablePath:'/usr/bin/chromium'});
+try{for(const branch of [0,1])for(const mobile of [true,false]){
+ const c=await b.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:900},serviceWorkers:'block'});if(process.env.ONLINE_FETCH){const {attach}=await import('../work/trusted-online-fetch.mjs');await attach(c);}
+ const p=await c.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(base);const run=`q25-letter-${branch}-${mobile}`,key=`foundphone-q-day01-${run}`;
+ await p.evaluate(({save,run,key})=>{localStorage.setItem('foundphone-hogwarts-identity-v1',JSON.stringify({name:'贺卡核验',house:'ravenclaw',year:6,loveInterest:'q',runId:run}));localStorage.setItem(key,JSON.stringify({...save,version:3}));},{save,run,key});await p.reload();await p.getByRole('button',{name:'推开霍格沃茨的大门'}).click();
+ await p.evaluate(async branch=>{for(let i=0;i<700;i++){await new Promise(r=>setTimeout(r,3));if(document.querySelector('.q-christmas-letter'))return;const d=document.querySelector('dialog[open]')||document;const bs=[...d.querySelectorAll('button')].filter(b=>!b.disabled);const choices=bs.filter(b=>b.dataset.choiceTarget);(bs.find(b=>b.textContent==='显示完整')||bs.find(b=>b.closest('.scene-current-step,.scene-fixed-reply'))||choices[Math.min(branch,choices.length-1)]||bs.find(b=>/^(继续|打开猫头鹰信箱|查看池昌民的来信)/.test(b.textContent))||bs.find(b=>b.classList.contains('hogwarts-activity'))||bs.find(b=>b.classList.contains('hogwarts-device-back')))?.click();}throw Error(document.body.innerText.slice(-1500));},branch);
+ const letter=p.locator('.q-christmas-letter');assert.equal(await letter.locator('.jacob-letter-front').textContent(),'Merry Christmas from Q');
+ assert.deepEqual(await letter.locator('.jacob-letter-paper>*').allTextContents(),[...qChristmasLetterText]);
+ assert.ok(!(await p.locator('.hogwarts-device').innerText()).includes(qChristmasLetterText[1]));assert.ok(!(await p.locator('.hogwarts-device').innerText()).includes('魁地奇比赛再精彩一点'));
+ await letter.locator('.jacob-letter-stage').evaluate(el=>el.click());assert.equal(await letter.count(),1);
+ const history=await p.evaluate(key=>JSON.parse(localStorage.getItem(key)).choices,key);
+ if(mobile){await p.reload();await p.getByRole('button',{name:'推开霍格沃茨的大门'}).click();await p.locator('.hogwarts-activity').first().click();await letter.waitFor();assert.deepEqual(await p.evaluate(key=>JSON.parse(localStorage.getItem(key)).choices,key),history);}
+ await p.waitForFunction(()=>document.querySelector('.q-christmas-letter')?.dataset.written==='true');await p.waitForTimeout(700);assert.equal(await letter.count(),1);
+ if(mobile)await letter.screenshot({path:`work/q-day25-letter-${branch}.png`});
+ await letter.locator('.jacob-letter-stage').click({position:{x:15,y:15}});await p.waitForFunction(()=>!document.querySelector('.q-christmas-letter'));
+ assert.match(await p.locator('.scene-current-step').innerText(),/读完贺卡，你抬起头，发现池昌民也刚刚看完/);assert.ok(!(await p.locator('.hogwarts-device').innerText()).includes(qChristmasLetterText[1]));assert.deepEqual(await p.evaluate(key=>JSON.parse(localStorage.getItem(key)).choices,key),history);assert.deepEqual(errors,[]);
+ console.log('PASS Q25 exact new letter only in popup, no early close, manual return, save and reload',branch,mobile?'mobile':'desktop');await c.close();
+}}finally{await b.close();}

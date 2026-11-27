@@ -45,6 +45,8 @@ try{
     if(document.querySelector('#match-wager-title')){
      document.querySelector('[data-team="斯莱特林"]')?.click();[...surface.querySelectorAll('button')].find(b=>b.textContent==='就押这个')?.click();continue;
     }
+    const letter=document.querySelector('.q-christmas-letter');
+    if(letter){if(letter.dataset.written==='true')letter.querySelector('.jacob-letter-stage')?.click();else await new Promise(r=>setTimeout(r,80));continue;}
     const gingerbread=document.querySelector('.q-gingerbread-photo[open] button:not(:disabled)');
     if(gingerbread){gingerbread.click();continue;}
     const checklist=document.querySelector('.q-match-checklist[open]');

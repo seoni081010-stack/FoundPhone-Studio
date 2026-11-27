@@ -23,6 +23,8 @@ try{for(const path of paths){
     if(stopAt&&count>=stopAt)return {count,save};
     const ending=document.querySelector('.hogwarts-ending');if(ending)return {kind:ending.dataset.kind,count,text:ending.textContent,save};
     const surface=document.querySelector('dialog[open]')||document;
+    const letter=document.querySelector('.q-christmas-letter');
+    if(letter){if(letter.dataset.written==='true')letter.querySelector('.jacob-letter-stage')?.click();else await new Promise(r=>setTimeout(r,80));continue;}
     const gingerbread=document.querySelector('.q-gingerbread-photo[open] button:not(:disabled)');
     if(gingerbread){gingerbread.click();continue;}
     const checklist=document.querySelector('.q-match-checklist[open]');

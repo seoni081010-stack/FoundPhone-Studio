@@ -969,7 +969,7 @@ export function HogwartsDevice({ work: original, identity, contacts, onRestart, 
       </dialog>}
       {sceneOpen && !matchDialog && !matchConversation && <dialog ref={element => { if (element && !element.open) element.showModal(); }} onCancel={event => event.preventDefault()} className="hogwarts-scene" aria-labelledby="scene-title">
         <h2 id="scene-title">{lead?.name ?? ""} <small>· {selectedLeadId.toUpperCase()}</small></h2>
-        <StoryDialogue key={`story-${day}`} gingerbreadPhoto={isQ && day === 20} checklistChoice={isQ && day === 11 && [0, 1].includes(Number(state.variables["q-expanded-11-0-selected"])) ? Number(state.variables["q-expanded-11-0-selected"]) === 0 ? "tea" : "chestnuts" : undefined} storageKey={isQ && !previewDay ? `hogwarts-q-scene:${identityKey}:${day}` : undefined}>
+        <StoryDialogue key={`story-${day}`} christmasLetter={isQ && day === 25} gingerbreadPhoto={isQ && day === 20} checklistChoice={isQ && day === 11 && [0, 1].includes(Number(state.variables["q-expanded-11-0-selected"])) ? Number(state.variables["q-expanded-11-0-selected"]) === 0 ? "tea" : "chestnuts" : undefined} storageKey={isQ && !previewDay ? `hogwarts-q-scene:${identityKey}:${day}` : undefined}>
         {matchScenes.map(renderSceneSegment)}
         {!owlToday && choices}
         {relationshipHint}
