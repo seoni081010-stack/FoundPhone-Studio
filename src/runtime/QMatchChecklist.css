@@ -1,0 +1,23 @@
+@font-face{font-family:"Q Checklist Hand";src:url("/fonts/greeting-chinese.woff2") format("woff2");font-display:swap}
+.q-match-checklist{border:0;padding:0;width:min(86vw,360px);max-height:90dvh;overflow:auto;background:transparent;color:#59412d;box-shadow:0 18px 50px #18100a44;outline:none}
+.q-match-checklist::backdrop{background:#161c23b8;backdrop-filter:blur(3px)}
+.q-match-checklist-paper{box-sizing:border-box;padding:35px 48px 38px;width:100%;background-color:#e2cda4;background-image:radial-gradient(ellipse at 8% 22%,#96734120,transparent 36%),radial-gradient(ellipse at 80% 76%,#fff4d91c,transparent 45%),repeating-linear-gradient(97deg,#fff4d90b 0px,#fff4d90b 1px,transparent 2px,transparent 5px);box-shadow:inset 0 0 28px #93703a30;clip-path:polygon(1% 0,24% .5%,50% 0,78% .4%,99% 0,100% 25%,99.5% 51%,100% 77%,99% 100%,73% 99.5%,48% 100%,22% 99.4%,0 100%,.6% 76%,0 51%,.5% 24%);animation:q-list-arrive .8s ease-out both;cursor:default;outline:none}
+.q-match-checklist[data-ready=true] .q-match-checklist-paper{cursor:pointer}
+.q-match-checklist-paper:focus-visible{outline:2px solid #8b7150;outline-offset:-7px}
+.q-match-checklist-paper ul{padding:0 0 0 20px;margin:0;font-family:"Q Checklist Hand",cursive;font-style:italic;font-weight:400;font-size:clamp(24px,6.5vw,30px);line-height:1.65;letter-spacing:.06em}
+.q-match-checklist-paper li{position:relative;padding-left:6px;margin:7px 0;opacity:0;animation:q-list-ink .65s ease-out both;animation-delay:calc(.65s + var(--row,0)*.5s)}
+.q-match-checklist-paper li::marker{font-size:.45em;color:#826444}
+.q-list-word{position:relative;display:inline-block;white-space:nowrap}
+.q-list-strikes{position:absolute;width:110%;height:1em;left:-5%;top:.35em;overflow:visible;fill:none;stroke:#664934;stroke-width:1.7;stroke-linecap:round;transform:rotate(-3deg)}
+.q-list-strikes path{stroke-dasharray:140;stroke-dashoffset:140;animation:q-list-draw .65s ease-out forwards;animation-delay:calc(1s + var(--row)*.5s)}
+li[data-obliterated=true] .q-list-strikes{stroke-width:3.4;opacity:.88;transform:rotate(-5deg)}
+li[data-obliterated=true] .q-list-strikes path:nth-child(2){animation-delay:3.8s}li[data-obliterated=true] .q-list-strikes path:nth-child(3){animation-delay:4s}li[data-obliterated=true] .q-list-strikes path:nth-child(4){animation-delay:4.15s}
+.q-list-circle{position:absolute;width:calc(100% + 40px);height:calc(100% + 14px);left:-20px;top:-7px;fill:none;stroke:#79583c;stroke-width:2.2;stroke-linecap:round;overflow:visible}
+.q-list-circle path{stroke-dasharray:390;stroke-dashoffset:390;animation:q-list-draw 1.05s ease-in-out 4.5s forwards}
+.q-match-checklist-paper li.q-list-tea{animation-delay:4.5s;transform:rotate(-4deg);margin-top:13px;color:#59402c}
+@keyframes q-list-arrive{from{opacity:0;transform:translateY(10px) rotate(-.7deg)}to{opacity:1;transform:translateY(0) rotate(-.7deg)}}
+@keyframes q-list-ink{from{opacity:0;filter:blur(.5px)}to{opacity:1;filter:blur(0)}}
+@keyframes q-list-draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.q-match-checklist-paper{animation-duration:.01s}.q-match-checklist-paper li{animation-duration:.01s}.q-list-circle path,.q-list-strikes path{animation-duration:.01s}}
+
+.q-match-checklist:not([data-ink-ready=true]) .q-match-checklist-paper,.q-match-checklist:not([data-ink-ready=true]) li,.q-match-checklist:not([data-ink-ready=true]) path{animation-play-state:paused}

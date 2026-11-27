@@ -45,6 +45,8 @@ try{
     if(document.querySelector('#match-wager-title')){
      document.querySelector('[data-team="斯莱特林"]')?.click();[...surface.querySelectorAll('button')].find(b=>b.textContent==='就押这个')?.click();continue;
     }
+    const checklist=document.querySelector('.q-match-checklist[open]');
+    if(checklist){if(checklist.dataset.ready==='true')checklist.querySelector('.q-match-checklist-paper')?.click();else await new Promise(r=>setTimeout(r,80));continue;}
     const buttons=[...(surface||document).querySelectorAll('button')].filter(b=>!b.disabled);
     let button=buttons.find(b=>b.textContent==='显示完整')||buttons.find(b=>b.closest('.scene-current-step,.scene-fixed-reply'));
     if(!button){const choices=buttons.filter(b=>b.closest('.hogwarts-device-choices'));button=choices[Math.min(branch,choices.length-1)];}

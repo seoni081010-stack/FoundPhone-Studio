@@ -23,6 +23,8 @@ try{for(const path of paths){
     if(stopAt&&count>=stopAt)return {count,save};
     const ending=document.querySelector('.hogwarts-ending');if(ending)return {kind:ending.dataset.kind,count,text:ending.textContent,save};
     const surface=document.querySelector('dialog[open]')||document;
+    const checklist=document.querySelector('.q-match-checklist[open]');
+    if(checklist){if(checklist.dataset.ready==='true')checklist.querySelector('.q-match-checklist-paper')?.click();else await new Promise(r=>setTimeout(r,80));continue;}
     const buttons=[...surface.querySelectorAll('button')].filter(b=>!b.disabled);
     if(document.querySelector('#match-wager-title')){document.querySelector('[data-team="斯莱特林"]')?.click();buttons.find(b=>b.textContent==='就押这个')?.click();continue;}
     const expected=history[count];
