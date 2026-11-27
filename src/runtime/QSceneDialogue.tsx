@@ -1,3 +1,4 @@
+import { QGingerbreadPhoto, qGingerbreadAnchor } from "./QGingerbreadPhoto";
 import { useState, type ReactNode } from "react";
 import { SceneDialogue, sceneParts } from "./SceneDialogue";
 import {
@@ -9,15 +10,19 @@ type Cursor = { position: number; accepted?: boolean };
 type QCheckpoint = Cursor & {
   checklistSeen?: boolean;
   pendingChecklist?: Cursor;
+  photoSeen?: boolean;
+  pendingPhoto?: Cursor;
 };
 export function QSceneDialogue({
   storageKey,
   children,
   checklistChoice,
+  gingerbreadPhoto,
 }: {
   storageKey?: string;
   children: ReactNode;
   checklistChoice?: QChecklistChoice;
+  gingerbreadPhoto?: boolean;
 }) {
   const [checkpoint, setCheckpoint] = useState<QCheckpoint>(() => {
     try {
@@ -49,6 +54,12 @@ export function QSceneDialogue({
           step.text === qChecklistAnchors[checklistChoice],
       )
     : -1;
+  const photoAnchor = gingerbreadPhoto
+    ? sceneParts(children).steps.findIndex(
+        (step) =>
+          step.speech && !step.outgoing && step.text === qGingerbreadAnchor,
+      )
+    : -1;
   return (
     <>
       <SceneDialogue
@@ -63,11 +74,35 @@ export function QSceneDialogue({
             next.position > anchor
           ) {
             store({ ...checkpoint, pendingChecklist: next });
-          } else store({ ...next, checklistSeen: checkpoint.checklistSeen });
+          } else if (
+            gingerbreadPhoto &&
+            !checkpoint.photoSeen &&
+            photoAnchor >= 0 &&
+            checkpoint.position === photoAnchor &&
+            next.position > photoAnchor
+          ) {
+            store({ ...checkpoint, pendingPhoto: next });
+          } else
+            store({
+              ...next,
+              checklistSeen: checkpoint.checklistSeen,
+              photoSeen: checkpoint.photoSeen,
+            });
         }}
       >
         {children}
       </SceneDialogue>
+      {gingerbreadPhoto && checkpoint.pendingPhoto && (
+        <QGingerbreadPhoto
+          onContinue={() => {
+            store({
+              ...checkpoint.pendingPhoto!,
+              photoSeen: true,
+              checklistSeen: checkpoint.checklistSeen,
+            });
+          }}
+        />
+      )}
       {checklistChoice && checkpoint.pendingChecklist && (
         <QMatchChecklist
           choice={checklistChoice}
